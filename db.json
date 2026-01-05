@@ -1,11 +1,7 @@
 {
-  "pages": [
-    {
-      "title": "自由、安静与选择权（中 / 捷对照）",
-      "href": "quiet-freedom-bilingual.html",
-      "desc": "关于金钱、社交与自由的双语随笔。",
-      "date": "2026-01-05",
-      "tags": ["essay", "bilingual", "life"]
-    }
-  ]
+  "title": "自由、安静与选择权（中 / 捷对照）",
+  "href": "quiet-freedom-bilingual.html",
+  "desc": "关于金钱、社交与自由的双语随笔。",
+  "date": "2026-01-05",
+  "tags": ["essay", "bilingual", "life"]
 }
