@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>叔本华 | 简介与核心思想（结构化笔记）</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --text:#e7eef7;
+      --muted:#a9b6c7;
+      --faint:#6f7f95;
+      --accent:#86b7ff;
+      --accent2:#8bffcf;
+      --warn:#ffb86b;
+      --line:rgba(255,255,255,.09);
+      --shadow: 0 24px 70px rgba(0,0,0,.55);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:
+        radial-gradient(1200px 800px at 20% -10%, rgba(134,183,255,.20), transparent 55%),
+        radial-gradient(1000px 700px at 95% 20%, rgba(139,255,207,.12), transparent 60%),
+        radial-gradient(900px 700px at 30% 95%, rgba(255,184,107,.10), transparent 55%),
+        linear-gradient(180deg, #070a0f, var(--bg) 35%, #070a0f 120%);
+      color:var(--text);
+      letter-spacing:.2px;
+    }
+
+    .wrap{
+      width:min(1040px, calc(100% - 40px));
+      margin:0 auto;
+      padding:36px 0 72px;
+    }
+
+    .top{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:22px;
+      align-items:stretch;
+      margin-bottom:22px;
+    }
+    @media (max-width: 880px){
+      .top{grid-template-columns:1fr}
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .inner{padding:22px 22px 18px}
+    .kicker{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:10px;
+    }
+    .kicker .pill{
+      font-family:var(--mono);
+      font-size:12px;
+      padding:4px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.02);
+      color:var(--muted);
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height:1.06;
+      letter-spacing:.4px;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
+      max-width:62ch;
+    }
+
+    .quote{
+      margin-top:16px;
+      padding:14px 14px 14px 16px;
+      border-left:3px solid rgba(134,183,255,.55);
+      background: rgba(134,183,255,.06);
+      border-radius:12px;
+      color:var(--text);
+    }
+    .quote strong{color:#ffffff}
+    .quote .qline{display:flex; gap:10px; align-items:flex-start}
+    .quote .qmark{
+      width:18px; height:18px; flex:none; margin-top:2px;
+      opacity:.92;
+    }
+    .quote p{margin:0; line-height:1.7}
+
+    .metaGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      padding:18px 18px 14px;
+      background: linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.12));
+      border-top:1px solid var(--line);
+    }
+    @media (max-width: 520px){
+      .metaGrid{grid-template-columns:1fr}
+    }
+    .meta{
+      padding:12px 12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background: rgba(0,0,0,.14);
+    }
+    .meta .label{color:var(--faint); font-size:12px; margin-bottom:6px}
+    .meta .value{font-size:14px; color:var(--text); line-height:1.5}
+    .meta .value b{color:#fff}
+
+    .rightHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:18px 18px 0;
+    }
+    .rightHeader h2{
+      margin:0;
+      font-size:16px;
+      color:#fff;
+      letter-spacing:.2px;
+    }
+    .badge{
+      display:flex; gap:8px; align-items:center;
+      padding:6px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(0,0,0,.18);
+      color:var(--muted);
+      font-size:12px;
+      font-family:var(--mono);
+    }
+    .summary{
+      padding:12px 18px 16px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+    }
+    .summary b{color:#fff}
+    .callout{
+      margin:0 18px 18px;
+      padding:14px 14px;
+      border-radius:14px;
+      border:1px solid rgba(139,255,207,.22);
+      background: rgba(139,255,207,.07);
+      color:var(--text);
+    }
+    .callout .title{
+      display:flex; align-items:center; gap:10px;
+      font-size:13px;
+      color:#eafff6;
+      margin-bottom:8px;
+    }
+    .callout p{margin:0; color:var(--muted); line-height:1.7; font-size:14px}
+
+    .sections{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    details{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      box-shadow: 0 16px 46px rgba(0,0,0,.35);
+    }
+    details[open]{background: rgba(255,255,255,.035)}
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:18px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      user-select:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    .sumLeft{display:flex; gap:12px; align-items:flex-start}
+    .icon{
+      width:34px; height:34px;
+      display:grid; place-items:center;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.16);
+      flex:none;
+    }
+    .sumTitle{margin:0; font-size:15px; color:#fff; line-height:1.35}
+    .sumDesc{margin:4px 0 0; color:var(--muted); font-size:13px; line-height:1.6}
+    .chev{width:24px; height:24px; opacity:.75; flex:none; transition: transform .18s ease}
+    details[open] .chev{transform: rotate(180deg)}
+    .content{
+      padding:0 18px 18px;
+      border-top:1px solid var(--line);
+      background: rgba(0,0,0,.10);
+    }
+    .content p{color:var(--muted); line-height:1.8; margin:14px 0}
+    .content strong{color:#fff}
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:14px;
+    }
+    @media (max-width: 800px){ .grid2{grid-template-columns:1fr} }
+    .mini{
+      padding:14px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .mini .h{display:flex; align-items:center; gap:10px; color:#fff; font-size:13px; margin-bottom:8px}
+    .mini ul{margin:0; padding-left:18px; color:var(--muted); line-height:1.8}
+    .mini li{margin:6px 0}
+
+    footer{
+      margin-top:22px;
+      color:var(--faint);
+      font-size:12px;
+      line-height:1.7;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      padding:14px 2px 0;
+    }
+    .sig{font-family:var(--mono); opacity:.9}
+    .tip{color:var(--muted)}
+    .kbd{
+      font-family:var(--mono);
+      padding:2px 6px;
+      border-radius:8px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      color:var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="top">
+      <section class="card">
+        <div class="inner">
+          <div class="kicker">
+            <span class="pill">哲学笔记</span>
+            <span>冷静 · 诚实 · 节省生命力 🕯️</span>
+          </div>
+
+          <h1>叔本华：<span style="color:var(--accent)">把“痛苦”放进哲学中心</span></h1>
+          <p class="subtitle">
+            阿图尔·叔本华（Arthur Schopenhauer，1788–1860），德国哲学家，意志哲学的重要奠基者与近代悲观主义代表。
+            他不安抚你，但会把世界的运转机制讲得清清楚楚。
+          </p>
+
+          <div class="quote" role="note" aria-label="关键句">
+            <div class="qline">
+              <svg class="qmark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9.2 10.2c0-2.3 1.6-4.2 4.2-4.2 1.9 0 3.6 1.1 4.2 2.9" stroke="rgba(255,255,255,.88)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9.2 10.2c0 4.1 5.7 2.7 5.7 6.6 0 1.1-.6 2-1.6 2.4" stroke="rgba(255,255,255,.88)" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="12" cy="20" r="1.2" fill="rgba(255,255,255,.88)"/>
+              </svg>
+              <p><strong>世界不是由理性驱动</strong>，而是由一种盲目的“想要”驱动——他称之为<strong>意志</strong>。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="metaGrid">
+          <div class="meta">
+            <div class="label">在哲学史上的位置</div>
+            <div class="value">介于 <b>康德之后</b>、<b>尼采之前</b>。</div>
+          </div>
+          <div class="meta">
+            <div class="label">影响</div>
+            <div class="value">影响了 <b>尼采</b>、<b>弗洛伊德</b>、<b>维特根斯坦</b> 等。</div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <div class="rightHeader">
+          <h2>一句话抓住叔本华</h2>
+          <div class="badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z" stroke="rgba(255,255,255,.85)" stroke-width="1.6"/>
+            </svg>
+            WILL ≠ 理性
+          </div>
+        </div>
+
+        <div class="summary">
+          他把<strong>“人为什么痛苦”</strong>当作哲学中心问题：<br/>
+          <span style="color:var(--muted)">不是想得不够好，而是“想要”本身永远停不下来。</span>
+        </div>
+
+        <div class="callout">
+          <div class="title">🧭 现实用法</div>
+          <p>
+            把精力从“争赢对话”挪到“保住内在秩序”。<br/>
+            你不需要在每个场合证明自己——只需要不被消耗。
+          </p>
+        </div>
+
+        <svg viewBox="0 0 520 140" width="100%" height="140" aria-label="钟摆示意图" role="img" style="display:block; border-top:1px solid var(--line); background: rgba(0,0,0,.12)">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="rgba(134,183,255,.0)"/>
+              <stop offset=".25" stop-color="rgba(134,183,255,.38)"/>
+              <stop offset=".75" stop-color="rgba(255,184,107,.35)"/>
+              <stop offset="1" stop-color="rgba(255,184,107,.0)"/>
+            </linearGradient>
+          </defs>
+          <path d="M40 110 C 160 20, 360 20, 480 110" stroke="url(#g)" stroke-width="4" fill="none" />
+          <circle cx="40" cy="110" r="7" fill="rgba(134,183,255,.75)"/>
+          <circle cx="480" cy="110" r="7" fill="rgba(255,184,107,.75)"/>
+          <text x="40" y="132" fill="rgba(231,238,247,.82)" font-size="12" font-family="ui-monospace,monospace">痛苦</text>
+          <text x="458" y="132" fill="rgba(231,238,247,.82)" font-size="12" font-family="ui-monospace,monospace">无聊</text>
+          <text x="212" y="22" fill="rgba(169,182,199,.9)" font-size="12" font-family="ui-monospace,monospace">钟摆：痛苦 ↔ 无聊</text>
+        </svg>
+      </aside>
+    </div>
+
+    <div class="sections">
+
+      <details open>
+        <summary>
+          <div class="sumLeft">
+            <div class="icon" aria-hidden="true">📍</div>
+            <div>
+              <p class="sumTitle">他是谁：哲学史中的“冷水”</p>
+              <p class="sumDesc">不反复鼓励你，而是告诉你世界如何运作。</p>
+            </div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(231,238,247,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <p>
+            叔本华终生反对当时流行的“宏大、乐观、体系化”的叙事，尤其批评把痛苦粉饰成必经阶段的说法。
+            在他看来，哲学首先要面对：<strong>痛苦是常态</strong>，而不是偶然。
+          </p>
+          <div class="grid2">
+            <div class="mini">
+              <div class="h">🧩 位置</div>
+              <ul>
+                <li>时间：18—19世纪之交（1788–1860）</li>
+                <li>语境：康德之后、尼采之前</li>
+              </ul>
+            </div>
+            <div class="mini">
+              <div class="h">🌊 影响</div>
+              <ul>
+                <li>尼采：从“意志”出发走向“权力意志”</li>
+                <li>弗洛伊德：非理性驱动与欲望结构</li>
+                <li>现代文学：冷峻的现实主义视角</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div class="sumLeft">
+            <div class="icon" aria-hidden="true">🧠</div>
+            <div>
+              <p class="sumTitle">核心概念：意志（Will）</p>
+              <p class="sumDesc">世界的推动力不是理性，而是一种盲目的“想要”。</p>
+            </div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(231,238,247,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <p>
+            他的经典表述是：<strong>“世界是我的表象。”</strong><br/>
+            意思并不是“世界不存在”，而是我们所把握到的世界总是被意识所过滤——
+            而在意识背后，真正把我们推着走的是“意志”：欲望、冲动、求存、占有、比较……一种永不停歇的内驱力。
+          </p>
+          <div class="mini">
+            <div class="h">🔍 白话翻译</div>
+            <ul>
+              <li>你以为你在做理性选择，其实很多时候是“想要”在选择。</li>
+              <li>痛苦的源头不在“没得到”，而在“永远还想要”。</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div class="sumLeft">
+            <div class="icon" aria-hidden="true">🕯️</div>
+            <div>
+              <p class="sumTitle">人生结构：痛苦 ↔ 无聊</p>
+              <p class="sumDesc">得不到痛苦，得到后又空；于是来回摆动。</p>
+            </div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(231,238,247,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <p>
+            叔本华认为人生像钟摆：<strong>想要却得不到 → 痛苦</strong>；<strong>得到后失去目标 → 无聊</strong>。
+            所谓“持续幸福”往往是误判——我们更常见到的是短暂满足与迅速的再次渴望。
+          </p>
+          <div class="grid2">
+            <div class="mini">
+              <div class="h">⚡ 痛苦侧</div>
+              <ul>
+                <li>欲望无法满足</li>
+                <li>比较与不甘</li>
+                <li>控制感被夺走</li>
+              </ul>
+            </div>
+            <div class="mini">
+              <div class="h">🫥 无聊侧</div>
+              <ul>
+                <li>目标消失</li>
+                <li>刺激阈值升高</li>
+                <li>意义感稀薄</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div class="sumLeft">
+            <div class="icon" aria-hidden="true">🗣️</div>
+            <div>
+              <p class="sumTitle">人与人为何冲突：意志的摩擦</p>
+              <p class="sumDesc">争论常常不是对错，而是自我形象与控制感。</p>
+            </div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(231,238,247,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <p>
+            在叔本华眼里，很多争执不是真理之争，而是<strong>意志的对撞</strong>：每个人都想维护自己的位置、
+            自己的正确感、自己对局面的掌控。于是解释越多越疲惫，因为你在给“意志战争”提供燃料。
+          </p>
+          <div class="mini">
+            <div class="h">🧯 现实提醒</div>
+            <ul>
+              <li>当对话开始让你反复证明“我不是那样的人”，就该撤离。</li>
+              <li>把精力留给流程、事实和可执行的下一步。</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div class="sumLeft">
+            <div class="icon" aria-hidden="true">🧭</div>
+            <div>
+              <p class="sumTitle">应对世界：三条“节省生命力”的策略</p>
+              <p class="sumDesc">不是绝望，而是更少上钩、更少被牵着走。</p>
+            </div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(231,238,247,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <p><strong>① 节制意志</strong>：少比较、少争输赢、少证明自己。幸福不在“得到更多”，而在“不再被牵着走”。</p>
+          <p><strong>② 审美暂停</strong>：艺术、自然、音乐能让你短暂停止“想要”的拉扯，恢复内在秩序。</p>
+          <p><strong>③ 精神上的孤独</strong>：减少对外界认可的依赖。一个人精神越丰富，越能承受独处。</p>
+          <div class="grid2">
+            <div class="mini">
+              <div class="h">🎧 音乐为何重要</div>
+              <ul>
+                <li>直接触及情绪结构</li>
+                <li>不要求你去“满足欲望”</li>
+                <li>像一次温和的停机</li>
+              </ul>
+            </div>
+            <div class="mini">
+              <div class="h">🧱 孤独不是反社会</div>
+              <ul>
+                <li>减少不必要的解释</li>
+                <li>不把自尊交给别人保管</li>
+                <li>把安静当作资源</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div class="sumLeft">
+            <div class="icon" aria-hidden="true">✅</div>
+            <div>
+              <p class="sumTitle">为什么今天仍然“有用”</p>
+              <p class="sumDesc">现代社会高刺激、高比较、高欲望：他像一套防护说明书。</p>
+            </div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(231,238,247,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <p>
+            现代环境让“意志”更容易被点燃：信息流、社交比较、即时反馈、目标竞赛。<br/>
+            叔本华的价值在于：他提供了一种<strong>降低期望、保住内在尊严与安静</strong>的生存策略。
+          </p>
+          <div class="quote" style="border-left-color: rgba(139,255,207,.55); background: rgba(139,255,207,.06);">
+            <div class="qline">
+              <svg class="qmark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9.2 10.2c0-2.3 1.6-4.2 4.2-4.2 1.9 0 3.6 1.1 4.2 2.9" stroke="rgba(255,255,255,.88)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9.2 10.2c0 4.1 5.7 2.7 5.7 6.6 0 1.1-.6 2-1.6 2.4" stroke="rgba(255,255,255,.88)" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="12" cy="20" r="1.2" fill="rgba(255,255,255,.88)"/>
+              </svg>
+              <p><strong>浓缩成人话：</strong>不要指望世界公平，不要指望他人清醒；尽量减少欲望，保住内在的尊严和安静。</p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+    </div>
+
+    <footer>
+      <div class="sig">Schopenhauer Notes • HTML Single Page</div>
+      <div class="tip">提示：点击各段标题可展开/收起。键盘 <span class="kbd">Tab</span> 可聚焦，<span class="kbd">Enter</span> 可切换。</div>
+    </footer>
+  </div>
+</body>
+</html>
