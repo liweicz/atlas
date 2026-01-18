@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>马年气韵 | 中国马文化全景解读</title>
+  <meta name="description" content="由“都靓读书”知识视频整理：从‘骐骥驰骋’到名马精神，一页读懂中国马文化。" />
+  <style>
+    :root{
+      --bg:#fbf4e6;
+      --paper:#fffaf0;
+      --ink:#1e1c18;
+      --muted:#6a6155;
+      --accent:#b05a2a;      /* 赤陶 */
+      --accent2:#1f6f6a;     /* 青绿 */
+      --gold:#c6a35b;        /* 金砂 */
+      --line:rgba(30,28,24,.12);
+      --shadow:0 18px 40px rgba(30,28,24,.08);
+      --radius:18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans CJK SC", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --serif: ui-serif, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun", serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(1000px 600px at 12% -10%, rgba(176,90,42,.10), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(31,111,106,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #f6efe1 40%, var(--bg));
+      font-family:var(--sans);
+      line-height:1.75;
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 60px}
+    header{
+      position:relative;
+      padding:28px 22px 22px;
+      background:linear-gradient(135deg, rgba(176,90,42,.14), rgba(198,163,91,.10), rgba(31,111,106,.10));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .toprow{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+    .brand{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:7px 12px;border-radius:999px;
+      background:rgba(255,255,255,.55);
+      border:1px solid var(--line);
+      backdrop-filter: blur(8px);
+      font-weight:650;
+      color:rgba(30,28,24,.88);
+    }
+    .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
+    h1{
+      margin:14px 0 10px;
+      font-family:var(--serif);
+      letter-spacing:.5px;
+      line-height:1.25;
+      font-size:clamp(26px, 3.2vw, 44px);
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      max-width:70ch;
+      font-size:15px;
+    }
+    .meta{
+      display:flex;gap:10px;flex-wrap:wrap;
+      margin-top:14px;
+      color:rgba(30,28,24,.76);
+    }
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;
+      border:1px dashed rgba(176,90,42,.35);
+      background:rgba(255,255,255,.52);
+      font-size:13px;
+    }
+    .hero{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){ .hero{grid-template-columns:1fr} }
+    .panel{
+      background:rgba(255,255,255,.6);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:16px 16px 14px;
+      box-shadow:0 10px 22px rgba(30,28,24,.06);
+      overflow:hidden;
+    }
+    .panel h2{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:.2px;
+      display:flex;align-items:center;gap:10px;
+    }
+    .panel h2 .tag{
+      font-size:12px;
+      padding:3px 8px;border-radius:999px;
+      border:1px solid rgba(31,111,106,.25);
+      background:rgba(31,111,106,.08);
+      color:rgba(31,111,106,.95);
+    }
+    .toc{
+      display:grid;grid-template-columns:1fr;
+      gap:10px;
+    }
+    .toc a{
+      display:flex;align-items:flex-start;justify-content:space-between;
+      gap:12px;
+      padding:10px 12px;border-radius:14px;
+      border:1px solid rgba(30,28,24,.12);
+      background:rgba(255,255,255,.72);
+      text-decoration:none;
+      transition:transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .toc a:hover{
+      transform:translateY(-1px);
+      border-color:rgba(176,90,42,.35);
+      background:rgba(255,255,255,.88);
+    }
+    .toc small{color:var(--muted);display:block}
+    .toc .n{
+      font-family:var(--mono);
+      color:rgba(176,90,42,.9);
+      font-weight:700;
+      flex:0 0 auto;
+      margin-top:1px;
+    }
+
+    /* Decorative horse line (SVG) */
+    .horse-sash{
+      position:absolute;right:-60px;top:-40px;
+      width:min(460px, 52vw);
+      opacity:.16;
+      transform:rotate(8deg);
+      pointer-events:none;
+    }
+
+    main{margin-top:22px}
+    section{
+      margin-top:18px;
+      padding:22px 18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.74), rgba(255,250,240,.62));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:0 10px 24px rgba(30,28,24,.05);
+      position:relative;
+      overflow:hidden;
+    }
+    section:before{
+      content:"";
+      position:absolute;inset:0;
+      background:
+        radial-gradient(500px 220px at 8% 10%, rgba(176,90,42,.10), transparent 55%),
+        radial-gradient(520px 240px at 92% 0%, rgba(31,111,106,.09), transparent 60%);
+      pointer-events:none;
+    }
+    section > *{position:relative}
+    section h2{
+      margin:0 0 8px;
+      font-family:var(--serif);
+      font-size:22px;
+      letter-spacing:.3px;
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    }
+    .anchor{color:rgba(176,90,42,.92);font-family:var(--mono);font-size:14px}
+    .lead{
+      margin:10px 0 16px;
+      color:rgba(30,28,24,.78);
+      max-width:85ch;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+    .card{
+      grid-column: span 6;
+      padding:14px 14px 12px;
+      border-radius:16px;
+      border:1px solid rgba(30,28,24,.12);
+      background:rgba(255,255,255,.72);
+    }
+    .card h3{margin:0 0 8px;font-size:16px}
+    .card p{margin:0;color:rgba(30,28,24,.78)}
+    .card ul{margin:10px 0 0;padding-left:18px}
+    .card li{margin:6px 0;color:rgba(30,28,24,.82)}
+    @media (max-width: 900px){ .card{grid-column:span 12} }
+
+    .quote{
+      margin:12px 0 0;
+      padding:14px 14px 12px;
+      border-left:4px solid rgba(176,90,42,.75);
+      background:linear-gradient(90deg, rgba(176,90,42,.10), rgba(255,255,255,.55));
+      border-radius:14px;
+    }
+    .quote .src{color:var(--muted);font-size:13px;margin-top:6px}
+    .kbd{
+      font-family:var(--mono);
+      padding:2px 6px;border-radius:8px;
+      border:1px solid rgba(30,28,24,.14);
+      background:rgba(255,255,255,.78);
+      font-size:12px;
+    }
+
+    .hl{
+      display:inline-block;
+      padding:2px 8px;
+      border-radius:999px;
+      background:rgba(198,163,91,.20);
+      border:1px solid rgba(198,163,91,.35);
+      font-weight:650;
+    }
+
+    /* Comparison table */
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid rgba(30,28,24,.12);
+      border-radius:16px;
+      background:rgba(255,255,255,.74);
+    }
+    th,td{padding:12px 12px;border-bottom:1px solid rgba(30,28,24,.10);vertical-align:top}
+    th{
+      text-align:left;
+      font-size:13px;
+      letter-spacing:.4px;
+      color:rgba(30,28,24,.78);
+      background:linear-gradient(180deg, rgba(176,90,42,.10), rgba(255,255,255,.40));
+    }
+    tr:last-child td{border-bottom:none}
+    .twocol{
+      display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;
+    }
+    @media (max-width: 900px){ .twocol{grid-template-columns:1fr} }
+
+    /* Timeline */
+    .timeline{
+      position:relative;
+      margin:8px 0 0;
+      padding-left:18px;
+    }
+    .timeline:before{
+      content:"";
+      position:absolute;left:6px;top:6px;bottom:6px;
+      width:2px;background:rgba(31,111,106,.28);
+      border-radius:99px;
+    }
+    .titem{
+      position:relative;
+      padding:10px 12px 10px 14px;
+      margin:10px 0;
+      border-radius:14px;
+      border:1px solid rgba(30,28,24,.10);
+      background:rgba(255,255,255,.70);
+    }
+    .titem:before{
+      content:"";
+      position:absolute;left:-16px;top:16px;
+      width:10px;height:10px;border-radius:50%;
+      background:var(--accent2);
+      box-shadow:0 0 0 4px rgba(31,111,106,.12);
+    }
+    .titem b{display:inline-flex;gap:8px;align-items:center}
+
+    footer{
+      margin-top:20px;
+      padding:18px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.62);
+      color:rgba(30,28,24,.78);
+      box-shadow:0 10px 22px rgba(30,28,24,.04);
+    }
+    .end{
+      display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+    }
+    .btns{display:flex;gap:10px;flex-wrap:wrap}
+    button{
+      appearance:none;
+      border:1px solid rgba(30,28,24,.14);
+      background:rgba(255,255,255,.74);
+      padding:10px 12px;border-radius:14px;
+      cursor:pointer;
+      font-family:var(--sans);
+      color:rgba(30,28,24,.86);
+      transition:transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    button:hover{transform:translateY(-1px);border-color:rgba(176,90,42,.35);background:rgba(255,255,255,.9)}
+    .note{font-size:13px;color:var(--muted)}
+    .pinyin{font-size:12px;color:rgba(31,111,106,.85);margin-left:6px}
+    .mono{font-family:var(--mono)}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <!-- Decorative SVG horse -->
+      <svg class="horse-sash" viewBox="0 0 900 520" aria-hidden="true">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1">
+            <stop offset="0" stop-color="#b05a2a"/>
+            <stop offset="1" stop-color="#1f6f6a"/>
+          </linearGradient>
+        </defs>
+        <!-- A stylized, abstract horse made from curves -->
+        <path d="M742 210c-33-44-110-85-169-88-62-3-119 25-167 63-40 31-72 70-121 87-52 18-95-2-140-26-13-7-31-1-36 14-7 20 10 28 22 34 64 35 129 57 204 35 67-20 108-74 166-111 63-40 144-66 215-31 25 13 47 32 61 56 15 24 22 52 27 80 7 39 10 81 3 120-6 31-24 57-48 76-14 11-30 19-47 23-18 4-31 1-46-9-10-6-23-8-33 0-11 8-14 22-6 33 28 38 78 46 123 24 46-23 79-67 90-116 16-74 2-156-18-217z"
+              fill="none" stroke="url(#g1)" stroke-width="18" stroke-linecap="round" opacity=".9"/>
+        <path d="M285 309c-16 40-16 83 7 118 22 33 58 52 96 59 44 9 93 2 132-22 18-11 33-25 47-41"
+              fill="none" stroke="#c6a35b" stroke-width="14" stroke-linecap="round" opacity=".85"/>
+        <path d="M355 174c-24-10-54-8-76 6-18 11-30 28-32 49" fill="none" stroke="#b05a2a" stroke-width="12" stroke-linecap="round" opacity=".75"/>
+      </svg>
+
+      <div class="toprow">
+        <div class="brand"><span class="dot"></span>都靓读书 · 内容整理页</div>
+        <div class="meta">
+          <span class="pill">🐎 马文化 · 历史 · 符号</span>
+          <span class="pill">📜 一页读懂马年气韵</span>
+          <span class="pill">✨ 重点突出 · 信息层级清晰</span>
+        </div>
+      </div>
+
+      <h1>马年气韵：从“骐骥<span class="pinyin">qí jì</span>驰骋<span class="pinyin">chí chěng</span>”到龙马精神</h1>
+      <p class="subtitle">
+        以马为线索，串起中国文化的词源、精神图腾、历史名马与现代品牌符号：既读懂
+        <span class="hl">马的语言</span>，也读懂<span class="hl">马的气度</span>。
+      </p>
+
+      <div class="hero">
+        <div class="panel">
+          <h2>🧭 导读 <span class="tag">快速定位</span></h2>
+          <nav class="toc" aria-label="目录">
+            <a href="#s1">
+              <div>
+                <b>一、春晚主题“骐骥驰骋”的文化内涵</b>
+                <small>造字之美 · 词源与《离骚》传承</small>
+              </div>
+              <span class="n">01</span>
+            </a>
+            <a href="#s2">
+              <div>
+                <b>二、马年给孩子取名的寓意参考</b>
+                <small>骧 · 骞 · 骏/骁 · 驹</small>
+              </div>
+              <span class="n">02</span>
+            </a>
+            <a href="#s3">
+              <div>
+                <b>三、中外“马”元素的品牌与文化差异</b>
+                <small>财富阶级 vs 精神图腾</small>
+              </div>
+              <span class="n">03</span>
+            </a>
+            <a href="#s4">
+              <div>
+                <b>四、名马与马的精神象征</b>
+                <small>忠义 · 战神 · 龙马精神</small>
+              </div>
+              <span class="n">04</span>
+            </a>
+          </nav>
+        </div>
+
+        <div class="panel">
+          <h2>🌞 一句话抓住“马年气韵” <span class="tag">重点</span></h2>
+          <div class="quote">
+            <div style="font-family:var(--serif);font-size:18px;line-height:1.6;">
+              像马一样：<span class="hl">不灭心气</span>、<span class="hl">步履不停</span>、<span class="hl">勇敢驰骋</span>。
+            </div>
+            <div class="src">— 视频结尾祝福语（整理）</div>
+          </div>
+
+          <div class="quote" style="border-left-color: rgba(31,111,106,.75); margin-top:12px;">
+            <div>
+              关键词：<span class="kbd">造字</span> <span class="kbd">词源</span> <span class="kbd">图腾</span>
+              <span class="kbd">名马</span> <span class="kbd">自强不息</span> 🏇
+            </div>
+            <div class="src">— 适合收藏与二次学习</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Section 1 -->
+      <section id="s1">
+        <h2>一、春晚主题“骐骥<span class="pinyin">qí jì</span>驰骋<span class="pinyin">chí chěng</span>”的文化内涵 <span class="anchor">#01</span></h2>
+        <p class="lead">
+          四字皆带马字旁：不是简单的“快”，而是把<span class="hl">颜色</span>、<span class="hl">品格</span>、<span class="hl">速度与天地</span>写进一个主题里。
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>🧩 造“马”字：古人的“马学”有多细？</h3>
+            <p>古人像给跑车起名一样，会根据花色、年龄、天性等为不同的马量身造字。</p>
+            <ul>
+              <li><b>驳<span class="pinyin">bó</span></b>：毛色不纯的马，衍生出“<b>斑驳</b>”。</li>
+              <li>从“马”旁出发，汉字把马的形态与性情编码成可读的文化。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>⚡ 四字拆解：各自“带着气场”</h3>
+            <ul>
+              <li><b>骐<span class="pinyin">qí</span></b>：青黑色且有棋盘状花纹的马。</li>
+              <li><b>骥<span class="pinyin">jì</span></b>：专指千里马。</li>
+              <li><b>驰<span class="pinyin">chí</span></b>：迸发的速度与力量感。</li>
+              <li><b>骋<span class="pinyin">chěng</span></b>：天地辽阔、纵横开阔的奔走之势。</li>
+            </ul>
+          </div>
+
+          <div class="card" style="grid-column: span 12;">
+            <h3>📜 源头：屈原《离骚》跨越千年的传承</h3>
+            <div class="quote" style="margin:10px 0 0;">
+              <div style="font-family:var(--serif);font-size:18px;">
+                “乘骐骥以驰骋兮，来吾道夫先路”
+              </div>
+              <div class="src">— 屈原《离骚》（节选）</div>
+            </div>
+            <p style="margin:10px 0 0;color:rgba(30,28,24,.78);">
+              这不是一次“引用”，而是一次<span class="hl">文化接力</span>：用古典词源激活当代精神向度。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2 -->
+      <section id="s2">
+        <h2>二、马年给孩子取名的寓意参考 <span class="anchor">#02</span></h2>
+        <p class="lead">
+          取名不止“好听”，更是为孩子放一枚可随身携带的<span class="hl">精神图章</span>。以下生僻字均附拼音。
+        </p>
+
+        <div class="twocol">
+          <div>
+            <div class="card" style="margin-bottom:14px;">
+              <h3>🦅 骧<span class="pinyin">xiāng</span>：昂首奔驰</h3>
+              <p>意为昂首奔驰、气势开张。</p>
+              <div class="quote">
+                <div>《三国志》形容诸葛亮：“进欲龙骧虎视，苞括四海”。</div>
+                <div class="src">— 用于表达胸襟与气象</div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>🪶 骞<span class="pinyin">qiān</span>：振翅高飞</h3>
+              <p>有高飞远举、志向凌云之意。</p>
+              <div class="quote">
+                <div>陶渊明诗：“猛志逸四海，骞翮思远翥”。</div>
+                <div class="src">— 用于表达志向与远行</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="card" style="margin-bottom:14px;">
+              <h3>🏇 骏<span class="pinyin">jùn</span> / 骁<span class="pinyin">xiāo</span>：俊美与勇健</h3>
+              <ul>
+                <li><b>骏</b>：高大俊美之马。</li>
+                <li><b>骁</b>：矫健勇敢之马。</li>
+              </ul>
+              <p style="margin-top:10px;color:rgba(30,28,24,.78);">适合表达“才华 + 胆气”的组合。</p>
+            </div>
+
+            <div class="card">
+              <h3>🌱 驹<span class="pinyin">jū</span>：少壮之马</h3>
+              <p>泛指少壮之马，寓意少年志气与锋芒。</p>
+              <ul>
+                <li>例：张伯驹、黄家驹。</li>
+                <li>寄语：须知少日拏云志，曾许人间第一流。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote" style="margin-top:16px;border-left-color: rgba(198,163,91,.95);">
+          <div><b>小提示：</b>若担心生僻字日常书写不便，可将生僻字置于中间名，或准备同音常用字作备选。</div>
+          <div class="src">— 取名实践建议（整理）</div>
+        </div>
+      </section>
+
+      <!-- Section 3 -->
+      <section id="s3">
+        <h2>三、中外“马”元素的品牌与文化差异 <span class="anchor">#03</span></h2>
+        <p class="lead">
+          同样是“马”，在不同文化语境里指向不同：西方更多关联<span class="hl">财富、权力、阶级</span>；
+          中国则更像一枚<span class="hl">精神图腾</span>，嵌入日常语言与国家叙事。
+        </p>
+
+        <table role="table" aria-label="中外马元素对比">
+          <thead>
+            <tr>
+              <th style="width:50%;">🌍 国外品牌与符号</th>
+              <th>🇨🇳 中国马文化语义场</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <b>爱马仕（Hermès）</b>：最初为马具店，服务贵族，象征贵族生活方式。<br/>
+                <b>法拉利</b>：跃马 logo 源于飞行员战机上的马，代表勇敢、传奇与速度。<br/>
+                <b>富国银行（Wells Fargo）</b>：曾以六马拉车为标志，源于运钞马车与金融扩张史。
+              </td>
+              <td>
+                <b>十二生肖与时辰</b>：马对应正午，象征阳气鼎盛 ☀️。<br/>
+                <b>赞誉与祝福</b>：人中骐骥、千里马；马到成功、一马当先、飞黄腾达。<br/>
+                <b>国力叙事</b>：千乘之国、万乘之国。<br/>
+                <b>承诺与情感</b>：一言既出驷马<span class="pinyin">sì</span>难追；青梅竹马。<br/>
+                <b>想象力</b>：天马行空。<br/>
+                <b>文化地标</b>：甘肃武威“铜奔马（马踏飞燕）”为中国旅游标志；内蒙古那达慕大会“万马奔腾”。
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="grid" style="margin-top:14px;">
+          <div class="card">
+            <h3>🔎 结论：符号背后的“价值指向”</h3>
+            <p>
+              国外马符号更多落在“<b>拥有</b>”（财富与权力）；中国马符号更多落在“<b>成为</b>”（精神与气质）。
+            </p>
+          </div>
+          <div class="card">
+            <h3>🧧 你可以这样用：把“马”变成祝福语</h3>
+            <p>
+              适合新年或生日祝福：<span class="hl">马到成功</span>、<span class="hl">一马当先</span>、<span class="hl">飞黄腾达</span> 🧨
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4 -->
+      <section id="s4">
+        <h2>四、中国历史上的名马与马的精神象征 <span class="anchor">#04</span></h2>
+        <p class="lead">
+          名马不只是“交通工具”，更是被历史写成了<span class="hl">忠义</span>、<span class="hl">勇武</span>、<span class="hl">自强不息</span>的象征。
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>🗡️ 名马故事：忠义的化身</h3>
+            <ul>
+              <li><b>赤兔</b>：随关羽殉节。</li>
+              <li><b>的卢<span class="pinyin">dì lú</span></b>：跃檀溪救刘备。</li>
+              <li><b>乌骓<span class="pinyin">zhuī</span></b>：随项羽自刎。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>🏛️ 战神象征：以“马”写英雄史</h3>
+            <ul>
+              <li>霍去病墓“马踏匈奴”石雕。</li>
+              <li>山丹军马场：霍去病建立。</li>
+              <li>“骠骑将军”：汉武帝为其首创封号；<b>骠<span class="pinyin">piào</span></b>指带白色点状花纹的黄马，喻快疾如风。</li>
+            </ul>
+          </div>
+
+          <div class="card" style="grid-column:span 12;">
+            <h3>🧱 “八骏/六骏”谱系：马与王权叙事</h3>
+            <div class="timeline">
+              <div class="titem"><b>👑 周穆王八骏</b>：以“骏”写王者远行与边界想象。</div>
+              <div class="titem"><b>🏯 秦始皇七骏</b>：帝国的速度与规模。</div>
+              <div class="titem"><b>📜 汉文帝九逸</b>：以马映照治理与秩序。</div>
+              <div class="titem"><b>🪨 唐太宗昭陵六骏</b>：以战马记录征战功业。</div>
+              <div class="titem"><b>🛕 明成祖长陵八骏</b>：延续“马—权力—疆域”的叙事结构。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote" style="margin-top:16px;">
+          <div style="font-family:var(--serif);font-size:18px;">
+            古人认为马契合“天行健”的天道，象征自强不息，所以有“<b>龙马精神</b>”。
+          </div>
+          <div class="src">— 概念总结（整理）</div>
+        </div>
+
+        <div class="grid" style="margin-top:14px;">
+          <div class="card">
+            <h3>🐉 龙马精神：把“奔腾”变成修炼</h3>
+            <ul>
+              <li>《周礼》记载：“马八尺以上为龙”。</li>
+              <li>杜甫赞曹霸画马：“斯须九重真龙出，一洗万古凡马空”。</li>
+              <li>寓意：君子当如马般永远向前，勤毅不息，冲破樊笼，驰骋天地。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>✨ 结语：把祝福落在行动上</h3>
+            <p>
+              马年快乐！愿你像马一样，心气不灭、步履不停、勇敢驰骋。<br/>
+              <span class="note">（可用于新年贺卡、朋友圈文案、演讲收束句）</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="end">
+          <div>
+            <b>🧾 页面说明</b><br/>
+            <span class="note">本页为用户提供内容的版式化整理：突出重点、层级清晰、配色贴合“古典 + 奔腾”的气质；并为生僻字补充拼音。</span>
+          </div>
+          <div class="btns">
+            <button onclick="window.print()">🖨️ 打印/导出 PDF</button>
+            <button onclick="copyLink()">🔗 复制当前页面链接</button>
+            <button onclick="scrollTo({top:0,behavior:'smooth'})">⬆️ 回到顶部</button>
+          </div>
+        </div>
+        <div id="copyTip" class="note" style="margin-top:10px;display:none;">已复制：<span class="mono" id="copied"></span></div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    function copyLink(){
+      const url = location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(()=>{
+          const tip = document.getElementById('copyTip');
+          const t = document.getElementById('copied');
+          t.textContent = url;
+          tip.style.display = 'block';
+          setTimeout(()=> tip.style.display = 'none', 2400);
+        }).catch(()=>{
+          alert('复制失败：浏览器未允许剪贴板权限。你可以手动复制地址栏链接。');
+        });
+      } else {
+        alert('当前浏览器不支持剪贴板 API。你可以手动复制地址栏链接。');
+      }
+    }
+  </script>
+</body>
+</html>
