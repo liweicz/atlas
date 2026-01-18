@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>十二生肖生辰密码 · 立春与正月初 · 2026丙午红马年</title>
+  <meta name="description" content="重点突出、层级清晰的单页：十二生肖、十二地支与十二时辰、背诵口诀、两两相对，以及关于立春/正月初与2026马年的解释框架。">
+  <style>
+    :root{
+      --bg:#0b0b0c;
+      --paper:#121214;
+      --paper2:#17171b;
+      --ink:#f2f2f2;
+      --muted:#b9b9c2;
+      --line:rgba(255,255,255,.08);
+      --gold:#d8b56a;
+      --red:#ff4d4d;
+      --ember:#ff8b3d;
+      --jade:#39d2b0;
+      --sky:#6aa7ff;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 20% -20%, rgba(255,77,77,.18), transparent 60%),
+        radial-gradient(900px 520px at 90% 0%, rgba(216,181,106,.14), transparent 55%),
+        radial-gradient(900px 520px at 70% 110%, rgba(57,210,176,.10), transparent 60%),
+        linear-gradient(180deg, #070708, #0b0b0c 30%, #060607);
+    }
+    a{color:inherit}
+    .wrap{max-width:1120px;margin:0 auto;padding:28px 18px 80px}
+    header{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    header::before{
+      content:"";
+      position:absolute; inset:-120px -120px auto auto;
+      width:420px;height:420px;
+      background: radial-gradient(circle at 40% 40%, rgba(255,77,77,.22), transparent 65%);
+      filter: blur(6px);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    header::after{
+      content:"";
+      position:absolute; inset:auto -120px -140px auto;
+      width:520px;height:520px;
+      background: radial-gradient(circle at 30% 30%, rgba(216,181,106,.20), transparent 65%);
+      filter: blur(10px);
+      pointer-events:none;
+    }
+    .hero{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;padding:26px}
+    @media (max-width:900px){ .hero{grid-template-columns:1fr;}}
+    .badge{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:8px 12px;border:1px solid var(--line);border-radius:999px;
+      background: rgba(0,0,0,.25);
+      font-size:13px;color:var(--muted);
+      width:max-content;
+    }
+    .badge b{color:var(--ink);font-weight:700}
+    h1{
+      margin:12px 0 10px;
+      font-size: clamp(26px, 3.2vw, 44px);
+      letter-spacing:.2px;
+      line-height:1.15;
+    }
+    .subtitle{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size: 15.5px;
+      line-height:1.65;
+      max-width: 64ch;
+    }
+    .ctaRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    .pill{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 12px;border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--ink);
+      text-decoration:none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      font-size:14px;
+    }
+    .pill:hover{transform: translateY(-1px);background: rgba(255,255,255,.06);border-color: rgba(255,255,255,.14)}
+    .divider{height:1px;background: var(--line);margin:18px 0}
+    nav{
+      position: sticky; top: 14px; z-index: 20;
+      margin: 18px 0 0;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    nav a{
+      text-decoration:none;
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(0,0,0,.25);
+      color: var(--muted);
+      font-size: 13px;
+      transition: background .12s ease,border-color .12s ease,color .12s ease;
+    }
+    nav a:hover{background: rgba(255,255,255,.06);border-color: rgba(255,255,255,.14);color: var(--ink)}
+    .section{
+      margin-top: 18px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow: 0 18px 55px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    .sectionHead{
+      padding:18px 18px 12px;
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      background: linear-gradient(90deg, rgba(255,77,77,.10), rgba(255,255,255,0));
+      border-bottom:1px solid var(--line);
+    }
+    .sectionHead h2{margin:0;font-size:20px}
+    .sectionHead p{margin:6px 0 0;color:var(--muted);line-height:1.65;font-size:14px;max-width: 72ch}
+    .tag{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      color:var(--muted); font-size: 12.5px;
+      white-space:nowrap;
+    }
+    .grid{
+      padding: 16px;
+      display:grid;gap:14px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .card{
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(0,0,0,.20);
+      padding:14px 14px 12px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-90px auto auto -90px;
+      width:200px;height:200px;
+      background: radial-gradient(circle at 45% 45%, rgba(216,181,106,.12), transparent 65%);
+      filter: blur(6px);
+      pointer-events:none;
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size:16px;
+      letter-spacing:.2px;
+      display:flex;align-items:center;gap:10px;
+    }
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 10px}
+    .chip{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      border-radius: 999px;
+      padding:6px 8px;
+      background: rgba(255,255,255,.03);
+      font-family: var(--mono);
+    }
+    .card p{
+      margin:0;
+      color:var(--ink);
+      line-height:1.75;
+      font-size: 14px;
+    }
+    .dim{color:var(--muted)}
+    .span6{grid-column: span 6}
+    .span4{grid-column: span 4}
+    .span8{grid-column: span 8}
+    .span12{grid-column: span 12}
+    @media (max-width:900px){
+      .span6,.span4,.span8{grid-column: span 12}
+    }
+    details{
+      border-top:1px solid var(--line);
+      padding: 12px 16px;
+      background: rgba(0,0,0,.12);
+    }
+    details summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      font-weight:800;
+      user-select:none;
+    }
+    details summary::-webkit-details-marker{display:none}
+    details summary .hint{font-weight:600;color:var(--muted);font-size:13px}
+    .long{
+      margin-top:10px;
+      color:var(--muted);
+      line-height:1.85;
+      font-size: 14px;
+    }
+    .long b{color:var(--ink)}
+    .long .hl{color:var(--gold);font-weight:900}
+    .callout{
+      margin: 14px 0 0;
+      border:1px dashed rgba(255,255,255,.18);
+      border-radius: 14px;
+      padding: 12px 12px;
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 13.5px;
+    }
+    footer{
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.7;
+      text-align:center;
+    }
+    .sigil{width:22px;height:22px;display:inline-block}
+    .sigil path,.sigil circle,.sigil line{stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .c-red{color:var(--red)}
+    .c-gold{color:var(--gold)}
+    .c-ember{color:var(--ember)}
+    .c-jade{color:var(--jade)}
+    .c-sky{color:var(--sky)}
+    .keyline{
+      font-family: var(--mono);
+      font-size:12px;
+      color: rgba(255,255,255,.75);
+      background: rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      border-radius: 12px;
+      padding:10px 10px;
+      line-height: 1.75;
+      overflow:auto;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header id="top">
+      <div class="hero">
+        <div>
+          <div class="badge">🧧 <b>十二生肖</b> × 十二地支 × 十二时辰 <span style="opacity:.6">·</span> 立春/正月初的“生肖归属”常见误区</div>
+          <h1>十二生肖生辰密码<br/>一口气讲清楚（网页排版版）</h1>
+          <p class="subtitle">
+            这份页面把你提供的长文内容做了“重点提炼 + 信息分层 + 视觉一致”的单页呈现：
+            先交代<strong>立春 vs 正月初</strong>的口径差异与<strong>2026马年婚嫁热</strong>的解释框架；
+            再给出<strong>背诵方法</strong>与<strong>地支/时辰</strong>；
+            最后用<strong>12张生肖卡</strong>把故事与象征拆成一屏可读的重点。
+          </p>
+          <div class="ctaRow">
+            <a class="pill" href="#qa">🧠 先看：立春/正月初 &amp; 2026马年</a>
+            <a class="pill" href="#mnemonic">📌 先背：口诀 + 手指关节法</a>
+            <a class="pill" href="#zodiac">🧿 直接看：12个生肖卡片</a>
+          </div>
+          <div class="divider"></div>
+          <div class="keyline">快速导航建议：
+1) 先看「争议解释」→ 明确“生肖按什么算”
+2) 再看「背诵方法」→ 解决“顺序怎么记”
+3) 最后刷「生肖卡片」→ 一次性读完“象征、性格、时辰、典故”</div>
+        </div>
+
+        <aside class="heroCard" style="border-left:1px solid var(--line);padding-left:18px;display:flex;flex-direction:column;gap:12px">
+          <div class="card" style="background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));">
+            <div class="dim" style="font-size:13px">📅 重点年份</div>
+            <div style="font-size:20px;margin-top:6px;font-weight:900;letter-spacing:.3px">2026 · <span style="color:var(--gold)">丙午（红马）</span></div>
+            <div class="dim" style="font-size:12px;line-height:1.6;margin-top:6px">你原文提到“丙午红马年、双火、婚嫁吉日多”等说法，本页用“解释框架”呈现（不强行断言）。</div>
+          </div>
+          <div class="card" style="background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));">
+            <div class="dim" style="font-size:13px">⏰ 十二时辰</div>
+            <div style="font-size:20px;margin-top:6px;font-weight:900;letter-spacing:.3px">子到亥 · 24小时</div>
+            <div class="dim" style="font-size:12px;line-height:1.6;margin-top:6px">每张生肖卡都会标出对应时辰（例如：子鼠、丑牛…）。</div>
+          </div>
+          <div class="card" style="background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));">
+            <div class="dim" style="font-size:13px">🗳️ 互动</div>
+            <div style="font-size:20px;margin-top:6px;font-weight:900;letter-spacing:.3px">“你们那怎么背？”</div>
+            <div class="dim" style="font-size:12px;line-height:1.6;margin-top:6px">页面末尾有一段可复制的提问文案，方便你发群里收集版本。</div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <nav aria-label="页面导航">
+      <a href="#qa">❓ 立春/正月初 &amp; 2026马年</a>
+      <a href="#mnemonic">🧾 背诵方法</a>
+      <a href="#zodiac">🧿 生肖卡片</a>
+      <a href="#pairs">♟️ 两两相对</a>
+      <a href="#share">📣 互动提问</a>
+      <a href="#top">⬆️ 顶部</a>
+    </nav>
+
+    <section class="section" id="qa">
+      <div class="sectionHead">
+        <div>
+          <h2>❓ 立春？正月初？为什么说 2026 马年婚嫁热？</h2>
+          <p>把原文里最容易引发讨论的点，抽成“清晰可讲”的框架：不同算法会导致不同生肖归属；婚嫁“热”也常叠加现实因素。</p>
+        </div>
+        <div class="tag">⚠️ 框架化讲清楚</div>
+      </div>
+
+      <div class="grid">
+        <div class="card span8">
+          <h3>
+            <svg class="sigil c-gold" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v18"></path>
+              <path d="M4 7h16"></path>
+              <path d="M6 17h12"></path>
+              <path d="M7 7c0 6 10 6 10 0"></path>
+            </svg>
+            生肖“归属”常见两套口径
+          </h3>
+          <p>
+            你提到“立春/正月初”。常见有两种切换方式：<br>
+            <span class="dim">① 按农历春节（正月初一）切换生肖（民间常用）；② 按节气立春切换生肖（四柱/命理常用）。</span><br>
+            所以同一出生日期，用不同口径可能出现“生肖不同”的说法。
+          </p>
+          <div class="callout">📌 你文中强调“出生年月时辰→生辰（地支）”，叙事更靠近“地支/四柱系统”，因此会把“立春”作为节点。</div>
+        </div>
+
+        <div class="card span4">
+          <h3>
+            <svg class="sigil c-red" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M12 7v5l3 3"></path>
+            </svg>
+            “为什么26年是马年？”
+          </h3>
+          <p>
+            你原文写“2026 恰逢丙午红马年”。网页呈现上建议把“干支纪年”与“生肖切换口径”并排说明，避免读者只抓一个点争论。
+          </p>
+        </div>
+
+        <div class="card span12">
+          <h3>
+            <svg class="sigil c-ember" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2c2 4-2 6-2 9a4 4 0 0 0 8 0c0-3-3-5-6-9z"></path>
+              <path d="M10 20c0 1.7 1.3 3 3 3s3-1.3 3-3"></path>
+            </svg>
+            “某一年订婚/领证最多”往往不是单一原因
+          </h3>
+          <p>
+            你问“为什么 2026 马年订婚和领证人数最多，不是狗年不是猪年？”——除了传统择日/属相偏好，现实里常叠加：<br>
+            • <b>登记便利</b>（预约/窗口/流程）； • <b>人口结构</b>（适婚年龄段规模）；<br>
+            • <b>节假日分布</b>（集中在便于请假的日期）； • <b>社交传播</b>（“某年很旺”形成群体心理）。<br>
+            <span class="dim">你原文强调“丙午火、吉日多、婚嫁好”，网页用“框架”表达更稳。</span>
+          </p>
+        </div>
+
+        <details class="span12">
+          <summary>✅ 一句话总结（适合口播开头） <span class="hint">点击展开</span></summary>
+          <div class="long">
+            <b>生肖归属之争，本质是“春节切换”还是“立春切换”。</b>
+            至于“哪一年更热”，多是<b class="hl">传统择日 + 现实条件 + 群体心理</b>共同推出来的现象。
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section" id="mnemonic">
+      <div class="sectionHead">
+        <div>
+          <h2>🧾 十二生肖怎么背：两种口诀 + 手指关节法</h2>
+          <p>把你原文里的背诵方式，做成可截图分享的清单：先顺序，再拟人化口诀，最后加“动作记忆”。</p>
+        </div>
+        <div class="tag">📌 适合收藏</div>
+      </div>
+
+      <div class="grid">
+        <div class="card span6">
+          <h3>1) 基础顺序（最常见）</h3>
+          <p>鼠 → 牛 → 虎 → 兔 → 龙 → 蛇 → 马 → 羊 → 猴 → 鸡 → 狗 → 猪</p>
+          <div class="meta">
+            <span class="chip">子鼠</span><span class="chip">丑牛</span><span class="chip">寅虎</span><span class="chip">卯兔</span>
+            <span class="chip">辰龙</span><span class="chip">巳蛇</span><span class="chip">午马</span><span class="chip">未羊</span>
+            <span class="chip">申猴</span><span class="chip">酉鸡</span><span class="chip">戌狗</span><span class="chip">亥猪</span>
+          </div>
+          <p class="dim" style="margin-top:8px">提示：你原文里反复念“子鼠 丑牛 寅虎 卯兔…”就是用地支把顺序钉牢。</p>
+        </div>
+
+        <div class="card span6">
+          <h3>2) 拟人化口诀（更有画面）</h3>
+          <p>
+            🐭 小老鼠 · 🐂 大黄牛<br>
+            🐉 龙腾飞 · 🐍 蛇狂舞<br>
+            🐑 羊随后 · 🐓 金鸡报晓显身手<br>
+            🐷 肥猪娃娃加加油
+          </p>
+          <div class="callout">🎬 优点：镜头感强；缺点：中间段容易漏（虎兔猴狗），建议与基础顺序搭配使用。</div>
+        </div>
+
+        <div class="card span12">
+          <h3>
+            <svg class="sigil c-jade" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 7l10 10"></path>
+              <path d="M7 17l10-10"></path>
+              <circle cx="12" cy="12" r="9"></circle>
+            </svg>
+            3) 手指关节法（拇指点四指关节）
+          </h3>
+          <p>
+            你写到“拇指依次点过其余四指的各处关节”。这本质是把<b>顺序</b>绑在<b>身体动作</b>上：
+            点一下过一个地支/生肖，动作越稳定，越不容易忘。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="zodiac">
+      <div class="sectionHead">
+        <div>
+          <h2>🧿 十二生肖卡片：地支 · 时辰 · 象征 · 典故（按原文提炼）</h2>
+          <p>每张卡把“时辰 + 核心气质 + 典故意象”压缩成一屏能读完的重点；更细的情绪段落放在可展开区域。</p>
+        </div>
+        <div class="tag">✨ 先重点后细节</div>
+      </div>
+
+      <div class="grid">
+        <div class="card span6">
+          <h3>🐭 <b>子鼠</b> · “鼠咬天开” · 掌粮仓与财富</h3>
+          <div class="meta"><span class="chip">子时</span><span class="chip">23:00–01:00</span><span class="chip">天贵星</span></div>
+          <p>混沌初开“鼠咬天开”，阴阳分离；子时为一日之始，主掌粮仓与财富，五路财神图里常见“抱鼠”意象。</p>
+          <details>
+            <summary>展开：你原文的情绪落点 <span class="hint">真诚与委屈</span></summary>
+            <div class="long">你强调属鼠的人“不会骗人、不会哄人、对家人朋友真诚”，最后“委屈的还是自己”。网页可用 <b class="hl">“愿真心不被辜负”</b> 收束。</div>
+          </details>
+        </div>
+
+        <div class="card span6">
+          <h3>🐂 <b>丑牛</b> · 坚韧担当 · 镇水神兽</h3>
+          <div class="meta"><span class="chip">丑时</span><span class="chip">01:00–03:00</span><span class="chip">农历十二月</span></div>
+          <p>最黑暗最寒冷的丑时，牛已准备劳作；“俯首甘为孺子牛”。原文还写到立春拜春牛、古代杀牛重罪、铜牛与《五牛图》等象征。</p>
+        </div>
+
+        <div class="card span6">
+          <h3>🐯 <b>寅虎</b> · 勇者领袖 · 细嗅蔷薇</h3>
+          <div class="meta"><span class="chip">寅时</span><span class="chip">03:00–05:00</span><span class="chip">王者之气</span></div>
+          <p>昼伏夜行时猛虎最凶；虎为四象之一、护法神，“王”字额纹；外表猛虎下山，内心细嗅蔷薇。</p>
+        </div>
+
+        <div class="card span6">
+          <h3>🐰 <b>卯兔</b> · 文殊 · 结缘的课题</h3>
+          <div class="meta"><span class="chip">卯时</span><span class="chip">05:00–07:00</span><span class="chip">月德 / 玉兔</span></div>
+          <p>卯时兔出窝；月亮阴影似兔；“兔子急了也咬人”。原文强调属兔“来结缘”，课题是用善良与智慧广结善缘，并提到兔儿爷、敦煌三兔等意象。</p>
+        </div>
+
+        <div class="card span6">
+          <h3>🐉 <b>辰龙</b> · 行云布雨 · 远大志向</h3>
+          <div class="meta"><span class="chip">辰时</span><span class="chip">07:00–09:00</span><span class="chip">祥瑞尊贵</span></div>
+          <p>辰时神龙行云布雨；“真龙天子、龙凤呈祥、望子成龙”。原文抛出“你相信龙吗？”并串联红山玉龙、东方苍龙、龙抬头等宏大叙事。</p>
+        </div>
+
+        <div class="card span6">
+          <h3>🐍 <b>巳蛇</b> · 灵性与新生 · 阴阳相对</h3>
+          <div class="meta"><span class="chip">巳时</span><span class="chip">09:00–11:00</span><span class="chip">厚积薄发</span></div>
+          <p>冬眠醒来晒太阳，厚积薄发；蛇象征繁衍与权力，《伏羲女娲图》里交缠蛇尾象征阴阳。原文也写到属蛇内敛少言但“悄悄化解”。</p>
+        </div>
+
+        <div class="card span12">
+          <h3>🐎 <b>午马</b> · 自由与成功 · “放自己一马”</h3>
+          <div class="meta"><span class="chip">午时</span><span class="chip">11:00–13:00</span><span class="chip">龙马精神</span><span class="chip">乾为马</span></div>
+          <p>午时最炎热，马停步补能量；策马疆场象征自由与成功。原文串联汗血宝马、赤兔、乌骓、马鞍山，并以“我不祝你马到成功，只愿你准时收工”落点。</p>
+          <div class="callout">🔥 你原文关于“2026 丙午红马年、纯火、婚嫁吉日多”的段落，被放进了页面上方「争议解释」模块，阅读更顺。</div>
+        </div>
+
+        <div class="card span6">
+          <h3>🐑 <b>未羊</b> · 三阳开泰 · 祥与鲜</h3>
+          <div class="meta"><span class="chip">未时</span><span class="chip">13:00–15:00</span><span class="chip">草最嫩</span></div>
+          <p>未时青草最嫩羊群啃食；“示羊为祥、鱼羊为鲜”；羊脂白玉、羊城传说。原文强调温柔和顺与福气相伴。</p>
+        </div>
+
+        <div class="card span6">
+          <h3>🐒 <b>申猴</b> · 聪慧活泼 · 驿马星加持</h3>
+          <div class="meta"><span class="chip">申时</span><span class="chip">15:00–17:00</span><span class="chip">常出去走走</span></div>
+          <p>申时气温稍降；属猴心中有金箍棒，勇闯体制内却当“弼马温”；“封侯挂印、马上封侯”等图像梗贯穿原文。</p>
+        </div>
+
+        <div class="card span6">
+          <h3>🐓 <b>酉鸡</b> · 自律与秩序 · 五德之禽</h3>
+          <div class="meta"><span class="chip">酉时</span><span class="chip">17:00–19:00</span><span class="chip">报时警夜</span></div>
+          <p>酉鸡象征自律与秩序；原文写鸡为“五德之禽”（文武勇仁信），并提到古代“鸡人”兼报时警夜。</p>
+        </div>
+
+        <div class="card span6">
+          <h3>🐶 <b>戌狗</b> · 重情重义 · “旺财”与侠气</h3>
+          <div class="meta"><span class="chip">戌时</span><span class="chip">19:00–21:00</span><span class="chip">守夜看家</span></div>
+          <p>戌时狗守夜看家；“旺财”与财运联想；原文强调中华土狗的侠气、责任感与“为君效犬马之劳”。</p>
+        </div>
+
+        <div class="card span12">
+          <h3>🐷 <b>亥猪</b> · 最有福气 · 憨厚与家庭</h3>
+          <div class="meta"><span class="chip">亥时</span><span class="chip">21:00–23:00</span><span class="chip">安心长膘</span></div>
+          <p>亥猪“吃饱熟睡、安心长膘”；心态豁达待人宽厚，“有猪才有家”。原文还写到“彘=猪”“豪的本意”、嗅觉/智商与“猪突豨勇”等历史梗。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pairs">
+      <div class="sectionHead">
+        <div>
+          <h2>♟️ 十二生肖两两相对（原文总结卡）</h2>
+          <p>把最后一段的“互补逻辑”做成卡片组：每组一句话，便于读者记住。</p>
+        </div>
+        <div class="tag">🧩 互补关系</div>
+      </div>
+
+      <div class="grid">
+        <div class="card span4"><h3>🐭 子鼠 × 🐂 丑牛</h3><p><b>智慧</b>与<b>勤奋</b>相对：光聪明不勤奋=小聪明；光勤奋不动脑=愚蠢。</p></div>
+        <div class="card span4"><h3>🐯 寅虎 × 🐰 卯兔</h3><p><b>胆大</b>与<b>谨慎</b>相对：胆大心细，进退有度。</p></div>
+        <div class="card span4"><h3>🐉 辰龙 × 🐍 巳蛇</h3><p><b>刚</b>与<b>柔</b>相对：刚者易折，柔者易散；合为刚柔并济。</p></div>
+        <div class="card span6"><h3>🐎 午马 × 🐑 未羊</h3><p><b>强势</b>与<b>温柔</b>相对：柔中带强，强中有柔。</p></div>
+        <div class="card span6"><h3>🐒 申猴 × 🐓 酉鸡</h3><p><b>机灵</b>与<b>自律</b>相对：脚踏实地，把聪明落到行动上。</p></div>
+        <div class="card span12"><h3>🐶 戌狗 × 🐷 亥猪</h3><p><b>靠谱</b>与<b>憨厚</b>相对：重情重义、重家庭，走得稳，走得长。</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="share">
+      <div class="sectionHead">
+        <div>
+          <h2>📣 互动提问（可复制发群里）</h2>
+          <p>把“你们那怎么背十二生肖？”做成更像帖子的一段话，方便你收集不同版本。</p>
+        </div>
+        <div class="tag">🗳️ 收集答案</div>
+      </div>
+
+      <div class="grid">
+        <div class="card span12">
+          <h3>
+            <svg class="sigil c-sky" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 15a4 4 0 0 1-4 4H8a5 5 0 1 1 1-9 6 6 0 0 1 12 1"></path>
+            </svg>
+            诸君：你们那是怎么背通十二生肖的呢？
+          </h3>
+          <p>
+            我这边见过三种背法：<br>
+            ① 基础顺序：鼠牛虎兔龙蛇马羊猴鸡狗猪；<br>
+            ② 画面口诀：小老鼠大黄牛，龙腾飞蛇狂舞，羊随后，金鸡报晓显身手，肥猪娃娃加加油；<br>
+            ③ 手指关节法：拇指点四指关节，一路点到亥。<br><br>
+            <b>轮到你啦：</b>你们那边常用哪种？有没有更顺口的版本？👇
+          </p>
+          <div class="callout">💡 如果你把网页发出去：建议让大家只回复“口诀/背法”，你再把最高赞的补到网页里作为“第三种民间版本”。</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div style="margin-bottom:8px">🧧 祝诸君：牛转乾坤 · 兔飞猛进 · 画蛇添足（别真的添足😄）· 三羊开泰 · 狗猪事顺遂</div>
+      <div>本页为“内容视觉排版稿”：强调重点、层级与阅读节奏；适合手机阅读与截图分享。</div>
+    </footer>
+  </div>
+</body>
+</html>
