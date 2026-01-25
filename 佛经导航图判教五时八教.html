@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>佛经导航图判教五时八教｜现代视野里的金刚经</title>
+  <style>
+    :root{
+      --bg: #fbf7f0;
+      --ink: #1f2328;
+      --muted: #5a6772;
+      --card: #ffffff;
+      --stroke: rgba(31,35,40,.14);
+      --accent: #8a5a44;        /* mocha */
+      --accentDeep: #6e3e2a;
+      --accentSoft: rgba(138,90,68,.16);
+      --gold: #b0893a;
+      --hi: rgba(255, 208, 0, .55);
+      --hi2: rgba(138,90,68,.18);
+      --radius: 18px;
+      --shadow: 0 12px 28px rgba(31,35,40,.10);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --serif: ui-serif, "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+      --sans: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", Segoe UI, Roboto, Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(138,90,68,.10), transparent 60%),
+                  radial-gradient(900px 500px at 90% 20%, rgba(176,137,58,.10), transparent 55%),
+                  var(--bg);
+      color:var(--ink);
+      font-family: var(--sans);
+      line-height:1.6;
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 80px}
+    header{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:end;
+      padding:18px 18px 8px;
+      border:1px solid var(--stroke);
+      border-radius: calc(var(--radius) + 6px);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+    }
+    .title{
+      font-family: var(--serif);
+      letter-spacing: .2px;
+      margin:0;
+      font-size: clamp(26px, 3.2vw, 40px);
+      line-height:1.25;
+    }
+    .subtitle{
+      margin:8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .topActions{
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+    }
+    button{
+      cursor:pointer;
+      border:1px solid var(--stroke);
+      background: #fff;
+      color: var(--ink);
+      padding:10px 12px;
+      border-radius: 14px;
+      box-shadow: 0 6px 14px rgba(31,35,40,.06);
+      font-weight: 600;
+    }
+    button:hover{transform: translateY(-1px)}
+    .btnAccent{background: linear-gradient(180deg, rgba(138,90,68,.12), rgba(138,90,68,.06)); border-color: rgba(138,90,68,.28);}
+    .btnGold{background: linear-gradient(180deg, rgba(176,137,58,.14), rgba(176,137,58,.06)); border-color: rgba(176,137,58,.28);}
+    .grid{display:grid; grid-template-columns: 1fr; gap:14px; margin-top:18px;}
+    .panel{
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.75);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 24px rgba(31,35,40,.08);
+      overflow:hidden;
+    }
+    details.panel > summary{
+      list-style:none;
+      padding:14px 16px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      user-select:none;
+      background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.70));
+      border-bottom:1px solid var(--stroke);
+    }
+    details.panel > summary::-webkit-details-marker{display:none}
+    .sumIcon{
+      width:34px;height:34px;border-radius:12px;
+      display:grid;place-items:center;
+      background: var(--accentSoft);
+      border:1px solid rgba(138,90,68,.20);
+      flex:0 0 auto;
+      font-size:18px;
+    }
+    .sumText .h2{margin:0; font-size:18px; font-weight:800;}
+    .sumText .desc{margin:2px 0 0; font-size:13px; color:var(--muted);}
+    .content{padding:16px 16px 18px;}
+    .note{
+      border:1px dashed rgba(138,90,68,.30);
+      background: rgba(138,90,68,.06);
+      border-radius: 16px;
+      padding:12px 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .kpi{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    .kpi .box{
+      border:1px solid var(--stroke);
+      border-radius: 16px;
+      background: #fff;
+      padding:12px;
+    }
+    .box b{color: var(--accentDeep);}
+    .bullets{margin:10px 0 0; padding-left: 18px;}
+    .bullets li{margin:6px 0;}
+    .cards{list-style:none; padding:0; margin:0; display:grid; gap:10px;}
+    .card{
+      border:1px solid var(--stroke);
+      border-radius: 16px;
+      background: #fff;
+      padding:12px;
+    }
+    .row{display:flex; gap:12px; align-items:flex-start;}
+    .badge{
+      width:44px;height:44px;border-radius:16px;
+      display:grid;place-items:center;
+      background: rgba(176,137,58,.14);
+      border:1px solid rgba(176,137,58,.26);
+      font-size:22px;
+      flex:0 0 auto;
+    }
+    .grow{flex:1}
+    .h3{font-size:16px; font-weight:900; margin:0 0 6px;}
+    .muted{color:var(--muted);}
+    .pill{
+      display:inline-block;
+      padding:2px 8px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(31,35,40,.03);
+      font-size: 12px;
+      margin-right:6px;
+      color: var(--muted);
+      font-weight:700;
+    }
+    .meta{font-size: 14px; color: var(--muted);}
+    .linkbtn{
+      appearance:none;
+      border:0;
+      padding:0;
+      margin:0;
+      background: transparent;
+      font: inherit;
+      cursor:pointer;
+      color: var(--accentDeep);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 900;
+    }
+    .originalBox{
+      border:1px solid var(--stroke);
+      background:#fff;
+      border-radius: 16px;
+      padding:14px;
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: 1.85;
+    }
+    .originalBox .rare{border-bottom: 2px solid rgba(176,137,58,.7);}
+    .highlight{
+      animation: glow 5s ease-out 1;
+      background: var(--hi);
+      border-radius: 8px;
+      padding: 0 2px;
+    }
+    @keyframes glow{
+      0%{box-shadow: 0 0 0 0 rgba(255,208,0,.0);}
+      15%{box-shadow: 0 0 0 10px rgba(255,208,0,.18);}
+      100%{box-shadow: 0 0 0 0 rgba(255,208,0,.0);}
+    }
+    table{
+      width:100%;
+      border-collapse: collapse;
+      overflow:hidden;
+      border-radius: 16px;
+      border:1px solid var(--stroke);
+      background:#fff;
+    }
+    th, td{padding:12px 10px; border-bottom:1px solid var(--stroke); vertical-align: top;}
+    th{text-align:left; font-size: 13px; color: var(--muted); background: rgba(31,35,40,.03);}
+    tr:last-child td{border-bottom:0}
+    .mindmapWrap{
+      padding: 12px;
+      border:1px solid var(--stroke);
+      border-radius: 16px;
+      background: #fff;
+      overflow:auto;
+    }
+    .mindmap{width: 1200px; max-width: 1200px; height:auto;}
+    .quoteList{list-style:none; padding:0; margin:0; display:grid; gap:10px;}
+    .quote{
+      border:1px solid var(--stroke);
+      border-radius: 16px;
+      background:#fff;
+      padding:12px;
+    }
+    .qhead{font-weight:900;}
+    .qsrc{font-family: var(--serif); color: var(--accentDeep);}
+    .qbody{margin-top:8px; color: var(--muted);}
+    .langTabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;}
+    .tab{padding:8px 10px;border-radius: 999px;border:1px solid var(--stroke); background:#fff; font-weight:800;}
+    .tab[aria-selected="true"]{background: var(--accentSoft); border-color: rgba(138,90,68,.28);}
+    .script{display:none;}
+    .script.show{display:block;}
+    .script pre{
+      margin:0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      background:#fff;
+      border:1px solid var(--stroke);
+      border-radius: 16px;
+      padding:12px;
+      font-family: var(--sans);
+      color: var(--ink);
+    }
+
+    /* print */
+    @media print {
+      body{background:#fff;}
+      header{box-shadow:none; background:#fff;}
+      .topActions{display:none !important;}
+      details.panel > summary{background:#fff;}
+      .panel, .mindmapWrap, table, .originalBox, .card, .quote{box-shadow:none !important;}
+      .wrap{max-width: none; padding: 0 12mm;}
+      .mindmap{width: 180mm;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1 class="title">🧭 佛经导航图判教五时八教</h1>
+        <p class="subtitle">把“判教”当作阅读佛经的 GPS：先定位，再深入。<span class="muted">（所有章节默认折叠｜支持一键打印全文）</span></p>
+      </div>
+      <div class="topActions">
+        <button class="btnAccent" id="openAll">展开全部</button>
+        <button class="btnAccent" id="closeAll">折叠全部</button>
+        <button class="btnGold" id="printAll">🖨️ 一键打印全文</button>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- 1. Original -->
+      <details class="panel" open="false" id="sec-original">
+        <summary>
+          <div class="sumIcon">📜</div>
+          <div class="sumText">
+            <div class="h2">原文（100%保留）</div>
+            <div class="desc">逐字保留输入原文；点击“生僻字”可跳转并高亮 5 秒</div>
+          </div>
+        </summary>
+        <div class="content">
+          <div class="note">提示：原文较长，建议先看“主旨一句话 + 三条要点”，再回来看原文，会更顺。</div>
+          <div class="originalBox" id="originalText">【03.如何找到佛经的导航图｜《现代视野里的金刚经》<br>
+大家好，我是成庆，欢迎收听《现代视野里的金刚经》。<br>
+在上一讲中，我给大家简略介绍了佛陀圆寂之后佛经结集的过程，以及传入中国的翻译接受史。事实上，佛经的汉文翻译从两汉开始，一直延续到了宋代，才算基本结束。在这个长达千年的翻译过程中，大约有上千部的佛经逐步进入中国人的视野。<br>
+为什么有这么多的经典？我们又到底要如何去理解这些佛经？佛经与佛经之间的关系又是怎样的？这就不得不谈到佛教中重要的“判教”思想。<br>
+判教与宗派的产生<br>
+<br>
+在上一讲中我们谈到过，“大乘”和“小乘”经典同样都要解决我们的执着问题，但是它们对于“空”的理解，有着深浅广狭的区别。简单地说，小乘”一般指的是破“人我执”，而“大乘”则更进一步，还要破除“法我执”。<br>
+但仅仅进行“大、小乘”的划分还是比较粗疏的，因为对于这么多大乘经典而言，它们各自强调的重点也并非完全一样。佛陀最初在菩提树下觉悟时曾感叹道，众生的根机各自不同，如果将所觉悟的的智慧一次性的倾囊相授，众生不仅难以理解，而且还会对佛陀所讲的法产生怀疑。因此，出于教化的考虑，佛陀才会根据众生的不同情况来进行教导，讲说的方式也各有差异，或是直截了当，或是曲折迂回，或是直接肯定，或是直接否定，这也就自然形成了不同风格的经典。<br>
+而当印度的佛经随着丝绸之路传入中国被翻译成汉语后，中国人也就不得不面临一个重要的问题：佛经中的许多表达似乎前后不一，佛经之间也常常有自相矛盾的说法。比如我们都知道“苦、空、无常、无我”，但是在一部非常重要的大乘经典——《大般涅槃经》中，佛陀却又在强调“常、乐、我、净”，完全与“苦、空、无常、无我”相对立。这自然会引人怀疑：为什么佛陀说法有这么多矛盾之处？如果只读一部佛经，很容易以偏概全，从而误解佛法全貌。因此，为了整体把握佛陀一生说法的内在逻辑，也就引发了判教的需求。<br>
+简单来说，判教就是去揭示某一部佛经与整体佛法的关系。通过判教，对佛经进行分类，从而建立起一个整体和全面的理解框架，这样我们才能在阅读一部佛经时，准确定位它所处的位置，这就像是在面对浩瀚的经卷海洋时，拥有一张“导航图”一样。<br>
+ <br>
+魏晋时期最早的系统判教思想，是由<span id="rare-40480" class="rare in-original" data-char="鸠">鸠</span>摩罗什的弟子慧观所提出的。他把佛陀讲说的所有经典分为两类，一类是“顿教”，一类是“渐教”。<br>
+“顿教”是指佛陀直截了当讲出最彻底的智慧，没有任何遮掩。比如，《华严经》就属于“顿教”的经典。在大乘佛教的叙述中，佛陀在菩提树下觉悟之后，首先讲的并非是《阿含经》，而是在菩提树下讲了三十七天的《华严经》。但菩提树下哪里有众生来听呢？按照大乘佛教的说法，是佛陀以特别的智慧神通来为大菩萨来讲的，比如文殊菩萨、普贤菩萨等等。因为他们智慧深邃，根机成熟，所以佛陀直接讲出最圆满的佛法，也就是《华严经》的内容。<br>
+而“渐教”则分为五类，分别叫做“有相教”、“无相教”、“抑扬教”（抑扬顿挫的“抑扬”）、“同归教”和“常住教”，强调的是通过次第的方式去觉悟。其中“有相教”就是像《阿含经》这样的小乘经典；“无相教”指的是《般若经》、《金刚经》这一类；“抑扬教”指的是《佛说维摩<span id="rare-35800" class="rare in-original" data-char="诘">诘</span>经》；“同归教”则是《法华经》，而“常住教”则是以《大般涅槃经》为代表。<br>
+慧观的判教这里不作详细介绍，只是想让大家初步了解，要理解不同的佛经，首先要清楚判教的重要性。不了解判教，我们就根本不知道佛陀是针对谁来讲法，如果把自己贸然代入听法者的角色，就会有所误解，甚至扭曲佛经的内涵。所以在佛教内部还流传这样一种说法：“讲经不判教，开口便乱道”。<br>
+ <br>
+在慧观之后，汉传佛教内部涌现出了各种各样的判教理论，南方和北方的佛教界各有差别，形成了所谓“南三北七”的说法，也就是南方的佛教有三种主要的判教理论，而北方则有七种判教的说法。<br>
+既然要判教，首先就要定位，哪一部经讲的是最圆满的智慧。<br>
+在魏晋南北朝时期，大多会把《华严经》和《涅槃经》的地位放在《法华经》之上，这与当时地论宗的主流地位是有密切关系的。地论宗是南北朝时代的一个佛教学派，主要弘扬《华严经》中的《十地品》，后来兴起的华严宗（又称为贤首宗）就是从这个学派中发源出来的。此外，还有与地论宗并称的摄论宗，弘扬的是印度无著论师的《摄大乘论》，这部论是印度瑜伽行派的重要论著。<br>
+印度的瑜伽行派形成于公元4世纪左右，后传入中国，成为法相唯识宗的理论基础。瑜伽行派认为，所有的一切外境只是我们的“识”所变现而来，也就是所谓的“万法唯识”。意思是我们和外境之间的关系像是投影一样，所看到的一切，不过是“识”所投射出来的影像而已。<br>
+与瑜伽行派齐名并列的另一个印度思想流派，是比它更早的印度中观学派，以龙树菩萨为代表。中观学派侧重于从否定实有性的角度去破除我们对于“相”的执着，比如我们常说的“空”和“无自性”，这些都是中观派习惯使用的概念，直接否定现象背后存在绝对的实体。<br>
+由于讲法策略侧重点不同，很多人习惯性将瑜伽行派命名为“有宗”，而将中观派称为“空宗”。当然，这种区分显然很容易带来误解，因为无论瑜伽行派还是中观派，讲的其实最终都是“空有不二”，也就是所谓的“中道”，不落入永恒和虚无的二元认知模式里。<br>
+ <br>
+对于早期的汉传佛教而言，我们大体上可以从印度的中观派和瑜伽行派的角度，去理解本土佛教各个学派之间的思想差异。<br>
+中观学派传入中国后，成为了魏晋南北朝时期重要的佛学思想风潮。比如鸠摩罗什的弟子僧<span id="rare-32903" class="rare in-original" data-char="肇">肇</span>所写的《肇论》，就是解读中观思想的经典之作。在《肇论》中的《物不迁论》对于“来去”有这样的解释：“言往不必往，古今常存，以其不动；称去不必去，谓不从今至古，以其不来。”这句其实就是龙树菩萨《中论》中的“不生亦不灭，不常亦不断，不一亦不异，不来亦不出（去）”中“不来亦不出（去）”的中国版诠释。在《肇论》中的《物不迁论》，我个人特别喜欢这一句：“旋<span id="rare-23706" class="rare in-original" data-char="岚">岚</span>偃岳而常静，江河竞注而不流”，这句话的意思是，狂风暴雨，山峦倾倒，但却如万古常静，江河之水奔波汹涌，而却没有任何流动之相。这种听上去完全矛盾的说法，其实就是般若“不二”思想的核心，也是僧肇从中国人的角度来对“动静不二”的完美表达。<br>
+随着龙树中观学的流行，催生出了早期汉传佛教的一个非常重要的学派——三论宗。这个学派最初是由鸠摩罗什及其弟子们在关中地区所推广，后来被僧朗传播到江南，在南京的摄山，也就是今天的栖霞山一带流行开来。三论宗主要研究龙树菩萨为《般若经》所作的注释书，分别是《中论》、《十二门论》以及《大智度论》。<br>
+三论宗的代表性人物是著名的吉藏大师，他的祖上为西域人，后移民至南京，而生下吉藏，所以一般也称他为“胡吉藏”。他提出了三论宗的判教体系，也就所谓的“二藏三轮”。<br>
+所谓的“二藏”，其实就是菩萨藏和声闻藏，其实就是大乘和小乘的区分。而“三轮”则是“根本法轮”、“枝末法轮”以及“摄末归本法轮”。简单来说，“根本法轮”指的是佛陀最开始所讲的《华严经》；“枝末法轮”则是因为佛陀说法不能为人所理解，因此需要讲述各种次第法门，就有了不同的大、小乘经典；而“摄末归本法轮”则指的是佛陀最后讲的《法华经》和《大般涅槃经》，因为这是佛陀最后的告诫，其言也善，讲的自然是最圆满的教导。<br>
+讲到这里，大家或许能够感觉到，这些判教的说法各有特点，也有很多相似之处。在这样的背景下，各种判教思想汹涌澎湃，形成了一些重要的思想学派，除了三论宗之外，还有成实宗等等，这也为后来汉传佛教各个宗派的形成奠定了重要的思想基础。<br>
+所谓的“宗派”，无非就是高度组织化的学派。就在此时，天台宗应运而生，也被认为是最早的本土化的汉传佛教宗派，而且它的教学体系也相当成熟，对于整个东亚佛教产生了非常重要的影响。比如平安时代的高僧最澄大师，就是在浙江天台山学习，而后回国创立位于比叡山的天台宗，对于后期的日本佛教影响深远，很多日本的本土佛教宗派，比如日莲宗，也都是从天台宗分化而来。而对于今天的中国佛教而言，天台宗的教学其实还在延续，在江浙一带，仍然有许多学修天台宗的寺庙，如果要学习汉传佛教，天台宗无疑是一个很重要的切入点。<br>
+这里需要说明的是，我们在谈到判教的时候，其实可以根据自己的实际情况学习不同宗派的判教。我个人在早期学习汉传佛教时，是从天台宗和华严宗的教理进入，因此在这里也想特别给大家重点介绍一下天台宗的判教思想。值得提醒的是，各个宗派的判教思想有差异，但也有共同点，重要之处在于这张“地图”是否能够启发到我们，不必有过分的门户之见。<br>
+ <br>
+天台宗的五时八教<br>
+<br>
+天台宗的创始人，法名智<span id="rare-38999" class="rare in-original" data-char="顗">顗</span>，后世一般称呼他为“智者大师”。“智者”的称号，是他的菩萨戒弟子——隋<span id="rare-28800" class="rare in-original" data-char="炀">炀</span>帝杨广所赐。<br>
+智者大师俗姓陈，出生在湖北荆州华容县，父亲是梁朝贵族。他自小与佛教有很深的缘分，七岁时在寺庙里听到僧人口诵《法华经》中的《普门品》，便能够马上背诵出来。后梁朝灭国，智者大师遭遇国破家亡的不幸，于是发心前往湘州，也就是湖南的果愿寺落发出家。关于智者大师的详细生平，大家可以参考池田大作早年的一本通俗著作——《我的天台观》，这本书不仅讲述了智者大师的生平，而且还可以强烈感受到日本佛教界对于智者大师以及天台宗的那一份强烈的认同感。<br>
+据说，智者大师在少年时曾经做过一个梦，他梦见进入了一个房间，屋里散落着各种经典，而他则将这些佛经拾起来，然后分门别类放置于书架上。这个梦境的记载，其实反映出后世对于智者大师在佛教史上的评价与定位，因为他提出了对后世影响深远的判教理论，也就是天台宗的“五时八教”思想。<br>
+所谓“五时八教”中的“五时”，是将佛陀一生所讲的经典根据讲法时间先后来进行划分。分别为第一华严时，也就是佛陀最初为菩萨来讲圆顿直接的《华严经》，同时这也是佛陀觉悟之后，首次对于众生根机的某种试探。<br>
+佛陀看到，有很多根机不成熟的众生，完全无法理解他所悟到的圆满智慧，因此才大开方便法门，从最粗浅的《阿含经》讲起，也就是所谓的第二鹿苑时（在鹿野苑讲法的时期），也就展开了有层次的教学体系，从浅到深，次第而上。<br>
+当然，佛陀不会让弟子们一直停留在《阿含经》的层次，而是试图用各种方法让大家明白，小乘的思想并不圆满，所以就会采用批评小乘、赞美大乘的方式，去凸显大乘思想的重要性，比如《佛说维摩诘经》就是这样的典型代表。在这部经典中，以维摩诘菩萨患病为契机，佛陀想要嘱托各位阿罗汉弟子前往探病，但是这些弟子纷纷表示不愿前往，因为过去维摩诘菩萨常常批评这些阿罗汉，认为他们对于佛法的认知不够圆满，这也被称为“弹偏斥小，叹大褒圆”，意思是批评小乘的偏狭，称赞大乘的圆满。这段讲法时期被称为第三“方等时”，所谓的“方等”，其实就是“大乘”的意思。<br>
+接下来第四个，就是和《金刚经》有密切关系的“般若时”，也就是佛陀在方等时之后开始讲说般若经典。同样是大乘经典，方等时和般若时的经典有什么区别？如果说方等时的经典在谈到大小乘的差异时，还着重在批评小乘、赞美大乘的角度，会让人觉得有所对立，那么般若经典则要讲的是，大小乘其实并无本质的优劣之分，不能执着在大小二乘的差别上，也就是所谓的“法法平等”，这样的观点显然比较起来要更为“融通”。<br>
+最后则是“法华、涅槃时”，也就是佛陀在生命的最后阶段，将自己所领悟的最圆满智慧借助《涅槃经》和《法华经》全盘托出，而过去那些听法的人，通过前面阶段的学习，根机也慢慢成熟，这个时候也能够领受佛陀所觉悟到的圆满智慧了。所以《法华经》被评价为“开权显实”，“权”就是方便，而“实”就是最圆满的实相，也就是不再使用方便法门，直接展示佛陀想要传达的圆满智慧，《法华经》中就有这样的句子：“正直捨方便，但说无上道。”<br>
+以上就是所谓“五时教”的简略划分。虽然是以时间先后来划分，但我们不能狭隘地认为，佛陀的讲法是严格按照这样的时间顺序。实际上，佛陀的讲法可能是交错混杂的，比如讲方等经典的时候，可能同时也会说小乘法，而在讲般若经的时候，也会讲方等时的经典等等。<br>
+ <br>
+除了“五时教”之外，智者大师还根据佛法内容的深浅来进行分类，也就是所谓的“化法四教”，分别为“藏、通、别、圆”。<br>
+“藏教”又称为“三藏教”，这里的“三藏教”是和“大乘教”对比来说的，可以约等于“小乘教”。从“通教”开始，就都属于大乘教法的范围，也包括后面的“别教”和“圆教”。<br>
+所谓的“通”，其实就是“通前通后”，从“藏教”可以通达到后面的“别教”和“圆教”。“别教”是在“通教”和“圆教”之间，虽然也说“中道”的道理，但仍然不够圆融，还有循序渐次的意涵。而“圆教”顾名思义，就是佛陀所想讲的最为圆融的中道思想，佛经中常常以“一即一切，一切即一”来描述这样的思想。<br>
+智者大师在判别“藏、通、别、圆”的差别时，是用四圣谛来作例子，认为这四教分别可以表达为“生灭四谛”、“无生四谛”、“无量四谛”和“无作四谛”。<br>
+其中“生灭四谛”的意思是说，小乘佛法认为世间的一切都是在实实在在的生灭流变的，比如“苦、集、灭、道”中的“苦谛”、“集谛”、“道谛”和“灭谛”，也就是所谓的世间之苦、苦的原因、灭苦之法乃至觉悟后的涅槃，都是实实在在存在的，这就是所谓的“法执”。比如，当我们谈到世间之苦的时候，不仅会感受到“苦”是在生灭流变的，而且还会觉得是有一个实在的“苦”存在那里，所以就想要造作除掉它。就好像当我们产生不舒服的情绪时，老是想要用力去压抑这种感受，其实这种反应背后的心理，就是把这种心的作用表现当做是一种实实在在的东西，想要去除灭它。又比如，当我们说一切都是无常的时候，心中其实会涌现出一个抽象的概念，也就是“无常法”。这是我们思维的一种本能，也就是会对经验现象进行概念的抽象化和本质化。虽然藏教看到了世间的生灭无常，但这还是停留在事相上的观察，而不能更深入一步。<br>
+到了“通教”，对于“四谛”的理解就变成了“无生四谛”，针对的就是前面谈到的对于“法”的执着。“苦、集、灭、道”四谛，虽然是佛陀所讲的法，但是它们也并非是实有存在的。在《金刚经》中，佛陀曾问须菩提：佛陀到底有没有说法？（“如来有所说法不？”）须菩提则老老实实的回答说：佛陀实无说法。（“世尊，如来无所说。”）意思是，佛陀讲法这样的行为，并不是有一个绝对存在的佛陀，讲了一套永恒的理论。比如我们在学习时，常常会有一种从某人那里学到什么的“获得感”，这种感觉其实就是“有所得”，感觉自己真正得到了什么，但事实上这一切不过是缘起的现象，我们虽然有各种体验，并没有真正得到什么。<br>
+但是，“通教”的认知，还是偏向于用某种概念性的“空”去否定“藏教”对于法的执着。而后面的“别教”和“圆教”，其实就是往“空有不二”的中道思想继续推进。<br>
+如果说“通教”更多偏向于用“无生”的道理，去否定世界为实有的认识，那么“别教”的“无量四谛”，则从世界的无量的“相”上入手，重新去弥合理和事之间的缝隙。要修行菩萨道，首先要面对的就是无量的众生相，因此要在具体的实践中借助智慧一一历练，才能圆满理事不二的智慧。正如《金刚经》中，须菩提的心中有各种各样的疑惑，其实都是迷失在各种具体的“相”上，而佛陀则耐心地逐一澄清须菩提的种种执着。所以“别教”的修行，就是要在无量的苦相中，去学习无量的法门，去实践无量的佛法之道。<br>
+到了“圆教”的“无作四谛”，则是最为彻底的中道，其实已经不是一般的说理所能体会。我们一般听说的“烦恼即菩提，生死即涅槃”这一类的说法，都属于圆教的观念。所谓的“烦恼相”因为“空”，所以和代表觉悟的“菩提”是平等的，而我们畏惧的“生死相”和代表清净的“涅槃相”同样是没有差别的，没有绝对的好坏之别。在佛陀的心中，念念之间，世界皆是清净无染，平等不二的，这样的境界，其实已经无法用言语去妥当的表达了。<br>
+这个节目要讲解的《金刚经》，在天台宗的判教理论中被归为“通別兼圆”，意思是它的思想主要属于通教和别教，但也有圆教的意涵。我们其实只需要了解，《金刚经》代表的是大乘佛法的核心思想，也是接近佛陀圆满智慧的最为重要的一道大门，值得我们认真对待。<br>
+ <br>
+另外，除了上面的“化法四教”，还有所谓的“化仪四教”，它们共同构成了“五时八教”中的“八教”。有人曾作过一个比喻，认为“化仪四教”更像是一张药方，而“化法四教”则是具体的药。作为“药方”的“化仪四教”，就是根据佛陀不同的讲法方式，分为“顿、渐、秘密和不定”。<br>
+所谓的“顿”，指的是佛陀直抒心意，不考虑对方的根机；“渐”则是按照众生的程度，通过各种方式去慢慢引导；“秘密”则是从众生角度来看佛陀的说法，同样是听法，不同根机的众生所获得的利益也不同，彼此也都不了解，所以叫做“秘密”；而“不定”指的是因为众生有很多特别的因缘，有人常听“顿教”的法，却只能获得“渐教”的心得，有人听到的是次第的“渐教”法门，却能得到“顿教”的收获，这就是“不定”的意思。<br>
+以上粗略介绍的，就是天台宗的“五时八教”的判教思想，要想对此有系统了解，可以参考天台宗的两本重要的入门论著，分别是谛观的《天台四教仪》和藕益智旭的《教观纲宗》，但这两本论著有一定的阅读门槛，或许需要参考现代的注释。<br>
+ <br>
+除了天台宗之外，其他的宗派其实也各有不同的判教理论，比如华严宗会有“三时五教”的说法，而法相唯识宗则有“三时教”的判教等等。甚至到了近代，为了适应现代人的背景，太虚大师在汉传佛教的传统基础之上，对于流行于中国的大乘佛法也提出了新的判教思想，分别为法性空慧宗、法相唯识宗和法界圆觉宗；而太虚大师的学生印顺导师则对此提出不同的看法，他把佛法则区分为性空唯名论、虚妄唯识论和真常唯心论。这不仅引发了师生之间的诤论，而且对于印顺导师判教体系的争议，一直延续到当代的汉传佛教界。<br>
+以上简略介绍了一些传统的判教理论，一般人听到可能会觉得比较复杂，难以理解，其实这是很多人进入佛学首先会遇到的一道门槛。但是或许，我们只需要抓住判教的重点，也就是在阅读佛经时，先看看自己能理解到什么程度，如果觉得自己无法理解，就可以去看看相对浅一点的经典，比如初学者如果对般若经典完全没有头绪，那就可以参考《阿含经》，也就是根据自己的认知程度，去慢慢靠近佛陀所觉悟的“中道”。<br>
+在学习和理解佛法的过程中，智慧往往难以一蹴而就，自然就会有落入偏狭的可能，这个时候不要盲目地去研读，否则往往是事倍功半。因此，了解一些判教的基本知识，其实会有助于我们找到适合自己的佛法之门。<br>
+另外，如果暂时不能准确把握这些复杂的判教体系也没关系，因为对于任何一个宗派教理的学习，其实都需要长时间的深入钻研，才能把握其中的细微之处。而且，佛法的学习和修行，固然可以走博学广闻的路径，但同样也有直指人心的法门，因为佛陀的说法，最终都只不过是要我们观察当下这一念心而已。<br>
+在下一讲中，我将会给大家谈一谈作为初学的我们，要以怎样的态度去面对佛经，以及如何去研读和理解那些看上去非常深邃的经典，而且还会从实践的角度给大家介绍一下智者大师关于诵经的修行指导，让我们可以有一个具体的方法去靠近佛经，去理解佛经。我们下集再见。】<br>
+</div>
+        </div>
+      </details>
+
+      <!-- 2. Core reading -->
+      <details class="panel" open="false" id="sec-core">
+        <summary>
+          <div class="sumIcon">🎯</div>
+          <div class="sumText">
+            <div class="h2">原文核心解读</div>
+            <div class="desc">主旨一句话 + 三条要点（非常白话）</div>
+          </div>
+        </summary>
+        <div class="content">
+          <div class="kpi">
+            <div class="box">
+              <b>主旨一句话</b>
+              <div style="margin-top:8px;font-family:var(--serif);font-size:16px;">判教就像给佛经海洋装上一张“导航图”：先定位这部经在整套佛法里的位置，才不容易读偏、读乱。</div>
+            </div>
+            <div class="box">
+              <b>你可以怎么用</b>
+              <div style="margin-top:8px;color:var(--muted);font-size:14px;">
+                读经前先问三件事：<br>
+                ① 这段话对谁说？（根机）<br>
+                ② 它要松开什么执着？（目标）<br>
+                ③ 它在地图的哪一层？（层级）
+              </div>
+            </div>
+          </div>
+          <ul class="bullets">
+            <li>佛经多、说法风格不同，不是“矛盾”，而是佛陀按不同人的理解能力来讲。</li><li>判教的作用：告诉你“这段话是对谁说的、要解决什么执着、处在哪个层次”。</li><li>天台宗的“五时八教”是最有名的一张地图：先按时间分五阶段，再按内容与方法分八类。</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 3. Rare chars -->
+      <details class="panel" open="false" id="sec-rare">
+        <summary>
+          <div class="sumIcon">🔤</div>
+          <div class="sumText">
+            <div class="h2">生僻字（可跳转原文）</div>
+            <div class="desc">发音｜误区｜释义｜例句</div>
+          </div>
+        </summary>
+        <div class="content">
+          <ul class="cards">
+            
+      <li class="card">
+        <div class="row">
+          <div class="badge" aria-hidden="true">鸠</div>
+          <div class="grow">
+            <div class="h3">生僻字：<button class="linkbtn" data-jump="rare-40480" data-char="鸠">鸠</button> <span class="muted">(jiū)</span></div>
+            <div class="meta">
+              <span class="pill">误区</span> 别读成“gōu/jiǔ”<br>
+              <span class="pill">释义</span> 指一种鸟名，这里用于人名音译“鸠摩罗什”<br>
+              <span class="pill">例句</span> 鸠摩罗什是著名译经大师。
+            </div>
+          </div>
+        </div>
+      </li>
+    
+
+      <li class="card">
+        <div class="row">
+          <div class="badge" aria-hidden="true">顗</div>
+          <div class="grow">
+            <div class="h3">生僻字：<button class="linkbtn" data-jump="rare-38999" data-char="顗">顗</button> <span class="muted">(yǐ)</span></div>
+            <div class="meta">
+              <span class="pill">误区</span> 容易写成“倚/椅”或读成“yì”<br>
+              <span class="pill">释义</span> 智顗之“顗”，多用于人名，意近“端正显明”<br>
+              <span class="pill">例句</span> 天台宗创始人法名智顗。
+            </div>
+          </div>
+        </div>
+      </li>
+    
+
+      <li class="card">
+        <div class="row">
+          <div class="badge" aria-hidden="true">炀</div>
+          <div class="grow">
+            <div class="h3">生僻字：<button class="linkbtn" data-jump="rare-28800" data-char="炀">炀</button> <span class="muted">(yáng)</span></div>
+            <div class="meta">
+              <span class="pill">误区</span> 误读为“shāng/àng”或误写“杨”<br>
+              <span class="pill">释义</span> 炀：光明、炽盛（人名中常见，如隋炀帝）<br>
+              <span class="pill">例句</span> 隋炀帝杨广所赐“智者”称号。
+            </div>
+          </div>
+        </div>
+      </li>
+    
+
+      <li class="card">
+        <div class="row">
+          <div class="badge" aria-hidden="true">诘</div>
+          <div class="grow">
+            <div class="h3">生僻字：<button class="linkbtn" data-jump="rare-35800" data-char="诘">诘</button> <span class="muted">(jié)</span></div>
+            <div class="meta">
+              <span class="pill">误区</span> 误读为“jí/qié”<br>
+              <span class="pill">释义</span> 诘：追问、质问；此处出现在《维摩诘经》书名<br>
+              <span class="pill">例句</span> 《佛说维摩诘经》常被用作“抑扬教”例子。
+            </div>
+          </div>
+        </div>
+      </li>
+    
+
+      <li class="card">
+        <div class="row">
+          <div class="badge" aria-hidden="true">肇</div>
+          <div class="grow">
+            <div class="h3">生僻字：<button class="linkbtn" data-jump="rare-32903" data-char="肇">肇</button> <span class="muted">(zhào)</span></div>
+            <div class="meta">
+              <span class="pill">误区</span> 误读为“zhāo”<br>
+              <span class="pill">释义</span> 肇：开始、开端；僧肇为高僧名<br>
+              <span class="pill">例句</span> 僧肇所写《肇论》是中观经典。
+            </div>
+          </div>
+        </div>
+      </li>
+    
+
+      <li class="card">
+        <div class="row">
+          <div class="badge" aria-hidden="true">岚</div>
+          <div class="grow">
+            <div class="h3">生僻字：<button class="linkbtn" data-jump="rare-23706" data-char="岚">岚</button> <span class="muted">(lán)</span></div>
+            <div class="meta">
+              <span class="pill">误区</span> 误读为“nán”或写成“岚(山风)”不明其义<br>
+              <span class="pill">释义</span> 岚：山间雾气、山风雾霭<br>
+              <span class="pill">例句</span> 旋岚偃岳而常静。
+            </div>
+          </div>
+        </div>
+      </li>
+    
+          </ul>
+          <div class="note" style="margin-top:12px;">
+            小彩蛋：点击上面的生僻字，会定位到原文出现位置，并高亮 5 秒 ✨
+          </div>
+        </div>
+      </details>
+
+      <!-- 4. Key terms -->
+      <details class="panel" open="false" id="sec-terms">
+        <summary>
+          <div class="sumIcon">🧠</div>
+          <div class="sumText">
+            <div class="h2">关键术语</div>
+            <div class="desc">概念 + 语境解释 + 文化对应（跨文化理解）</div>
+          </div>
+        </summary>
+        <div class="content">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:18%;">术语</th>
+                <th style="width:30%;">概念（这句话在说什么）</th>
+                <th style="width:28%;">文化对应（怎么类比更好懂）</th>
+                <th>使用建议（怎么落地）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><b>判教</b></td><td>把经典放进整体佛法的“坐标系”里，看它解决什么问题、面向什么根机。</td><td>像读课程体系：先知道这节课是“入门/进阶/专题/毕业总结”。</td><td>把“读经=背句子”升级为“读经=理解策略”。</td></tr>
+<tr><td><b>顿教 / 渐教</b></td><td>顿：直说究竟；渐：按步骤引导。</td><td>像教游泳：有人直接丢进浅水边学（顿），有人先学憋气、漂浮、划水（渐）。</td><td>别拿自己的阶段去硬套。</td></tr>
+<tr><td><b>五时</b></td><td>华严、鹿苑、方等、般若、法华涅槃（象征性次第）。</td><td>像一门学科从概览→基础→纠偏→抽象→统整收束。</td><td>顺序不是死板历史表，是学习路线。</td></tr>
+<tr><td><b>藏通别圆</b></td><td>内容深浅与圆融程度：从偏事相到空有不二的圆融中道。</td><td>像数学：算术→代数→微积分→统一视角（只是比喻）。</td><td>用来判断“这段话在讲什么层级”。</td></tr>
+<tr><td><b>空 / 无自性</b></td><td>否定现象背后有固定不变的实体，帮助松开执着。</td><td>像把“标签”从人和事上撕下来，看见它是变化的过程。</td><td>不是否定经验，而是不把经验当成永恒。</td></tr>
+<tr><td><b>唯识 / 万法唯识</b></td><td>强调外境是识的变现，重视认知结构如何生成世界感。</td><td>像VR：你看到的场景来自系统渲染；关键在渲染引擎。</td><td>更适合反观“我怎样看”。</td></tr>
+<tr><td><b>中道 / 空有不二</b></td><td>不落永恒（实有）与虚无（断灭）的两边。</td><td>像走钢丝：不是左右摆，而是保持平衡。</td><td>训练“既承认事实，又不被事实绑架”。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <!-- 5. Mindmap -->
+      <details class="panel" open="false" id="sec-map">
+        <summary>
+          <div class="sumIcon">🗺️</div>
+          <div class="sumText">
+            <div class="h2">思维导图（纯 SVG）</div>
+            <div class="desc">用“结构关系”的视角把文章搭起来</div>
+          </div>
+        </summary>
+        <div class="content">
+          <div class="mindmapWrap">
+            <svg class="mindmap" viewBox="0 0 1200 720" role="img" aria-label="思维导图：判教与天台五时八教">
+  <defs>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-opacity="0.18"/>
+    </filter>
+    <style>
+      .node { fill: var(--card); stroke: var(--stroke); stroke-width: 1.2; filter: url(#shadow); }
+      .nodeTitle { font: 600 18px/1.2 system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; fill: var(--ink); }
+      .nodeText { font: 400 14px/1.4 system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; fill: var(--muted); }
+      .edge { stroke: var(--stroke); stroke-width: 2; fill: none; }
+      .tag { fill: var(--accentSoft); }
+      .tagText { font: 700 12px/1 system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; fill: var(--accentDeep); }
+    </style>
+  </defs>
+
+  <!-- Root -->
+  <path class="edge" d="M240 120 C330 120, 330 120, 420 120"/>
+  <rect class="node" x="60" y="72" rx="18" ry="18" width="180" height="96"/>
+  <text class="nodeTitle" x="150" y="110" text-anchor="middle">判教</text>
+  <text class="nodeText" x="150" y="136" text-anchor="middle">给佛经一张导航图</text>
+  <text class="nodeText" x="150" y="156" text-anchor="middle">避免读偏/读乱</text>
+
+  <!-- Left branch: 慧观 -->
+  <path class="edge" d="M240 120 C320 90, 340 70, 420 60"/>
+  <rect class="node" x="420" y="24" rx="18" ry="18" width="240" height="88"/>
+  <text class="nodeTitle" x="540" y="58" text-anchor="middle">慧观：顿教/渐教</text>
+  <text class="nodeText" x="540" y="82" text-anchor="middle">顿：直说究竟</text>
+  <text class="nodeText" x="540" y="102" text-anchor="middle">渐：次第引导</text>
+
+  <path class="edge" d="M660 68 C740 68, 740 68, 820 68"/>
+  <rect class="node" x="820" y="24" rx="18" ry="18" width="320" height="88"/>
+  <text class="nodeTitle" x="980" y="58" text-anchor="middle">渐教五类</text>
+  <text class="nodeText" x="980" y="82" text-anchor="middle">有相｜无相｜抑扬｜同归｜常住</text>
+
+  <!-- Middle branch: 思想背景 -->
+  <path class="edge" d="M240 120 C320 160, 360 190, 420 220"/>
+  <rect class="node" x="420" y="176" rx="18" ry="18" width="240" height="96"/>
+  <text class="nodeTitle" x="540" y="210" text-anchor="middle">思想背景</text>
+  <text class="nodeText" x="540" y="236" text-anchor="middle">中观（空/无自性）</text>
+  <text class="nodeText" x="540" y="256" text-anchor="middle">唯识（万法唯识）</text>
+
+  <path class="edge" d="M660 224 C740 224, 740 224, 820 224"/>
+  <rect class="node" x="820" y="176" rx="18" ry="18" width="320" height="96"/>
+  <text class="nodeTitle" x="980" y="210" text-anchor="middle">三论宗：二藏三轮</text>
+  <text class="nodeText" x="980" y="236" text-anchor="middle">根本法轮（华严）</text>
+  <text class="nodeText" x="980" y="256" text-anchor="middle">枝末｜摄末归本（法华/涅槃）</text>
+
+  <!-- Bottom branch: 天台 -->
+  <path class="edge" d="M240 120 C320 210, 340 340, 420 420"/>
+  <rect class="node" x="420" y="372" rx="18" ry="18" width="240" height="104"/>
+  <text class="nodeTitle" x="540" y="406" text-anchor="middle">天台宗：五时八教</text>
+  <text class="nodeText" x="540" y="432" text-anchor="middle">五时（教学节奏）</text>
+  <text class="nodeText" x="540" y="452" text-anchor="middle">化法四教＋化仪四教</text>
+
+  <!-- Five periods -->
+  <path class="edge" d="M660 424 C740 404, 760 392, 820 372"/>
+  <rect class="node" x="820" y="324" rx="18" ry="18" width="320" height="110"/>
+  <text class="nodeTitle" x="980" y="360" text-anchor="middle">五时</text>
+  <text class="nodeText" x="980" y="386" text-anchor="middle">华严｜鹿苑｜方等｜般若｜法华涅槃</text>
+  <rect class="tag" x="902" y="404" rx="10" ry="10" width="156" height="26"/>
+  <text class="tagText" x="980" y="422" text-anchor="middle">《金刚经》≈般若时</text>
+
+  <!-- Eight teachings -->
+  <path class="edge" d="M660 424 C740 454, 760 478, 820 520"/>
+  <rect class="node" x="820" y="476" rx="18" ry="18" width="320" height="164"/>
+  <text class="nodeTitle" x="980" y="512" text-anchor="middle">八教</text>
+  <text class="nodeText" x="980" y="538" text-anchor="middle">化法四教：藏｜通｜别｜圆</text>
+  <text class="nodeText" x="980" y="562" text-anchor="middle">化仪四教：顿｜渐｜秘密｜不定</text>
+  <text class="nodeText" x="980" y="592" text-anchor="middle">《金刚经》：通別兼圆</text>
+</svg>
+          </div>
+          <div class="note" style="margin-top:12px;">
+            读法建议：先看“判教→为什么需要→代表体系（慧观/三论/天台）→金刚经定位”，再回正文抓细节。
+          </div>
+        </div>
+      </details>
+
+      <!-- 6. Checklist -->
+      <details class="panel" open="false" id="sec-check">
+        <summary>
+          <div class="sumIcon">✅</div>
+          <div class="sumText">
+            <div class="h2">要点清单（来自原文）</div>
+            <div class="desc">把“关键信息”按可复盘的颗粒度列出来</div>
+          </div>
+        </summary>
+        <div class="content">
+          <ul class="bullets">
+            <li>✅ 佛经汉译从两汉至宋代，历时千年，数量巨大。</li>
+<li>✅ 佛经之间看似矛盾（如“苦空无常无我”与“常乐我净”），引发判教需求。</li>
+<li>✅ 慧观提出“顿教/渐教”，渐教分五类：有相、无相、抑扬、同归、常住。</li>
+<li>✅ 魏晋南北朝有“南三北七”多种判教体系。</li>
+<li>✅ 中观学派（龙树）与瑜伽行派（唯识）影响汉传佛教思想分野。</li>
+<li>✅ 三论宗以《中论》《十二门论》《大智度论》为核心，吉藏提出“二藏三轮”。</li>
+<li>✅ 天台宗智顗提出“五时八教”：五时+化法四教（藏通别圆）+化仪四教（顿渐秘密不定）。</li>
+<li>✅ 《金刚经》在天台判教中归为“通別兼圆”。</li>
+<li>✅ 学习经教要看根机与次第，不懂可先从相对浅的经典入手。</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 7. Feynman -->
+      <details class="panel" open="false" id="sec-feynman">
+        <summary>
+          <div class="sumIcon">🧪</div>
+          <div class="sumText">
+            <div class="h2">费曼学习法类比</div>
+            <div class="desc">把复杂概念讲到 16 岁也能秒懂</div>
+          </div>
+        </summary>
+        <div class="content">
+          <div class="card" style="font-size:15px;color:var(--muted);">
+            想象你在打一个超大型的开放世界游戏🎮：地图上有很多区域、任务、NPC对白。
+有的NPC会直接告诉你终极剧情（顿教），但你等级太低就听不懂；
+更多时候系统会先给你新手村任务、再给主线、再给隐藏支线（渐教）。
+
+“判教”就像游戏的<strong>任务日志 + 地图标记</strong>：
+它告诉你——这段对白属于哪个章节、适合哪个等级、要解决你哪一种“执着BUG”。
+这样你就不会在新手村硬啃终极副本，也不会拿支线当主线，越玩越迷路。
+          </div>
+        </div>
+      </details>
+
+      <!-- 8. Golden lines -->
+      <details class="panel" open="false" id="sec-golden">
+        <summary>
+          <div class="sumIcon">✨</div>
+          <div class="sumText">
+            <div class="h2">金句（5-10句）</div>
+            <div class="desc">【引出】→【解读】→【联结】（现实意义/行动指南）</div>
+          </div>
+        </summary>
+        <div class="content">
+          <ul class="quoteList">
+            
+    <li class="quote">
+      <div class="qhead">【引出】<span class="qsrc">为什么佛陀说法有这么多矛盾之处？</span></div>
+      <div class="qbody"><b>→【解读】</b> 同一句“矛盾”，往往是在不同根机、不同语境里被照亮的不同侧面。判教不是“裁判佛陀”，而是帮我们不被片段带走。<br><b>→【联结】</b> 当你在工作/亲子/关系里遇到“他说的和昨天不一样”，先问：场景变了吗？对象变了吗？目的变了吗？</div>
+    </li>
+    
+
+    <li class="quote">
+      <div class="qhead">【引出】<span class="qsrc">讲经不判教，开口便乱道。</span></div>
+      <div class="qbody"><b>→【解读】</b> 不先看地图就开车，很容易把“正确的路”开进“错误的方向”。理解框架比背结论更重要。<br><b>→【联结】</b> 读任何一本书：先看目录、作者意图、读者对象，再进入正文。</div>
+    </li>
+    
+
+    <li class="quote">
+      <div class="qhead">【引出】<span class="qsrc">空有不二</span></div>
+      <div class="qbody"><b>→【解读】</b> 不是“什么都没有”，也不是“什么都永恒”，而是练习不落入二元对立：既看见现象，也不被现象绑架。<br><b>→【联结】</b> 情绪来时：承认它在（有），同时不把它当成“我就是这样”（不执）。</div>
+    </li>
+    
+
+    <li class="quote">
+      <div class="qhead">【引出】<span class="qsrc">旋岚偃岳而常静，江河竞注而不流</span></div>
+      <div class="qbody"><b>→【解读】</b> 表面动荡之中，有一种更深层的“静”。般若的厉害，是让你在变化里不丢方向盘。<br><b>→【联结】</b> 忙季、危机、舆论风暴：守住当下这一念的清明。</div>
+    </li>
+    
+
+    <li class="quote">
+      <div class="qhead">【引出】<span class="qsrc">正直捨方便，但说无上道。</span></div>
+      <div class="qbody"><b>→【解读】</b> 当根机成熟，技巧和铺垫可以放下，直指核心。学习的终点，是不再需要“拐杖”。<br><b>→【联结】</b> 训练团队：先流程化（方便），再逐步让他们抓原则（无上道）。</div>
+    </li>
+    
+
+    <li class="quote">
+      <div class="qhead">【引出】<span class="qsrc">法法平等</span></div>
+      <div class="qbody"><b>→【解读】</b> 不是“都一样所以随便”，而是“都可作为觉察的入口”。你不必在工具、身份、成就上分高下。<br><b>→【联结】</b> 把每个场景当练习：会议、洗碗、开车，都能观心。</div>
+    </li>
+    
+
+    <li class="quote">
+      <div class="qhead">【引出】<span class="qsrc">烦恼即菩提，生死即涅槃</span></div>
+      <div class="qbody"><b>→【解读】</b> 不是鼓励放纵烦恼，而是提醒：转念的关键在于看透其空性。看透，烦恼就不再是敌人。<br><b>→【联结】</b> 遇到卡点：别急着消灭它，先看清它“怎样组成、怎样消散”。</div>
+    </li>
+    
+
+    <li class="quote">
+      <div class="qhead">【引出】<span class="qsrc">一即一切，一切即一</span></div>
+      <div class="qbody"><b>→【解读】</b> 整体与局部互相映照：你抓住一个关键点，可能就能牵动全局；你改变一个习惯，也会改变世界感。<br><b>→【联结】</b> 每天只练一个动作：比如“察觉执着的那一秒”，长期会扩散到所有领域。</div>
+    </li>
+    
+          </ul>
+        </div>
+      </details>
+
+      <!-- 9. 60s scripts -->
+      <details class="panel" open="false" id="sec-script">
+        <summary>
+          <div class="sumIcon">🎙️</div>
+          <div class="sumText">
+            <div class="h2">60秒跨文化口播稿</div>
+            <div class="desc">中文｜捷克语｜英语（启发性、简洁、深度）</div>
+          </div>
+        </summary>
+        <div class="content">
+          <div class="langTabs" role="tablist" aria-label="语言切换">
+            <button class="tab" role="tab" aria-selected="true" data-lang="zh">中文 🇨🇳</button>
+            <button class="tab" role="tab" aria-selected="false" data-lang="cs">捷克语 🇨🇿</button>
+            <button class="tab" role="tab" aria-selected="false" data-lang="en">English 🇬🇧</button>
+          </div>
+
+          <div class="script show" data-lang="zh"><pre>大家好，今天我想用一分钟讲清楚：为什么佛经需要“导航图”。佛经很多，而且同一个主题会用不同说法：有时讲“苦空无常无我”，有时又强调“常乐我净”。如果我们只抓一句，就可能读偏。所谓“判教”，就是把每部经放回整体佛法的坐标系里：它对谁说？解决什么执着？处在哪个层次？天台宗的“五时八教”就是一张经典地图：先按教学节奏分五阶段，再按内容深浅与表达方式分门别类。对我们来说，关键不是背分类，而是学会先定位，再深入。这样读经会更清楚、更踏实，也更能落到当下这一念心上。</pre></div>
+          <div class="script" data-lang="cs"><pre>Dobrý den — za jednu minutu: proč potřebujeme „navigaci“ pro buddhistické sútry. Textů je mnoho a Buddha učil podle různých schopností posluchačů. Proto někde zdůrazňuje „strast, prázdnotu, nestálost a ne-já“, a jinde mluví o „trvalosti, radosti, já a čistotě“ — nejde o rozpor, ale o odlišnou pedagogiku. „Panjiao“ (klasifikace učení) znamená zasadit každou sútru do mapy celku: komu je určená, jaký druh připoutanosti rozvolňuje a jak hlubokou perspektivu nabízí. Tradice Tiantai to vyjadřuje rámcem „pět období a osm učení“: učební rytmus v čase a zároveň čtyři úrovně obsahu i čtyři způsoby výkladu. Pro nás je klíčové jednoduché pravidlo: nejdřív se zeptej „pro koho, proti čemu, na jaké úrovni“, a teprve potom čti detaily. Pak se z četby stane jasná praxe, ne jen intelektuální hádanka.</pre></div>
+          <div class="script" data-lang="en"><pre>Hi everyone—here’s the one‑minute reason Buddhist scriptures need a “navigation map.” There are many sutras, and the Buddha taught with different audiences in mind. That’s why one text may stress “suffering, emptiness, impermanence, non‑self,” while another highlights “constancy, joy, self, purity.” It can look contradictory if you isolate a single line, but it’s really pedagogy. Doctrinal classification (panjiao) means placing each sutra back into the whole: who it’s for, what attachment it’s loosening, and what level of view it’s training. In the Tiantai tradition this shows up as “Five Periods and Eight Teachings”—a map of the teaching sequence, plus categories for depth of doctrine and style of delivery. For us, the practical takeaway is simple: before you interpret, locate the text—audience, target, and level. Then reading becomes grounded, coherent, and immediately applicable to the mind you’re living in right now.</pre></div>
+
+          <div class="note" style="margin-top:12px;">
+            口播小技巧：每句话都尽量“落在一个动作上”——比如“先定位、再深入”，听众会更有抓手。
+          </div>
+        </div>
+      </details>
+
+      <div class="panel" style="padding:14px 16px;">
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+          <div class="sumIcon" style="background:rgba(31,35,40,.05);border-color:var(--stroke);">🧩</div>
+          <div style="flex:1;min-width:240px;">
+            <div style="font-weight:900;">交互提示</div>
+            <div class="muted" style="font-size:13px;">
+              ① 点击“展开全部/折叠全部”管理阅读节奏；② 点击生僻字可跳转原文并高亮；③ 打印会自动展开全部章节。
+            </div>
+          </div>
+          <button class="btnGold" id="scrollTop">⬆️ 回到顶部</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    // Expand/collapse all
+    const details = $$("details.panel");
+    document.getElementById("openAll").addEventListener("click", () => details.forEach(d => d.open = true));
+    document.getElementById("closeAll").addEventListener("click", () => details.forEach(d => d.open = false));
+
+    // Scroll top
+    document.getElementById("scrollTop").addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+
+    // Jump + highlight 5s
+    function jumpTo(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      // ensure original section open
+      const orig = document.getElementById("sec-original");
+      orig.open = true;
+      el.scrollIntoView({behavior:"smooth", block:"center"});
+      el.classList.add("highlight");
+      setTimeout(() => el.classList.remove("highlight"), 5000);
+    }
+
+    $$(".linkbtn[data-jump]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        jumpTo(btn.dataset.jump);
+      });
+    });
+
+    // Language tabs
+    $$(".tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        const lang = tab.dataset.lang;
+        $$(".tab").forEach(t => t.setAttribute("aria-selected", t===tab ? "true" : "false"));
+        $$(".script").forEach(s => s.classList.toggle("show", s.dataset.lang === lang));
+      });
+    });
+
+    // Print: open all, print, restore
+    document.getElementById("printAll").addEventListener("click", () => {
+      const states = details.map(d => d.open);
+      details.forEach(d => d.open = true);
+      // a tiny delay ensures layout updates before print
+      setTimeout(() => {
+        window.print();
+        // restore
+        details.forEach((d,i) => d.open = states[i]);
+      }, 180);
+    });
+  </script>
+</body>
+</html>
