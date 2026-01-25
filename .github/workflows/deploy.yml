@@ -1,4 +1,4 @@
-name: 自动生成高级索引页
+name: 自动生成苹果风索引页
 
 on:
   push:
@@ -19,44 +19,39 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 动态生成高级索引页
+      - name: 动态生成苹果风索引页
         run: |
           echo "<html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'>
-          <title>My Digital Garden</title>
+          <title>My Archive</title>
           <style>
-            :root { --primary: #0366d6; --bg: #f8f9fa; --card: #ffffff; }
-            body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); padding: 20px; color: #333; }
-            .container { max-width: 700px; margin: 0 auto; }
-            h1 { font-size: 28px; text-align: center; margin-bottom: 5px; color: #1a1a1a; }
-            .stats { text-align: center; color: #666; font-size: 14px; margin-bottom: 25px; }
-            #searchInput { width: 100%; padding: 12px 20px; border: 2px solid #ddd; border-radius: 25px; font-size: 16px; margin-bottom: 20px; outline: none; transition: border-color 0.3s; box-sizing: border-box; }
-            #searchInput:focus { border-color: var(--primary); }
-            ul { list-style: none; padding: 0; }
-            .file-card { background: var(--card); margin-bottom: 12px; padding: 18px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s; text-decoration: none; }
-            .file-card:active { transform: scale(0.98); }
-            .file-info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
-            .file-name { color: var(--primary); font-weight: 600; font-size: 17px; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-            .file-meta { font-size: 12px; color: #888; }
-            .arrow { color: #ccc; font-size: 20px; margin-left: 10px; }
+            :root { --bg: #f5f5f7; --card: rgba(255, 255, 255, 0.7); --text: #1d1d1f; --link: #0066cc; }
+            body { font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; -webkit-font-smoothing: antialiased; }
+            .nav { position: sticky; top: 0; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); background: rgba(245, 245, 247, 0.7); z-index: 100; padding: 20px; text-align: center; }
+            h1 { font-size: 32px; font-weight: 600; letter-spacing: -0.5px; margin: 0; }
+            .container { max-width: 680px; margin: 30px auto; padding: 0 20px; }
+            .search-box { width: 100%; height: 44px; border-radius: 12px; border: none; background: #e8e8ed; padding: 0 15px; font-size: 17px; margin-bottom: 24px; outline: none; box-sizing: border-box; }
+            ul { list-style: none; padding: 0; margin: 0; }
+            .file-card { background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 18px; padding: 20px; margin-bottom: 16px; display: flex; align-items: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-decoration: none; color: inherit; border: 1px solid rgba(255,255,255,0.3); }
+            .file-card:hover { transform: scale(1.02); background: rgba(255, 255, 255, 0.9); }
+            .file-info { flex: 1; min-width: 0; }
+            .file-name { display: block; font-size: 19px; font-weight: 500; color: var(--text); margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+            .file-meta { display: block; font-size: 13px; color: #86868b; }
+            .arrow { color: #86868b; margin-left: 15px; font-size: 20px; }
+            .count-tag { font-size: 14px; color: #86868b; margin-top: 8px; }
           </style></head>
           <body>
+            <div class='nav'><h1>Archive</h1><div id='count' class='count-tag'>Loading...</div></div>
             <div class='container'>
-              <h1>🌿 我的资料库</h1>
-              <div class='stats' id='count'>正在加载目录...</div>
-              <input type='text' id='searchInput' placeholder='搜索文档名称...' onkeyup='searchFunction()'>
+              <input type='text' id='searchInput' class='search-box' placeholder='搜索文档...' onkeyup='searchFunction()'>
               <ul id='fileList'>" > index.html
           
-          # 核心排序与生成逻辑
           git ls-files -z *.html | xargs -0 -I {} git log -1 --format="%ct {}" -- "{}" | sort -rn | while read -r line; do
               timestamp=$(echo "$line" | cut -d' ' -f1)
               filename=$(echo "$line" | cut -d' ' -f2-)
               if [ "$filename" = "index.html" ]; then continue; fi
-              
-              # 设置布拉格本地时间
-              date_str=$(TZ='Europe/Prague' date -d @"$timestamp" +"%Y-%m-%d %H:%M")
-              display_name=$(echo "$filename" | sed 's/\.html$//')
-              
-              echo "<a href='./$filename' class='file-card'><div class='file-info'><span class='file-name'>$display_name</span><span class='file-meta'>更新于 $date_str</span></div><div class='arrow'>›</div></a>" >> index.html
+              date_str=$(TZ='Europe/Prague' date -d @"$timestamp" +"%d. %m. %Y · %H:%M")
+              display_name=$(echo "$filename" | sed 's/\.html$//' | sed 's/_/ /g')
+              echo "<li><a href='./$filename' class='file-card'><div class='file-info'><span class='file-name'>$display_name</span><span class='file-meta'>$date_str</span></div><div class='arrow'>›</div></a></li>" >> index.html
           done
           
           echo "</ul></div>
@@ -64,25 +59,20 @@ jobs:
             function searchFunction() {
               var input = document.getElementById('searchInput');
               var filter = input.value.toUpperCase();
-              var ul = document.getElementById('fileList');
-              var li = ul.getElementsByClassName('file-card');
-              for (var i = 0; i < li.length; i++) {
-                var name = li[i].getElementsByClassName('file-name')[0];
-                if (name.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                  li[i].style.display = 'flex';
-                } else {
-                  li[i].style.display = 'none';
-                }
+              var items = document.getElementsByClassName('file-card');
+              for (var i = 0; i < items.length; i++) {
+                var name = items[i].getElementsByClassName('file-name')[0];
+                items[i].parentElement.style.display = name.innerHTML.toUpperCase().indexOf(filter) > -1 ? '' : 'none';
               }
             }
-            document.getElementById('count').innerHTML = '共收录 ' + document.getElementById('fileList').getElementsByClassName('file-card').length + ' 篇文档';
+            document.getElementById('count').innerHTML = document.getElementById('fileList').getElementsByTagName('li').length + ' 份文档';
           </script>
           </body></html>" >> index.html
 
-      - name: 上传部署文件
+      - name: 上传
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
 
-      - name: 部署到 GitHub Pages
+      - name: 部署
         uses: actions/deploy-pages@v4
