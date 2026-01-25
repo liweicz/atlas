@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>轮回，是为了疗愈｜强迫性重复</title>
+  <meta name="description" content="将“轮回”作为心理学中的强迫性重复来理解：重复、耐受、掌控与疗愈的可能性。"/>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#0f1a2f;
+      --panel2:#0c162a;
+      --text:#eaf0ff;
+      --muted:#b7c3e6;
+      --faint:#91a0cb;
+      --line:rgba(255,255,255,.10);
+      --accent:#7dd3fc;
+      --accent2:#a78bfa;
+      --good:#34d399;
+      --warn:#fbbf24;
+      --danger:#fb7185;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1140px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      background: radial-gradient(1200px 800px at 20% -10%, rgba(125,211,252,.25), transparent 55%),
+                  radial-gradient(1200px 800px at 100% 20%, rgba(167,139,250,.20), transparent 55%),
+                  radial-gradient(900px 700px at 70% 110%, rgba(52,211,153,.14), transparent 55%),
+                  linear-gradient(180deg, var(--bg), #07101f 60%, #060d1a);
+      color: var(--text);
+      letter-spacing: .2px;
+    }
+
+    a{ color: var(--accent); text-decoration:none; }
+    a:hover{ text-decoration: underline; }
+
+    .wrap{ max-width: var(--max); margin:0 auto; padding: 28px 20px 80px; }
+
+    .progress{
+      position:fixed; inset:0 0 auto 0;
+      height:3px;
+      background: rgba(255,255,255,.06);
+      z-index: 40;
+    }
+    .progress > i{
+      display:block; height:100%;
+      width:0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 20px rgba(125,211,252,.35);
+    }
+
+    header.hero{
+      position:relative;
+      padding: 34px 26px 26px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(15,26,47,.85), rgba(12,22,42,.55));
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero .glow{
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 500px at 30% 30%, rgba(125,211,252,.12), transparent 55%),
+        radial-gradient(700px 500px at 80% 10%, rgba(167,139,250,.10), transparent 60%),
+        radial-gradient(700px 500px at 60% 110%, rgba(52,211,153,.07), transparent 60%);
+      pointer-events:none;
+      filter: saturate(1.05);
+    }
+    .hero .toprow{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      justify-content: space-between;
+      position:relative;
+      flex-wrap:wrap;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      font-size: 13px;
+      white-space:nowrap;
+    }
+    .badge .dot{
+      width:9px; height:9px; border-radius:50%;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 16px rgba(125,211,252,.35);
+    }
+    h1{
+      margin: 10px 0 10px;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height: 1.12;
+      letter-spacing: .3px;
+    }
+    .subtitle{
+      margin:0;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 70ch;
+      line-height: 1.6;
+    }
+
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      margin-top: 18px;
+      position:relative;
+    }
+    .heroCard{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0,0,0,.16);
+      padding: 16px 16px 14px;
+    }
+    .heroCard h3{
+      margin:0 0 8px;
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+    .heroCard p{ margin:0; color: var(--text); line-height: 1.65; }
+    .pillrow{
+      display:flex; flex-wrap:wrap; gap:8px; margin-top: 12px;
+    }
+    .pill{
+      font-size: 13px;
+      color: var(--muted);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      padding: 7px 10px;
+      border-radius: 999px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
+    .pill b{ color: var(--text); font-weight: 650; }
+    .pill .k{
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border:1px solid rgba(125,211,252,.25);
+      color: rgba(234,240,255,.95);
+      background: rgba(125,211,252,.08);
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns: 290px 1fr;
+      gap: 22px;
+      margin-top: 20px;
+      align-items: start;
+    }
+    @media (max-width: 980px){
+      .layout{ grid-template-columns: 1fr; }
+      .toc{ position:relative; top:auto; }
+      .heroGrid{ grid-template-columns: 1fr; }
+    }
+
+    .toc{
+      position: sticky;
+      top: 16px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(15,26,47,.75), rgba(12,22,42,.55));
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.45);
+    }
+    .toc h2{
+      margin: 2px 0 10px;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      display:flex; align-items:center; gap:10px;
+    }
+    .toc a{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      color: var(--text);
+      border:1px solid transparent;
+      text-decoration:none;
+      transition: .15s ease;
+      line-height:1.25;
+    }
+    .toc a:hover{
+      background: rgba(125,211,252,.06);
+      border-color: rgba(125,211,252,.18);
+      text-decoration:none;
+    }
+    .toc a.active{
+      background: rgba(167,139,250,.08);
+      border-color: rgba(167,139,250,.22);
+    }
+    .toc .emoji{ width: 20px; text-align:center; opacity:.95; margin-top:1px; }
+    .toc small{ display:block; color: var(--faint); margin-left: 30px; margin-top:4px; }
+
+    main{ min-width: 0; }
+    section{
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(15,26,47,.75), rgba(12,22,42,.52));
+      box-shadow: var(--shadow);
+      padding: 22px;
+      margin-bottom: 18px;
+      position:relative;
+      overflow:hidden;
+    }
+    section::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(650px 260px at 15% 0%, rgba(125,211,252,.08), transparent 60%),
+        radial-gradient(650px 260px at 90% 15%, rgba(167,139,250,.06), transparent 60%);
+      pointer-events:none;
+    }
+    section > *{ position:relative; }
+    section h2{
+      margin:0 0 10px;
+      font-size: 22px;
+      letter-spacing: .2px;
+      display:flex; gap:10px; align-items:center;
+      flex-wrap:wrap;
+    }
+    section h2 .tag{
+      font-size: 12px;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 4px 10px;
+      border:1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(0,0,0,.14);
+    }
+    .lead{
+      margin:0 0 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15.5px;
+      max-width: 82ch;
+    }
+    .hr{
+      height:1px;
+      background: var(--line);
+      margin: 14px 0;
+    }
+
+    .highlight{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (max-width: 720px){
+      .highlight{ grid-template-columns: 1fr; }
+    }
+    .callout{
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.14);
+      border-radius: var(--radius);
+      padding: 14px 14px 12px;
+      position:relative;
+    }
+    .callout .title{
+      display:flex; align-items:center; justify-content: space-between; gap:10px;
+      margin-bottom: 6px;
+      flex-wrap:wrap;
+    }
+    .callout h3{
+      margin:0;
+      font-size: 15px;
+      letter-spacing: .2px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .callout p{ margin:0; color: var(--muted); line-height: 1.7; font-size: 14.5px; }
+    .chip{
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      color: rgba(234,240,255,.85);
+      background: rgba(255,255,255,.04);
+      white-space:nowrap;
+    }
+
+    blockquote{
+      margin: 0;
+      border-left: 3px solid rgba(125,211,252,.55);
+      padding: 12px 14px 12px 14px;
+      background: rgba(125,211,252,.05);
+      border-radius: 14px;
+    }
+    blockquote p{
+      margin:0;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    blockquote footer{
+      margin-top: 8px;
+      color: var(--faint);
+      font-size: 13px;
+    }
+
+    .storyGrid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 14px;
+      align-items:start;
+      margin-top: 10px;
+    }
+    @media (max-width: 900px){
+      .storyGrid{ grid-template-columns: 1fr; }
+    }
+    .storyCard{
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.14);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .storyCard h3{
+      margin:0 0 8px;
+      display:flex; align-items:center; gap:10px;
+      font-size: 15px;
+    }
+    .storyCard ul{
+      margin:0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .storyCard li{ margin: 6px 0; }
+
+    .loop{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .svgBox{
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.12);
+      border-radius: var(--radius);
+      padding: 12px;
+      overflow:hidden;
+    }
+    .loopNotes{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 860px){
+      .loopNotes{ grid-template-columns: 1fr; }
+    }
+    .note{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0,0,0,.12);
+      padding: 12px;
+    }
+    .note h4{ margin:0 0 6px; font-size: 14px; display:flex; gap:8px; align-items:center; }
+    .note p{ margin:0; color: var(--muted); line-height: 1.65; font-size: 14px; }
+
+    .sumGrid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 720px){
+      .sumGrid{ grid-template-columns: 1fr; }
+    }
+    .sum{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0,0,0,.14);
+      padding: 14px 14px 12px;
+    }
+    .sum .k{
+      display:flex; align-items:center; gap:10px;
+      margin-bottom: 6px;
+      font-weight: 720;
+      letter-spacing: .2px;
+    }
+    .sum p{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14.5px;
+    }
+
+    footer.page{
+      margin-top: 22px;
+      color: var(--faint);
+      font-size: 13px;
+      text-align:center;
+      opacity: .92;
+    }
+    .kbd{
+      font-family: var(--mono);
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.04);
+      padding: 2px 6px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+
+  <div class="wrap">
+
+    <header class="hero" id="top">
+      <div class="glow" aria-hidden="true"></div>
+
+      <div class="toprow">
+        <div class="badge"><span class="dot"></span> 第二讲 · 本周主题：轮回，是为了疗愈</div>
+        <div class="badge">🧠 心理学视角 · 强迫性重复</div>
+      </div>
+
+      <h1>轮回不是宿命，<br/>它是<strong style="color:var(--accent)">疗愈的入口</strong>。</h1>
+      <p class="subtitle">
+        这里的“轮回”不是前世今生，而是心理学里常见的模式：我们会主动追求重复一些情景，
+        一遍遍体验同一种感受 —— 这叫<strong>强迫性重复</strong>（compulsion to repeat）。
+      </p>
+
+      <div class="heroGrid">
+        <div class="heroCard">
+          <h3>一句话抓住核心</h3>
+          <p>我们反复回到同一种关系/情景里，不是因为蠢，而是因为大脑在找一条路：把<strong>无法掌控的创伤</strong>，改写成<strong>可以掌控的版本</strong>，并争取一次新的结局。</p>
+          <div class="pillrow">
+            <span class="pill">♻️ <b>重复</b> <span class="k">Repeat</span></span>
+            <span class="pill">🛡️ <b>掌控</b> <span class="k">Control</span></span>
+            <span class="pill">🧱 <b>耐受</b> <span class="k">Tolerance</span></span>
+            <span class="pill">✨ <b>新可能</b> <span class="k">Healing</span></span>
+          </div>
+        </div>
+
+        <div class="heroCard">
+          <h3>阅读提示</h3>
+          <p>
+            左侧目录可跳转；顶部进度条显示阅读位置。<br/>
+            内容较长时建议按<strong>“定义 → 价值 → 模式 → 案例 → 总结”</strong>的顺序吸收。<br/>
+            你也可以把页面当作一份可视化笔记来复盘。 ✍️
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <nav class="toc" aria-label="目录">
+        <h2>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 6h16M4 12h10M4 18h16" stroke="rgba(234,240,255,.85)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          目录
+        </h2>
+
+        <a href="#def" data-target="def"><span class="emoji">🧩</span> 强迫性重复是什么？<br/><small>从“轮回”到心理机制</small></a>
+        <a href="#value" data-target="value"><span class="emoji">🎯</span> 重复为何“有价值”？<br/><small>掌控 / 耐受 / 新结局</small></a>
+        <a href="#loop" data-target="loop"><span class="emoji">♾️</span> 轮回的结构图<br/><small>你如何走进同一条路</small></a>
+        <a href="#story" data-target="story"><span class="emoji">📖</span> 来访者故事（缩影）<br/><small>强悍与被忽视的重复</small></a>
+        <a href="#takeaway" data-target="takeaway"><span class="emoji">✅</span> 今日得到（四点总结）<br/><small>把觉知带回生活</small></a>
+      </nav>
+
+      <main>
+        <section id="def">
+          <h2>🧩 强迫性重复 <span class="tag">Definition</span></h2>
+          <p class="lead">
+            弗洛伊德在 1920 年《超越快乐原则》中提出：人不仅追求快乐，也会“追求重复”——
+            甚至重复创伤。孩子反复把玩具扔出去、再要回来，像是在把“妈妈的离开”变成可重复、可掌控的体验。
+          </p>
+
+          <div class="highlight">
+            <div class="callout">
+              <div class="title">
+                <h3>🧸 经典观察：扔玩具</h3>
+                <span class="chip">从无力 → 有一点点主导</span>
+              </div>
+              <p>
+                玩具是妈妈的替代。孩子重复“失去—找回”，在安全范围里练习那份离别创伤。
+                这不是自虐，而是一种自我修复尝试。
+              </p>
+            </div>
+
+            <div class="callout">
+              <div class="title">
+                <h3>🧠 成人版：关系里的“先手”</h3>
+                <span class="chip">被甩 → 先甩</span>
+              </div>
+              <p>
+                与其在一个关系里被动受伤，不如主动切断关系。看似更“理性”，但也可能是同一种模式：
+                通过抢占主导来保护自恋。
+              </p>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <blockquote>
+            <p>“伤口是光进入你内心的地方。” ✨</p>
+            <footer>—— 鲁米（Rumi）</footer>
+          </blockquote>
+
+          <p class="lead" style="margin-top: 12px;">
+            成长的一生，就是经历创伤、学习处理创伤的过程。我们不用对“创伤”过度敏感，
+            关键在于：你能否从重复里长出新的选择。
+          </p>
+        </section>
+
+        <section id="value">
+          <h2>🎯 重复为何“有价值” <span class="tag">Why it matters</span></h2>
+          <p class="lead">
+            “强迫性重复”的意义常见有三层：把不可控变得可控、提高耐受度、在新情境里产生新可能。
+            但它也会让人生看起来像命运：幸福会被重复，信任会被重复，痛苦也会被复制。
+          </p>
+
+          <div class="highlight">
+            <div class="callout">
+              <div class="title">
+                <h3>🛡️ 1) 把创伤变得“可掌控”</h3>
+                <span class="chip">主导权换感受</span>
+              </div>
+              <p>
+                原本是对方在主导（妈妈离开），孩子通过“扔掉玩具”把主动权夺回来。
+                成人也会用“先手”来降低被动受伤的羞耻感。
+              </p>
+            </div>
+
+            <div class="callout">
+              <div class="title">
+                <h3>🧱 2) 提高对痛苦的耐受</h3>
+                <span class="chip">重复 ≠ 白受罪</span>
+              </div>
+              <p>
+                当你一次次经历同一种情绪，大脑对它的承载力会增加，
+                不再被同一刺激瞬间击穿。
+              </p>
+            </div>
+          </div>
+
+          <div class="highlight" style="margin-top:12px;">
+            <div class="callout">
+              <div class="title">
+                <h3>✨ 3) 在新轮回里出现“新结局”</h3>
+                <span class="chip">疗愈的窗口</span>
+              </div>
+              <p>
+                你带着新的资源、觉知、关系质量重新进入相似情境，
+                旧创伤就有机会被重新理解与安放。
+              </p>
+            </div>
+
+            <div class="callout">
+              <div class="title">
+                <h3>🧠 神经层面：刻痕会加深</h3>
+                <span class="chip">同一路径越走越顺</span>
+              </div>
+              <p>
+                神经回路每按同一种方式使用一次，刻痕就更深。
+                所以我们很容易固守已有经验（这既是效率，也是陷阱）。
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="loop">
+          <h2>♾️ 轮回的结构图 <span class="tag">Pattern</span></h2>
+          <p class="lead">
+            下面这张“循环图”把强迫性重复拆成四步：触发 → 旧感受 → 熟悉策略 → 相似结果。
+            要打断循环，通常要在<strong>感受出现的那一刻</strong>，插入“觉知 + 新选择”。
+          </p>
+
+          <div class="loop">
+            <div class="svgBox" role="img" aria-label="强迫性重复循环图">
+              <svg viewBox="0 0 920 340" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="rgba(125,211,252,.95)"/>
+                    <stop offset="1" stop-color="rgba(167,139,250,.95)"/>
+                  </linearGradient>
+                  <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="rgba(0,0,0,.55)"/>
+                  </filter>
+                </defs>
+
+                <rect x="10" y="10" width="900" height="320" rx="22" fill="rgba(0,0,0,.10)" stroke="rgba(255,255,255,.10)"/>
+
+                <path d="M250 105 C 330 45, 420 45, 500 105" fill="none" stroke="rgba(234,240,255,.20)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M520 225 C 440 295, 330 295, 250 225" fill="none" stroke="rgba(234,240,255,.20)" stroke-width="3" stroke-linecap="round"/>
+
+                <path d="M505 105 l-14 -6 6 14" fill="rgba(234,240,255,.25)"/>
+                <path d="M250 225 l14 6 -6 -14" fill="rgba(234,240,255,.25)"/>
+
+                <g filter="url(#shadow)">
+                  <rect x="70" y="80" width="180" height="90" rx="18" fill="rgba(15,26,47,.75)" stroke="rgba(255,255,255,.12)"/>
+                  <rect x="670" y="80" width="180" height="90" rx="18" fill="rgba(15,26,47,.75)" stroke="rgba(255,255,255,.12)"/>
+                  <rect x="70" y="190" width="180" height="90" rx="18" fill="rgba(15,26,47,.75)" stroke="rgba(255,255,255,.12)"/>
+                  <rect x="670" y="190" width="180" height="90" rx="18" fill="rgba(15,26,47,.75)" stroke="rgba(255,255,255,.12)"/>
+                </g>
+
+                <text x="160" y="116" text-anchor="middle" font-size="18" fill="rgba(234,240,255,.92)" font-family="system-ui, -apple-system, Segoe UI, sans-serif">⚡ 触发情境</text>
+                <text x="160" y="144" text-anchor="middle" font-size="13" fill="rgba(183,195,230,.95)" font-family="system-ui, -apple-system, Segoe UI, sans-serif">类似的人 / 类似的场景</text>
+
+                <text x="760" y="116" text-anchor="middle" font-size="18" fill="rgba(234,240,255,.92)" font-family="system-ui, -apple-system, Segoe UI, sans-serif">💥 旧的感受</text>
+                <text x="760" y="144" text-anchor="middle" font-size="13" fill="rgba(183,195,230,.95)" font-family="system-ui, -apple-system, Segoe UI, sans-serif">被忽视 / 羞耻 / 无力…</text>
+
+                <text x="160" y="226" text-anchor="middle" font-size="18" fill="rgba(234,240,255,.92)" font-family="system-ui, -apple-system, Segoe UI, sans-serif">🛠️ 熟悉策略</text>
+                <text x="160" y="254" text-anchor="middle" font-size="13" fill="rgba(183,195,230,.95)" font-family="system-ui, -apple-system, Segoe UI, sans-serif">先手切断 / 逞强 / 讨好</text>
+
+                <text x="760" y="226" text-anchor="middle" font-size="18" fill="rgba(234,240,255,.92)" font-family="system-ui, -apple-system, Segoe UI, sans-serif">🔁 相似结果</text>
+                <text x="760" y="254" text-anchor="middle" font-size="13" fill="rgba(183,195,230,.95)" font-family="system-ui, -apple-system, Segoe UI, sans-serif">再次证明“我只能靠自己”</text>
+
+                <g>
+                  <circle cx="460" cy="170" r="58" fill="url(#g1)" opacity="0.18"/>
+                  <circle cx="460" cy="170" r="54" fill="rgba(0,0,0,.08)" stroke="rgba(125,211,252,.45)" stroke-width="2"/>
+                  <text x="460" y="165" text-anchor="middle" font-size="18" fill="rgba(234,240,255,.98)" font-family="system-ui, -apple-system, Segoe UI, sans-serif">👁️ 觉知</text>
+                  <text x="460" y="188" text-anchor="middle" font-size="13" fill="rgba(234,240,255,.88)" font-family="system-ui, -apple-system, Segoe UI, sans-serif">插入新选择</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="loopNotes">
+              <div class="note">
+                <h4>👁️ 觉知：我在重复什么？</h4>
+                <p>先抓住“感受”：我此刻像谁？像什么时候？身体哪里紧？情绪是哪一种？</p>
+              </div>
+              <div class="note">
+                <h4>🧭 新选择：换一个小动作</h4>
+                <p>不需要一步到位。哪怕只是多停 10 秒、说一句更真实的话，都可能改变结局。</p>
+              </div>
+              <div class="note">
+                <h4>🤝 新资源：允许被照顾</h4>
+                <p>疗愈往往来自关系：能求助、能表达、能被看见，才会生成新的依恋体验。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="story">
+          <h2>📖 来访者故事（缩影） <span class="tag">Case</span></h2>
+          <p class="lead">
+            一位极其强悍、理性、成功的女性企业家。她的“强悍”像超能力，但也带来代价：
+            人们习惯她能扛，于是忽略她也会脆弱、也需要被照顾。
+          </p>
+
+          <div class="storyGrid">
+            <div class="storyCard">
+              <h3>🧷 原初情境：两岁半的山路</h3>
+              <ul>
+                <li>母亲生下弟弟，第二天要走几公里山路回家。</li>
+                <li>大人忙着照顾产妇与男婴，她被忽略。</li>
+                <li>她多次求抱抱被无视，痛苦与羞耻很强。</li>
+                <li>她发誓：<strong>“我再也不依靠任何人了。”</strong></li>
+              </ul>
+              <div class="hr"></div>
+              <p class="lead" style="margin:0;">
+                于是，“强悍”在创伤里诞生：自强成了她最可靠的生存策略。
+              </p>
+            </div>
+
+            <div class="storyCard">
+              <h3>🧩 经典重复：生儿子那天</h3>
+              <ul>
+                <li>二胎生下男孩，两边家庭重男轻女，所有人涌向孩子。</li>
+                <li>她麻药打得不对，疼痛强烈，却无人关心。</li>
+                <li>她开始发抖，床也抖动，直到闺密注意到她。</li>
+                <li>她第一次在记忆里真正地哭了。</li>
+              </ul>
+              <div class="hr"></div>
+              <p class="lead" style="margin:0;">
+                成年后的资源（朋友、咨询、觉知）让这次重复出现了<strong>新结局</strong>：
+                她开始学习表达“我也想被照顾”的需要，重新构建亲密与依恋。
+              </p>
+            </div>
+          </div>
+
+          <div class="callout" style="margin-top: 14px;">
+            <div class="title">
+              <h3>🔎 这两段经历的<strong>5 个共同点</strong></h3>
+              <span class="chip">“轮回”像经典重复</span>
+            </div>
+            <p style="margin-bottom:10px;">
+              都与生育相关；都是“母亲生下儿子”；她都被忽视；痛苦都很巨大；双方家庭都重男轻女……
+              相同的“情境 + 感受”，推动她一次次成为“强悍的自己”。
+            </p>
+            <p style="margin:0; color: var(--text);">
+              <strong style="color:var(--accent)">关键差异：</strong>
+              两岁半时她资源匮乏、只能承受；成年后她有资源与觉知，能把轮回变成疗愈。
+            </p>
+          </div>
+        </section>
+
+        <section id="takeaway">
+          <h2>✅ 今日得到 <span class="tag">Takeaways</span></h2>
+          <p class="lead">
+            轮回（强迫性重复）的价值，需要配合觉知。否则，它只是“再来一次”。
+            下面把今天的四个关键点做成可带走的卡片。
+          </p>
+
+          <div class="sumGrid">
+            <div class="sum">
+              <div class="k">① ♻️ 强迫性重复：主动追求重复</div>
+              <p>人会主动追求某些情景的再现，不断体验其中的感受（不只重复快乐，也会重复痛苦）。</p>
+            </div>
+
+            <div class="sum">
+              <div class="k">② 🧠 重复会加深神经回路</div>
+              <p>每当你重复一个体验，对应的神经路径就更熟练、更自动化：这让人生看起来像“命运”。</p>
+            </div>
+
+            <div class="sum">
+              <div class="k">③ ✨ 新轮回带来疗愈的可能</div>
+              <p>在新的情境里，你可能第一次获得不同的回应，从而松动原初的创伤结。</p>
+            </div>
+
+            <div class="sum">
+              <div class="k">④ 👁️ 觉知让轮回变得有意义</div>
+              <p>当你能看见“我正在重复什么”，你就有机会插入新选择：这才是疗愈发生的地方。</p>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <div class="callout">
+            <div class="title">
+              <h3>📝 给自己一个小练习（可选）</h3>
+              <span class="chip">3 分钟</span>
+            </div>
+            <p>
+              回想最近一次让你很难受的场景，写下三句话：<br/>
+              1）我当时最强烈的感受是……<br/>
+              2）它像我过去的哪一次经历……<br/>
+              3）如果可以插入一个“新选择”，我愿意先从……开始。
+            </p>
+          </div>
+        </section>
+
+        <footer class="page">
+          设计风格：深色、克制、带一点“疗愈感”的光｜信息结构：定义 → 价值 → 模式 → 案例 → 总结<br/>
+          你可以把这个页面当成课程笔记或个人复盘模板使用。💫
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const bar = document.getElementById('bar');
+    function onScroll(){
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const scrollHeight = (doc.scrollHeight || document.body.scrollHeight) - doc.clientHeight;
+      const p = scrollHeight ? (scrollTop / scrollHeight) * 100 : 0;
+      bar.style.width = p.toFixed(2) + '%';
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
+    const links = Array.from(document.querySelectorAll('.toc a'));
+    const sections = links.map(a => document.getElementById(a.dataset.target)).filter(Boolean);
+
+    const io = new IntersectionObserver((entries)=>{
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
+      if(!visible) return;
+      links.forEach(a => a.classList.toggle('active', a.dataset.target === visible.target.id));
+    }, {rootMargin: "-20% 0px -65% 0px", threshold: [0.1,0.2,0.3,0.4,0.5,0.6]});
+
+    sections.forEach(s => io.observe(s));
+
+    links.forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+        history.replaceState(null, "", "#" + id);
+      });
+    });
+  </script>
+</body>
+</html>
