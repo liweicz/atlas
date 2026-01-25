@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>第4讲｜经济学不关心阴谋论</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#121a33cc;
+      --card2:#0f1730cc;
+      --text:#e9ecf6;
+      --muted:#b8c0da;
+      --accent:#7cf3c6;
+      --accent2:#8ab4ff;
+      --warn:#ffd166;
+      --line:#2a3766;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --radius:18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    [data-theme="light"]{
+      --bg:#f6f7fb;
+      --card:#ffffffcc;
+      --card2:#ffffffcc;
+      --text:#1b2340;
+      --muted:#4b5477;
+      --accent:#0bbd8d;
+      --accent2:#2b6fff;
+      --warn:#b67b00;
+      --line:#e3e7f5;
+      --shadow: 0 18px 60px rgba(21,33,74,.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(138,180,255,.22), transparent 55%),
+        radial-gradient(1000px 700px at 90% 15%, rgba(124,243,198,.18), transparent 50%),
+        radial-gradient(900px 700px at 30% 95%, rgba(255,209,102,.12), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.75;
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 60px}
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(0,0,0,.35), transparent);
+      padding:14px 0 10px;
+    }
+    .hero{
+      display:flex; gap:16px; align-items:flex-start; justify-content:space-between;
+      padding:18px 18px 12px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, var(--card), rgba(0,0,0,0));
+      box-shadow:var(--shadow);
+    }
+    .title{margin:0; font-size:28px; letter-spacing:.5px}
+    .subtitle{margin:6px 0 0; color:var(--muted); font-size:14px}
+    .badge-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border:1px solid var(--line); border-radius:999px;
+      background:rgba(0,0,0,.12);
+      color:var(--muted); font-size:13px
+    }
+    [data-theme="light"] .badge{background:rgba(0,0,0,.03)}
+    .btns{display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end}
+    button{
+      cursor:pointer;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(124,243,198,.16), rgba(0,0,0,0));
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      font-weight:600;
+      letter-spacing:.2px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+    }
+    [data-theme="light"] button{box-shadow: 0 10px 24px rgba(21,33,74,.10)}
+    button:hover{transform: translateY(-1px)}
+    button:active{transform: translateY(0px)}
+    .btn-secondary{
+      background: linear-gradient(180deg, rgba(138,180,255,.16), rgba(0,0,0,0));
+    }
+    .btn-warn{
+      background: linear-gradient(180deg, rgba(255,209,102,.18), rgba(0,0,0,0));
+    }
+    main{margin-top:16px; display:grid; grid-template-columns: 1fr; gap:14px}
+    details{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, var(--card2), rgba(0,0,0,0));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    summary{
+      list-style:none;
+      padding:14px 16px;
+      display:flex; align-items:center; gap:12px;
+      cursor:pointer;
+      user-select:none;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .chev{
+      width:26px;height:26px; flex:0 0 26px;
+      border-radius:10px;
+      border:1px solid var(--line);
+      display:grid; place-items:center;
+      background: rgba(0,0,0,.12);
+    }
+    [data-theme="light"] .chev{background: rgba(0,0,0,.03)}
+    details[open] summary .chev{transform: rotate(90deg)}
+    .section{
+      padding: 0 16px 18px;
+      color: var(--text);
+    }
+    .grid2{display:grid;grid-template-columns: 1.2fr .8fr; gap:14px}
+    @media (max-width: 920px){ .grid2{grid-template-columns:1fr} }
+    .card{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px;
+      background: rgba(0,0,0,.10);
+    }
+    [data-theme="light"] .card{background: rgba(0,0,0,.02)}
+    h3{margin:8px 0 10px;font-size:16px}
+    p{margin:10px 0}
+    ul{margin:8px 0 0 22px}
+    li{margin:6px 0}
+    .quote{
+      border-left:4px solid var(--accent2);
+      padding:10px 12px;
+      margin:10px 0;
+      background: rgba(138,180,255,.10);
+      border-radius:12px;
+      color: var(--text);
+    }
+    .kpi{
+      display:flex; gap:12px; flex-wrap:wrap;
+    }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:10px 12px; border-radius:14px;
+      border:1px dashed var(--line);
+      background: rgba(124,243,198,.10);
+      font-weight:700;
+    }
+    .mono{font-family:var(--mono)}
+    .original{
+      white-space:pre-wrap;
+      font-size:15px;
+      color: var(--text);
+    }
+    .original .para{margin:10px 0}
+    .toc{
+      display:flex; flex-wrap:wrap; gap:10px;
+      padding:0 16px 16px;
+    }
+    .toc a{
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.10);
+      color: var(--muted);
+      font-weight:700;
+      font-size:13px;
+    }
+    [data-theme="light"] .toc a{background: rgba(0,0,0,.02)}
+    .toc a:hover{color:var(--text); border-color: rgba(124,243,198,.6)}
+    table{
+      width:100%;
+      border-collapse: collapse;
+      overflow:hidden;
+      border-radius: 14px;
+      border:1px solid var(--line);
+    }
+    th,td{
+      text-align:left;
+      padding:10px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      font-size:14px;
+    }
+    th{color:var(--muted); font-weight:800; background: rgba(0,0,0,.10)}
+    [data-theme="light"] th{background: rgba(0,0,0,.02)}
+    tr:last-child td{border-bottom:none}
+    .jump{
+      display:inline-flex; gap:6px; align-items:center;
+      padding:6px 8px;
+      border-radius:10px;
+      border:1px solid var(--line);
+      background: rgba(124,243,198,.10);
+      text-decoration:none;
+      font-weight:800;
+    }
+    .hl{
+      background: rgba(255,209,102,.38);
+      border-radius:6px;
+      padding:0 3px;
+      transition: background 400ms ease;
+    }
+    .hl.on{
+      background: rgba(255,209,102,.85);
+      box-shadow: 0 0 0 6px rgba(255,209,102,.16);
+    }
+    .muted{color:var(--muted)}
+    .svg-wrap{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:10px;
+      background: rgba(0,0,0,.08);
+      overflow:auto;
+    }
+    [data-theme="light"] .svg-wrap{background: rgba(0,0,0,.02)}
+    footer{margin-top:16px; color:var(--muted); font-size:13px; text-align:center}
+    .tiny{font-size:12px;color:var(--muted)}
+    .divider{height:1px;background:var(--line); margin:12px 0}
+    .tag{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:6px 8px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--muted);
+      font-weight:700;
+      font-size:12px;
+      background:rgba(0,0,0,.08);
+    }
+    [data-theme="light"] .tag{background:rgba(0,0,0,.02)}
+    @media print{
+      header{position:static; background:transparent}
+      body{background:#fff;color:#000}
+      details{box-shadow:none;background:#fff;border-color:#bbb}
+      summary{padding:10px 12px}
+      .chev{display:none}
+      button, .toc{display:none !important}
+      .badge{border-color:#ddd}
+      a{color:#000}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="hero">
+        <div>
+          <h1 class="title">第4讲｜经济学不关心阴谋论 <span class="tag">📚 经济学思维</span></h1>
+          <p class="subtitle">把“好心”与“好结果”分开看：经济学更关注<strong>事与愿违</strong>的因果链条。</p>
+          <div class="badge-row">
+            <span class="badge">🧠 关键词：<span class="mono">事与愿违 / 能动性 / 规则反应</span></span>
+            <span class="badge">🧭 阅读方式：先看一句话主旨 → 再回原文定位</span>
+            <span class="badge">🖨️ 支持：一键打印全文（自动展开）</span>
+          </div>
+        </div>
+        <div class="btns">
+          <button class="btn-warn" onclick="printAll()">🖨️ 一键打印全文</button>
+          <button class="btn-secondary" onclick="toggleAll(true)">➕ 全部展开</button>
+          <button class="btn-secondary" onclick="toggleAll(false)">➖ 全部折叠</button>
+          <button onclick="toggleTheme()">🌓 主题</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <nav class="toc" aria-label="目录">
+      <a href="#sec-original">📜 原文</a>
+      <a href="#sec-core">🎯 核心解读</a>
+      <a href="#sec-rare">🔎 生僻字/难词</a>
+      <a href="#sec-terms">🧩 关键术语</a>
+      <a href="#sec-mindmap">🗺️ 思维导图</a>
+      <a href="#sec-points">✅ 要点清单</a>
+      <a href="#sec-feynman">🧪 费曼学习法</a>
+      <a href="#sec-quotes">✨ 金句</a>
+      <a href="#sec-script">🎙️ 60秒跨文化口播</a>
+    </nav>
+
+    <!-- 1) 原文100%保留 -->
+    <details id="sec-original">
+      <summary><span class="chev">▶</span>📜 原文（100%保留，默认折叠）</summary>
+      <div class="section">
+        <div class="card">
+          <div class="original" id="originalText">
+            <div class="para"><span id="o-title" class="hl">第4 讲｜经济学不关系阴谋论</span></div>
+
+            <div class="para">你好，经济学是一门研究个人如何致富，国家怎么富强的学问。现代经济学鼻祖，亚当·斯密（ Adam Smith ，1723年6月5日-1790年7月17日 ）最出名的著作《国富论》，全名就叫《国民财富的性质和原因探究（ An Inquiry into the Nature and Causes of the Wealth of Nations，1776 ）》。</div>
+
+            <div class="para">不过，关于国民财富的性质和原因的探究，可不是200多年前，有了经济学家才开始的。早在500年、5000年以前，人们就开始这样的探究了。但是，以前的学问为什么不叫经济学？现代经济学跟以前的那些探究又有什么不同？</div>
+
+            <div class="para">我觉得最大的不同，在于过去的学问研究的是<span id="o-shiyuyuanfu" class="hl">事与愿符</span>的规律，而经济学研究的是<span id="o-shiyuyuanwei" class="hl">事与愿违</span>的规律。</div>
+
+            <div class="para">1.美好愿望不一定带来美好结果</div>
+
+            <div class="para">让我来解释一下。过去人们认为好人做好事、坏人做坏事——在社会上有好的事情发生，一定是好人做的；社会上有坏的事情发生，一定是坏人做的。那这个社会要怎样才能变好呢？只要让好人多做事，只要把坏人消灭掉，这社会就能变好。</div>
+
+            <div class="para">比方说，我们看到劳动人民的生活收入非常低，生活非常贫困。我们就去问是谁造成的，他们的收入为什么那么低？因为有坏人，因为资本家发的工资太少，那么我们让资本家多付工资，不就行了吗？</div>
+
+            <div class="para">一个国家经历了严重的通货膨胀，这是谁造成的，那一定是因为有坏人，因为有人提价，地产商提价，食品商提价，那抑制住他们涨价的冲动不就行了吗？</div>
+
+            <div class="para">一个国家白银严重外流，是因为很多人不爱国啊，他们把白银卖到国外去了，那我们逮住一个就抓一个，把他们投到监狱里面去，这不就行了吗？</div>
+
+            <div class="para">房价越来越高，我们真正自住的人买不起房了，怎么办？那一定是坏人在炒房，咱们不让那些炒房的人得逞不就行了吗？</div>
+
+            <div class="para">失业率一直居高不下，资本家却不断地把工厂迁到海外去，主要就是资本家的责任，咱们限制资本家在海外开工厂，这不就行了吗？</div>
+
+            <div class="para">......</div>
+
+            <div class="para">在很长很长的时间里，人们都抱有这种非常淳朴的思想。这是一种“<span id="o-yuanfu" class="hl">事与愿符</span>”的想法。你有什么样的愿望，就会产生什么样的结果。如果要产生好的结果，我们从小就要怀有美好的愿望，同时让那些怀有美好愿望的人多干事。</div>
+
+            <div class="para">2.坏人干坏事的影响其实有限</div>
+
+            <div class="para">但经济学家的想法可不是这样的。经济学家会说，一个坏人，很坏很坏，他到底能做多大的坏事？一个坏人，拿着机关枪在人群里面扫射，他能杀死多少人？10个，50个，100个？</div>
+
+            <div class="para">他造成的影响是有限的。为什么？因为大家有反应，因为人是有<span id="o-nengdongxing" class="hl">能动性</span>的，当一个人在做恶的时候，所有人都警觉起来，就开始制止他。所以做恶的人造成的影响其实是有限的。</div>
+
+            <div class="para">哲学家康德曾经说过：“愿上帝保佑我们免受友人的攻击——要是攻击来自敌人，我们倒能设法自卫。”</div>
+
+            <div class="para">这是什么意思？他是说，上帝要教我们，怎么识别朋友当中坏的思想。那些敌人的思想，那些一眼就能看出好坏的思想，我们能够识别，能够抵制。倒是那些用良好愿望包装起来的思想，我们比较难识别。</div>
+
+            <div class="para">如果有人说，大家跟我来，我带大家去一个饥寒交迫、妻离子散的世界，你猜有多少人愿意跟他去？就算有也有限。但如果倒过来，有一个人说，大家跟我来，我带大家到一个美好的世界去，那里没有通货膨胀，没有失业，人人平等，人人都有工作，想要什么就有什么，想吃什么就能吃什么，大家愿意跟着去吗？我想愿意跟着去的人很多。尽管它不一定能够实现。</div>
+
+            <div class="para">3.好人好心不一定干好事</div>
+
+            <div class="para">所以经济学要研究的，恰恰不是“好人做好事、坏人做坏事”的问题。它要研究的，是那些事与愿违的现象。它要问的，是为什么有时候好心办坏事：</div>
+
+            <div class="para">最低工资制度，本来是要保护穷人的，它真的保护他们的利益了吗？</div>
+            <div class="para">同工同酬制度，本来是要保护那些弱势群体的收益的，但它最后保护他们的收益了吗？</div>
+            <div class="para">福利制度，本来是让那些没有依靠的人能够找到依靠，最后这些群体的生活，是变得更好了，还是变得更糟了？</div>
+            <div class="para">为保护那些<span id="o-binlin" class="hl">濒临</span>灭绝的动物，我们颁布了各种的法律，最后这些动物的命运是更惨了，还是更好了？</div>
+            <div class="para">我们鼓励循环利用，本来是要保护地球的资源，但是循环利用的政策，最后是破坏了环境，还是保护了环境？这些例子，我们都会在后面的课程中逐一详细讨论。</div>
+
+            <div class="para">4.政府立法不是解决问题的终点</div>
+
+            <div class="para">今天举一个简单例子，关于废物循环利用的故事。香港的电台，经常教人家，瓶子要先清洗干净再扔掉。这时候问题来了，为什么要清洗即将扔掉的垃圾呢？难道每个家庭清洗过后，垃圾被回收以后就不清洗了吗？</div>
+
+            <div class="para">如果垃圾处理厂最后还是会清洗，还是会分类的话，那么你鼓励每个家庭在扔掉这些瓶子以前清洗一遍，这到底是爱护环境，还是破坏环境？这是保护资源，还是浪费资源呢？</div>
+
+            <div class="para">这是经济学需要研究的问题。每当我们看到社会上有各种各样不公正、不如意的现象，很多人的第一直觉就是要让政府立法，阻止这个事情发生。一旦法律通过了，大家就会觉得事情画上了一个句号。</div>
+
+            <div class="para">经济学家不这么看。经济学家觉得法律通过了，画上的不是句号，而是冒号。为什么？因为人是有能动性的，在这个新的法律下，每个人都会有他的对策。最后局面、事态的走向，会跟我们的想法有很大的出入。</div>
+
+            <div class="para">经济学有意思的地方，很像自然科学的地方，就在于其专门关心事与愿违的现象，而不是事与愿符的现象。</div>
+
+            <div class="para">还有一种流行的说法，说中国经济改革需要搞<span id="o-dingceng" class="hl">顶层设计</span>。但你想想看，我们中国之所以要改革，就是因为过去搞的计划经济不成功。过去搞了30多年的计划经济没能成功的原因，就在于人有能动性，每个人都有他的“对华政策”，所以才推不下去。所以我们才来关心事与愿违的规律，怎么改革又可以顶层设计了呢？这本身是有问题的。</div>
+
+            <div class="para">我们并不是说世界上没有阴谋，我们是说，世界上许多的阴谋都没得逞，那是因为其他人也有反应。那些得逞的阴谋，不归经济学家管，而归公安部门管。</div>
+
+            <div class="para">课堂小结</div>
+
+            <div class="para">经济学家关心的，是那些人们出于良好的愿望而产生的有害的经济政策，那些事与愿违的现象。如果你要问，经济学家和普通大众有什么区别的话，其中一个很重要的区别，就是经济学家不关心阴谋论，他只关心事与愿违的因果规律。</div>
+
+            <div class="para">课后思考</div>
+
+            <div class="para">你能不能举一个例子，是人们出于美好的愿望，却产生了事与愿违的结果的？</div>
+
+            <div class="para">欢迎你给我留言，我们下节课再见。</div>
+          </div>
+        </div>
+        <p class="tiny">提示：在下方“🔎 生僻字/难词”表格中点击「跳回原文」可定位并高亮 5 秒。</p>
+      </div>
+    </details>
+
+    <!-- 2) 原文核心解读 -->
+    <details id="sec-core">
+      <summary><span class="chev">▶</span>🎯 原文核心解读（主旨一句话 + 三条要点）</summary>
+      <div class="section">
+        <div class="grid2">
+          <div class="card">
+            <h3>主旨一句话 🧭</h3>
+            <p><strong>经济学最关心的不是“谁是坏人”，而是：为什么很多“好心政策”会因为人的反应与激励而产生事与愿违的结果。</strong></p>
+            <div class="divider"></div>
+            <h3>三条要点（非常白话）✅</h3>
+            <ul>
+              <li><strong>别把结果都怪到“坏人”</strong>：坏人能造成的破坏往往有限，因为别人会反应、会防御、会调整。</li>
+              <li><strong>真正危险的是“包装得很美的主张”</strong>：人人都想要“没有失业、没有通胀、人人平等”的世界，但口号越美，越需要问“代价是什么、会怎么变形”。</li>
+              <li><strong>法律不是句号，是冒号</strong>：一条规则落地后，人会想办法适应甚至规避，最终局面可能和初衷差很多。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>你可以带走的“经济学视角”🔭</h3>
+            <div class="kpi">
+              <div class="pill">🎯 问“因果”而不是问“动机”</div>
+              <div class="pill">⚙️ 看“激励”而不是看“口号”</div>
+              <div class="pill">🔁 预测“反应链”而不是期待“按剧本走”</div>
+            </div>
+            <div class="divider"></div>
+            <p class="muted">一句提醒：经济学不是否认阴谋存在，而是更多地研究——在真实社会里，大多数“设计”会被人的能动性改写。</p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 3) 生僻字（发音）｜误区｜释义｜例句 -->
+    <details id="sec-rare">
+      <summary><span class="chev">▶</span>🔎 生僻字（发音）｜误区｜释义｜例句（点「跳回原文」定位高亮）</summary>
+      <div class="section">
+        <div class="card">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:16%">词/字</th>
+                <th style="width:14%">发音</th>
+                <th style="width:18%">常见误区</th>
+                <th>释义</th>
+                <th style="width:18%">例句</th>
+                <th style="width:14%">原文定位</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>事与愿符</strong></td>
+                <td>shì yǔ yuàn fú</td>
+                <td>把它当成“必然会实现”</td>
+                <td>事情的发展结果与主观愿望相符合（“想要什么就得到什么”的直觉）。</td>
+                <td>“只要好人多做事，社会就会更好”，就是一种事与愿符的想法。</td>
+                <td><a class="jump" href="javascript:void(0)" onclick="jump('o-shiyuyuanfu')">↩️ 跳回原文</a></td>
+              </tr>
+              <tr>
+                <td><strong>事与愿违</strong></td>
+                <td>shì yǔ yuàn wéi</td>
+                <td>误以为“发生了坏事就一定有坏人”</td>
+                <td>事情的结果与愿望相反；常见于政策、制度落地后出现的“反效果”。</td>
+                <td>最低工资本想保护穷人，却可能让部分人更难找到工作。</td>
+                <td><a class="jump" href="javascript:void(0)" onclick="jump('o-shiyuyuanwei')">↩️ 跳回原文</a></td>
+              </tr>
+              <tr>
+                <td><strong>能动性</strong></td>
+                <td>néng dòng xìng</td>
+                <td>以为人只会“被动接受规则”</td>
+                <td>人会观察、学习、调整策略；规则一变，行为也会变。</td>
+                <td>法律一出台，相关方会想新的对策，结果不一定如立法者所愿。</td>
+                <td><a class="jump" href="javascript:void(0)" onclick="jump('o-nengdongxing')">↩️ 跳回原文</a></td>
+              </tr>
+              <tr>
+                <td><strong>濒临</strong></td>
+                <td>bīn lín</td>
+                <td>误读为“已经灭绝”</td>
+                <td>接近（某种不利状态）边缘，如“濒临灭绝”指快要灭绝但尚未。</td>
+                <td>对濒临灭绝动物的保护法，可能带来意料之外的激励。</td>
+                <td><a class="jump" href="javascript:void(0)" onclick="jump('o-binlin')">↩️ 跳回原文</a></td>
+              </tr>
+              <tr>
+                <td><strong>顶层设计</strong></td>
+                <td>dǐng céng shè jì</td>
+                <td>以为“只要规划得够好就能按图施工”</td>
+                <td>从宏观层面统一规划制度与路径；但现实中会被各方反应与执行约束重塑。</td>
+                <td>如果忽略人的能动性，再漂亮的顶层设计也可能变形。</td>
+                <td><a class="jump" href="javascript:void(0)" onclick="jump('o-dingceng')">↩️ 跳回原文</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="tiny">注：这里选取的是读者容易“读懂字面却误解含义”的词组/概念，用来训练经济学的“反直觉感”。</p>
+        </div>
+      </div>
+    </details>
+
+    <!-- 4) 关键术语（概念+语境解释+文化对应） -->
+    <details id="sec-terms">
+      <summary><span class="chev">▶</span>🧩 关键术语（概念 + 语境解释 + 文化对应）</summary>
+      <div class="section">
+        <div class="card">
+          <h3>术语卡片 🧠</h3>
+          <table>
+            <thead>
+              <tr>
+                <th style="width:18%">术语</th>
+                <th style="width:30%">概念（怎么理解）</th>
+                <th>语境解释（在本讲里怎么用）</th>
+                <th style="width:22%">文化对应/类比</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>激励（Incentives）</strong></td>
+                <td>规则让人“做某事更划算/更不划算”</td>
+                <td>政策一出台，人会改变行为去适应；结果可能偏离初衷。</td>
+                <td>像游戏规则改了，玩家会立刻换打法。</td>
+              </tr>
+              <tr>
+                <td><strong>意外后果（Unintended Consequences）</strong></td>
+                <td>好政策也可能带来坏结果</td>
+                <td>最低工资、同工同酬、福利、环保回收等，都可能出现反效果。</td>
+                <td>“补贴越多越浪费”在多国公共政策里反复出现。</td>
+              </tr>
+              <tr>
+                <td><strong>规则反应链（Behavioral Response）</strong></td>
+                <td>一条规则→多方反应→新均衡</td>
+                <td>作者说：法律通过不是句号，而是冒号，后面还有长长一串反应。</td>
+                <td>交通管制后，人会换路线，城市拥堵图会重排。</td>
+              </tr>
+              <tr>
+                <td><strong>阴谋论（Conspiracy Thinking）</strong></td>
+                <td>用“坏人密谋”解释复杂社会结果</td>
+                <td>作者强调：经济学更关心可检验的因果机制，而不是动机猜测。</td>
+                <td>在欧美语境里常对照“institutional incentives”（制度激励）解释法。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <!-- 5) 思维导图（纯 SVG） -->
+    <details id="sec-mindmap">
+      <summary><span class="chev">▶</span>🗺️ 思维导图（纯 SVG：结构关系视角）</summary>
+      <div class="section">
+        <div class="svg-wrap" role="img" aria-label="思维导图">
+          <svg width="1100" height="560" viewBox="0 0 1100 560" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="rgba(124,243,198,0.65)"/>
+                <stop offset="1" stop-color="rgba(138,180,255,0.55)"/>
+              </linearGradient>
+              <linearGradient id="g2" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0" stop-color="rgba(138,180,255,0.35)"/>
+                <stop offset="1" stop-color="rgba(255,209,102,0.25)"/>
+              </linearGradient>
+              <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="rgba(0,0,0,.35)"/>
+              </filter>
+              <style>
+                .node{rx:18; ry:18; filter:url(#s)}
+                .t1{font: 700 18px system-ui, -apple-system, "PingFang SC", "Microsoft YaHei";}
+                .t2{font: 600 14px system-ui, -apple-system, "PingFang SC", "Microsoft YaHei"; opacity:.92}
+                .line{stroke: rgba(200,210,255,.35); stroke-width:2.2}
+                .dot{fill: rgba(124,243,198,.85)}
+              </style>
+            </defs>
+
+            <!-- center -->
+            <rect class="node" x="360" y="38" width="380" height="88" fill="url(#g1)" stroke="rgba(230,240,255,.35)"/>
+            <text x="550" y="72" text-anchor="middle" class="t1">经济学不关心阴谋论</text>
+            <text x="550" y="100" text-anchor="middle" class="t2">更关心：事与愿违的因果规律</text>
+
+            <!-- branch A -->
+            <line class="line" x1="550" y1="126" x2="210" y2="210"/>
+            <circle class="dot" cx="210" cy="210" r="5"/>
+            <rect class="node" x="60" y="170" width="300" height="110" fill="url(#g2)" stroke="rgba(230,240,255,.28)"/>
+            <text x="210" y="205" text-anchor="middle" class="t1">朴素直觉：事与愿符</text>
+            <text x="210" y="232" text-anchor="middle" class="t2">“好人多干事 → 好结果”</text>
+            <text x="210" y="258" text-anchor="middle" class="t2">“坏事发生 → 一定有坏人”</text>
+
+            <!-- branch B -->
+            <line class="line" x1="550" y1="126" x2="550" y2="250"/>
+            <circle class="dot" cx="550" cy="250" r="5"/>
+            <rect class="node" x="380" y="210" width="340" height="130" fill="url(#g2)" stroke="rgba(230,240,255,.28)"/>
+            <text x="550" y="245" text-anchor="middle" class="t1">经济学视角：事与愿违</text>
+            <text x="550" y="272" text-anchor="middle" class="t2">研究“好心为何办坏事”</text>
+            <text x="550" y="298" text-anchor="middle" class="t2">关注激励、约束与反应链</text>
+            <text x="550" y="324" text-anchor="middle" class="t2">用可检验机制替代动机猜测</text>
+
+            <!-- branch C -->
+            <line class="line" x1="550" y1="126" x2="890" y2="210"/>
+            <circle class="dot" cx="890" cy="210" r="5"/>
+            <rect class="node" x="740" y="170" width="300" height="110" fill="url(#g2)" stroke="rgba(230,240,255,.28)"/>
+            <text x="890" y="205" text-anchor="middle" class="t1">坏人影响为何有限</text>
+            <text x="890" y="232" text-anchor="middle" class="t2">因为他人会警觉与自卫</text>
+            <text x="890" y="258" text-anchor="middle" class="t2">更难识别的是“善意包装”</text>
+
+            <!-- bottom: law -->
+            <line class="line" x1="550" y1="340" x2="550" y2="420"/>
+            <circle class="dot" cx="550" cy="420" r="5"/>
+            <rect class="node" x="250" y="392" width="600" height="140" fill="url(#g1)" stroke="rgba(230,240,255,.28)"/>
+            <text x="550" y="428" text-anchor="middle" class="t1">法律不是句号，是冒号</text>
+            <text x="550" y="456" text-anchor="middle" class="t2">规则出台 → 人的能动性 → 策略调整 → 新局面</text>
+            <text x="550" y="484" text-anchor="middle" class="t2">例：回收瓶子“先清洗”可能造成资源浪费</text>
+            <text x="550" y="512" text-anchor="middle" class="t2">因此：顶层设计必须把“反应链”写进模型</text>
+          </svg>
+        </div>
+        <p class="tiny">读图法：从上到下就是“直觉 → 经济学问题意识 → 规则落地后的反应链”。</p>
+      </div>
+    </details>
+
+    <!-- 6) 要点清单（来自原文） -->
+    <details id="sec-points">
+      <summary><span class="chev">▶</span>✅ 要点清单（来自原文）</summary>
+      <div class="section">
+        <div class="card">
+          <ul>
+            <li>现代经济学关注的不是“事与愿符”，而是“事与愿违”的规律。</li>
+            <li>大众常把坏结果归因于坏人，认为“消灭坏人/立法禁止”即可解决问题。</li>
+            <li>坏人的破坏力往往有限，因为他人会反应与制止；更难识别的是“善意包装”的主张。</li>
+            <li>经济学要问：为什么最低工资、同工同酬、福利、环保等政策，可能出现反效果。</li>
+            <li>法律通过不是句号，而是冒号：规则改变会触发人的策略调整，最终局面可能偏离初衷。</li>
+            <li>计划经济失败与改革讨论“顶层设计”之间存在张力：人的能动性会改写规划。</li>
+            <li>经济学不否认阴谋，但更多研究可检验的因果机制；“得逞的阴谋”属于治安部门范畴。</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- 7) 费曼学习法 -->
+    <details id="sec-feynman">
+      <summary><span class="chev">▶</span>🧪 费曼学习法（成年人友好：低门槛但不降智）</summary>
+      <div class="section">
+        <div class="grid2">
+          <div class="card">
+            <h3>① 先用一句话讲给“完全不懂的人”听</h3>
+            <p>经济学像是在问：<strong>你一出台规则，人会怎么变聪明、怎么换招</strong>，所以结果可能和你最初的好愿望完全相反。</p>
+
+            <h3>② 关键机制：为什么会“好心办坏事”？</h3>
+            <ul>
+              <li><strong>激励变了</strong>：人会追着“更划算”的方向去动。</li>
+              <li><strong>信息不对称</strong>：制定者看不到所有细节，执行者却能钻到细节里。</li>
+              <li><strong>替代与转移</strong>：你禁了一个渠道，需求会跑到另一个渠道。</li>
+            </ul>
+
+            <h3>③ 自检：我真的懂了吗？（3个检验题）</h3>
+            <ol>
+              <li>我能不能说出这条政策“希望人怎么做”？</li>
+              <li>我能不能说出至少两种“人会如何反应/规避”？</li>
+              <li>我能不能指出“谁得到好处、谁承担成本”？</li>
+            </ol>
+          </div>
+
+          <div class="card">
+            <h3>④ 用文中的例子走一遍（“回收瓶子先清洗”）</h3>
+            <p><strong>初衷：</strong>让回收更干净、更环保。</p>
+            <p><strong>经济学追问：</strong>最终清洗这一步到底发生在哪？如果垃圾厂本来就要清洗，那家庭多洗一遍可能只是把水、电、时间成本转嫁到家庭。</p>
+            <p><strong>可能的反效果：</strong>更多用水、更高能耗、更少人愿意参与回收（嫌麻烦）。</p>
+
+            <div class="quote">
+              ✅ 费曼结论：<strong>别止步于“立法/倡议”，要把“人的对策”当成剧情主角。</strong>
+            </div>
+
+            <h3>⑤ 练习（回答原文的课后思考）</h3>
+            <p class="muted">示例（供你对照写自己的版本）：<br/>
+            “共享单车”出发点是绿色出行，但在激励与监管不完善时，可能出现乱停放、占道、资源浪费等问题；政策改进要看清“谁为乱停付成本、谁从投放套利”。</p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 8) 金句 -->
+    <details id="sec-quotes">
+      <summary><span class="chev">▶</span>✨ 金句（5-10句：引出→解读→联结）</summary>
+      <div class="section">
+        <div class="card">
+          <ol>
+            <li>
+              <p><strong>【引出】</strong>（事与愿符） → <strong>【解读】</strong>我们天然相信“只要愿望够好，结果就会好”。但社会是多人互动系统，不是许愿池。 → <strong>【联结】</strong>做决策时，把“愿望”改写为“机制”：它改变了谁的成本与收益？</p>
+            </li>
+            <li>
+              <p><strong>【引出】</strong>（事与愿违） → <strong>【解读】</strong>经济学的兴趣点在反直觉处：你越想保护谁，越要担心把他推向更弱的位置。 → <strong>【联结】</strong>遇到“为你好”的政策，先问：有没有评估反效果？</p>
+            </li>
+            <li>
+              <p><strong>【引出】</strong>（坏人影响有限） → <strong>【解读】</strong>对抗显性的恶并不难，难的是识别“善意包装”的坏机制。 → <strong>【联结】</strong>听到“零成本解决所有问题”的承诺，自动启动怀疑模式。</p>
+            </li>
+            <li>
+              <p><strong>【引出】</strong>（能动性） → <strong>【解读】</strong>人不是政策的“静态对象”，而是会学习、会博弈的参与者。 → <strong>【联结】</strong>任何制度设计都要写进“行为反应”，否则落地必变形。</p>
+            </li>
+            <li>
+              <p><strong>【引出】</strong>（法律不是句号，而是冒号） → <strong>【解读】</strong>规则生效的那一刻，才是社会实验的开始。 → <strong>【联结】</strong>评估政策要看“出台后一年/三年”的数据，而不只看“通过那天”的掌声。</p>
+            </li>
+            <li>
+              <p><strong>【引出】</strong>（顶层设计的张力） → <strong>【解读】</strong>越是复杂系统，越难靠“单点规划”控制全局。 → <strong>【联结】</strong>改革更像迭代产品：小步试错、快速反馈、持续修正。</p>
+            </li>
+            <li>
+              <p><strong>【引出】</strong>（不关心阴谋论） → <strong>【解读】</strong>把一切归咎于阴谋，会让我们放弃对可验证机制的追问。 → <strong>【联结】</strong>与其猜动机，不如找证据：谁因规则获利？谁因规则受损？</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </details>
+
+    <!-- 9) 60秒跨文化口播稿 -->
+    <details id="sec-script">
+      <summary><span class="chev">▶</span>🎙️ 60秒跨文化口播稿（中文｜捷克语｜英语）</summary>
+      <div class="section">
+        <div class="card">
+          <h3>中文（启发性、简洁、深度）</h3>
+          <p>很多人解释社会问题时，第一反应是：一定有坏人，一定有阴谋。可经济学更关心的是另一件事：哪怕大家都是好心，规则一变，人会怎么反应，局面会怎么走向“事与愿违”。</p>
+          <p>比如一条环保倡议，要求每家先把瓶子洗干净再丢。听起来很美，可如果回收厂本来就要清洗，这一步只是把成本转嫁给家庭，甚至让更多人嫌麻烦而不回收。你看，法律或倡议不是句号，而是冒号：它启动的是一连串行为调整。</p>
+          <p>所以，别急着问“谁是坏人”，先学会问：这条规则改变了谁的激励？人会怎样适应、规避或套利？当你能追到这条因果链，你就拥有了经济学的眼睛。</p>
+
+          <div class="divider"></div>
+
+          <h3>Česky（学术语境，语法准确，启发性）</h3>
+          <p>Mnozí lidé vysvětlují společenské problémy tím, že hledají „padouchy“ a spiknutí. Ekonomie se však častěji ptá na něco jiného: i když jsou záměry dobré, jak lidé zareagují na změnu pravidel a proč může výsledek dopadnout opačně, než jsme chtěli.</p>
+          <p>Uvažujme třeba doporučení, aby každá domácnost před vyhozením umyla lahve kvůli recyklaci. Zní to ušlechtile, ale pokud recyklační zařízení lahve stejně musí umývat, může jít jen o přesun nákladů na domácnosti a o pokles ochoty třídit odpad. Zákon nebo pravidlo tedy není tečka, ale dvojtečka: spouští řetězec behaviorálních reakcí.</p>
+          <p>Proto se méně ptejme „kdo je viník“ a více „jaké pobídky se změnily“ a „jak se lidé přizpůsobí“. To je praktický způsob, jak myslet ekonomicky.</p>
+
+          <div class="divider"></div>
+
+          <h3>English（Native-like，专业但清晰，启发性）</h3>
+          <p>When people try to explain social problems, they often default to villains and conspiracies. Economics usually asks a different question: even with good intentions, how will people respond once the rules change—and why can outcomes end up backfiring?</p>
+          <p>Take a simple recycling tip: “Wash the bottle before you throw it away.” It sounds virtuous. But if the recycling facility has to wash bottles anyway, you may just be shifting water, time, and energy costs to households—and some people may stop recycling because it’s too much hassle. A law or rule isn’t a period; it’s a colon. It triggers a chain of behavioral responses.</p>
+          <p>So instead of asking “Who’s the bad guy?”, ask: What incentives changed? How will people adapt, evade, or arbitrage the new rule? Following that causal chain is the economist’s way of seeing.</p>
+        </div>
+      </div>
+    </details>
+
+    <footer>
+      <p>🧩 本页把“原文的文学表达”与“经济学的机制眼光”并排呈现。你可以：先读主旨→再点跳转回原文定位。</p>
+      <p class="tiny">快捷键：<span class="mono">Ctrl / ⌘ + P</span> 也可打印（建议用页面内按钮，会自动展开）。</p>
+    </footer>
+  </div>
+
+  <script>
+    // Theme
+    const THEME_KEY = "econ_page_theme_v1";
+    function applyTheme(theme){
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem(THEME_KEY, theme);
+    }
+    function toggleTheme(){
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      applyTheme(cur === "dark" ? "light" : "dark");
+    }
+    (function initTheme(){
+      const saved = localStorage.getItem(THEME_KEY);
+      if(saved){ applyTheme(saved); }
+    })();
+
+    // Toggle all sections
+    function toggleAll(open){
+      document.querySelectorAll("details").forEach(d => d.open = !!open);
+      if(open){
+        // Scroll a bit to show content when expanding all
+        const first = document.querySelector("details");
+        if(first) first.scrollIntoView({behavior:"smooth", block:"start"});
+      }
+    }
+
+    // Jump to original text anchors with highlight 5s
+    function jump(id){
+      // Ensure the original section is open
+      const sec = document.getElementById("sec-original");
+      if(sec) sec.open = true;
+
+      const el = document.getElementById(id);
+      if(!el) return;
+
+      el.scrollIntoView({behavior:"smooth", block:"center"});
+
+      el.classList.add("on");
+      setTimeout(()=> el.classList.remove("on"), 5000);
+    }
+
+    // Print: auto expand, then print, then restore
+    let prevStates = null;
+    function printAll(){
+      prevStates = Array.from(document.querySelectorAll("details")).map(d => d.open);
+      toggleAll(true);
+      // allow layout settle
+      setTimeout(()=> window.print(), 60);
+    }
+    window.addEventListener("afterprint", ()=>{
+      if(!prevStates) return;
+      const ds = document.querySelectorAll("details");
+      prevStates.forEach((st, i)=> { if(ds[i]) ds[i].open = st; });
+      prevStates = null;
+    });
+    window.addEventListener("beforeprint", ()=>{
+      // Some browsers ignore programmatic open unless beforeprint
+      toggleAll(true);
+    });
+  </script>
+</body>
+</html>
