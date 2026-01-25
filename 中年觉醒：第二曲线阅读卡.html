@@ -1,0 +1,1636 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>中年觉醒：第二曲线｜HTML 阅读卡</title>
+<style>
+  :root{
+    --bg: #0b0f14;
+    --panel: rgba(255,255,255,.06);
+    --panel2: rgba(255,255,255,.09);
+    --text: rgba(255,255,255,.92);
+    --muted: rgba(255,255,255,.70);
+    --muted2: rgba(255,255,255,.55);
+    --border: rgba(255,255,255,.14);
+    --shadow: 0 12px 40px rgba(0,0,0,.35);
+    --ring: rgba(255,255,255,.25);
+    --accent: rgba(130,206,255,.95);
+    --ok: rgba(140,255,190,.9);
+    --warn: rgba(255,210,130,.92);
+    --bad: rgba(255,140,140,.92);
+    --radius: 18px;
+    --radius2: 22px;
+    --maxw: 1060px;
+    --font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+  }
+  [data-theme="light"]{
+    --bg: #f7f8fb;
+    --panel: rgba(0,0,0,.05);
+    --panel2: rgba(0,0,0,.07);
+    --text: rgba(0,0,0,.88);
+    --muted: rgba(0,0,0,.66);
+    --muted2: rgba(0,0,0,.52);
+    --border: rgba(0,0,0,.12);
+    --shadow: 0 12px 40px rgba(0,0,0,.12);
+    --ring: rgba(0,0,0,.18);
+    --accent: rgba(30,130,210,.95);
+    --ok: rgba(18,140,80,.92);
+    --warn: rgba(170,110,10,.92);
+    --bad: rgba(190,45,45,.92);
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: var(--font);
+    background: radial-gradient(1200px 600px at 20% -10%, rgba(130,206,255,.16), transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, rgba(255,210,130,.12), transparent 55%),
+                var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  /* ===== Top Toolbar (fixed spec) ===== */
+  .topbar{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: 72px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: linear-gradient(135deg, rgba(15,18,26,.72), rgba(10,12,18,.55));
+    border-bottom: 1px solid var(--border);
+  }
+  [data-theme="light"] .topbar{
+    background: linear-gradient(135deg, rgba(255,255,255,.82), rgba(245,247,252,.66));
+  }
+  .topbar-inner{
+    height:100%;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 14px;
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    overflow-x:auto;
+    white-space: nowrap;
+  }
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.06);
+    box-shadow: 0 6px 18px rgba(0,0,0,.18);
+    flex: 0 0 auto;
+  }
+  [data-theme="light"] .pill{ background: rgba(0,0,0,.04); box-shadow: 0 6px 18px rgba(0,0,0,.08);} 
+  .pill.brand{
+    font-weight: 700;
+    letter-spacing:.2px;
+  }
+  .pill.mode{
+    font-weight: 650;
+    color: var(--muted);
+  }
+  .btn{
+    appearance:none;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.06);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 10px 14px;
+    font-weight: 650;
+    cursor:pointer;
+    flex: 0 0 auto;
+  }
+  [data-theme="light"] .btn{ background: rgba(0,0,0,.04);} 
+  .btn:hover{ outline: none; box-shadow: 0 0 0 4px var(--ring); }
+  .btn.active{ border-color: rgba(130,206,255,.55); box-shadow: 0 0 0 4px rgba(130,206,255,.18); }
+
+  .icon{
+    width: 18px;
+    height: 18px;
+    display:inline-block;
+    vertical-align: -3px;
+  }
+  .icon svg{ width: 100%; height: 100%; }
+  .i-stroke{ stroke: currentColor; fill:none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  @media (max-width: 720px){
+    .topbar{ height: 64px; }
+    .btn, .pill{ padding: 9px 12px; }
+  }
+
+  /* ===== Layout ===== */
+  main{ max-width: var(--maxw); margin: 0 auto; padding: 18px 14px 52px; }
+  .grid{ display:grid; gap: 14px; }
+  .card{
+    border: 1px solid var(--border);
+    background: var(--panel);
+    border-radius: var(--radius2);
+    box-shadow: var(--shadow);
+  }
+  .card-inner{ padding: 14px 14px 12px; }
+
+  details.section{
+    border: 1px solid var(--border);
+    background: var(--panel);
+    border-radius: var(--radius2);
+    box-shadow: var(--shadow);
+    overflow: clip;
+  }
+  details.section > summary{
+    list-style:none;
+    cursor:pointer;
+    padding: 14px;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  details.section > summary::-webkit-details-marker{ display:none; }
+  .sec-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight: 800;
+  }
+  .sec-sub{
+    color: var(--muted2);
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+  .chev{
+    width: 18px; height: 18px;
+    opacity: .75;
+    transition: transform .2s ease;
+  }
+  details[open] .chev{ transform: rotate(180deg); }
+
+  .content{ padding: 0 14px 14px; }
+
+  /* Chips */
+  .chips{ display:flex; flex-wrap: wrap; gap: 8px; }
+  .chip{
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.05);
+    padding: 7px 10px;
+    border-radius: 999px;
+    cursor:pointer;
+    font-size: 12.5px;
+    font-weight: 650;
+    color: var(--text);
+  }
+  [data-theme="light"] .chip{ background: rgba(0,0,0,.03);} 
+  .chip:hover{ box-shadow: 0 0 0 4px var(--ring); }
+  .chip[aria-disabled="true"]{ opacity:.45; cursor:not-allowed; }
+
+  /* Small text */
+  .muted{ color: var(--muted); }
+  .muted2{ color: var(--muted2); }
+  .kpis{ display:flex; gap: 12px; flex-wrap: wrap; align-items:center; }
+  .kpi{
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.05);
+    padding: 8px 10px;
+    border-radius: 12px;
+    font-weight: 650;
+    font-size: 12.5px;
+  }
+  [data-theme="light"] .kpi{ background: rgba(0,0,0,.03);} 
+
+  /* Top info (compact folded + drawer) */
+  details#sec-topinfo > summary{ padding: 14px; }
+  .topinfo-fold{
+    display:grid;
+    gap: 10px;
+    width: 100%;
+  }
+  .title{
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.25;
+    display:-webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow:hidden;
+  }
+  .one-liner{
+    color: var(--muted);
+    font-weight: 650;
+    max-width: 72ch;
+    display:-webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow:hidden;
+  }
+  .topinfo-fold{ max-height: min(22vh, 180px); }
+  @media (max-width: 720px){ .topinfo-fold{ max-height: 140px; } }
+
+  /* Drawer inside topinfo */
+  .drawer{
+    border-top: 1px solid var(--border);
+    background: var(--panel2);
+    padding: 14px;
+  }
+  .drawer-grid{ display:grid; gap: 12px; grid-template-columns: 1.2fr .8fr; }
+  @media (max-width: 920px){ .drawer-grid{ grid-template-columns: 1fr; } }
+  .mini-card{
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 12px;
+    background: rgba(255,255,255,.05);
+  }
+  [data-theme="light"] .mini-card{ background: rgba(0,0,0,.03);} 
+  .mini-title{ display:flex; gap:8px; align-items:center; font-weight: 800; margin:0 0 8px; }
+  .mini-title span{ font-size: 13px; }
+  .diag-item{ display:flex; gap:10px; align-items:flex-start; padding: 8px 0; border-top: 1px dashed var(--border); }
+  .diag-item:first-child{ border-top:0; padding-top:0; }
+  .badge{ font-size: 12px; font-weight: 850; padding: 3px 8px; border-radius: 999px; border:1px solid var(--border); background: rgba(255,255,255,.05);} 
+  .diag-evi{ color: var(--muted); font-size: 12.5px; }
+
+  /* Preview clamp (12 lines or 420px) */
+  .preview{
+    position: relative;
+    max-height: 420px;
+    overflow:hidden;
+  }
+  .preview::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height: 64px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0), var(--bg));
+    pointer-events:none;
+  }
+  [data-theme="light"] .preview::after{ background: linear-gradient(to bottom, rgba(255,255,255,0), var(--bg)); }
+  .preview.expanded{ max-height: none; }
+  .preview.expanded::after{ display:none; }
+  .toggle-row{ display:flex; gap:10px; flex-wrap: wrap; margin-top: 10px; }
+  .linkbtn{
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.06);
+    color: var(--text);
+    border-radius: 12px;
+    padding: 8px 10px;
+    font-weight: 700;
+    cursor:pointer;
+  }
+  [data-theme="light"] .linkbtn{ background: rgba(0,0,0,.04);} 
+  .linkbtn:hover{ box-shadow: 0 0 0 4px var(--ring); }
+
+  /* Anchors + highlight */
+  .para{ margin: 10px 0; }
+  .para a.anchor{
+    display:inline-block;
+    width: 0;
+    height: 0;
+    overflow:hidden;
+  }
+  .hl{
+    border-radius: 12px;
+    padding: 2px 6px;
+    background: rgba(130,206,255,.18);
+    box-shadow: 0 0 0 0 rgba(130,206,255,.0);
+    transition: box-shadow .2s ease;
+  }
+  @keyframes blink{
+    0%{ box-shadow: 0 0 0 0 rgba(130,206,255,.0); }
+    30%{ box-shadow: 0 0 0 8px rgba(130,206,255,.18); }
+    60%{ box-shadow: 0 0 0 4px rgba(130,206,255,.12); }
+    100%{ box-shadow: 0 0 0 0 rgba(130,206,255,.0); }
+  }
+  .blink{ animation: blink .9s ease-in-out 0s 3; }
+
+  /* Lists */
+  ul{ margin: 8px 0 0 20px; padding:0; }
+  li{ margin: 6px 0; }
+  .two-col{ display:grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 860px){ .two-col{ grid-template-columns: 1fr; } }
+
+  /* QA */
+  .qa{ border: 1px solid var(--border); border-radius: 16px; padding: 10px 12px; background: rgba(255,255,255,.04);} 
+  [data-theme="light"] .qa{ background: rgba(0,0,0,.03);} 
+  .qa summary{ cursor:pointer; font-weight: 800; }
+  .ans{ color: var(--muted); margin-top: 8px; }
+
+  /* Checklists */
+  .checklist{ display:grid; gap:10px; }
+  .chk{
+    display:flex; gap:10px; align-items:flex-start;
+    border:1px solid var(--border);
+    border-radius: 16px;
+    padding: 10px 12px;
+    background: rgba(255,255,255,.04);
+  }
+  [data-theme="light"] .chk{ background: rgba(0,0,0,.03);} 
+  .chk input{ margin-top: 3px; transform: scale(1.1); }
+
+  /* SVG maps */
+  .svgwrap{ border: 1px solid var(--border); border-radius: 18px; overflow:hidden; background: rgba(255,255,255,.03);} 
+  [data-theme="light"] .svgwrap{ background: rgba(0,0,0,.02);} 
+  svg{ max-width: 100%; height: auto; display:block; }
+  .node{ cursor:pointer; }
+  .node rect{ fill: rgba(255,255,255,.05); stroke: rgba(255,255,255,.18); stroke-width: 1.5; rx: 12; }
+  [data-theme="light"] .node rect{ fill: rgba(0,0,0,.03); stroke: rgba(0,0,0,.16);} 
+  .node text{ fill: currentColor; font-weight: 800; font-size: 12.5px; }
+  .edge{ stroke: rgba(255,255,255,.20); stroke-width: 2; fill:none; stroke-linecap: round; stroke-linejoin: round; }
+  [data-theme="light"] .edge{ stroke: rgba(0,0,0,.18);} 
+
+  /* Print */
+  @media print{
+    .topbar{ position: static; height: auto; }
+    .btn{ display:none; }
+    details.section{ break-inside: avoid; box-shadow:none; }
+    body{ background: #fff !important; color: #000 !important; }
+    .card, details.section{ background:#fff !important; }
+    .preview{ max-height:none !important; }
+    .preview::after{ display:none !important; }
+  }
+</style>
+</head>
+
+<body>
+  <!-- 0 Top Toolbar -->
+  <header class="topbar" role="banner">
+    <div class="topbar-inner" aria-label="阅读卡工具栏">
+      <div class="pill brand" aria-label="品牌">
+        <span>HTML 阅读卡</span>
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path class="i-stroke" d="M7 4h10a2 2 0 0 1 2 2v14l-3-2-3 2-3-2-3 2V6a2 2 0 0 1 2-2Z"/></svg>
+        </span>
+      </div>
+
+      <div class="pill mode" aria-label="当前模式">
+        <span>模式：</span><span id="modeText">速读模式</span>
+      </div>
+
+      <button class="btn" id="btnFast" data-mode="fast">速读</button>
+      <button class="btn" id="btnTeach" data-mode="teach">补课</button>
+      <button class="btn" id="btnExam" data-mode="exam">考试</button>
+      <button class="btn" id="btnTheme">深浅色</button>
+      <button class="btn" id="btnPrint">打印</button>
+    </div>
+  </header>
+
+  <main class="grid" id="app">
+
+    <!-- 1 Top Info (compact + drawer) -->
+    <details class="section" id="sec-topinfo" data-sec="topinfo">
+      <summary>
+        <div class="topinfo-fold">
+          <div class="title" id="docTitle">中年觉醒：跃上第二曲线</div>
+          <div class="one-liner" id="oneLiner">中年并非终点，而是把“创新”转成“智慧传递”的换挡期。</div>
+          <div class="kpis" aria-label="元信息">
+            <div class="kpi" id="kpiChars">字数：—</div>
+            <div class="kpi" id="kpiRead">阅读：—</div>
+            <div class="kpi" id="kpiTime">生成：—</div>
+          </div>
+          <div class="chips" id="chipTop6" aria-label="标签前6"></div>
+        </div>
+        <span class="icon chev" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg>
+        </span>
+      </summary>
+
+      <div class="drawer" role="region" aria-label="顶部抽屉">
+        <div class="drawer-grid">
+          <div class="mini-card">
+            <h3 class="mini-title">
+              <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M12 3v18M3 12h18"/></svg></span>
+              <span>一句话用途</span>
+            </h3>
+            <p class="muted" style="margin:0">用于把长文变成：能读懂 → 能复盘 → 能立刻做 3 个小动作。</p>
+            <div style="height:10px"></div>
+            <button class="linkbtn" id="btnResetFolds">回到本模式默认折叠</button>
+          </div>
+
+          <div class="mini-card" id="diagCard">
+            <h3 class="mini-title">
+              <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M12 21s7-4.5 7-10V6l-7-3-7 3v5c0 5.5 7 10 7 10Z"/></svg></span>
+              <span>学习障碍诊断</span>
+            </h3>
+            <div class="diag-item">
+              <span class="badge">Top1：C 需要建立体系</span>
+              <div>
+                <div class="diag-evi">证据："第一曲线"切到"第二曲线"</div>
+                <div class="muted2">理由：概念关系多、易混</div>
+              </div>
+            </div>
+            <div class="diag-item">
+              <span class="badge">Top2：B 缺前置知识</span>
+              <div>
+                <div class="diag-evi">证据："流体智力"与"晶体智力"</div>
+                <div class="muted2">理由：隐含脑科模型</div>
+              </div>
+            </div>
+            <div class="diag-item">
+              <span class="badge">Top3：D 想记住并能用</span>
+              <div>
+                <div class="diag-evi">证据："具体该怎么做"</div>
+                <div class="muted2">理由：需要动作与复习</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="mini-card">
+          <h3 class="mini-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M4 19V5m0 14h16M8 15v-4m4 4V7m4 8v-6"/></svg></span>
+            <span>学科 Top-3（基于原文）</span>
+          </h3>
+          <div class="diag-item">
+            <span class="badge">心理学 82</span>
+            <div>
+              <div class="diag-evi"><button class="chip" data-goto="p-orig-021">证据句</button>："流体智力...晶体智力"</div>
+              <div class="muted2">解释：讨论认知随年龄变化</div>
+            </div>
+          </div>
+          <div class="diag-item">
+            <span class="badge">职业发展 78</span>
+            <div>
+              <div class="diag-evi"><button class="chip" data-goto="p-orig-009">证据句</button>："35—50岁...职业下行"</div>
+              <div class="muted2">解释：用数据谈职业曲线</div>
+            </div>
+          </div>
+          <div class="diag-item">
+            <span class="badge">哲学/伦理 64</span>
+            <div>
+              <div class="diag-evi"><button class="chip" data-goto="p-orig-027">证据句</button>："亚里士多德...友谊"</div>
+              <div class="muted2">解释：用伦理学谈关系质量</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="mini-card">
+          <h3 class="mini-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M4 6h16M4 12h10M4 18h14"/></svg></span>
+            <span>标签（点击跳到正文证据）</span>
+          </h3>
+          <div class="chips" id="chipAll"></div>
+          <p class="muted2" style="margin:10px 0 0">提示：标签只会跳转到“权威原文/解释”两处（严格正文映射）。</p>
+        </div>
+      </div>
+    </details>
+
+    <!-- 2 Mind Map -->
+    <details class="section" id="sec-mindmap" data-sec="mindmap">
+      <summary>
+        <div>
+          <div class="sec-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M12 6a3 3 0 1 0 0 6a3 3 0 0 0 0-6Zm-7 7a3 3 0 1 0 0 6a3 3 0 0 0 0-6Zm14 0a3 3 0 1 0 0 6a3 3 0 0 0 0-6ZM12 9v3M5 16h4m6 0h4"/></svg></span>
+            思维导图
+          </div>
+          <div class="sec-sub">节点可点击跳到原文/解释锚点</div>
+        </div>
+        <span class="icon chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="content">
+        <div class="svgwrap">
+          <svg viewBox="0 0 980 430" role="img" aria-label="思维导图">
+            <path class="edge" d="M310 215 C 420 215, 420 85, 540 85"/>
+            <path class="edge" d="M310 215 C 420 215, 420 215, 540 215"/>
+            <path class="edge" d="M310 215 C 420 215, 420 345, 540 345"/>
+
+            <g class="node" data-goto="p-exp-001">
+              <rect x="90" y="182" width="220" height="66" rx="14"></rect>
+              <text x="200" y="212" text-anchor="middle">中年觉醒</text>
+              <text x="200" y="232" text-anchor="middle" style="font-size:11px; font-weight:700; opacity:.85">从第一曲线到第二曲线</text>
+            </g>
+
+            <g class="node" data-goto="p-orig-009">
+              <rect x="540" y="52" width="330" height="66" rx="14"></rect>
+              <text x="705" y="82" text-anchor="middle">职业下行：普遍且难避免</text>
+              <text x="705" y="102" text-anchor="middle" style="font-size:11px; font-weight:700; opacity:.85">35–50岁常见转折</text>
+            </g>
+
+            <g class="node" data-goto="p-orig-021">
+              <rect x="540" y="182" width="330" height="66" rx="14"></rect>
+              <text x="705" y="212" text-anchor="middle">脑力变化：流体↓ 晶体↑</text>
+              <text x="705" y="232" text-anchor="middle" style="font-size:11px; font-weight:700; opacity:.85">换挡的科学解释</text>
+            </g>
+
+            <g class="node" data-goto="p-orig-025">
+              <rect x="540" y="312" width="330" height="66" rx="14"></rect>
+              <text x="705" y="342" text-anchor="middle">跃迁建议：放下身份、养友谊、显弱点</text>
+              <text x="705" y="362" text-anchor="middle" style="font-size:11px; font-weight:700; opacity:.85">把智慧变成连接与指导</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </details>
+
+    <!-- 3 Concept Map -->
+    <details class="section" id="sec-conceptmap" data-sec="conceptmap">
+      <summary>
+        <div>
+          <div class="sec-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M7 7h10v10H7zM3 12h4M17 12h4M12 3v4M12 17v4"/></svg></span>
+            概念地图
+          </div>
+          <div class="sec-sub">看清：概念之间“为什么”连在一起</div>
+        </div>
+        <span class="icon chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="content">
+        <div class="svgwrap">
+          <svg viewBox="0 0 980 520" role="img" aria-label="概念地图">
+            <path class="edge" d="M220 110 C 340 110, 340 110, 460 110"/>
+            <path class="edge" d="M220 110 C 340 110, 340 240, 460 240"/>
+            <path class="edge" d="M600 110 C 720 110, 720 110, 840 110"/>
+            <path class="edge" d="M600 240 C 720 240, 720 240, 840 240"/>
+            <path class="edge" d="M600 110 C 720 110, 720 370, 840 370"/>
+            <path class="edge" d="M460 240 C 520 240, 520 370, 600 370"/>
+
+            <g class="node" data-goto="p-orig-009">
+              <rect x="70" y="78" width="150" height="64" rx="14"></rect>
+              <text x="145" y="108" text-anchor="middle">职业下行</text>
+              <text x="145" y="128" text-anchor="middle" style="font-size:11px; font-weight:700; opacity:.85">普遍趋势</text>
+            </g>
+
+            <g class="node" data-goto="p-orig-021">
+              <rect x="460" y="78" width="140" height="64" rx="14"></rect>
+              <text x="530" y="108" text-anchor="middle">前额叶衰退</text>
+              <text x="530" y="128" text-anchor="middle" style="font-size:11px; font-weight:700; opacity:.85">创新/专注/记忆↓</text>
+            </g>
+
+            <g class="node" data-goto="p-orig-021">
+              <rect x="460" y="208" width="140" height="64" rx="14"></rect>
+              <text x="530" y="238" text-anchor="middle">能力增强</text>
+              <text x="530" y="258" text-anchor="middle" style="font-size:11px; font-weight:700; opacity:.85">表达/综合/实践↑</text>
+            </g>
+
+            <g class="node" data-goto="p-orig-021">
+              <rect x="840" y="78" width="120" height="64" rx="14"></rect>
+              <text x="900" y="108" text-anchor="middle">流体智力</text>
+              <text x="900" y="128" text-anchor="middle" style="font-size:11px; font-weight:700; opacity:.85">新问题推理</text>
+            </g>
+
+            <g class="node" data-goto="p-orig-021">
+              <rect x="840" y="208" width="120" height="64" rx="14"></rect>
+              <text x="900" y="238" text-anchor="middle">晶体智力</text>
+              <text x="900" y="258" text-anchor="middle" style="font-size:11px; font-weight:700; opacity:.85">经验型智慧</text>
+            </g>
+
+            <g class="node" data-goto="p-orig-023">
+              <rect x="650" y="338" width="190" height="64" rx="14"></rect>
+              <text x="745" y="368" text-anchor="middle">第一曲线 → 第二曲线</text>
+              <text x="745" y="388" text-anchor="middle" style="font-size:11px; font-weight:700; opacity:.85">从创作到指导</text>
+            </g>
+
+            <g class="node" data-goto="p-orig-025">
+              <rect x="840" y="338" width="120" height="64" rx="14"></rect>
+              <text x="900" y="368" text-anchor="middle">行动建议</text>
+              <text x="900" y="388" text-anchor="middle" style="font-size:11px; font-weight:700; opacity:.85">3条路径</text>
+            </g>
+
+            <g class="node" data-goto="p-orig-014">
+              <rect x="70" y="208" width="150" height="64" rx="14"></rect>
+              <text x="145" y="238" text-anchor="middle">三种应对</text>
+              <text x="145" y="258" text-anchor="middle" style="font-size:11px; font-weight:700; opacity:.85">达尔文/鲍林/巴赫</text>
+            </g>
+
+            <g class="node" data-goto="p-orig-014">
+              <rect x="70" y="338" width="150" height="64" rx="14"></rect>
+              <text x="145" y="368" text-anchor="middle">常见误区</text>
+              <text x="145" y="388" text-anchor="middle" style="font-size:11px; font-weight:700; opacity:.85">死守/乱转/名利绑架</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </details>
+
+    <!-- 4 Original (authoritative, must be 100% preserved) -->
+    <details class="section" id="sec-original" data-sec="original">
+      <summary>
+        <div>
+          <div class="sec-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path class="i-stroke" d="M8 8h8M8 12h8M8 16h6"/></svg></span>
+            权威原文（逐字保留）
+          </div>
+          <div class="sec-sub">默认预览折叠；速读模式下保持预览</div>
+        </div>
+        <span class="icon chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="content">
+        <div class="toggle-row">
+          <button class="linkbtn" data-action="expand-original">展开原文</button>
+          <button class="linkbtn" data-action="collapse-original">折叠原文</button>
+          <button class="linkbtn" data-action="expand-all">展开全部</button>
+          <button class="linkbtn" data-action="collapse-all">折叠全部</button>
+        </div>
+
+        <div id="originalPreview" class="preview" aria-label="原文预览区">
+          <article id="originalText">
+            <p class="para"><a class="anchor" id="p-orig-001"></a>你好，欢迎每天听本书，我是邓一丁。</p>
+            <p class="para"><a class="anchor" id="p-orig-002"></a>今天的这本书叫作《中年觉醒》，书的作者叫亚瑟·C.布鲁克斯，是哈佛商学院的一位教授。要说这本书，先得从一个故事说起。有一次，布鲁克斯坐飞机，不经意间听到后排座位上一对老夫妇的对话。丈夫跟妻子抱怨，说自己太没用了，已经没有人需要他了。妻子听他这么说显然不是一两天了，就有点心烦地安慰他说，别再说这种丧气话了。</p>
+            <p class="para"><a class="anchor" id="p-orig-003"></a>布鲁克斯听到这儿，已经脑补出了一整套对这位丈夫的想象：他这大半生勤勤恳恳，却也庸庸碌碌，如今年纪大了，他和身边的人一样，对自己感到失望，大概也没实现过什么梦想吧。</p>
+            <p class="para"><a class="anchor" id="p-orig-004"></a>可是到了下飞机的时候，后座上的人站起来，布鲁克斯打眼一瞧，吃了一惊，那位老先生居然是一位在美国家喻户晓的名人，不只是事业成功，简直可以说是一代人的偶像。布鲁克斯简直没法想象，像他这样的一个人，居然会对自己那么失望。当他走到过道上，许多乘客都认出了他，机长还专门跑来跟他打招呼，说自己从小就特别崇拜他。直到这时，那位老先生的脸上才露出微笑，好像旧日的好时光又回来了。</p>
+            <p class="para"><a class="anchor" id="p-orig-005"></a>一位大名鼎鼎的成功人士，为什么会把自己想得那么不堪呢？布鲁克斯虽然也吃惊不小，但他随即意识到，那位老先生并不是在无病呻吟。很可能，他的失落感是很多中年人都能感同身受的。布鲁克斯自己就正处在事业的巅峰期。他是哈佛商学院一位广受欢迎的领导力讲师，还担任一家大型智库的CEO，管理着大规模的科研团队，研究成果常能左右美国政府的决策。可是私下里，他却时常感到力不从心。这一年布鲁克斯48岁，虽说对他的职位而言，这个年龄还算是年轻，但他已经感到自己在走下坡路了。</p>
+            <p class="para"><a class="anchor" id="p-orig-006"></a>在飞机上见过那位上了年纪的名人以后，对中年危机的忧虑和困惑在布鲁克斯心里挥之不去。他想要搞清楚，自己内心的低落感究竟因何而起，又有什么办法能够克服这种低落，找回生活的动力呢？这些困惑构成了他写作这本《中年觉醒》的契机。从他最熟悉的社科领域开始，布鲁克斯逐渐深入脑科学、哲学、历史学的文献，仔细研读了历史上一些重要人物的传记，还采访了数百位领导者，从五金店老板到国家元首。他发展出了一套理论。在他看来，人们所说的中年危机其实也是一个契机，是一个人从人生的“第一曲线”切换到“第二曲线”的机遇期。能够顺利完成这一切换，就是一个中年人渡过危机的关键。</p>
+            <p class="para"><a class="anchor" id="p-orig-007"></a>那布鲁克斯所说的“第一曲线”和“第二曲线”究竟是什么意思？我们又能怎么完成这种切换，踏上人生下半场的新旅程呢？接下来，我们就来看看布鲁克斯的研究成果。</p>
+            <p class="para"><a class="anchor" id="p-orig-008"></a><strong>职业下行</strong></p>
+            <p class="para"><a class="anchor" id="p-orig-009"></a>在书里，布鲁克斯抛出的第一个结论是，人生中场的职业下行是一种极其普遍，几乎无可避免的情况。他的这一结论有大量的统计数据作为支撑。</p>
+            <p class="para"><a class="anchor" id="p-orig-010"></a>首先，一个最明显的例子是运动员。数据显示，从事爆发力运动的运动员通常在20—27岁迎来自己的事业巅峰，从事耐力运动的运动员的巅峰状态会来得稍晚一点，但也没晚几年。布鲁克斯采访了许多职业运动员，他们普遍认为30岁是一个坎儿，最好在此之前完成职业转型。这个结论大概并不令你意外，那脑力劳动呢？</p>
+            <p class="para"><a class="anchor" id="p-orig-011"></a>美国西北大学商学院的一位教授调查了一个多世纪以来主要的发明家和诺奖得主的职业生涯。他发现，那些伟大的科研突破大多是科学家们在三十多岁时完成的，而到了四十岁上，他们取得重大成果的概率就在稳步下降。生于20世纪初的物理学家保罗·狄拉克是一个典型的例子。他24岁获得博士学位，28岁出版《量子力学原理》，31岁获得诺贝尔物理学奖，但从此以后，他的研究成果就只能说是锦上添花，再没取得过年轻时那样杰出的成就。他甚至为此写过一首伤心的小诗，感慨自己年过三十就再没什么建树了。另一项针对当代科研人员的调查显示，他们要比狄拉克那一代人更晚一点到达事业巅峰，原因是如今取得重大的科研成果，需要更为长期的知识积累。但是从1985年以后，科学家们事业的巅峰年龄也基本稳定下来，物理学家是50岁，化学家是46岁，药学家是45岁。</p>
+            <p class="para"><a class="anchor" id="p-orig-012"></a>在科研领域之外，其他脑力劳动者的情况也差不多。作家最好的作品通常出现在40—55岁之间，金融人士取得最佳业绩的年龄是36—46岁，医生的专业技能也会在三十多岁时达到巅峰，此后逐渐下滑。前不久，有人研究了近十年来加拿大的患者对麻醉师的诉讼，发现65岁以上医师的过失率比51岁以下的高了50%之多。</p>
+            <p class="para"><a class="anchor" id="p-orig-013"></a>企业家是什么情况呢？他们的个人财富和影响力倒是有可能随着年岁而增长，但统计数据显示，他们最有创造力的时期其实和运动员的黄金年龄差不多，也是二十多岁。《哈佛商业评论》就做过调查，发现获得10亿美元以上风险投资的创业者，绝大多数都在20—34岁之间。另一项研究的结论稍微乐观一点，认为创业者的当打之年可以推后到45岁左右，但无论如何，哪怕按照最乐观的估计，也只有5%的创业成功者年龄在60岁以上。</p>
+            <p class="para"><a class="anchor" id="p-orig-014"></a>除此之外，布鲁克斯还调查了警察、护士、工程师、文员、音乐家等等的职业，也都发现了类似的统计规律。总的结论是，几乎每个职业的人都会在35—50岁之间的某个时间点步入职业下行期。平均而言，一个从事创造性职业的人的事业巅峰出现在从业二十年左右。这似乎是个无可避免的客观情况。</p>
+            <p class="para"><a class="anchor" id="p-orig-015"></a>听到这儿，你可能会觉得这个结论有点悲观。那我再补充两句。第一，统计数据只能反映总体趋势，而在每个人身上都可能出现不服从统计趋势的例外状况。第二，布鲁克斯写这本书可不是为了让读者感到灰心丧气，恰恰相反，他希望我们正视人生中场可能遭遇的挑战，并且早做准备，在需要做出改变时积极应对。具体该怎么做呢？我们接着往下说。</p>
+            <p class="para"><a class="anchor" id="p-orig-016"></a><strong>达尔文、鲍林和巴赫</strong></p>
+            <p class="para"><a class="anchor" id="p-orig-017"></a>面对似乎早晚都会到来的职业下行期，我们有哪些选择呢？布鲁克斯在书中举了三位历史人物的例子。</p>
+            <p class="para"><a class="anchor" id="p-orig-018"></a>第一位是我们熟悉的生物学家查尔斯·达尔文。在很多人的心目中，达尔文都算得上是有史以来最重要的思想家之一了。但你可能不知道，在人生的后期，达尔文一直因为职业下行而郁郁寡欢。他22岁登上“贝格尔号”参加环球考察，27岁就提出了物竞天择的理论。此后，他不断发展自己的学说，终于在50岁这一年出版了《物种起源》，自此真正在科学史上留下了自己的名字。可是从这以后，达尔文的研究却再没取得过什么实质性的突破。从后世回望历史，最令人惋惜的是达尔文错过了同时代一项极其关键的科学发现。达尔文的《物种起源》出版于1859年，而就在这一年前后的几年间，奥地利的孟德尔，就是中学生物课本上那位种豌豆的神父，探索出了遗传学的基本规律。这正是达尔文推进理论最需要的智力成果。然而很可惜，孟德尔当时的影响力很小，论文只用德语发表在一份不起眼的学术刊物上，达尔文没有机会读到。在50岁后的二十多年里，达尔文一直在苦苦寻找理论的突破点，尽管学界逐渐接受了他的理论，也给予他极高的声誉，但他却始终为研究的停滞而苦恼。直到去世，这种走下巅峰的失落感一直伴随着他。</p>
+            <p class="para"><a class="anchor" id="p-orig-019"></a>如果说达尔文面对职业下行的姿态还算是体面，那另一位科学家莱纳斯·鲍林的晚景就更令人难以评说了。在历史上，鲍林是唯一一位在两个不同的领域都获得过诺贝尔奖的传奇人物。鲍林出生于1901年，和当时大多数的研究者一样，他也是在二三十岁上取得了最重要的科研成果。他集大成的作品《化学键的本质》是化学史上不朽的名著，他也因为对这一领域作出的贡献，在53岁时获得了诺贝尔化学奖。此后不久，鲍林又因为积极投身于反核运动而于1963年获得了诺贝尔和平奖。一时间，这位常年埋首于实验室的学者风光无两，然而事实上，他已经有至少二十年没有取得过实质性的科研进展了。很可能是由于无法接受公众关注退潮后的孤寂感，鲍林的思想在晚年逐渐转向极端。他开始利用自己的影响力大肆宣扬缺乏科学依据的医疗手段，成了学人们眼中不可理喻的怪人。</p>
+            <p class="para"><a class="anchor" id="p-orig-020"></a>面对职业下行，达尔文的选择是死守阵地，默默忍受时不我与的落寞，而鲍林则将内心的苦闷投射到外界，产生了更加广泛的负面影响。有没有比较积极的例子呢？布鲁克斯在书中还分析了一位著名的历史人物，这就是音乐家巴赫。</p>
+            <p class="para"><a class="anchor" id="p-orig-021"></a>今天我们都知道，巴赫是史上最伟大的音乐家之一。可是在他的时代，他的声名却被后人淹没了。作为作曲家，巴赫成名甚早，但他擅长创作的巴洛克音乐却被当时的人们视为一种过时的风格。倒是他的儿子小巴赫因为擅长创作更为时髦的新古典主义音乐而声名鹊起，很快就取代父亲，成为家族里最受人敬仰的音乐家。在此后的一百多年里，人们对小巴赫的评价一直高于他父亲。当海顿、莫扎特和贝多芬说起巴赫，他们说的都是小巴赫，而不是老巴赫。可是在老巴赫去世了一个多世纪以后，人们却开始重新发现他的作品，其中最令人赞叹的一部是他创作于晚年的曲集《赋格的艺术》。有意思的是，《赋格的艺术》其实是巴赫为了向孩子们传授作曲技巧而创作的一部示范性质的作品。当自己早年间的成就被儿子的光环遮蔽以后，巴赫并没有因此而苦恼。他为儿子深感骄傲，自己则转身成为一名音乐导师，用前半生积累的知识和经验支持孩子们的音乐事业。巴赫一生有二十个孩子，十个活到了成年，其中四人成为作曲家，都留下了传世的作品。巴赫的晚年过得很幸福，他在孩子们的簇拥下继续探索着赋格和卡农的可能性，为孩子们的成就而欣喜，最终安然地离世。而在百年后，他的作品却再次获得世人的瞩目，其中相当一部分最成功的杰作都诞生于他为孩子们教授音乐知识的过程中。</p>
+            <p class="para"><a class="anchor" id="p-orig-022"></a>在今天这本《中年觉醒》的作者布鲁克斯看来，达尔文、鲍林和巴赫代表了中年人应对职业下行的三种选择。达尔文固守在曾经取得过成就的道路上，试图用勤奋来扭转职业下行的趋势；鲍林转向了自己并没有深厚积累的医疗领域，在追逐名利的过程中动作变形，遗憾地沦为世人的笑柄；而巴赫则坦然地重新规划了后半生的职业路径，从创作者转变为指导者，却在成就后辈的同时意外地赢得了后世极高的赞誉。</p>
+            <p class="para"><a class="anchor" id="p-orig-023"></a>巴赫做对了什么？达尔文和鲍林又为何没能得偿所愿呢？</p>
+            <p class="para"><a class="anchor" id="p-orig-024"></a><strong>流体智力与晶体智力</strong></p>
+            <p class="para"><a class="anchor" id="p-orig-025"></a>要回答这个问题，我们得补充一点脑科学方面的知识。</p>
+            <p class="para"><a class="anchor" id="p-orig-026"></a>从年轻到年老，人类的大脑会经历怎样的变化？我们不必深入各个脑区的细节，只说一个最主要的部分。步入中年以后，我们大脑的前额叶皮质将会不可避免地开始衰退，这将导致三种大脑功能的减弱。</p>
+            <p class="para"><a class="anchor" id="p-orig-027"></a>首先是快速地分析问题并提出创新解法的能力。这种能力的下降限定了创意型工作者走下职业巅峰的期限。其次是我们处理多线程任务的能力。这种能力的下降意味着上了年纪的人比年轻人更容易分心。一个典型的例子是，许多青少年可以一边戴着耳机听歌，一边读书或完成作业，而随着年纪的增长，我们在工作时，尤其是在处理难度较高的数据分析或写作任务时，越来越需要处在不受打扰的环境中，才能避免失误。此外，前额叶皮质的衰退还会导致记忆力的下降。这一点比较符合我们的常识。</p>
+            <p class="para"><a class="anchor" id="p-orig-028"></a>由于前额叶皮质涉及的这几种大脑功能的减退，一些早期的研究会得出一个笼统的结论，认为人的智力水平会随着年龄的增长而降低。而近年来的研究则频频推翻了这种武断的结论。在创新能力、专注力和记忆力减退的同时，年长者的其他几种大脑功能却在稳步增强。</p>
+            <p class="para"><a class="anchor" id="p-orig-029"></a>头一种增强的能力是我们的表达能力。研究发现，随着年龄的增长，我们的词汇量与日俱增。虽然由于记忆力的减退，有时候想起一个词得费点工夫，但我们头脑中储备的概念总量却是不断增加的。此外，我们对语法的使用也会更加精准。这样一来，年长者就能更好地向他人解释抽象的概念，也更善于解读他人的想法，甚至能比那些概念的提出者说得更清楚，更一语中的。年轻人和智慧的长者对话时常有茅塞顿开的感觉，就是由于这样的原因。</p>
+            <p class="para"><a class="anchor" id="p-orig-030"></a>与表达能力的增强有关，年长者通常也更善于综合多种不同的思路。本书的作者布鲁克斯在回看自己二十年前写的论文时，发现他已经看不懂其中复杂的数理逻辑了，但此时他的头脑中却有了整个学科的清晰架构，能够提纲挈领地阐述多方的观点和洞见如何彼此关联。这种强大的综合性思维在某些领域里尤为重要。在观察前面我们提到的各种职业的统计数据时，布鲁克斯就注意到一个例外。和大多数的专业人士不同，历史学家的职业下行期到来得极晚，平均在从业四十年以后。学术经验越丰厚的历史学家，驾驭海量历史资料的能力就越强，也越能综合多种不同视角的研究成果，写出视野极其宽广的大作。年轻的历史学者和其他领域的科研工作者类似，他们的研究成果多半是在专精的问题上提出创造性的见解，而年长的历史学家则更有能力写出带有总结性质的通史，从而回答更宏大的史学问题。</p>
+            <p class="para"><a class="anchor" id="p-orig-031"></a>除了表达能力和综合性思维，年长者还有一项稳步增长的能力，这就是能够将复杂的想法付诸实践。那些富有经验的资深从业者在和年轻人共事时，时常会感到他们有点“一根筋”，容易“钻牛角尖”，其实这就是因为年轻人还没有养成综合性的实践能力，常常认定一套道理就孤注一掷地行动。综合性实践能力随年龄的增长造成了统计数据中另一个有趣的现象：和理论数学家相比，应用数学家的事业巅峰出现得明显较晚。这是由于理论和应用研究所需的核心能力不同。理论数学研究要求极强的分析和创新能力，而应用数学家则需要将数学原理迁移到多种多样的领域当中，在理论和广泛的实践之间灵活地构筑通路。这种综合性的实践能力正是年长者的强项。</p>
+            <p class="para"><a class="anchor" id="p-orig-032"></a>1971年，英国的心理学家雷蒙德·卡特尔提出了一个模型，很好地概括了我们刚才列举的年长者的劣势和优势。他将人类的智力分为两种，一种是流体智力，一种是晶体智力。按照卡特尔的定义，流体智力指的是推理、灵活思考以及解决新问题的认知能力。换句话说，这就是我们通常所说的先天智力。而晶体智力，指的是以习得的经验为基础的认知能力，也就是后天积累的智慧。由于人类的大脑结构随年龄增长发生的变化，我们先天的流体智力会不可避免地逐渐减退，而后天的晶体智力却在稳步增强。</p>
+            <p class="para"><a class="anchor" id="p-orig-033"></a>说到这儿，我们终于可以解释布鲁克斯所说的人生的“第一曲线”和“第二曲线”的意思了。在布鲁克斯看来，人生前半程的流体智力定义了我们事业发展的第一条曲线。这条曲线是为年富力强，勇于创新的人准备的。我们前面提到的各种统计数据，描述的也都是这一条曲线。在达尔文、鲍林这些了不起的科学家的生涯里，强大的流体智力发挥了决定性的作用，帮他们在人生的上半场登上了事业的巅峰。可是随着流体智力在晚年的衰退，他们的创新能力势必大不如前，这时一味地固守从前研究型的职业路径，取得的成果就非常有限了。</p>
+            <p class="para"><a class="anchor" id="p-orig-034"></a>同达尔文和鲍林相似，巴赫早年间在作曲方面的成就也得益于他的流体智力，而当他的第一条职业曲线开始走低时，巴赫却难得地实现了从流体智力向晶体智力的跃迁，跳上了第二条曲线。他将事业的重心从创作转向了教育，发挥出了表达方面的长处。另外，他在指导孩子的过程中完成的一系列创作，其实是对他多年来关于音乐的思考的综合性应用，带有总结和综论的性质。晚年的达尔文因研究的停滞而陷入沮丧之中，鲍林则在和他的反对者们艰苦地缠斗，而巴赫的生活却幸福而安然，还写出了令后人惊叹的作品。他们三人最显著的差异，就在于是否完成了从第一曲线向第二曲线的切换。</p>
+            <p class="para"><a class="anchor" id="p-orig-035"></a><strong>如何跃上第二曲线？</strong></p>
+            <p class="para"><a class="anchor" id="p-orig-036"></a>既然如此，我们又该如何实现这样的切换呢？</p>
+            <p class="para"><a class="anchor" id="p-orig-037"></a>布鲁克斯在书的后半部分给出了几点建议，我们分别来看。</p>
+            <p class="para"><a class="anchor" id="p-orig-038"></a>首先，要想跃上第二条曲线，我们先得摆脱对第一条曲线的恋恋不舍。这是很多陷入中年危机的人的典型心态。在前半生中，他们在事业上孜孜以求，取得了不俗的成就。而当职业下行期来临时，他们的反应是紧紧握住正在下沉的船上的舵轮，用十倍于从前的努力试图重返巅峰。这种拼搏进取的精神当然是可敬的，然而它终究不能扭转流体智力的衰退，只会将自己和已经不再有发展空间的第一曲线紧紧锁死，失去切换赛道的机会。这种选择不只会令事业的发展停滞不前，还会让人陷入工作狂的紧张状态，难以维持生活和事业间的平衡。</p>
+            <p class="para"><a class="anchor" id="p-orig-039"></a>布鲁克斯认为，这种处境中的人需要克服一种有害的自我物化的心态。所谓的“自我物化”就是将自己当作了获取成功的手段，并且将保持优秀视为自身认同的一部分。自我物化的人会用不切实际的苛刻标准来要求自己，而这种行为背后的心理动机却是对旧日成就上瘾般的迷恋。要想摆脱这种内耗的状态，我们可以试着在与他人的交流中有意识地略去自己的职业身份，关注自己作为家庭成员的角色，更多地谈论自己的兴趣爱好和对事物的感性认识。当我们不再用职业强人的形象来定义自己，也就更容易摆脱对第一曲线的依赖。</p>
+            <p class="para"><a class="anchor" id="p-orig-040"></a>接下来，布鲁克斯还提醒我们要留意培养自己的人际关系。这似乎是一个职场能力方面的建议，但布鲁克斯强调的恰恰不是工作中的人脉关系，而是真正可以分享情感和深层观念的友谊。在这个话题上，他引用了古希腊哲学家亚里士多德的观点。在他的名著《尼各马可伦理学》中，亚里士多德对不同性质的友谊做出了梯度的区分。其中，实用型友谊处于阶梯的底层，指的是那些可以给我们带来实际利益的关系。比实用型友谊更高一层的是能给人带来快乐的友谊，处在这种关系中的朋友会分享共同的乐趣，因为能令彼此愉悦而走到一起。而在阶梯的最高层，是亚里士多德理想中的完美友谊，处于这种友谊中的朋友会真诚地希望对方享有幸福的生活，并且在超越个人利益的美德、真理等深层的话题上拥有共识。到了这个层次，友谊已经超越了世俗的得失，成为连接两个灵魂的桥梁。</p>
+            <p class="para"><a class="anchor" id="p-orig-041"></a>为什么建立深层的人际关系会有助于我们跃上第二条曲线呢？布鲁克斯解释说，这是因为晶体智力的发展是以深层次的社交生活为基础的，没有这种高质量的社交网络，智慧的表达就找不到出口。而在前半生追逐事业成就的过程中，人们往往忽视了这种毫无功利性的关系。为了和更多的朋友展开深刻的交流，布鲁克斯自己的做法是和太太定期举办茶话会，邀请各种途径认识的朋友来家里吃饭。在席间，他们会抛出一些和现实无关的话题，尝试和朋友们讨论爱和幸福的本质。虽然这种做法可能会让这对夫妇在不投缘的客人眼里显得神神叨叨的，但和他们收获的真挚的友谊相比，这点代价倒也不算什么。</p>
+            <p class="para"><a class="anchor" id="p-orig-042"></a>在这本书的结尾，布鲁克斯还建议遭遇中年危机的朋友坦然地接受，甚至是坦率地暴露自己的弱点。这对于要强了几十年的奋斗者们来说也是件难事。然而根据布鲁克斯的经验，暴露弱点有时却能带来意想不到的转机。布鲁克斯有位朋友是个心理咨询师，人到中年视力下降，最后彻底成了盲人。他原本极力避免和人们谈到此事，可是一次偶然的机会，一个正在经历严峻的心理危机的公众人物找到了他。这位公众人物不希望暴露自己的身份，而盲眼的心理医师正好让她感到安心。就这样，布鲁克斯的这位朋友为她提供了心理咨询，并在此后成立了一个机构，专门服务具有这类需求的咨询者。坦然地接受自己的弱点，居然帮他开启了人生下半场的事业之门。</p>
+            <p class="para"><a class="anchor" id="p-orig-043"></a>布鲁克斯自己也有过一次类似的经历。前面我们已经介绍过，布鲁克斯是一位杰出的学者，在美国的社科学界享有很高的声誉，然而在职业生涯的前半程，他却一直保守着一个秘密。和身边其他的精英学者们不同，布鲁克斯并没有受过常规的高等教育，而是在30岁左右才通过函授的方式获得了学位。在相当长的一段时间里，他都因此而自卑，在担任大型智库的CEO以后，更是担心自己的学历会威胁到智库的权威性，因而每每谈及自己的学术背景都讳莫如深。可是就在他领导智库的几年后，以比尔·盖茨为首的几位慈善家发起了一个远程教育的项目，希望为更多无力负担常规学费的学生提供接受高等教育的机会。消息一出，几乎整个美国教育界都在抨击这个项目。这时候，布鲁克斯勇敢地站了出来，他在《纽约时报》上发表了一篇文章，向公众坦白了自己的过去，并且分享了自己通过函授教育改变命运的经历。文章登报后，布鲁克斯已经做好了遭受冷嘲热讽的心理准备，却意外地收到了上千封友好的读者来信。人们赞许他的勇气，还纷纷表示，像他这样出身平凡的人能取得如今的学术成就，真是一件鼓舞人心的好事。从这以后，布鲁克斯终于摆脱了数十年来积压在他心底的自卑感，他也因此明白，真诚地暴露弱点有时可以释放出强大的能量，弱点也可能成为人与人之间相互接连的节点。</p>
+            <p class="para"><a class="anchor" id="p-orig-044"></a><strong>结语</strong></p>
+            <p class="para"><a class="anchor" id="p-orig-045"></a>好，到这里，我们一起分享了《中年觉醒》这本书的主要内容。接下来，我们简短地做个总结：</p>
+            <p class="para"><a class="anchor" id="p-orig-046"></a>《中年觉醒》是哈佛商学院教授亚瑟·C.布鲁克斯的代表作，讨论了应对中年危机的方法。在书中，布鲁克斯梳理了大量的统计数据，呈现了职业下行的宏观趋势。随后，布鲁克斯重点分析了达尔文、鲍林和巴赫三位历史人物的个案，认为他们三人的经历代表了人们应对中年危机的三种常见的选择。达尔文和鲍林之所以在事业巅峰后陷入低谷，是因为坚持在人生的第一曲线上使用已经开始衰退的流体智力，而巴赫则适时地转换到晶体智力的赛道，跃上了人生的第二曲线。为了顺利地渡过中年危机，完成从第一曲线到第二曲线的切换，布鲁克斯建议我们克服自我物化的心态，尝试发展深层的友谊，并且不必对自己的弱点遮遮掩掩。当一个中年人能够坦然地面对职业下行，发挥晶体智力的优势，和他人建立深刻的连接，他也将在人生的下半场打开海阔天空的新局面。</p>
+            <p class="para"><a class="anchor" id="p-orig-047"></a>希望这本书能为你或你身边的人卸下一些心理负担。</p>
+            <p class="para"><a class="anchor" id="p-orig-048"></a>以上就是本期听书的全部内容。你可以点击音频下方的“文稿”，查收我们为你准备的全文和脑图。你还可以点击右上角的“分享”按钮，把这本书免费分享给你的朋友。当然，非常推荐你阅读原书。恭喜你，又听完了一本书。</p>
+          </article>
+        </div>
+        <div class="toggle-row">
+          <button class="linkbtn" data-action="toggle-original" id="btnToggleOriginal">展开/收起预览</button>
+        </div>
+      </div>
+    </details>
+
+    <!-- 5 Prerequisites -->
+    <details class="section" id="sec-prereq" data-sec="prereq">
+      <summary>
+        <div>
+          <div class="sec-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M4 19V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v13"/><path class="i-stroke" d="M4 19a2 2 0 0 0 2 2h14"/><path class="i-stroke" d="M8 8h8M8 12h8"/></svg></span>
+            前置知识地图（最少补课集合）
+          </div>
+          <div class="sec-sub">每卡都标注：辅助理解（非原文事实）</div>
+        </div>
+        <span class="icon chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="content" id="prereqList">
+
+        <details class="qa" data-prereq-rank="1">
+          <summary>1) 什么是“中年危机”（辅助理解，非原文事实）</summary>
+          <div class="ans">
+            <div class="toggle-row"><button class="chip" data-goto="p-orig-006">定位原文</button></div>
+            <p style="margin:8px 0 0">缺口：把“情绪低落”当成个人失败。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>预期掌握：</strong>知道它常是“身份/能力曲线变化”的综合反应。</p>
+            <p class="muted" style="margin:6px 0 0"><strong>30秒最小补课：</strong>把它当成“人生中段的换挡提醒”：旧的赢法变难，新的赢法要靠经验、关系与指导。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>边界：</strong>不等同于抑郁症；若长期严重影响生活需专业帮助。</p>
+            <p class="muted" style="margin:6px 0 0"><strong>例子：</strong>明明升职了，却总觉得“没人需要我”。</p>
+            <details class="qa" style="margin-top:8px">
+              <summary>自测：一句话说出你理解的“中年危机”是什么？</summary>
+              <div class="ans">示例答案：旧的成就标准失效、身份需要重建的阶段性波动。</div>
+            </details>
+          </div>
+        </details>
+
+        <details class="qa" data-prereq-rank="2">
+          <summary>2) “统计趋势”不等于“个人命运”（辅助理解，非原文事实）</summary>
+          <div class="ans">
+            <div class="toggle-row"><button class="chip" data-goto="p-orig-015">定位原文</button></div>
+            <p style="margin:8px 0 0">缺口：把平均值当成对自己宣判。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>预期掌握：</strong>趋势用来“提前准备”，不是用来“自我否定”。</p>
+            <p class="muted" style="margin:6px 0 0"><strong>30秒最小补课：</strong>统计讲“多数人”，个人可以通过策略改变路径，比如换角色、换产出形态。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>边界：</strong>不否认客观变化，但也不放弃主动选择。</p>
+            <p class="muted" style="margin:6px 0 0"><strong>例子：</strong>跑步成绩下滑，但可以转做教练或组织者。</p>
+            <details class="qa" style="margin-top:8px">
+              <summary>自测：原文如何提醒你别被统计“吓到”？</summary>
+              <div class="ans">提示：找“例外状况”和“积极应对”的表述。</div>
+            </details>
+          </div>
+        </details>
+
+        <details class="qa" data-prereq-rank="3">
+          <summary>3) 前额叶皮质与“执行功能”（辅助理解，非原文事实）</summary>
+          <div class="ans">
+            <div class="toggle-row"><button class="chip" data-goto="p-orig-026">定位原文</button></div>
+            <p style="margin:8px 0 0">缺口：不知道为什么“专注/多线程/记忆”会一起受影响。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>预期掌握：</strong>理解它类似“大脑的项目经理”。</p>
+            <p class="muted" style="margin:6px 0 0"><strong>30秒最小补课：</strong>执行功能像项目经理：排优先级、抑制干扰、切换任务。中年后它变慢，会让“快与新”吃亏。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>边界：</strong>变慢≠变笨；其他能力可补上。</p>
+            <p class="muted" style="margin:6px 0 0"><strong>例子：</strong>写报告时更怕被消息打断。</p>
+            <details class="qa" style="margin-top:8px">
+              <summary>自测：你能举出一个“执行功能变慢”的日常信号吗？</summary>
+              <div class="ans">示例：处理复杂任务时更需要安静环境，容易分心。</div>
+            </details>
+          </div>
+        </details>
+
+        <details class="qa" data-prereq-rank="4">
+          <summary>4) 流体智力 vs 晶体智力（辅助理解，非原文事实）</summary>
+          <div class="ans">
+            <div class="toggle-row"><button class="chip" data-goto="p-orig-032">定位原文</button></div>
+            <p style="margin:8px 0 0">缺口：两种智力容易听成“聪明/不聪明”。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>预期掌握：</strong>知道它们是“不同类型的强项”。</p>
+            <p class="muted" style="margin:6px 0 0"><strong>30秒最小补课：</strong>流体像“新题快解”；晶体像“老题总结+讲明白+落地做”。年龄增长常让前者下降、后者上升。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>边界：</strong>不是非黑即白，更多是权重变化。</p>
+            <p class="muted" style="margin:6px 0 0"><strong>例子：</strong>年轻写代码飞快；年长更会架构与带新人。</p>
+            <details class="qa" style="margin-top:8px">
+              <summary>自测：用“新题/老题”类比解释两种智力。</summary>
+              <div class="ans">参考：流体=新题快解；晶体=经验总结与迁移应用。</div>
+            </details>
+          </div>
+        </details>
+
+        <details class="qa" data-prereq-rank="5">
+          <summary>5) 第一曲线/第二曲线到底是什么（辅助理解，非原文事实）</summary>
+          <div class="ans">
+            <div class="toggle-row"><button class="chip" data-goto="p-orig-033">定位原文</button></div>
+            <p style="margin:8px 0 0">缺口：只记住名词，但不知道怎么“切换”。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>预期掌握：</strong>会把“产出形态”从创作转向指导/整合。</p>
+            <p class="muted" style="margin:6px 0 0"><strong>30秒最小补课：</strong>第一曲线靠“自己做出新东西”；第二曲线靠“让更多人做得更好”（教、带、整合、决策）。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>边界：</strong>不是放弃专业，而是换成“更适配的打法”。</p>
+            <p class="muted" style="margin:6px 0 0"><strong>例子：</strong>从写论文主攻转向写综述/搭平台/培养团队。</p>
+            <details class="qa" style="margin-top:8px">
+              <summary>自测：你现在的工作里，哪里可以先做一个“指导型产出”？</summary>
+              <div class="ans">示例：写一份给新人用的“避坑指南”，并在团队分享。</div>
+            </details>
+          </div>
+        </details>
+
+        <details class="qa" data-prereq-rank="6">
+          <summary>6) “自我物化”是什么意思（辅助理解，非原文事实）</summary>
+          <div class="ans">
+            <div class="toggle-row"><button class="chip" data-goto="p-orig-039">定位原文</button></div>
+            <p style="margin:8px 0 0">缺口：把自我价值绑定在“永远优秀”。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>预期掌握：</strong>能识别：我是不是把自己当工具？</p>
+            <p class="muted" style="margin:6px 0 0"><strong>30秒最小补课：</strong>把“我是谁”缩成“我有多成功”。一旦成绩下滑，就像工具报废，情绪崩溃。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>边界：</strong>追求进步没问题，问题在“身份单一”。</p>
+            <p class="muted" style="margin:6px 0 0"><strong>例子：</strong>自我介绍只能说职位，聊兴趣会空白。</p>
+            <details class="qa" style="margin-top:8px">
+              <summary>自测：你能用一句话描述“非职业”的自己吗？</summary>
+              <div class="ans">提示：用“家庭角色/兴趣/价值观”来写。</div>
+            </details>
+          </div>
+        </details>
+
+        <details class="qa" data-prereq-rank="7">
+          <summary>7) 亚里士多德的友谊三层（辅助理解，非原文事实）</summary>
+          <div class="ans">
+            <div class="toggle-row"><button class="chip" data-goto="p-orig-040">定位原文</button></div>
+            <p style="margin:8px 0 0">缺口：把“人脉”当成“友谊”。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>预期掌握：</strong>能区分：实用/快乐/美德共识。</p>
+            <p class="muted" style="margin:6px 0 0"><strong>30秒最小补课：</strong>底层=互利；中层=一起玩；高层=彼此希望对方过得好，并能谈真理/美德/幸福。</p>
+            <p class="muted2" style="margin:6px 0 0"><strong>边界：</strong>不要求所有关系都上最高层；关键是“要有一部分”。</p>
+            <p class="muted" style="margin:6px 0 0"><strong>例子：</strong>同事饭局多，但很少谈脆弱与价值观。</p>
+            <details class="qa" style="margin-top:8px">
+              <summary>自测：你目前最缺哪一层友谊？为什么？</summary>
+              <div class="ans">参考：很多人缺“美德共识”的深层友谊，因为时间被工作占满。</div>
+            </details>
+          </div>
+        </details>
+
+      </div>
+    </details>
+
+    <!-- 6 Pronunciation / Difficult words -->
+    <details class="section" id="sec-pron" data-sec="pron">
+      <summary>
+        <div>
+          <div class="sec-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M12 3v18M5 8h7a4 4 0 0 1 0 8H5"/><path class="i-stroke" d="M16 12h3"/></svg></span>
+            生僻字与发音
+          </div>
+          <div class="sec-sub">影响理解的 11 个词（可折叠）</div>
+        </div>
+        <span class="icon chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="content">
+        <div class="two-col">
+
+          <details class="qa" data-pron-rank="1"><summary>脑补｜nǎo bǔ</summary><div class="ans"><p style="margin:0"><strong>常见误区：</strong>无明显误区</p><p style="margin:6px 0 0"><strong>释义：</strong>在脑中补全想象情节</p><p style="margin:6px 0 0"><strong>例句：</strong>我一听就开始脑补剧情。</p></div></details>
+
+          <details class="qa" data-pron-rank="2"><summary>庸庸碌碌｜yōng yōng lù lù</summary><div class="ans"><p style="margin:0"><strong>常见误区：</strong>“碌”读 lù（不是 liù）</p><p style="margin:6px 0 0"><strong>释义：</strong>平凡忙碌、缺少成就感</p><p style="margin:6px 0 0"><strong>例句：</strong>他不想一辈子庸庸碌碌。</p></div></details>
+
+          <details class="qa" data-pron-rank="3"><summary>挥之不去｜huī zhī bù qù</summary><div class="ans"><p style="margin:0"><strong>常见误区：</strong>“挥”读 huī（非 huì）</p><p style="margin:6px 0 0"><strong>释义：</strong>想摆脱却总在心头</p><p style="margin:6px 0 0"><strong>例句：</strong>那件事在我脑中挥之不去。</p></div></details>
+
+          <details class="qa" data-pron-rank="4"><summary>锦上添花｜jǐn shàng tiān huā</summary><div class="ans"><p style="margin:0"><strong>常见误区：</strong>“锦”读 jǐn（非 jìn）</p><p style="margin:6px 0 0"><strong>释义：</strong>好上加好，非关键突破</p><p style="margin:6px 0 0"><strong>例句：</strong>这只是锦上添花，不是核心。</p></div></details>
+
+          <details class="qa" data-pron-rank="5"><summary>时不我与｜shí bù wǒ yǔ</summary><div class="ans"><p style="margin:0"><strong>常见误区：</strong>“与”读 yǔ（非 yù）</p><p style="margin:6px 0 0"><strong>释义：</strong>时机不站在我这边</p><p style="margin:6px 0 0"><strong>例句：</strong>他叹息时不我与，仍不放弃。</p></div></details>
+
+          <details class="qa" data-pron-rank="6"><summary>茅塞顿开｜máo sè dùn kāi</summary><div class="ans"><p style="margin:0"><strong>常见误区：</strong>“塞”读 sè（非 sāi）</p><p style="margin:6px 0 0"><strong>释义：</strong>一下子想明白了</p><p style="margin:6px 0 0"><strong>例句：</strong>他一句话让我茅塞顿开。</p></div></details>
+
+          <details class="qa" data-pron-rank="7"><summary>提纲挈领｜tí gāng qiè lǐng</summary><div class="ans"><p style="margin:0"><strong>常见误区：</strong>“挈”读 qiè（别读 jié）</p><p style="margin:6px 0 0"><strong>释义：</strong>抓住要点带动全局</p><p style="margin:6px 0 0"><strong>例句：</strong>先提纲挈领，再讲细节。</p></div></details>
+
+          <details class="qa" data-pron-rank="8"><summary>讳莫如深｜huì mò rú shēn</summary><div class="ans"><p style="margin:0"><strong>常见误区：</strong>“讳”读 huì（非 huéi）</p><p style="margin:6px 0 0"><strong>释义：</strong>隐瞒得很深，不愿提起</p><p style="margin:6px 0 0"><strong>例句：</strong>他对过去讳莫如深。</p></div></details>
+
+          <details class="qa" data-pron-rank="9"><summary>冷嘲热讽｜lěng cháo rè fěng</summary><div class="ans"><p style="margin:0"><strong>常见误区：</strong>无明显误区</p><p style="margin:6px 0 0"><strong>释义：</strong>讥讽挖苦、话里带刺</p><p style="margin:6px 0 0"><strong>例句：</strong>别用冷嘲热讽伤人。</p></div></details>
+
+          <details class="qa" data-pron-rank="10"><summary>赋格｜fù gé（音乐术语）</summary><div class="ans"><p style="margin:0"><strong>常见误区：</strong>“格”读 gé（非 gē）</p><p style="margin:6px 0 0"><strong>释义：</strong>多声部主题模仿写作</p><p style="margin:6px 0 0"><strong>例句：</strong>他在课堂演示一段赋格。</p></div></details>
+
+          <details class="qa" data-pron-rank="11"><summary>卡农｜kǎ nóng（音乐术语）</summary><div class="ans"><p style="margin:0"><strong>常见误区：</strong>“农”读 nóng（非 nòng）</p><p style="margin:6px 0 0"><strong>释义：</strong>轮唱/轮奏式模仿结构</p><p style="margin:6px 0 0"><strong>例句：</strong>这首歌用的是卡农形式。</p></div></details>
+
+        </div>
+      </div>
+    </details>
+
+    <!-- 7 Layered explanations -->
+    <details class="section" id="sec-explain" data-sec="explain">
+      <summary>
+        <div>
+          <div class="sec-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M12 20h9"/><path class="i-stroke" d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></span>
+            分层解释（核心概念）
+          </div>
+          <div class="sec-sub">一句话 → 通俗版 → 严谨版（每条都绑定证据锚点）</div>
+        </div>
+        <span class="icon chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="content">
+
+        <div class="mini-card">
+          <p class="muted2" style="margin:0 0 8px"><strong>原文大意（≤40字）：</strong>中年职业下行普遍，但可借晶体智力跃上“第二曲线”。</p>
+          <p class="muted2" style="margin:0"><strong>语义要点（3–7条）：</strong></p>
+          <ul class="muted" style="margin-top:6px">
+            <li>职业下行是普遍趋势（数据）</li>
+            <li>三位人物三种应对路径</li>
+            <li>流体智力下降、晶体智力增强</li>
+            <li>第一曲线到第二曲线：从创作到指导</li>
+            <li>建议：去自我物化、深层友谊、暴露弱点</li>
+          </ul>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <article>
+          <div class="mini-card">
+            <p class="muted2" style="margin:0 0 8px"><strong>概念1：职业下行</strong> <button class="chip" data-goto="p-orig-009">原文触发</button></p>
+            <p class="para"><a class="anchor" id="p-exp-001"></a><strong>一句话版：</strong>很多职业在中年会“更难继续变强”。</p>
+            <p class="para"><strong>通俗版：</strong>像手机用久了会慢一点：不是坏了，而是“旧模式”不再适合。原文用运动员、科研、医生等数据说：多数人会在某个年龄段进入下行期；但也强调“统计不等于你必然失败”。</p>
+            <p class="para"><strong>严谨版：</strong>原文把职业表现随年龄变化视为总体规律：创造性/爆发性能力更早见顶，而个体存在偏离总体趋势的例外；关键是把趋势当作准备信号。 </p>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="mini-card">
+            <p class="muted2" style="margin:0 0 8px"><strong>概念2：流体智力</strong> <button class="chip" data-goto="p-orig-032">原文触发</button></p>
+            <p class="para"><a class="anchor" id="p-exp-002"></a><strong>一句话版：</strong>遇到新问题时“快速推理+想新招”的能力。</p>
+            <p class="para"><strong>通俗版：</strong>像“现场解题速度”。年轻时题没见过也能很快做出；但中年后这项速度可能变慢，所以继续硬拼“新题快解”会更累。</p>
+            <p class="para"><strong>严谨版：</strong>原文引用卡特尔模型：流体智力=推理、灵活思考、解决新问题的认知能力；随年龄增长趋势性减退。</p>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="mini-card">
+            <p class="muted2" style="margin:0 0 8px"><strong>概念3：晶体智力</strong> <button class="chip" data-goto="p-orig-032">原文触发</button></p>
+            <p class="para"><a class="anchor" id="p-exp-003"></a><strong>一句话版：</strong>用经验把复杂事讲清、做稳、带动别人做成。</p>
+            <p class="para"><strong>通俗版：</strong>像“把很多题型归纳成方法”。年长者词汇更丰富、能提纲挈领、能把想法落地，这些让你适合做导师、整合者、决策者。</p>
+            <p class="para"><strong>严谨版：</strong>原文把晶体智力定义为基于习得经验的认知能力（后天智慧），并举表达能力、综合思维与实践迁移能力增强为证。</p>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="mini-card">
+            <p class="muted2" style="margin:0 0 8px"><strong>概念4：第一曲线 vs 第二曲线</strong> <button class="chip" data-goto="p-orig-033">原文触发</button></p>
+            <p class="para"><a class="anchor" id="p-exp-004"></a><strong>一句话版：</strong>前半程靠“做出新东西”，后半程靠“用智慧成就更多人”。</p>
+            <p class="para"><strong>通俗版：</strong>第一曲线像冲刺跑：拼速度与爆发；第二曲线像教练：拼经验、表达与系统。巴赫从创作者转为导师，反而在教人中产出晚年杰作。</p>
+            <p class="para"><strong>严谨版：</strong>原文把第一曲线与流体智力绑定，第二曲线与晶体智力绑定；完成曲线切换是渡过中年危机的关键。</p>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="mini-card">
+            <p class="muted2" style="margin:0 0 8px"><strong>概念5：自我物化</strong> <button class="chip" data-goto="p-orig-039">原文触发</button></p>
+            <p class="para"><a class="anchor" id="p-exp-005"></a><strong>一句话版：</strong>把自己当“成功机器”，一停产就否定自我。</p>
+            <p class="para"><strong>通俗版：</strong>如果你只用职位和成绩定义自己，成绩下滑就像“我整个人不值钱”。原文建议：交流时淡化职业标签，谈家庭角色、兴趣与感受，给身份“加宽”。</p>
+            <p class="para"><strong>严谨版：</strong>原文定义自我物化为：把自己当作获取成功的手段，并将保持优秀视为认同的一部分；其后果是苛刻标准与对旧成就的上瘾式迷恋。</p>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="mini-card">
+            <p class="muted2" style="margin:0 0 8px"><strong>概念6：深层友谊（高质量社交）</strong> <button class="chip" data-goto="p-orig-040">原文触发</button></p>
+            <p class="para"><a class="anchor" id="p-exp-006"></a><strong>一句话版：</strong>能谈感受与价值观的朋友，是晶体智力的“出口”。</p>
+            <p class="para"><strong>通俗版：</strong>很多人有“人脉”没“朋友”。原文用亚里士多德三层友谊说明：越往上越少功利、越能连接灵魂；这种关系让你的智慧有地方表达、也更容易获得支持。</p>
+            <p class="para"><strong>严谨版：</strong>原文强调晶体智力的发展以深层社交生活为基础；引用《尼各马可伦理学》对友谊性质分层：实用型、快乐型、完美友谊（以对方幸福与美德/真理共识为核心）。</p>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="mini-card">
+            <p class="muted2" style="margin:0 0 8px"><strong>概念7：暴露弱点</strong> <button class="chip" data-goto="p-orig-042">原文触发</button></p>
+            <p class="para"><a class="anchor" id="p-exp-007"></a><strong>一句话版：</strong>坦诚弱点，可能反而打开第二曲线的入口。</p>
+            <p class="para"><strong>通俗版：</strong>像把“缺点”变成“连接点”。原文举盲眼心理咨询师与作者坦白函授经历：原以为会被嘲笑，结果收获信任与新机会。</p>
+            <p class="para"><strong>严谨版：</strong>原文主张接受甚至坦率暴露弱点：弱点能降低他人防御、提高信任，并可能带来新的定位与服务对象，从而形成后半程事业通路。</p>
+          </div>
+        </article>
+
+      </div>
+    </details>
+
+    <!-- 8 Plain explanation (integrated, must contain p-exp anchor) -->
+    <details class="section" id="sec-plain" data-sec="plain">
+      <summary>
+        <div>
+          <div class="sec-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M4 6h16M4 12h16M4 18h10"/></svg></span>
+            通俗解释（整段串起来）
+          </div>
+          <div class="sec-sub">把全文逻辑讲成“一个故事 + 三个按钮”</div>
+        </div>
+        <span class="icon chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="content">
+        <p class="para"><a class="anchor" id="p-exp-008"></a>你可以把这篇内容理解成：中年像在高速路上换挡。很多人会发现自己不再像以前那样“越拼越强”，这不是你突然变差，而是<strong>第一曲线</strong>（靠流体智力冲刺）开始变陡了。</p>
+        <p class="para">这时有三种常见走法：<strong>死守</strong>（达尔文式：更勤奋但更沮丧）、<strong>乱转</strong>（鲍林式：去不擅长的赛道追名利而变形）、<strong>换角色</strong>（巴赫式：从创作者转为导师与整合者，反而更幸福、更有产出）。</p>
+        <p class="para">“换挡”的科学解释是：中年后某些能力会下降（快推理、多线程、记忆），但另一些会增强（表达、综合、把想法落地）。所以第二曲线不是“躺平”，而是把自己前半生的积累变成：能讲明白、能带人做成、能把复杂东西变成可用方法。</p>
+        <p class="para">落到行动上，就是三个按钮：1）<strong>松开对旧身份的执念</strong>（减少自我物化）；2）<strong>养几段深层友谊</strong>（让智慧有出口）；3）<strong>敢于承认弱点</strong>（把弱点变成连接与新定位的入口）。</p>
+      </div>
+    </details>
+
+    <!-- 9 Structure tree / logic chain (derived, no p-orig/p-exp anchors) -->
+    <details class="section" id="sec-tree" data-sec="tree">
+      <summary>
+        <div>
+          <div class="sec-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M7 7h4v4H7zM13 13h4v4h-4z"/><path class="i-stroke" d="M9 11v2a2 2 0 0 0 2 2h2"/><path class="i-stroke" d="M9 7V5h10v6"/></svg></span>
+            结构树 / 逻辑链（衍生）
+          </div>
+          <div class="sec-sub">用来建立体系，不参与标签跳转</div>
+        </div>
+        <span class="icon chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="content">
+        <ul>
+          <li>引子：成功名人也自我否定 → 中年普遍失落</li>
+          <li>问题：失落从何而来？</li>
+          <li>证据：统计数据 → 职业下行普遍（多职业、多年龄段）</li>
+          <li>案例：三人三路
+            <ul>
+              <li>达尔文：固守第一曲线 → 研究停滞、失落</li>
+              <li>鲍林：转向不擅长领域追名利 → 极端化、负面影响</li>
+              <li>巴赫：转为导师/整合者 → 幸福且产出晚年杰作</li>
+            </ul>
+          </li>
+          <li>解释：大脑变化 → 流体↓ 晶体↑</li>
+          <li>模型：第一曲线（流体驱动）→ 第二曲线（晶体驱动）</li>
+          <li>策略：
+            <ul>
+              <li>去自我物化：放下“职业强人=我”</li>
+              <li>深层友谊：让智慧有出口、让灵魂相连</li>
+              <li>暴露弱点：弱点成为连接点与新机会</li>
+            </ul>
+          </li>
+        </ul>
+
+        <div style="height:12px"></div>
+        <div class="mini-card">
+          <p class="muted2" style="margin:0 0 8px"><strong>常见误解（3–6条，尽量附原文触发点）：</strong></p>
+          <ul class="muted" style="margin-top:6px">
+            <li>误解1：职业下行=我不够努力（触发：p-orig-038）</li>
+            <li>误解2：第二曲线=躺平/退场（触发：p-orig-034）</li>
+            <li>误解3：人脉越多越好＝友谊越深（触发：p-orig-040）</li>
+            <li>误解4：隐藏弱点更体面更安全（触发：p-orig-042/043）</li>
+            <li>误解5：统计趋势会“决定”个人命运（触发：p-orig-015）</li>
+          </ul>
+        </div>
+
+        <div style="height:12px"></div>
+        <div class="mini-card">
+          <p class="muted2" style="margin:0 0 8px"><strong>应用场景（3–6条）：</strong></p>
+          <ul class="muted" style="margin-top:6px">
+            <li>职场：从“单兵高手”转为“教练/架构/评审”</li>
+            <li>家庭：把身份从“工作成就”扩展为“伴侣/父母/子女”</li>
+            <li>学习：从刷题式学习转为写总结、教别人、搭知识体系</li>
+            <li>创业/副业：从冲刺获客转为做方法论、做社群、做长期服务</li>
+            <li>情绪管理：把“低落”当成换挡信号，提前做关系与角色调整</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- 10 Review Pack -->
+    <details class="section" id="sec-review" data-sec="review">
+      <summary>
+        <div>
+          <div class="sec-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M9 11h6M9 15h4"/><path class="i-stroke" d="M7 3h10a2 2 0 0 1 2 2v14l-3-2-3 2-3-2-3 2V5a2 2 0 0 1 2-2Z"/></svg></span>
+            复习包（要点 / 自测 / 闪卡）
+          </div>
+          <div class="sec-sub">为了“记住并能用”</div>
+        </div>
+        <span class="icon chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="content">
+        <div class="mini-card">
+          <p class="muted2" style="margin:0 0 8px"><strong>要点清单（3–7条）：</strong></p>
+          <ul class="muted" style="margin-top:6px">
+            <li>职业下行普遍：多数人在35–50岁进入下行期（p-orig-014）</li>
+            <li>三种应对：死守、乱转、换角色（p-orig-022）</li>
+            <li>大脑变化：某些能力下降，表达/综合/实践能力增强（p-orig-029~031）</li>
+            <li>流体智力↓，晶体智力↑（p-orig-032）</li>
+            <li>第一曲线→第二曲线：从创作到指导/整合（p-orig-034）</li>
+            <li>三条建议：去自我物化、深层友谊、暴露弱点（p-orig-039~043）</li>
+          </ul>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="mini-card">
+          <p class="muted2" style="margin:0 0 8px"><strong>自测题（5题；考试模式答案默认隐藏）：</strong></p>
+
+          <details class="qa" data-qa="1">
+            <summary>Q1：原文为什么说“职业下行”几乎不可避免？</summary>
+            <div class="ans">因为作者引用多职业、多研究的数据，显示不同领域在某年龄段后重大成果/表现概率下降（如科研、医疗、创业等）。</div>
+          </details>
+
+          <details class="qa" data-qa="2">
+            <summary>Q2：达尔文、鲍林、巴赫分别代表哪三种选择？</summary>
+            <div class="ans">达尔文=固守原路硬扛；鲍林=转向不擅长领域追名利而变形；巴赫=转为指导者/导师，发挥晶体智力。</div>
+          </details>
+
+          <details class="qa" data-qa="3">
+            <summary>Q3：流体智力与晶体智力的关键区别是什么？</summary>
+            <div class="ans">流体=新问题推理与灵活解法；晶体=基于习得经验的智慧（表达、综合、落地）。</div>
+          </details>
+
+          <details class="qa" data-qa="4">
+            <summary>Q4：什么是“自我物化”？它会带来什么后果？</summary>
+            <div class="ans">把自己当成功手段，把“保持优秀”当身份核心；后果是用苛刻标准内耗，职业下行时更难转型与平衡生活。</div>
+          </details>
+
+          <details class="qa" data-qa="5">
+            <summary>Q5（应用题）：如果你发现自己开始“更难创新”，你可以做哪一个“第二曲线”的小动作？</summary>
+            <div class="ans">示例：把过去经验写成一页“方法/避坑清单”分享给同事；或安排一次深聊建立高质量友谊；或公开承认一个弱点并设计补位方式。</div>
+          </details>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="mini-card">
+          <p class="muted2" style="margin:0 0 8px"><strong>闪卡（≥5张）：</strong></p>
+          <div class="two-col">
+            <details class="qa"><summary>卡1：第一曲线是什么？</summary><div class="ans">靠流体智力的“创新/冲刺型”职业曲线。</div></details>
+            <details class="qa"><summary>卡2：第二曲线是什么？</summary><div class="ans">靠晶体智力的“指导/整合/落地型”职业曲线。</div></details>
+            <details class="qa"><summary>卡3：职业下行的意义是什么？</summary><div class="ans">不是判决书，而是提醒你准备转型与换打法。</div></details>
+            <details class="qa"><summary>卡4：深层友谊为什么重要？</summary><div class="ans">晶体智力要有“表达出口”和“情感支撑”。</div></details>
+            <details class="qa"><summary>卡5：暴露弱点可能带来什么？</summary><div class="ans">信任与新的定位机会，弱点变成连接点。</div></details>
+            <details class="qa"><summary>卡6：自我物化的反向动作？</summary><div class="ans">淡化职业标签，扩展身份：兴趣、家庭角色、价值观。</div></details>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 11 Feynman -->
+    <details class="section" id="sec-feynman" data-sec="feynman">
+      <summary>
+        <div>
+          <div class="sec-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M4 19h16"/><path class="i-stroke" d="M7 17V7a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v10"/><path class="i-stroke" d="M9 9h6M9 12h6"/></svg></span>
+            费曼学习法
+          </div>
+          <div class="sec-sub">把复杂概念讲给 12 岁听</div>
+        </div>
+        <span class="icon chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="content">
+        <div class="mini-card">
+          <p class="muted2" style="margin:0 0 8px"><strong>12岁解释（≤120字）：</strong></p>
+          <p class="muted" style="margin:0">人长大后，做新题的速度会变慢，但会更会总结经验、讲清道理、带别人一起做事。所以中年不是没用了，而是该从“自己冲”变成“教别人、把经验变成方法”，这就是从第一曲线换到第二曲线。</p>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="mini-card">
+          <p class="muted2" style="margin:0 0 8px"><strong>卡点清单（你可能卡在哪）：</strong></p>
+          <ul class="muted" style="margin-top:6px">
+            <li>把“流体/晶体”误解成“聪明/不聪明”</li>
+            <li>不知道“第二曲线”具体产出长什么样</li>
+            <li>把友谊当人脉，忽略“深层交流”</li>
+            <li>不敢暴露弱点，害怕失去权威</li>
+          </ul>
+          <p class="muted2" style="margin:8px 0 0"><strong>原文证据（≤25字）：</strong>“第一曲线…第二曲线”（p-orig-006）</p>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="mini-card">
+          <p class="muted2" style="margin:0 0 8px"><strong>一页总结：</strong></p>
+          <ul class="muted" style="margin-top:6px">
+            <li>现实：职业下行常见</li>
+            <li>原因：流体智力衰退 + 晶体智力增强</li>
+            <li>方向：从创作冲刺转为指导整合</li>
+            <li>方法：去自我物化、深层友谊、暴露弱点</li>
+          </ul>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="mini-card">
+          <p class="muted2" style="margin:0 0 8px"><strong>5–15分钟任务 + 标准：</strong></p>
+          <ul class="muted" style="margin-top:6px">
+            <li><strong>任务：</strong>写一段 80–120 字的“第二曲线定义”，并举你自己的一个例子。</li>
+            <li><strong>标准：</strong>必须同时包含：1）从创作到指导；2）流体/晶体一句话；3）一个你能做的小动作。</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- 12 Action Plan -->
+    <details class="section" id="sec-action" data-sec="action">
+      <summary>
+        <div>
+          <div class="sec-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M9 18h6"/><path class="i-stroke" d="M10 2h4"/><path class="i-stroke" d="M12 6v6l3 2"/><path class="i-stroke" d="M7 22h10a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v11a3 3 0 0 0 3 3Z"/></svg></span>
+            行动规划（3个动作，5–15分钟）
+          </div>
+          <div class="sec-sub">可勾选；自动保存到本地</div>
+        </div>
+        <span class="icon chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="content">
+        <div class="checklist" id="actionChecklist">
+          <label class="chk"><input type="checkbox" data-save="act1" />
+            <div>
+              <div style="font-weight:900">动作1：写一页“避坑清单”</div>
+              <div class="muted">5–10分钟，把你最常踩的 3 个坑写成给新人的说明。</div>
+              <div class="muted2">完成标准：能被别人照着做（可发群/发同事）。</div>
+            </div>
+          </label>
+          <label class="chk"><input type="checkbox" data-save="act2" />
+            <div>
+              <div style="font-weight:900">动作2：安排一次深聊</div>
+              <div class="muted">10–15分钟，邀请一位朋友聊“最近最在意的事/幸福是什么”。</div>
+              <div class="muted2">完成标准：至少问 2 个开放式问题，并记录 3 句收获。</div>
+            </div>
+          </label>
+          <label class="chk"><input type="checkbox" data-save="act3" />
+            <div>
+              <div style="font-weight:900">动作3：安全地暴露一个弱点</div>
+              <div class="muted">5–10分钟，写下一个你常隐藏的弱点，并设计一个“补位方案”。</div>
+              <div class="muted2">完成标准：把弱点转为可沟通的需求或合作方式。</div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </details>
+
+    <!-- 13 Reflection -->
+    <details class="section" id="sec-retro" data-sec="retro">
+      <summary>
+        <div>
+          <div class="sec-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M12 21a9 9 0 1 0-9-9"/><path class="i-stroke" d="M3 12h6"/><path class="i-stroke" d="M12 7v6l4 2"/></svg></span>
+            复盘区
+          </div>
+          <div class="sec-sub">把“看懂”变成“下一次更顺”</div>
+        </div>
+        <span class="icon chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="content">
+        <div class="mini-card">
+          <label style="display:block; font-weight:850; margin-bottom:8px">理解度（0–10）：
+            <input id="score" type="range" min="0" max="10" step="1" style="width:100%" />
+          </label>
+          <div class="muted">当前：<span id="scoreVal">5</span>/10（本地保存）</div>
+          <div style="height:10px"></div>
+          <label style="display:block; font-weight:850; margin-bottom:8px">我卡在哪（可写一句）：
+            <textarea id="blocker" rows="3" style="width:100%; padding:10px 12px; border-radius:14px; border:1px solid var(--border); background: rgba(255,255,255,.04); color: var(--text);"></textarea>
+          </label>
+          <label style="display:block; font-weight:850; margin-bottom:8px">下次要问的问题：
+            <textarea id="nextQ" rows="3" style="width:100%; padding:10px 12px; border-radius:14px; border:1px solid var(--border); background: rgba(255,255,255,.04); color: var(--text);"></textarea>
+          </label>
+          <div class="toggle-row">
+            <button class="linkbtn" id="btnSaveRetro">保存复盘</button>
+            <button class="linkbtn" id="btnClearRetro">清空</button>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 14 Change log / self-check -->
+    <details class="section" id="sec-changelog" data-sec="changelog">
+      <summary>
+        <div>
+          <div class="sec-title">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M12 8v4l3 2"/><path class="i-stroke" d="M3 12a9 9 0 1 0 3-6"/><path class="i-stroke" d="M3 3v6h6"/></svg></span>
+            变更记录与自检
+          </div>
+          <div class="sec-sub">S1–S5、字数、映射自检</div>
+        </div>
+        <span class="icon chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="i-stroke" d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="content">
+        <div class="mini-card">
+          <p class="muted2" style="margin:0 0 8px"><strong>学习策略自检（S1–S5）：</strong></p>
+          <ul class="muted" style="margin-top:6px">
+            <li>✅ S1 学习障碍判定：Top1–3 + 证据句（顶部抽屉）</li>
+            <li>✅ S2 分层解释：一句话/通俗/严谨（分层解释章）</li>
+            <li>✅ S3 最少前置集合：前置知识地图 7 卡（标注“辅助理解”）</li>
+            <li>✅ S4 生僻字/发音：11 条（可折叠；补课模式展开Top5）</li>
+            <li>✅ S5 建立体系：思维导图SVG、概念地图SVG、结构树、误解、场景</li>
+          </ul>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="mini-card">
+          <p class="muted2" style="margin:0 0 8px"><strong>统计与映射自检：</strong></p>
+          <ul class="muted" style="margin-top:6px">
+            <li>原文字数：<span id="logChars">—</span>；阅读时长：<span id="logRead">—</span> 分钟</li>
+            <li>学科Top-3：心理学 / 职业发展 / 哲学-伦理（见顶部抽屉）</li>
+            <li>标签数量：<span id="logTags">—</span>（全部绑定 p-orig/p-exp）</li>
+            <li>前置卡数量：7；发音条目：11</li>
+            <li>严格映射：点击标签/学科/前置卡/SVG节点 → 若正文锚点不存在将禁用</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+  </main>
+
+<script>
+(function(){
+  const $ = (sel, root=document)=>root.querySelector(sel);
+  const $$ = (sel, root=document)=>Array.from(root.querySelectorAll(sel));
+
+  /* ===== Theme ===== */
+  const themeKey = 'readcard_theme_v1';
+  const root = document.documentElement;
+  function setTheme(t){
+    root.setAttribute('data-theme', t);
+    localStorage.setItem(themeKey, t);
+  }
+  const savedTheme = localStorage.getItem(themeKey);
+  if(savedTheme){ setTheme(savedTheme); }
+  else{
+    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    setTheme(prefersLight ? 'light' : 'dark');
+  }
+  $('#btnTheme').addEventListener('click', ()=>{
+    const cur = root.getAttribute('data-theme') || 'dark';
+    setTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ===== Print ===== */
+  $('#btnPrint').addEventListener('click', ()=>window.print());
+
+  /* ===== Meta calc ===== */
+  function calcMeta(){
+    const orig = $('#originalText');
+    const text = (orig?.innerText || '').replace(/\s+/g,'');
+    const chars = text.length;
+    const mins = Math.max(1, Math.ceil(chars/300));
+    const now = new Date();
+    const timeStr = now.toLocaleString();
+
+    $('#kpiChars').textContent = `字数：${chars}`;
+    $('#kpiRead').textContent = `阅读：${mins} 分钟`;
+    $('#kpiTime').textContent = `生成：${timeStr}`;
+
+    $('#logChars').textContent = chars;
+    $('#logRead').textContent = mins;
+  }
+  calcMeta();
+
+  /* ===== Strict mapping registry (only p-orig / p-exp) ===== */
+  const allowedPrefix = ['p-orig-','p-exp-'];
+  function isAllowedAnchor(id){
+    return allowedPrefix.some(p=>id && id.startsWith(p));
+  }
+
+  function ensureOriginalExpandedForJump(targetId){
+    const inOrig = targetId.startsWith('p-orig-');
+    if(!inOrig) return;
+    const secOrig = $('#sec-original');
+    if(!secOrig.open) secOrig.open = true;
+
+    // Keep preview folded in fast mode unless user expanded manually.
+    // But for jump we must expand preview if target is not visible.
+    const preview = $('#originalPreview');
+    if(preview && !preview.classList.contains('expanded')){
+      preview.classList.add('expanded');
+    }
+  }
+
+  function jumpTo(targetId){
+    if(!isAllowedAnchor(targetId)) return;
+    const el = document.getElementById(targetId);
+    if(!el){
+      return;
+    }
+    ensureOriginalExpandedForJump(targetId);
+    // Open explain section if needed
+    if(targetId.startsWith('p-exp-')){
+      const secExplain = $('#sec-explain');
+      if(secExplain && !secExplain.open) secExplain.open = true;
+    }
+
+    const p = el.closest('.para') || el.parentElement;
+    if(p){
+      p.classList.add('hl');
+      p.classList.add('blink');
+      setTimeout(()=>{ p.classList.remove('blink'); }, 2800);
+      setTimeout(()=>{ p.classList.remove('hl'); }, 3200);
+    }
+
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
+  function bindGoto(el){
+    const target = el.getAttribute('data-goto');
+    if(!target || !isAllowedAnchor(target)){
+      el.setAttribute('aria-disabled','true');
+      el.title = '正文未找到对应段落';
+      return;
+    }
+    if(!document.getElementById(target)){
+      el.setAttribute('aria-disabled','true');
+      el.title = '正文未找到对应段落';
+      return;
+    }
+    el.addEventListener('click', (e)=>{
+      if(el.getAttribute('aria-disabled')==='true') return;
+      e.preventDefault();
+      jumpTo(target);
+    });
+  }
+
+  // Bind chips and svg nodes
+  $$('[data-goto]').forEach(bindGoto);
+
+  /* ===== Tags (8–16) with evidence mapping ===== */
+  const tags = [
+    {t:'第二曲线', goto:'p-orig-033', e:'“第一曲线…第二曲线”', m:'曲线切换'},
+    {t:'职业下行', goto:'p-orig-014', e:'“35—50岁…下行期”', m:'趋势与转折'},
+    {t:'流体智力', goto:'p-orig-032', e:'“流体智力指的是…”', m:'新题快解'},
+    {t:'晶体智力', goto:'p-orig-032', e:'“晶体智力…经验”', m:'经验智慧'},
+    {t:'自我物化', goto:'p-orig-039', e:'“自我物化就是…”', m:'身份解绑'},
+    {t:'深层友谊', goto:'p-orig-040', e:'“不同性质的友谊”', m:'关系质量'},
+    {t:'暴露弱点', goto:'p-orig-042', e:'“坦率地暴露弱点”', m:'弱点变连接'},
+    {t:'三种选择', goto:'p-orig-022', e:'“达尔文…鲍林…巴赫”', m:'应对路径'},
+    {t:'前额叶皮质', goto:'p-orig-026', e:'“前额叶皮质…衰退”', m:'执行功能'},
+    {t:'表达能力', goto:'p-orig-029', e:'“词汇量与日俱增”', m:'讲清概念'},
+    {t:'综合思维', goto:'p-orig-030', e:'“提纲挈领…”', m:'搭架构'},
+    {t:'实践迁移', goto:'p-orig-031', e:'“付诸实践”', m:'跨域落地'},
+    {t:'巴赫案例', goto:'p-orig-021', e:'“转身成为…导师”', m:'从创作到指导'},
+    {t:'统计与例外', goto:'p-orig-015', e:'“例外状况”', m:'趋势≠命运'}
+  ];
+
+  function renderTags(){
+    const chipTop = $('#chipTop6');
+    const chipAll = $('#chipAll');
+    chipTop.innerHTML = '';
+    chipAll.innerHTML = '';
+
+    const topN = window.matchMedia('(max-width: 720px)').matches ? 4 : 6;
+    tags.slice(0, topN).forEach(x=>{
+      const b = document.createElement('button');
+      b.className = 'chip';
+      b.textContent = x.t;
+      b.setAttribute('data-goto', x.goto);
+      bindGoto(b);
+      chipTop.appendChild(b);
+    });
+
+    tags.slice(0, 16).forEach(x=>{
+      const b = document.createElement('button');
+      b.className = 'chip';
+      b.textContent = x.t;
+      b.setAttribute('data-goto', x.goto);
+      b.title = `证据：${x.e}｜映射：${x.m}`;
+      bindGoto(b);
+      chipAll.appendChild(b);
+    });
+
+    $('#logTags').textContent = Math.min(tags.length, 16);
+  }
+  renderTags();
+  window.addEventListener('resize', ()=>renderTags());
+
+  /* ===== Preview toggle & expand/collapse controls ===== */
+  const preview = $('#originalPreview');
+  $('#btnToggleOriginal').addEventListener('click', ()=>{
+    preview.classList.toggle('expanded');
+  });
+
+  function expandOriginal(){ preview.classList.add('expanded'); }
+  function collapseOriginal(){ preview.classList.remove('expanded'); }
+
+  function expandAllDetails(){
+    $$('details.section').forEach(d=>d.open = true);
+  }
+  function collapseAllDetails(){
+    $$('details.section').forEach(d=>d.open = false);
+  }
+
+  $$('[data-action]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const act = btn.getAttribute('data-action');
+      if(act==='expand-original') { $('#sec-original').open = true; expandOriginal(); }
+      if(act==='collapse-original') { collapseOriginal(); }
+      if(act==='toggle-original') { preview.classList.toggle('expanded'); }
+      if(act==='expand-all') { expandAllDetails(); expandOriginal(); }
+      if(act==='collapse-all') { collapseAllDetails(); collapseOriginal(); }
+    });
+  });
+
+  /* ===== Mode folding rules ===== */
+  const modeKey = 'readcard_mode_v1';
+  const modes = {
+    fast: {
+      name: '速读模式',
+      open: ['sec-action'],
+      openDetails: ['sec-action'],
+      // Special: topinfo folded (closed), diag folded (inside), key points (review) folded, but we also want "要点清单" visible.
+      openSections: ['sec-action'],
+      extraOpen: ['sec-topinfo'],
+      closeAllExcept: ['sec-topinfo','sec-action'],
+      originalPreview: false,
+      topinfoOpen: false,
+      alsoOpen: ['sec-topinfo','sec-action','sec-review'],
+      closeOthers: true,
+      openReviewButCollapsedInside: true
+    },
+    teach: {
+      name: '补课模式',
+      // default expand: diag (topinfo open), explain, prereq top2, pron top5, tree
+      topinfoOpen: true,
+      openSections: ['sec-topinfo','sec-explain','sec-prereq','sec-pron','sec-tree'],
+      originalPreview: false,
+      openTopPrereq: 2,
+      openTopPron: 5
+    },
+    exam: {
+      name: '考试模式',
+      topinfoOpen: false,
+      openSections: ['sec-review'],
+      originalPreview: false,
+      examOnly: true
+    }
+  };
+
+  function setMode(m){
+    const conf = modes[m] || modes.fast;
+    localStorage.setItem(modeKey, m);
+    $('#modeText').textContent = conf.name;
+
+    // Button highlight
+    ['fast','teach','exam'].forEach(k=>{
+      const btn = $('#btn'+(k==='fast'?'Fast':k==='teach'?'Teach':'Exam'));
+      btn.classList.toggle('active', k===m);
+    });
+
+    resetFoldsToMode(m);
+  }
+
+  function resetFoldsToMode(m){
+    const conf = modes[m] || modes.fast;
+
+    // Close all
+    $$('details.section').forEach(d=>d.open = false);
+
+    // Reset internal QAs
+    if(conf.examOnly){
+      // In exam mode: only review open, answers hidden by default
+      const secReview = $('#sec-review');
+      secReview.open = true;
+      // Close all qa answers
+      $$('details.qa', secReview).forEach(d=>d.open = false);
+    }
+
+    // Open requested sections
+    (conf.openSections || []).forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.open = true;
+    });
+
+    // Speed mode custom: open topinfo (folded) + key points + action
+    if(m==='fast'){
+      $('#sec-topinfo').open = false; // folded top info
+      $('#sec-review').open = true;   // to show key points quickly
+      $('#sec-action').open = true;
+      // Keep all QAs closed
+      $$('details.qa', $('#sec-review')).forEach(d=>d.open = false);
+      collapseOriginal();
+      // Ensure original section is folded
+      $('#sec-original').open = false;
+    }
+
+    // Teach mode expand top2 prereq, top5 pron
+    if(m==='teach'){
+      const prereqs = $$('#prereqList > details.qa');
+      prereqs.forEach((d,i)=> d.open = i < (conf.openTopPrereq||0));
+      const prons = $$('#sec-pron details.qa');
+      prons.forEach((d,i)=> d.open = i < (conf.openTopPron||0));
+      // Keep original preview folded
+      collapseOriginal();
+    }
+
+    // Exam mode: only review open; answers hidden until click
+    if(m==='exam'){
+      collapseOriginal();
+      $('#sec-review').open = true;
+      $$('details.qa', $('#sec-review')).forEach(d=>d.open = false);
+    }
+  }
+
+  // Mode buttons
+  $('#btnFast').addEventListener('click', ()=>setMode('fast'));
+  $('#btnTeach').addEventListener('click', ()=>setMode('teach'));
+  $('#btnExam').addEventListener('click', ()=>setMode('exam'));
+  $('#btnResetFolds').addEventListener('click', ()=>{
+    const m = localStorage.getItem(modeKey) || 'fast';
+    resetFoldsToMode(m);
+  });
+
+  // Init mode
+  setMode(localStorage.getItem(modeKey) || 'fast');
+
+  /* ===== Checklist persistence ===== */
+  const saveKey = 'readcard_checks_v1';
+  const saved = JSON.parse(localStorage.getItem(saveKey) || '{}');
+  $$('input[type="checkbox"][data-save]').forEach(cb=>{
+    const k = cb.getAttribute('data-save');
+    cb.checked = !!saved[k];
+    cb.addEventListener('change', ()=>{
+      saved[k] = cb.checked;
+      localStorage.setItem(saveKey, JSON.stringify(saved));
+    });
+  });
+
+  /* ===== Reflection persistence ===== */
+  const retroKey = 'readcard_retro_v1';
+  function loadRetro(){
+    const r = JSON.parse(localStorage.getItem(retroKey) || '{}');
+    const score = $('#score');
+    const blocker = $('#blocker');
+    const nextQ = $('#nextQ');
+    score.value = (r.score ?? 5);
+    $('#scoreVal').textContent = score.value;
+    blocker.value = (r.blocker ?? '');
+    nextQ.value = (r.nextQ ?? '');
+  }
+  function saveRetro(){
+    const r = {
+      score: Number($('#score').value),
+      blocker: $('#blocker').value.trim(),
+      nextQ: $('#nextQ').value.trim(),
+      at: new Date().toISOString()
+    };
+    localStorage.setItem(retroKey, JSON.stringify(r));
+  }
+  loadRetro();
+  $('#score').addEventListener('input', ()=>{ $('#scoreVal').textContent = $('#score').value; });
+  $('#btnSaveRetro').addEventListener('click', ()=>saveRetro());
+  $('#btnClearRetro').addEventListener('click', ()=>{ localStorage.removeItem(retroKey); loadRetro(); });
+
+  /* ===== Strict mapping self-check: disable broken gotos ===== */
+  function validateAllGotos(){
+    $$('[data-goto]').forEach(el=>{
+      const target = el.getAttribute('data-goto');
+      if(!target || !isAllowedAnchor(target) || !document.getElementById(target)){
+        el.setAttribute('aria-disabled','true');
+        el.title = '正文未找到对应段落';
+      }
+    });
+  }
+  validateAllGotos();
+
+  /* ===== SVG nodes should look clickable ===== */
+  $$('.node').forEach(n=>{
+    n.addEventListener('mouseenter', ()=>{ n.style.opacity = '0.92'; });
+    n.addEventListener('mouseleave', ()=>{ n.style.opacity = '1'; });
+    n.addEventListener('click', ()=>{
+      const target = n.getAttribute('data-goto');
+      if(target && isAllowedAnchor(target) && document.getElementById(target)) jumpTo(target);
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
