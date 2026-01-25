@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>现代视野里的金刚经｜本集内容阅读页</title>
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root {
+      --bg: #0f0f10;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --faint: rgba(255,255,255,.5);
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --accent: #d9b38c;
+      --accent2: #9ad0ff;
+      --good: #9ee6b3;
+      --warn: #ffd38a;
+      --danger: #ff9aa2;
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans CJK SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --serif: ui-serif, "Noto Serif CJK SC", "Songti SC", "STSong", "SimSun", serif;
+      --base: 16px;
+      --lh: 1.85;
+      --maxw: 1060px;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f7f3ee;
+        --panel: rgba(0,0,0,.04);
+        --panel2: rgba(0,0,0,.06);
+        --text: rgba(0,0,0,.88);
+        --muted: rgba(0,0,0,.62);
+        --faint: rgba(0,0,0,.48);
+        --border: rgba(0,0,0,.12);
+        --shadow: 0 12px 28px rgba(0,0,0,.10);
+        --accent: #7a4d2b;
+        --accent2: #0067c5;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      font-size: var(--base);
+      line-height: var(--lh);
+      background: radial-gradient(1200px 800px at 20% -10%, rgba(217,179,140,.22), transparent 60%),
+                  radial-gradient(900px 700px at 110% 20%, rgba(154,208,255,.16), transparent 55%),
+                  radial-gradient(1000px 700px at 30% 120%, rgba(158,230,179,.14), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 22px 18px 70px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.18));
+      border-bottom: 1px solid var(--border);
+    }
+    @media (prefers-color-scheme: light) {
+      .topbar {
+        background: linear-gradient(to bottom, rgba(247,243,238,.92), rgba(247,243,238,.75));
+      }
+    }
+
+    .topbar-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      min-width: 220px;
+    }
+    .brand .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(217,179,140,.28), rgba(154,208,255,.20));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+    }
+    .brand .title {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+    .brand .title strong {
+      font-weight: 800;
+      letter-spacing: .3px;
+    }
+    .brand .title span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    button, .chip {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font: inherit;
+      cursor: pointer;
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.10);
+    }
+    button:hover {
+      background: var(--panel2);
+      border-color: rgba(217,179,140,.35);
+    }
+    button:active {
+      transform: translateY(1px) scale(.99);
+    }
+    button:focus-visible {
+      outline: 2px solid rgba(154,208,255,.65);
+      outline-offset: 2px;
+    }
+
+    .chip {
+      cursor: default;
+      color: var(--muted);
+      box-shadow: none;
+    }
+
+    .hero {
+      padding: 22px 0 8px;
+      display: grid;
+      gap: 14px;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(22px, 3.4vw, 34px);
+      letter-spacing: .2px;
+    }
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    @media (prefers-color-scheme: light) {
+      .card {
+        background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.55));
+      }
+    }
+
+    .card .hd {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .hd .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      background: rgba(217,179,140,.12);
+    }
+    .badge svg { width: 18px; height: 18px; opacity: .9; }
+
+    .hd h2 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hd small {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .card .bd {
+      padding: 12px 16px 16px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 78px;
+      display: grid;
+      gap: 10px;
+      align-self: start;
+    }
+    @media (max-width: 980px) {
+      .nav { position: relative; top: 0; }
+    }
+
+    .nav a {
+      text-decoration: none;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      transition: background .2s ease, border-color .2s ease, transform .08s ease;
+    }
+    .nav a:hover {
+      background: var(--panel2);
+      border-color: rgba(217,179,140,.35);
+    }
+    .nav a:active { transform: translateY(1px); }
+
+    .nav .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(217,179,140,.75);
+      margin-top: 6px;
+      flex: none;
+      box-shadow: 0 0 0 4px rgba(217,179,140,.15);
+    }
+    .nav .meta {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+    .nav .meta strong {
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .nav .meta span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    details.section {
+      border-top: 1px solid var(--border);
+      padding: 0;
+    }
+    details.section:first-of-type {
+      border-top: none;
+    }
+
+    details.section summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      user-select: none;
+    }
+    details.section summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .sum-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .sum-left .ico {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(154,208,255,.10);
+      display: grid;
+      place-items: center;
+      flex: none;
+    }
+    .sum-left .ico svg {
+      width: 18px;
+      height: 18px;
+      opacity: .9;
+    }
+    .sum-left .txt {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+    .sum-left .txt strong {
+      font-size: 15px;
+      font-weight: 900;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sum-left .txt span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .chev {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      display: grid;
+      place-items: center;
+      flex: none;
+      transition: transform .2s ease;
+    }
+    details[open] .chev {
+      transform: rotate(180deg);
+    }
+
+    .content {
+      padding: 0 16px 16px;
+    }
+
+    pre.raw {
+      margin: 0;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.20);
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    @media (prefers-color-scheme: light) {
+      pre.raw {
+        background: rgba(255,255,255,.65);
+      }
+    }
+
+    .kpi {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width: 720px) {
+      .kpi { grid-template-columns: 1fr; }
+    }
+
+    .pill {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 16px;
+      padding: 12px 12px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .pill .em {
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      background: rgba(217,179,140,.10);
+      flex: none;
+    }
+    .pill strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 2px;
+    }
+    .pill span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .footer {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      opacity: .95;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 50;
+      background: rgba(0,0,0,.60);
+      border: 1px solid rgba(255,255,255,.16);
+      color: rgba(255,255,255,.92);
+      padding: 10px 12px;
+      border-radius: 999px;
+      display: none;
+      gap: 8px;
+      align-items: center;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      font-size: 13px;
+    }
+    @media (prefers-color-scheme: light) {
+      .toast {
+        background: rgba(30,30,30,.72);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <pre id="raw-source" style="display:none">【本集经文
+
+“须菩提！于意云何？如来有肉眼不？”
+“如是，世尊！如来有肉眼。”
+“须菩提！于意云何？如来有天眼不？”
+“如是，世尊！如来有天眼。”
+“须菩提！于意云何？如来有慧眼不？”
+“如是，世尊！如来有慧眼。”
+“须菩提！于意云何？如来有法眼不？”
+“如是，世尊！如来有法眼。”
+“须菩提！于意云何？如来有佛眼不？”
+“如是，世尊！如来有佛眼。”
+“须菩提！于意云何？恒河中所有沙，佛说是沙不？”
+“如是，世尊！如来说是沙。”
+“须菩提！于意云何？如一恒河中所有沙，有如是等恒河，是诸恒河所有沙数佛世界，如是宁为多不？”
+“甚多，世尊！”
+佛告须菩提：“尔所国土中，所有众生若干种心，如来悉知。何以故？如来说诸心，皆为非心，是名为心。所以者何？须菩提！过去心不可得，现在心不可得，未来心不可得。”
+ 
+文稿
+
+大家好，我是成庆，欢迎收听《现代视野里的金刚经》。
+通过前面二十多讲的内容，我们或许能够体会到，《金刚经》所传达的思想和大多数宗教及哲学思想存在明显的差异。首先，佛教反对所谓的本体论，任何宣称绝对实体的思想，都会成为佛陀批评的对象，比如我们熟悉的造物主的思想和信仰，或是第一因的观念等等。这种“绝对性”的认定，在佛陀看来，不过是我们的心识所玩的一个游戏，也就是说，万法本无实体，不过是缘起而成的幻相，但我们却将其认定为绝对真实和永恒的存在。
+在《金刚经》当中，佛陀借助须菩提的疑惑，将其所执着的内容一层层的剖析，以便让他看到这个心识游戏的真相。但要真正看清，其实并不容易，因为这意味着我们要对心识的运作逻辑有非常清晰的观察，而所谓佛教的修行实践，无一不是围绕着这一点而展开，也就是去观察为何“心”会产生执取，以及这个世界的真相到底是什么。
+ 
+“暴力”的根源
+
+很多人会认为，佛教并不怎么关心政治、社会等世俗社会议题，而是更多关注内心世界的活动，所以就习惯性地将其归为内敛、保守和消极的宗教学说。这种说法看上去似乎与佛教的外在形象是一致的，比如严格的戒律、少欲的生活以及较为封闭的寺院组织等等。但从佛陀早期的弘法经历来看，佛陀与僧团行走于北印度期间，其实和各个社会阶层都保持着密切的联系，无论是君主、大臣，还是婆罗门，抑或是底层的庶民。尤其值得注意的是，在佛陀的这些信众中，其实分为“出家”与“在家”的不同群体，前者进入僧团，过着群居或头陀行的生活，而在家群体则不脱离家庭乃至社会的责任，在世俗生活中完成生命的提升。
+因此从表面来看，我们至少能够理解，佛教并不是某种避世性的宗教；而从思想上看，佛法最关注的问题，当然是众生为何会感到“苦”，也就是生命的不自由感，也正因此，佛陀对于世俗生活所追求的目标产生了疑惑和不满足。正是从此出发，佛陀发现，“苦”的原因并不在各种的世间万相上，而是我们的“执着心”。
+“执着心”虽然描述的是意识层面的表现，但其观察的对象绝非只是个体性的意识，而是整体的世界。在经典里，佛陀将世界划分为三种类型，叫作“三世间”，分别是五蕴世间、众生世间和国土世间。五蕴世间指的是个体生命；众生世间讲的是各种生命群体，比如政治、社会、经济乃至家庭等等组织形态；而国土世间则指的是物质意义上的世界。佛教谈觉悟，其实是从“三世间”的关系角度来谈，而不仅仅限于一般人理解的五蕴世间，也就是个体生命层面。
+这其实也容易理解，毕竟我们的执着不仅只局限于身心五蕴。比如我们所谈的人类政治、社会乃至经济层面的议题，最后都变成各种争论不休的意识形态，比如自由主义、民族主义、保守主义、激进主义等等，都会成为我们执着的对象；而小到一朵花、一个眼神，也同样也会成为我们执着的目标。在法相唯识学中有一个概念，叫作“遍计所执性”，说的是我们的执着无处不在，会把一切事物都看为实有的对象，因此产生异常牢固的执取心。
+从认知过程来看，无论是五蕴世间，还是众生世间乃至国土世间，都是通过感官的“触识”，然后在意识中抽象化为种种的概念名相。我们自认为是在认知种种的世间相，其实只不过是借助“概念”而已，而“概念”本身很容易让我们执取为实有存在。比如“自由主义”本是描述某种社会思潮的定义，但我们却将其固化为某种意识形态，要么绝对尊崇，要么大力批判，导致无休止的诤论，甚至最终完全脱离讨论本身，演化为各种人身攻击。
+ 
+1927年12月，民国高僧太虚大师在杭州灵隐寺写下了一部著作，名字叫作《自由史观》。太虚大师不同于清代以来的僧侣形象，除了在佛法上的沉潜之外，他还因为受到康有为、谭嗣同、章太炎等人的影响，试图从佛法的角度去对政治、社会进行阐释。在他看来，一种只满足于个体解脱的思想观念，是与大乘佛法的根本宗旨相悖的，也会让佛教自身丧失正当性的根基。因此，他在民国初年积极介入公共思想讨论，比如“人生佛教”的提出，就是受到了1923年爆发的“科学与人生观”论争的启发。
+太虚大师在《自由史观》中讨论为什么在人类历史中，我们总是从追求“自由”出发，最终却往往以“不自由”结束，这其中就涉及了对各种不同政治观念的分析。太虚大师对这些压制人类自由的“制度”的观念根源作了一个分类，分别是：唯神论、唯我论和唯物论。
+“唯神论”指的是各种尊奉唯一神祇的信仰体系以及相应的政治、社会制度。在太虚看来，近代以强凌弱的帝国主义思潮背后，都有基督教“唯神论”的思想根源，也就是以某种不可置疑的最高信仰为标准，来对其他国家、民族进行压迫和干预，这就是现代西方国家对于其他文明的殖民运动中的“一手拿剑，一手拿圣经”。就算是今天，很多地缘政治的冲突，仍然是因为彼此抱有某种原教旨的神祇信仰而斗争不断，你死我活。
+而“唯我论”指的则是像达尔文主义、优胜劣汰说，以及尼采的超人主义或是像柏格森的创造进化论等等，就是以“个体”的欲望和意志为基础的思想观念。因为过度尊奉“自我”，所以就会生发出各种以个人权力意志出发的政治想象，无论是拿破仑的法国革命运动，还是希特勒代表的法西斯主义，都是典型的“唯我论”的政治表达。
+所谓的“唯物论”，从哲学上来说，指的是将世界上的一切都归结为物质所构成，包括人类本身，也不过是原子、分子所构成的生理结构，甚至心理活动本身，说到底也不过是机械运动功能而已。这种将“人”彻底物质化的哲学假设，势必会否定生命在精神层面的超越性，与“唯神论”和“唯我论”形成了鲜明的对比。因此，当人们对“唯物论”开始感到厌倦，便又会迅速地倒向“唯神论”和“唯我论”，去回应人类精神层面的需求。
+太虚大师从佛法的角度去理解人类政治制度的观念基础，也就是为什么人类文明会不约而同地陷入某种“不自由”的状态。在太虚看来，无论是“唯神”、“唯我”还是“唯物”，都是“各私见私欲之偏执主义——主观主义”，也就是执着各人的看法为最正确，从而排斥和压制他者。
+所谓的“唯神”、“唯我”和“唯物”，都是将某种观念视为绝对性的法则，然后以此为准来审视不符合这一法则的种种现象，要么将对方转化为同一的观念阵营，要么就是完全压制乃至消灭这些差异。比如我们所看到的在政治、社会乃至家庭生活中的“独裁专权”，其实都奠基在这样的观念基础之上。
+而佛教，对此有着特别的不同看法。正如大家在《金刚经》中已经感受到的，佛陀对须菩提说的“无四相”或“不住相”，就是不执着一切法。所谓的“最完美的偶像”、“最真实的自我”或是“最正确的真理”，都不应执着。
+ 
+回到现实生活中，传统的东亚家庭多以男性家长为最高权威，因此在面对伴侣、子女时，往往将自己的角色想象为不容挑战的权力符号，进而将其他家庭成员视为“自我”的附属与延伸。这自然使得他很难以平等的角色去倾听、包容其他家庭成员的意见，而通常会选择最简单粗暴的交流方式。这种家庭内部的权力结构，往往又和社会、政治层面形成同构性的关系，也就是每个拥有权力的人，都倾向于以非此即彼的方式进行治理，要么让其他人完全服从，要么就去压制和消灭不同意见者。
+在佛陀的时代，佛陀本人在僧团中的角色并不是最高权力的拥有者，佛陀并没有独断性的权力去决定僧团内部的事务，而是依托一套具体的制度，也就是所谓的“羯摩法”。
+事实上，僧团内部的日常生活，包括人事安排，物品的分配乃至僧人犯戒的惩戒，都需要依着一套具体的仪轨进行，而且僧团所有成员都必须集体参与决议。更关键的是，这套制度背后贯穿的，是僧团对于“佛法”的共识，而不是依赖权力和利益。所以从组织形态而言，僧团是“去权力中心化”的。从某个角度而言，佛陀也只是僧团成员之一，虽然他代表的是圆满的觉悟，有负责指导僧团成员修行的责任，但是这并不能转化为某种特权，比如在接受供养方面，佛陀与其他成员一样，都是平等分配的。
+从观念层面，这样的制度设计无疑是理想的，但是其核心在于僧团成员对佛法修行有一定的共识，才不会因为对于“法”的执着而引发内部的诤论。事实上，佛教史上的僧团分裂，大多都与对戒律和法的认知分歧有关。但相较于其他组织的分裂而言，佛教内部的分裂并没有产生大规模的暴力冲突。从这一点来看，佛教作为一种社会组织形态，表现得相对温和与“非暴力”。
+为何佛教不赞同“暴力”？ 什么又是佛法意义上的“暴力”？
+如果把观察角度拉回到意识层面，所谓的“暴力”，其实是不顾当下的因缘条件，试图强行达成我们所追求的目标，却不愿意面对因缘不成熟的现实。就如同父母在面对孩子不理想的成绩时所表现的失望、愤怒，就算这些情绪没有演化为行为上的嘲讽或打骂，但那种内心里的“暴力性”，已然开始滋生。
+佛教在面对社会的不完美时，并不反对介入和改造。恰恰相反，正如《金刚经》所揭示的核心议题，就是当须菩提不知道如何去面对众生时，佛陀指出了“无四相”的真谛，也就是以“不住相”的智慧去面对众生的苦，去启发众生。当我们都具备智慧和慈悲之后，自然就会熄灭彼此斗争的烦恼心，而不会像当下我们看到的那样，在任何一个微小或宏大的议题上，人们都在争强好胜、彼此倾轧，以证明“各自”的正确性和优越感。
+ 
+三心不可得
+
+在前面，佛陀总结到“若菩萨通达无我、法者，如来说名真是菩萨”，其后，佛陀继续考验须菩提：
+“须菩提！于意云何？如来有肉眼不？”
+“如是，世尊！如来有肉眼。”
+“须菩提！于意云何？如来有天眼不？”
+“如是，世尊！如来有天眼。”
+“须菩提！于意云何？如来有慧眼不？”
+“如是，世尊！如来有慧眼。”
+“须菩提！于意云何？如来有法眼不？”
+“如是，世尊！如来有法眼。”
+“须菩提！于意云何？如来有佛眼不？”
+“如是，世尊！如来有佛眼。”
+这里谈到的“五眼”，指的是五种观察世界的能力。“肉眼”指的是凡夫所具备的观察力；“天眼”指的是因为禅定力而能拥有超出凡夫的视觉能力，无论远近，也无论白天和黑夜；而“慧眼”指的是像须菩提这样的阿罗汉，拥有“人无我”的智慧之眼；由此再递进一步的则是菩萨的“法眼”，其智慧更为深邃，还能了知众生的差别。“五眼”中最圆满的，当然就是“佛眼”。
+同样是“眼”，但随业力、禅定、智慧的深浅而有不同的洞察力，比如同样是人，对于同样的经验和信息，所能感知和理解的内涵也各有不同，有的人只能作表面的了解，而有的则能洞察到深层的逻辑。不过，对于天眼、慧眼、法眼和佛眼，一般人难以有这样的经验，比如《法华经》中就记载道，拥有“六根清净”的智慧，我们的“眼根”能感知到不可思议的境界：“父母所生清淨肉眼，见于三千大千世界内外所有山林河海，下至阿鼻地狱，上至有顶，亦见其中一切众生，及业因缘、果报生处，悉见悉知。”这样的“法眼”，能够看到众生的业力因缘以及未来遭受的果报，几乎就相当于我们所说的“未卜先知”了。
+这里佛陀与须菩提的问答，说的是佛陀一人同时具有“肉眼”、“天眼”、 “慧眼”、“法眼”和“佛眼”。这正是说明，并不是在“肉眼”之外有另外所谓的“天眼”等等，而是一“眼”具备所有“眼”。因为“眼”并不实有，只不过是随缘而显现相应的功能。
+这里还可以引申出来的是，很多人会想当然地认为，“凡夫”变成“佛”，似乎是一个肉眼凡胎的生命变成了神通广大、金光闪闪的神灵。事实上，“佛”同时具足所有属性，只不过是随着因缘而显现出不同的“相”。
+ 
+“须菩提！于意云何？恒河中所有沙，佛说是沙不？”
+“如是，世尊！如来说是沙。”
+“须菩提！于意云何？如一恒河中所有沙，有如是等恒河，是诸恒河所有沙数佛世界，如是宁为多不？”
+“甚多，世尊！”
+佛陀继续问须菩提，恒河中的沙，佛要如何称呼？按照前面的经文，我们或许会认为须菩提会回答“如来说是沙，即是非沙”，以否定破除法执。但在这里，须菩提回答的却是“如来说是沙”，是以肯定来表达，如不住相，当下即是实相。
+在第十七讲中，我曾经提到过大梅法常与马祖道一禅师的公案。大梅法常因为听到马祖说“即心是佛”而悟，便住山潜修，马祖于是派遣一位僧人前去勘验大梅法常是否真的悟入。僧人见到大梅便说：“马祖现在不说即心是佛，而是说非心非佛。”大梅法常回答道：“这老汉又在鼓惑人了。”完全不为所动。这位僧人回去报告与大梅的问答，马祖道一禅师则欣然道：“梅子熟了。”意思是，大梅法常是真正的悟入。
+说“是佛”，或是“非佛”，本身都无不可，全在听者的领会。如果执着“有佛”，那么“非佛”就是一味破执的药；而如果掉入了“无佛”的陷阱，那么“即心是佛”则能成为救命的稻草。
+一恒河中所有沙数可谓多矣，那么有这么多沙数的佛国世界，到底算不算多呢？须菩提回答道，当然很多。
+佛告须菩提：“尔所国土中，所有众生若干种心，如来悉知。”
+在这么多的国土中，所有众生的所思所想、业力因果，其信息密度完全难以想象，但如来都能完全知悉，这究竟是如何做到的呢？
+“何以故？如来说诸心，皆为非心，是名为心。”
+ 
+我们一般人谈众生之“心”，就如同记载历史一样，从头到尾逐一记录、整理、汇总，如同海量数据库一般，其中的信息在无尽地累积叠加。当我们想要去查询时，如果是传统档案的记录调用，肯定需要逐条查找，费时费力。而如今的大数据库信息搜索技术，则几乎能达到即时响应，这当然与机器的算力和算法模型密切相关。这也可以帮助我们理解，当佛陀说对于所有众生的“心”都能同时了知时，那背后一定蕴含着我们所不熟悉的认知底层逻辑。这个底层逻辑，就是“如来说诸心，皆为非心，是名为心”。 
+当我们说“心”的时候，很容易理解为单独、实有的存在，如此，众生的“心”便是彼此隔碍的，互相沟通会变得非常困难。假如能看到“心”并不实有，那么“佛心”也就是“众生之心”，就如同海洋和海洋中的波浪，虽然有“相”上的差异，但实际上却是一体。
+在电影《星际穿越》中，当主角库珀最后通过虫洞，进入了一个非线性流动的第五维度的超立方体时，看到女儿所生活的时空世界，正在以一个全景的方式呈现在他面前。8岁的女儿以空间的形态与9岁、10岁的女儿同时存在，这当然是违背经典物理学理论的，但是却因为黑洞的特殊环境和高维度的视野，而让某种“全知”成为可能。
+这当然是一个非常粗糙的类比，我也并不想将佛法与物理学作严格意义上的对应，而是想指出，佛陀所说的对于众生心的“悉知”，或许会在不同的认知基础上成为可能。
+接着佛陀解释道：
+“所以者何？须菩提！过去心不可得，现在心不可得，未来心不可得。”
+所谓“如来说诸心，皆为非心，是名为心”，说的是“心”不实有，假名为“心”。而关于一切法，我们往往是用时间、空间、运动等属性，去界定其存在的本质，就如同 “时间维度”里有“过去”、“现在”和“未来”，而所谓的“时间”，并非是客观存在的法，而是认知所投射出来的概念，我们却执其为实有，还会认为“过去”、“现在”和“未来”都是实实在在的。就像我们常常想到过去的如烟往事，虽然已经是陈年旧事，却仍然沉溺其中、反复咀嚼。
+“过去”已然“过去”，虽然存留记忆，但我们总会妄想往日那条未曾走过的路、未曾做出的选择。这就像是将“过去“当成了一个时间仓库，可以随时进去摆弄里面的泥巴，捏成自己想要的样子。可是我们根本无力改变，也无法倒流，因为“过去”并不实有，连片刻的驻留都不可能，何况改变？
+ 
+在《人生解忧》的第28讲，我曾讲过一个“点心”公案，我们再来回顾一下——
+唐代著名的禅师德山宣鉴童年出家，精通教理，常为人讲说《金刚经》，并且还为《金刚经》作注解，名为《青龙疏钞》。由于他俗姓周，人称“周金刚”，他也因此颇为自得。
+某日，他挑着自己所作的《青龙疏钞》前往澧阳（今湖南常德），在途中遇见一位卖点心的婆子，便停下来买点充饥。婆子问德山：“你挑的是什么啊？”德山回答：“是《青龙疏钞》。”婆子问：“那是讲什么经的呢？”德山回答：“《金刚经》。”婆子听到来了兴趣，便说：“我有一个问题，如果你能答出来，我便把点心送给你，如若答不出，那就请移步别处了。”德山信心满满，应承下来。只见婆子问：“《金刚经》中说‘过去心不可得，现在心不可得，未来心不可得’，不知道法师点的是哪颗心？”此问一出，德山哑口，自知自己不过是知晓教理而已，并非真正悟入，于是惭愧不已，便前往龙潭崇信禅师参学，以求真正的明心见性。
+婆子的问题是从经文出发，但考验的是德山当下对问话的反应，而德山过去习惯以教理解说教理，却无法应对真实生命的追问。所以，元代的林泉从伦禅师如此点评道：“直饶讲得千经论，一句临机下口难。”说的是德山不过是鹦鹉学舌，无法在当下用上《金刚经》的“三心不可得”的智慧 。
+当德山来到龙潭，以侍者的身份照顾龙潭崇信禅师，同时也好随时参学。有一天晚上，龙潭问德山：“夜已深，你怎么还不回房？”德山出堂一看，回头告诉龙潭：“外面黑。”龙潭便点好烛火递给德山，正当德山准备接时，龙潭却一口将烛火吹灭。德山此时大悟，马上礼拜龙潭。龙潭问：“你到底见到什么？”德山回答说：“从此以后，我不再怀疑天下老和尚的舌头了。”
+德山禅师是以学经典教理而入道，对于文字、名相很熟悉，反而形成了一种意识上不断重复的自洽演绎。就好比有人问问题，我们会习惯调用理论、概念去回应，觉得有问有答，有来有回。殊不知这种意识游戏背后，全然是自己编织的法执圈套，沉迷其中，觉得自圆其说，却经不起真实生命的考验。就好比婆子语意双关地问道：“你点的是哪颗心？”便一下打乱了德山早已准备好的答案，因为语意一旦模糊，我们就难去确定问题的内涵，也就无法去继续演下这一场概念的游戏。
+而德山看到外面天黑而回头，龙潭崇信禅师递上烛火，德山正要去接，龙潭却将烛火吹灭，这不过就是以日常事去展现，“黑”不过因“火”而“明”，“明”不过因“吹”而暗，这当中并无任何特别之处，但一下就破除了德山过往对于概念名相的细微“法执”。因此，德山便在殿堂前烧掉自己所写的《青龙疏钞》，并诵出开悟偈：“穷诸玄辩，若一毫置于太虚；竭世枢机，似一滴投於巨壑。”意思是，作无尽的玄思论辩，也不过像是虚空中的一根毫毛，而穷其一生分别计较，则像是在茫茫大海中掉落一滴水，以此来表达，在概念名相上的“法我执”与真实体悟之间的鸿沟，何其之大。
+当下的你们，用的又是哪颗心呢？谢谢大家，我们下集再见。】</pre>
+
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M32 50c-10-6-16-14-16-22 0-7 6-12 16-18 10 6 16 11 16 18 0 8-6 16-16 22Z" stroke="currentColor" opacity=".85" stroke-width="2.5"/>
+            <path d="M32 50c0-12 4-22 12-30" stroke="currentColor" opacity=".35" stroke-width="2.5" />
+            <path d="M32 50c0-12-4-22-12-30" stroke="currentColor" opacity=".35" stroke-width="2.5" />
+          </svg>
+        </div>
+        <div class="title">
+          <strong>现代视野里的金刚经</strong>
+          <span>阅读版网页 · 原文逐字保留 · 可折叠</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="btnExpand" type="button" title="展开所有章节">🧾 展开</button>
+        <button id="btnCollapse" type="button" title="折叠所有章节">🪶 折叠</button>
+        <button id="btnCopy" type="button" title="复制全部原文">📋 复制原文</button>
+        <span class="chip" id="stat" title="页面状态">⏳ 渲染中…</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" role="main">
+    <section class="hero" aria-label="简介">
+      <h1>五眼 · 恒河沙 · 三心不可得</h1>
+      <p>
+        这一页把你提供的内容做成“可折叠、可导航、可复制”的阅读界面。✅ 原文逐字保留；🔍 信息层级从内容结构自然长出来；🧘 配色与气质偏“安静、克制、温暖”。
+      </p>
+    </section>
+
+    <section class="grid" aria-label="内容区">
+      <nav class="nav" aria-label="章节导航">
+        <a href="#sec-scripture">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="meta">
+            <strong>本集经文</strong>
+            <span>五眼与恒河沙；“过去/现在/未来心不可得”</span>
+          </span>
+        </a>
+        <a href="#sec-manuscript">
+          <span class="dot" aria-hidden="true" style="background: rgba(154,208,255,.85); box-shadow: 0 0 0 4px rgba(154,208,255,.18);"></span>
+          <span class="meta">
+            <strong>文稿</strong>
+            <span>观心识游戏；缘起与执取</span>
+          </span>
+        </a>
+        <a href="#sec-violence">
+          <span class="dot" aria-hidden="true" style="background: rgba(255,211,138,.9); box-shadow: 0 0 0 4px rgba(255,211,138,.18);"></span>
+          <span class="meta">
+            <strong>“暴力”的根源</strong>
+            <span>政治/家庭/组织；执着如何走向压制</span>
+          </span>
+        </a>
+        <a href="#sec-three-hearts">
+          <span class="dot" aria-hidden="true" style="background: rgba(158,230,179,.85); box-shadow: 0 0 0 4px rgba(158,230,179,.18);"></span>
+          <span class="meta">
+            <strong>三心不可得</strong>
+            <span>五眼解释；“诸心非心”；德山点心公案</span>
+          </span>
+        </a>
+
+        <div class="card" aria-label="阅读提示">
+          <div class="hd">
+            <div class="left">
+              <div class="badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18" stroke="currentColor" stroke-width="2" opacity=".7"/><path d="M7 7h10M7 12h10M7 17h10" stroke="currentColor" stroke-width="2" opacity=".7"/></svg>
+              </div>
+              <h2>阅读提示</h2>
+            </div>
+            <small>不打扰的 UI</small>
+          </div>
+          <div class="bd">
+            <div class="kpi">
+              <div class="pill">
+                <div class="em" aria-hidden="true">🧩</div>
+                <div>
+                  <strong>“重点突出”怎么做</strong>
+                  <span>用“章节结构 + 一键展开/折叠 + 复制原文”让重点自然显现。</span>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="em" aria-hidden="true">⌘</div>
+                <div>
+                  <strong>快速检索</strong>
+                  <span>浏览器里用 Ctrl/⌘ + F 直接搜关键词（如：三心、暴力、遍计所执）。</span>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="em" aria-hidden="true">🪷</div>
+                <div>
+                  <strong>气质</strong>
+                  <span>低饱和、柔和对比，避免“太商业”的强刺激。</span>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="em" aria-hidden="true">🔒</div>
+                <div>
+                  <strong>原文保护</strong>
+                  <span>页面渲染直接来源于隐藏的原文区，不在视觉层做改写。</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <article class="card" aria-label="正文">
+        <div class="hd">
+          <div class="left">
+            <div class="badge" aria-hidden="true" style="background: rgba(158,230,179,.12);">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6V3Z" stroke="currentColor" stroke-width="2" opacity=".8"/><path d="M9 11h6M9 15h6" stroke="currentColor" stroke-width="2" opacity=".55"/></svg>
+            </div>
+            <h2>原文（逐字保留 · 可折叠）</h2>
+          </div>
+          <small id="counter">—</small>
+        </div>
+
+        <div id="sections"></div>
+
+        <div class="footer">
+          <span>🧘 你可以把这个 HTML 直接丢到 Notion / 企业微信微盘 / 服务器上当作阅读页。</span>
+          <span>Made with calm UI ✨</span>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">✅ 已复制</div>
+
+  <script>
+    const rawEl = document.getElementById('raw-source');
+    const raw = rawEl.textContent; // keep exact
+
+    const sections = [
+      {
+        id: "sec-scripture",
+        title: "本集经文",
+        subtitle: "五眼 · 恒河沙 · 诸心非心",
+        emoji: "📜",
+        icon: "eye",
+        start: "【本集经文",
+        end: "文稿"
+      },
+      {
+        id: "sec-manuscript",
+        title: "文稿",
+        subtitle: "观心识游戏；缘起与执取",
+        emoji: "🎙️",
+        icon: "mic",
+        start: "文稿",
+        end: "“暴力”的根源"
+      },
+      {
+        id: "sec-violence",
+        title: "“暴力”的根源",
+        subtitle: "政治/家庭/组织：执着 → 压制",
+        emoji: "🧯",
+        icon: "bolt",
+        start: "“暴力”的根源",
+        end: "三心不可得"
+      },
+      {
+        id: "sec-three-hearts",
+        title: "三心不可得",
+        subtitle: "五眼解释；德山点心公案；当下用哪颗心",
+        emoji: "🪞",
+        icon: "heart",
+        start: "三心不可得",
+        end: "】"
+      }
+    ];
+
+    const icons = {
+      eye: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" stroke="currentColor" stroke-width="2" opacity=".8"/>
+              <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="2" opacity=".55"/>
+            </svg>`,
+      mic: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 14a3 3 0 0 0 3-3V7a3 3 0 1 0-6 0v4a3 3 0 0 0 3 3Z" stroke="currentColor" stroke-width="2" opacity=".8"/>
+              <path d="M19 11a7 7 0 0 1-14 0" stroke="currentColor" stroke-width="2" opacity=".55"/>
+              <path d="M12 18v3" stroke="currentColor" stroke-width="2" opacity=".55"/>
+            </svg>`,
+      bolt: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 2 3 14h7l-1 8 12-14h-7l-1-6Z" stroke="currentColor" stroke-width="2" opacity=".75"/>
+            </svg>`,
+      heart: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21s-7-4.5-9.3-9A5.7 5.7 0 0 1 12 5.7 5.7 5.7 0 0 1 21.3 12C19 16.5 12 21 12 21Z" stroke="currentColor" stroke-width="2" opacity=".8"/>
+              <path d="M7.5 11.5h9" stroke="currentColor" stroke-width="2" opacity=".45"/>
+            </svg>`
+    };
+
+    function sliceByMarkers(text, startMarker, endMarker, includeEndMarker=false) {
+      const s = text.indexOf(startMarker);
+      if (s < 0) return "";
+      let e = text.indexOf(endMarker, s + startMarker.length);
+      if (e < 0) e = text.length;
+      if (includeEndMarker && e >= 0) e = e + endMarker.length;
+      return text.slice(s, e);
+    }
+
+    function buildSection(sec) {
+      const isLast = sec.id === "sec-three-hearts";
+      const chunk = sliceByMarkers(raw, sec.start, sec.end, isLast);
+
+      const wrap = document.createElement('details');
+      wrap.className = "section";
+      wrap.open = true;
+      wrap.id = sec.id;
+
+      const summary = document.createElement('summary');
+      summary.innerHTML = `
+        <div class="sum-left">
+          <div class="ico" aria-hidden="true">${icons[sec.icon] || ""}</div>
+          <div class="txt">
+            <strong>${sec.emoji} ${sec.title}</strong>
+            <span>${sec.subtitle}</span>
+          </div>
+        </div>
+        <div class="chev" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" opacity=".75"/></svg>
+        </div>
+      `;
+      wrap.appendChild(summary);
+
+      const content = document.createElement('div');
+      content.className = "content";
+
+      const pre = document.createElement('pre');
+      pre.className = "raw";
+      pre.textContent = chunk; // exact text
+      content.appendChild(pre);
+
+      wrap.appendChild(content);
+      return { el: wrap, text: chunk };
+    }
+
+    const mount = document.getElementById('sections');
+    const parts = [];
+    for (const sec of sections) {
+      const built = buildSection(sec);
+      parts.push(built);
+      mount.appendChild(built.el);
+    }
+
+    const allText = parts.map(p => p.text).join("");
+    const charCount = allText.length;
+    const lineCount = allText.split(/\n/).length;
+    document.getElementById('counter').textContent = `共 ${lineCount.toLocaleString()} 行 · ${charCount.toLocaleString()} 字符`;
+    const stat = document.getElementById('stat');
+    stat.textContent = "✅ 已就绪";
+
+    const allDetails = () => Array.from(document.querySelectorAll('details.section'));
+    document.getElementById('btnExpand').addEventListener('click', () => {
+      allDetails().forEach(d => d.open = true);
+      toast("已展开全部章节");
+    });
+    document.getElementById('btnCollapse').addEventListener('click', () => {
+      allDetails().forEach(d => d.open = false);
+      toast("已折叠全部章节");
+    });
+
+    document.getElementById('btnCopy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(raw);
+        toast("已复制全部原文");
+      } catch (e) {
+        const ta = document.createElement('textarea');
+        ta.value = raw;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+        toast("已复制全部原文");
+      }
+    });
+
+    const toastEl = document.getElementById('toast');
+    let toastTimer = null;
+    function toast(msg) {
+      toastEl.textContent = "✅ " + msg;
+      toastEl.style.display = "inline-flex";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toastEl.style.display = "none";
+      }, 1800);
+    }
+  </script>
+</body>
+</html>
