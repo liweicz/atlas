@@ -1,0 +1,1480 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>时间与耐心：现货、期货与耐用品｜阅读卡</title>
+<style>
+  :root {
+    --primary: hsl(205 45% 48%);
+    --accent: hsl(15 60% 55%);
+    --bg: hsl(210 18% 97%);
+    --card: hsl(0 0% 100%);
+    --text: hsl(220 20% 16%);
+    --muted: hsl(220 10% 42%);
+    --border: hsl(220 15% 86%);
+    --shadow: 0 12px 30px rgba(0,0,0,.08);
+    --radius: 16px;
+    --radius2: 22px;
+    --maxw: 1040px;
+    --toolbarH: 72px;
+    --focus: 0 0 0 4px rgba(0,0,0,.08);
+  }
+  [data-theme="dark"] {
+    --bg: hsl(225 18% 10%);
+    --card: hsl(225 16% 14%);
+    --text: hsl(0 0% 96%);
+    --muted: hsl(220 10% 72%);
+    --border: hsl(225 12% 24%);
+    --shadow: 0 18px 46px rgba(0,0,0,.45);
+    --focus: 0 0 0 4px rgba(255,255,255,.08);
+  }
+  html,body {height:100%;}
+  body {
+    margin:0;
+    font-family: ui-sans-serif, system-ui, -apple-system, "PingFang SC","Microsoft YaHei","Noto Sans CJK SC", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.68;
+  }
+  a {color: inherit;}
+  .wrap {max-width: var(--maxw); margin: 0 auto; padding: calc(var(--toolbarH) + 18px) 16px 80px;}
+  /* Toolbar */
+  .toolbar {
+    position: sticky; top: 0; z-index: 50;
+    height: var(--toolbarH);
+    display:flex; align-items:center; gap: 12px;
+    padding: 10px 12px;
+    background: linear-gradient(180deg, rgba(10,14,22,.75), rgba(10,14,22,.25));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    overflow-x: auto; white-space: nowrap;
+  }
+  [data-theme="dark"] .toolbar {
+    background: linear-gradient(180deg, rgba(5,8,14,.8), rgba(5,8,14,.35));
+  }
+  .pill {
+    display:inline-flex; align-items:center; gap:10px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.06);
+    color: rgba(255,255,255,.95);
+    flex: 0 0 auto;
+  }
+  .pill strong {font-weight: 650; letter-spacing:.2px;}
+  .btn {
+    appearance:none; border: 1px solid rgba(255,255,255,.16);
+    background: rgba(255,255,255,.06);
+    color: rgba(255,255,255,.95);
+    padding: 10px 14px; border-radius: 999px;
+    cursor: pointer; user-select:none;
+    transition: transform .08s ease, background .2s ease, border-color .2s ease;
+    flex: 0 0 auto;
+  }
+  .btn:active {transform: translateY(1px);}
+  .btn[aria-pressed="true"] {
+    background: rgba(255,255,255,.16);
+    border-color: rgba(255,255,255,.28);
+  }
+  .btn:focus-visible {outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,.25);}
+  .spacer {flex: 1 1 auto; min-width: 10px;}
+  /* Cards & sections */
+  .topinfo {
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    background: var(--card);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .tophead {
+    padding: 16px 18px 14px;
+    display:flex; gap:14px; align-items:flex-start; justify-content: space-between; flex-wrap: wrap;
+  }
+  h1 {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.25;
+    letter-spacing: .2px;
+  }
+  .meta {
+    display:flex; gap: 10px; flex-wrap: wrap;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .oneLine {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .chips {
+    display:flex; gap: 8px; flex-wrap: wrap;
+    padding: 0 18px 16px;
+  }
+  .chip {
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    border-radius: 999px;
+    padding: 7px 10px;
+    font-size: 13px;
+    cursor:pointer;
+  }
+  .chip:hover {border-color: color-mix(in oklab, var(--border), var(--primary) 30%);}
+  .chip:disabled {opacity:.45; cursor:not-allowed;}
+  .drawer {
+    border-top: 1px solid var(--border);
+    padding: 0 0 8px;
+  }
+  details.drawer > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 12px 18px;
+    display:flex; align-items:center; justify-content: space-between;
+    gap: 12px;
+    color: var(--muted);
+    user-select:none;
+  }
+  details.drawer > summary::-webkit-details-marker {display:none;}
+  .drawerBody {padding: 0 18px 16px;}
+  .grid {
+    display:grid; grid-template-columns: 1fr; gap: 12px;
+  }
+  @media (max-width: 560px) {
+    :root { --toolbarH: 64px; }
+  }
+  @media (min-width: 860px) {
+    .grid {grid-template-columns: 1.2fr .8fr;}
+  }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card);
+    box-shadow: none;
+    padding: 14px 14px;
+  }
+  .card h3 {
+    margin: 0 0 10px;
+    font-size: 15px;
+    display:flex; align-items:center; gap: 10px;
+  }
+  .small {font-size: 13px; color: var(--muted);}
+  .jump {
+    display:inline-flex; align-items:center; gap: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    border-radius: 999px;
+    padding: 7px 10px;
+    font-size: 13px;
+    cursor:pointer;
+  }
+  .jump:hover {border-color: color-mix(in oklab, var(--border), var(--accent) 30%);}
+  /* Main sections */
+  .section {
+    margin-top: 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    background: var(--card);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  details.sec > summary {
+    list-style:none;
+    cursor:pointer;
+    padding: 14px 16px;
+    display:flex; align-items:center; justify-content: space-between; gap: 12px;
+    user-select:none;
+  }
+  details.sec > summary::-webkit-details-marker {display:none;}
+  .secTitle {
+    display:flex; align-items:center; gap: 10px;
+    font-weight: 650;
+  }
+  .secBody {padding: 0 16px 16px;}
+  .secBody .p {margin: 10px 0;}
+  .note {
+    padding: 10px 12px;
+    border-left: 3px solid var(--accent);
+    background: color-mix(in oklab, var(--card), var(--accent) 8%);
+    border-radius: 12px;
+    color: var(--text);
+  }
+  .hint {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 6px;
+  }
+  .clamp {
+    max-height: 420px;
+    overflow: hidden;
+    position: relative;
+  }
+  .clamp:after {
+    content:"";
+    position:absolute; left:0; right:0; bottom:0; height: 92px;
+    background: linear-gradient(180deg, rgba(0,0,0,0), var(--card));
+    pointer-events:none;
+  }
+  [data-theme="dark"] .clamp:after {
+    background: linear-gradient(180deg, rgba(0,0,0,0), var(--card));
+  }
+  .toggleMore {
+    margin-top: 10px;
+    display:flex; justify-content: flex-start;
+  }
+  .toggleMore button {
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    border-radius: 999px;
+    padding: 8px 12px;
+    cursor:pointer;
+    font-size: 13px;
+  }
+  /* Concepts */
+  .concept {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 12px;
+    margin: 12px 0;
+    background: color-mix(in oklab, var(--card), var(--primary) 4%);
+  }
+  .concept h4 {
+    margin: 0 0 8px;
+    font-size: 15px;
+  }
+  .tier {
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  @media (min-width: 860px) {
+    .tier {grid-template-columns: 1fr 1fr 1fr;}
+  }
+  .tier .box {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 10px 10px;
+    background: var(--card);
+  }
+  .k {
+    display:inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+  /* Q/A & flash */
+  .qa {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 12px;
+    margin: 10px 0;
+  }
+  .qa .q {font-weight:650;}
+  .ans {
+    margin-top: 8px;
+    padding: 10px 10px;
+    border-radius: 12px;
+    background: color-mix(in oklab, var(--card), var(--accent) 7%);
+    display:none;
+  }
+  .qa button {
+    margin-top: 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    border-radius: 999px;
+    padding: 7px 10px;
+    cursor:pointer;
+  }
+  /* highlight */
+  .flash {
+    border-radius: 10px;
+    box-shadow: 0 0 0 0 rgba(0,0,0,0);
+    animation: flash 2.6s ease;
+    background: color-mix(in oklab, var(--card), var(--accent) 14%);
+  }
+  @keyframes flash {
+    0% {box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent), transparent 65%);}
+    18% {box-shadow: 0 0 0 6px color-mix(in oklab, var(--accent), transparent 70%);}
+    100% {box-shadow: 0 0 0 0 transparent;}
+  }
+  /* SVG maps */
+  .svgWrap {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px;
+    overflow:auto;
+    background: var(--card);
+  }
+  svg .node rect {
+    fill: color-mix(in oklab, var(--card), var(--primary) 10%);
+    stroke: var(--border);
+    rx: 10; ry: 10;
+  }
+  svg .node text {
+    fill: var(--text);
+    font-size: 13px;
+  }
+  svg .edge {
+    stroke: color-mix(in oklab, var(--muted), var(--primary) 25%);
+    stroke-width: 2;
+    fill: none;
+    marker-end: url(#arrow);
+  }
+  svg .node:hover rect {
+    stroke: color-mix(in oklab, var(--border), var(--accent) 40%);
+  }
+  /* Action plan */
+  .checks label {
+    display:flex; align-items:flex-start; gap: 10px;
+    padding: 10px 10px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin: 10px 0;
+  }
+  .checks input {margin-top: 3px;}
+  textarea, select, input[type="text"] {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 10px 10px;
+    background: transparent;
+    color: var(--text);
+    outline:none;
+  }
+  textarea:focus, select:focus, input[type="text"]:focus {box-shadow: var(--focus);}
+  /* Print */
+  @media print {
+    .toolbar {display:none !important;}
+    .wrap {padding-top: 10px;}
+    details {open: true;}
+    .toggleMore {display:none;}
+    .chip {display:none;}
+    .section, .topinfo {box-shadow: none;}
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar" role="navigation" aria-label="顶部工具栏">
+    <div class="pill" title="单文件阅读卡">
+      <span aria-hidden="true"></span>
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="rgba(255,255,255,.92)" d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1v5h5"/>
+      </svg>
+      <strong>HTML 阅读卡</strong>
+    </div>
+
+    <div class="pill" id="modePill" aria-label="当前模式">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="rgba(255,255,255,.92)" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 5h-2v6l5 3 .9-1.5-3.9-2.3Z"/>
+      </svg>
+      <span>模式：<strong id="modeName">补课模式</strong></span>
+    </div>
+
+    <div class="spacer"></div>
+
+    <button class="btn" id="btnSpeed" aria-pressed="false">速读</button>
+    <button class="btn" id="btnStudy" aria-pressed="true">补课</button>
+    <button class="btn" id="btnExam" aria-pressed="false">考试</button>
+    <button class="btn" id="btnTheme" aria-pressed="false">深浅色</button>
+    <button class="btn" id="btnPrint" aria-pressed="false">打印</button>
+  </div>
+
+  <main class="wrap">
+    <section class="topinfo" aria-label="顶部信息区">
+      <div class="tophead">
+        <div>
+          <h1>时间与耐心：现货、期货与耐用品</h1>
+          <p class="oneLine" id="oneLine">把“收入”当成时间里一串服务：利息就是现在和未来交换的价格；耐用品（含人力资本与儿童）只能靠时间兑现。</p>
+          <div class="meta" id="metaLine">
+            <span>字数：<strong id="metaWords">-</strong></span>
+            <span>阅读时长：<strong id="metaRead">-</strong></span>
+            <span>生成时间：<strong id="metaTime">-</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chips" aria-label="标签跳转">
+        <button class="chip" data-target="o2">四种约束</button>
+        <button class="chip" data-target="o5">时间维度的稀缺</button>
+        <button class="chip" data-target="o5">现货与期货</button>
+        <button class="chip" data-target="o8">费雪与《利息理论》</button>
+        <button class="chip" data-target="o14">收入是一连串事件</button>
+        <button class="chip" data-target="o20">易耗品</button>
+        <button class="chip" data-target="o26">耐用品</button>
+        <button class="chip" data-target="o30">人力资本</button>
+        <button class="chip" data-target="o31">加班的经济账</button>
+        <button class="chip" data-target="o39">注意力切换</button>
+        <button class="chip" data-target="o43">儿童是耐用品</button>
+        <button class="chip" data-target="o51">课后思考</button>
+      </div>
+
+      <div class="drawer">
+        <details class="drawer" id="drawer">
+          <summary>
+            <span>展开：用途、学习卡点、学科与更多标签</span>
+            <span aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M7 10l5 5 5-5z"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="drawerBody">
+            <div class="grid">
+              <div class="card">
+                <h3>
+                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M12 3l9 7-9 11L3 10z"/>
+                  </svg>
+                  一句话用途
+                </h3>
+                <p class="p" id="e_use" data-sec="explain">
+                  读完你能把“时间”加进稀缺框架：用“现货/期货”“易耗品/耐用品”“人力资本/儿童”解释为什么很多价值必须靠时间慢慢兑现。
+                </p>
+                <div class="hint">提示：点标签或卡点可直接回到对应正文段落。</div>
+                <div class="toggleMore">
+                  <button class="jump" id="btnResetFold">回到本模式默认折叠</button>
+                </div>
+              </div>
+
+              <div class="card">
+                <h3>
+                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 14h-2v-2h2Zm0-4h-2V6h2Z"/>
+                  </svg>
+                  学习卡点（Top 3）
+                </h3>
+
+                <div class="p" id="k1" data-sec="explain">
+                  <strong>A 听不懂概念：</strong>“收入是一连串的事件”
+                  <div class="small">证据：<span>“收入是一连串的事件”</span> ｜ 理由：换了看收入的角度</div>
+                  <div class="toggleMore"><button class="jump" data-target="o14">定位原文</button></div>
+                </div>
+
+                <div class="p" id="k2" data-sec="explain">
+                  <strong>C 需要体系：</strong>易耗品 vs 耐用品
+                  <div class="small">证据：<span>“一口吃下去…易耗品”</span> ｜ 理由：生产时间≠消耗时间</div>
+                  <div class="toggleMore"><button class="jump" data-target="o23">定位原文</button></div>
+                </div>
+
+                <div class="p" id="k3" data-sec="explain">
+                  <strong>D 记住能用：</strong>人力资本为什么逼人加班
+                  <div class="small">证据：<span>“耐用品必须…才能兑现”</span> ｜ 理由：价值只能靠工时释放</div>
+                  <div class="toggleMore"><button class="jump" data-target="o35">定位原文</button></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top:12px;">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/>
+                </svg>
+                学科与标签
+              </h3>
+              <div class="small">
+                学科 Top-3：经济学｜制度与产权｜家庭与人口经济学
+              </div>
+              <div class="chips" style="padding:10px 0 0;">
+                <button class="chip" data-target="o5">跨期选择</button>
+                <button class="chip" data-target="o5">现值与未来值</button>
+                <button class="chip" data-target="o14">收入视角</button>
+                <button class="chip" data-target="o26">服务流</button>
+                <button class="chip" data-target="o30">人力资本</button>
+                <button class="chip" data-target="o43">生育决策</button>
+                <button class="chip" data-target="o33">固定成本</button>
+                <button class="chip" data-target="o28">耐用品例子</button>
+                <button class="chip" data-target="o50">课堂小结</button>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 1 权威原文 -->
+    <section class="section" aria-label="权威原文">
+      <details class="sec" id="sec-orig">
+        <summary>
+          <span class="secTitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1v5h5"/>
+            </svg>
+            权威原文（逐字保留）
+          </span>
+          <span aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M7 10l5 5 5-5z"/>
+            </svg>
+          </span>
+        </summary>
+        <div class="secBody">
+          <div class="note small">原文较长，默认预览；需要时点“展开全文”。</div>
+          <div class="clamp" id="origClamp">
+            <p class="p orig" id="o1" data-sec="orig">你好，今天我们开始一个全新的模块，讲时间和耐心的作用。</p>
+<p class="p orig" id="o2" data-sec="orig">我们刚开学的时候，把整门课做了一个很大的区分。我们说，每个人生活在世界上，他至少面临四种最基本的约束，那就是：东西不够、时间有限、互相依赖，还有需要协调。</p>
+<p class="p orig" id="o3" data-sec="orig">我们在今天以前的整个课程，所讲的其实都围绕着第一个中心，就是东西不够。东西不够，人与人之间是怎么进行财富分配的，是怎么进行交换的，怎么对财产进行所有权管理的。</p>
+<p class="p orig" id="o4" data-sec="orig">所有发生的一切，好像没有时间的存在，一切都好像在一个刹那间完成的事情。今天，我们把我们的世界观延展到一个新的维度，那就是时间的维度。</p>
+<p class="p orig" id="o5" data-sec="orig">在时间的维度上，照样存在着我们前面讨论的核心问题。也就是稀缺，东西是不够的，不仅在一刹那间不够，我们在时间的维度上也还是不够。人们把今天的货品叫现货，明天的货品叫期货，现货跟期货之间怎么交换，达到更大的幸福。</p>
+<p class="p orig" id="o6" data-sec="orig">这是我们这一个单元开始要讨论的问题。</p>
+<p class="p orig" id="o7" data-sec="orig">1.费雪及其名著《利息理论》</p>
+<p class="p orig" id="o8" data-sec="orig">要讨论时间和耐心，我们就不得不提一部重要的著作，美国经济学家欧文·费雪（Irving Fisher, 1867—1947 ），在1930年出版的《利息理论（The Theory of Interest&nbsp;）》。这是一部经典名著，我自己非常喜欢。 </p>
+<p class="p orig" id="o9" data-sec="orig">原因是什么呢？原因是我们讨论关于利息理论的各种概念，在欧文·费雪出版这部著作以前，都已经在了，各种概念，比方说回报率、时间、不耐等等这些概念都有了。好像所有的东西，所有的珍珠都已经放在桌面上了，但是就是没有人能够把它们系统地、顺理成章地串起来。</p>
+<p class="p orig" id="o10" data-sec="orig">我们知道，奥地利学派对经济学有很大的贡献，前面我们讨论的边际概念，实际上就是由奥地利学派发展出来的。</p>
+<p class="p orig" id="o11" data-sec="orig">关于利息,也是奥地利学派一帮学者研究出来的，但它是以欧文·费雪的研究，他1930年的这个著作《利息理论》为一个高峰，把所有的问题都解释清楚了。</p>
+<p class="p orig" id="o12" data-sec="orig">我们来介绍欧文·费雪的《利息理论》。翻开这本书，第一页第一句话，劈头一句：收入是一连串的事件（Income is a series of events ）。</p>
+<p class="p orig" id="o13" data-sec="orig">这样一句话，劈头一句，你得愣好久，你要想想这是一种什么样的角度。</p>
+<p class="p orig" id="o14" data-sec="orig">他说收入是一连串的事件，未来发生的一件一件一件的事情，连续加起来，就是你的收入。这是一种很新的角度，看所有资本是怎么提供服务的角度。</p>
+<p class="p orig" id="o15" data-sec="orig">我们怎么理解这句话呢？我们首先看，世界上所有的产品、商品、资源，都可以简单地划分为两种：一种叫易耗品，一种叫耐用品。</p>
+<p class="p orig" id="o16" data-sec="orig">2.何谓易耗品</p>
+<p class="p orig" id="o17" data-sec="orig">所谓易耗品，就是一次性就能把它消费完毕的。一个苹果、一个鸡蛋、一杯牛奶，这算是易耗品，一次就能把它消耗掉的。一块奶酪呢？一块奶酪也是易耗品，当然我们知道，你要生产奶酪的时间是要很长的，比牛奶要长，但只是说它生产的时间长，并不是它消耗的时间长。</p>
+<p class="p orig" id="o18" data-sec="orig">我们说奶酪，它也是一口吃下去就能消耗掉的，所以它是一种易耗品。</p>
+<p class="p orig" id="o19" data-sec="orig">当然我们讲，今天的牛奶到底是拿来喝还是拿来做奶酪，这当中是一个决策。到底是把这牛奶当做今天的易耗品，还是当做&nbsp;未来的易耗品&nbsp;（把它变成奶酪以后再一口吃掉），这是一个选择。</p>
+<p class="p orig" id="o20" data-sec="orig">但无论是哪一种，我们说奶酪也是易耗品。因为在后面我们可能会提一些问题，同学们容易混淆，以为奶酪是经过一段时间生产的，就以为奶酪是耐用品，其实不是。</p>
+<p class="p orig" id="o21" data-sec="orig">3.何谓耐用品</p>
+<p class="p orig" id="o22" data-sec="orig">耐用品是什么呢？耐用品是它提供的服务、它发挥的功能，必须是在一个时间段内慢慢发散出来的，它要有时间你才能享受的，这叫耐用品。</p>
+<p class="p orig" id="o23" data-sec="orig">比方说一幅油画，你要欣赏这幅油画，很珍贵的油画，你必须搭上时间，才能欣赏它。很好的油画，你没办法一下子把它完全享受掉，你得在时间的流逝当中观看这幅油画，慢慢欣赏，所以油画是一件耐用品。</p>
+<p class="p orig" id="o24" data-sec="orig">一棵苹果树是一件耐用品。它今年结十个苹果，你吃掉十个苹果，明年结十个苹果，你吃掉十个苹果，后年十个你吃掉十个。你不可能一口气把这棵果树将来可能结的苹果都吃掉。所以一棵果树是在时间的流逝当中，才可能散发出它所有服务的耐用品。</p>
+<p class="p orig" id="o25" data-sec="orig">4.人力资本是一种耐用品</p>
+<p class="p orig" id="o26" data-sec="orig">我们每个人的人力资本也是耐用品，他必须在时间的维度上才能发挥他的功能，散发他的服务。比方说很多老板现在招人，他们都要让员工加班，他为什么要让员工加班呢？员工加班的话，他必须付加班费，那加班费不是多给的钱吗？</p>
+<p class="p orig" id="o27" data-sec="orig">他有两个选择：一个是给同样的员工加班费，成倍地给；还有另外一个选择，是多雇一些人两班倒。他会选哪个？当然他会选员工加班。为什么？因为员工加班更合算。</p>
+<p class="p orig" id="o28" data-sec="orig">怎么合算了？工资不是成倍吗？因为他还能省很多固定的成本。比方说工位，他只要一个工位就可以了；培训的费用，他只要培训一个人就可以了；管理的费用，他只要管理一个人就可以了。不是两个人，不需要成倍地增加这些费用，所以老板喜欢让员工加班。</p>
+<p class="p orig" id="o29" data-sec="orig">但是倒过来呢？员工喜欢加班吗？如果所有的员工都不喜欢加班的话，那你可以想见，会有一些老板招聘的时候就说：我们不需要加班。那么这种老板自然就能够招到更多更好的员工。但事实上，员工自己也喜欢加班。</p>
+<p class="p orig" id="o30" data-sec="orig">为什么？所以我想问问你，你每天的工作时间，其实是多于八小时还是少于八小时？我猜你每天的工作一定多于八小时。但是你要想想，我们过去曾经奋斗了好多年，说我们一定要把劳动时间、工作时间减到八小时以下。而且我们每个人的收入都比以前，比50年前、100年前的人要高多了，已经很有钱了，为什么还要那么辛苦地工作？</p>
+<p class="p orig" id="o31" data-sec="orig">过去还有很多理论，说工作时间太长人就会异化，忘掉自己是什么，我们还是要腾出更多的时间，好好充实自己，做一个完整的人。但实际上我们绝大多数人工作时间都超过八小时，为什么？</p>
+<p class="p orig" id="o32" data-sec="orig">我觉得原因很简单，因为我们每个人都集聚了大量的人力资本，这些资本是耐用品。耐用品必须在时间的流逝当中才能兑现。你不能把它一口气卖掉，你不能一下子就把它兑现。</p>
+<p class="p orig" id="o33" data-sec="orig">比方说我攒了个博士学位，如果能够一刹那就把它批发掉、卖掉兑现的话，那可好，我就剩下好多时间了。但实际上，你没办法把这个学位给卖掉，你把这个学位价值兑现的唯一办法就是时间，你需要工时。所以我得讲课、写文章。</p>
+<p class="p orig" id="o34" data-sec="orig">一种耐用品，只有在时间的维度上才能发挥它的价值，才能散发它所蕴含的服务。这是耐用品的含义。任何一种能够带来收入的资源、本领或者禀赋，都是一种耐用品。</p>
+<p class="p orig" id="o35" data-sec="orig">北大国家发展研究院的周其仁教授，他有一个很重要的本领，就是他切换注意力的速度非常快，他从一个事情转到另外一个事情，几乎不需要时间。他总能集中精神做前一个事情，但是下一秒钟他就完全关注下一个事情。</p>
+<p class="p orig" id="o36" data-sec="orig">我跟着他出去调研，去一个地方回来以后，那得躺半天，想想昨天、前天发生的事情，沉浸在过去几天发生的事情当中。要好久才缓过神来，而当下要做的事情就没做好，得几天才能切换过来。</p>
+<p class="p orig" id="o37" data-sec="orig">周老师能够很快地切换，我们谈起这个本领的时候，周老师加了一句：“这也是一种资本，这也是一种收入。” 你看，吃的是经济学，喝的是经济学，呼吸的是经济学。无论任何事情，他都跟经济学里面的概念相联系。</p>
+<p class="p orig" id="o38" data-sec="orig">油画是一种耐用品，一棵苹果树是一种耐用品，注意力切换的本领是一种耐用品，小孩儿也是一种耐用品。</p>
+<p class="p orig" id="o39" data-sec="orig">5.儿童也是一种可消费的耐用品</p>
+<p class="p orig" id="o40" data-sec="orig">当经济学家加里·贝克（Gary Becker，1930年2月25日-2014年5月4日），头一次在一个演讲里面说“儿童是一种可消费的耐用品”的时候，引起全场的哄然大笑，儿童怎么是消费品？儿童怎么是耐用品？</p>
+<p class="p orig" id="o41" data-sec="orig">经济学家就是有不同的看法。他们说，每个家庭生儿育女其实是理性的决定，生下这个小孩实际上就是一个消耗品，实际上就是一个长期投资。</p>
+<p class="p orig" id="o42" data-sec="orig">很多人以为生育是偶然的，是听天由命的，哪有这种事情。哪怕是那些相信不许避孕、不许堕胎宗教的那些人群里面，他们生育的规律、他们生育的数量，其实也是符合经济规律的。他们暗中也在避孕，甚至也在堕胎。</p>
+<p class="p orig" id="o43" data-sec="orig">小孩儿很可爱，可爱得你有时候巴不得啃他两口，但是你不能真的把他吃了，你只能在时间的流逝当中，去爱他、去欣赏他，去从中得到快乐。</p>
+<p class="p orig" id="o44" data-sec="orig">儿童是消费品，这个概念我自己有很深的体会。你的小孩，他十岁以前那真是你的消费品，你能从中得到莫大的快乐，而且他还挺听你话的，你要是到幼儿园看见他，他会很自豪地跟同学说：“你看，那是我爸爸！”</p>
+<p class="p orig" id="o45" data-sec="orig">但是过了十岁以后情况就不同了，你要跟他上街，他未必跟你上街了；你哪怕是去学校接他，他也会跟你说：“你就待在车里面等我就好了，不要出来。”</p>
+<p class="p orig" id="o46" data-sec="orig">课堂小结</p>
+<p class="p orig" id="o47" data-sec="orig">1、今天我们为稀缺的概念引入了一个新的维度——时间； </p>
+<p class="p orig" id="o48" data-sec="orig">2、我们介绍了一本名著，费雪的《利息理论》；</p>
+<p class="p orig" id="o49" data-sec="orig">3、我们区分了两种产品：易耗品和耐用品。我们甚至还讲了，连儿童也是一种可消费的耐用品。</p>
+<p class="p orig" id="o50" data-sec="orig">课后思考</p>
+<p class="p orig" id="o51" data-sec="orig">今天留给你的思考题是，如果儿童是耐用品的话，那么为什么比较贫穷的社会，人们生小孩生得比较多？比较富裕的社会，人们生小孩反而生得少呢？</p>
+          </div>
+          <div class="toggleMore"><button id="toggleOrig">展开全文</button></div>
+        </div>
+      </details>
+    </section>
+
+    <!-- 2 前置知识 -->
+    <section class="section" aria-label="前置知识地图">
+      <details class="sec" id="sec-pre">
+        <summary>
+          <span class="secTitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 3l10 6-10 6L2 9zm0 13l10-6v8l-10 6-10-6v-8z"/>
+            </svg>
+            我先帮你补上：前置知识地图
+          </span>
+          <span aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
+          </span>
+        </summary>
+        <div class="secBody">
+          <div class="note small">以下为“辅助理解（非原文事实）”，只补最少必要前置。</div>
+
+          <div class="concept" id="preCards">
+            <h4>五分钟补齐（点卡片可定位到解释段落）</h4>
+            <div class="chips" style="padding:0; margin-top:8px;">
+              <button class="chip" data-target="pre1">时间偏好（更偏爱现在）</button>
+              <button class="chip" data-target="pre2">贴现（把未来折回今天）</button>
+              <button class="chip" data-target="pre3">利率像“时间的价格”</button>
+              <button class="chip" data-target="pre4">耐用品的“服务流”</button>
+              <button class="chip" data-target="pre5">机会成本（选A就放弃B）</button>
+              <button class="chip" data-target="pre6">资本=能带来服务的资源</button>
+              <button class="chip" data-target="pre7">固定成本 vs 变动成本</button>
+            </div>
+          </div>
+
+          <p class="p" id="pre1" data-sec="explain"><strong>时间偏好：</strong>多数人会更偏爱“马上得到”而不是“同样东西以后得到”。这不是道德好坏，而是心理与生活约束共同作用（辅助理解）。</p>
+          <p class="p" id="pre2" data-sec="explain"><strong>贴现：</strong>把未来的一份收益，按利率折算成“今天值多少钱”。直觉上：等得越久、越不确定，今天愿意付的价就越低（辅助理解）。</p>
+          <p class="p" id="pre3" data-sec="explain"><strong>利率像时间的价格：</strong>你把“今天的资源”换成“未来更多资源”，中间多出来的那部分就是利息/回报（辅助理解）。</p>
+          <p class="p" id="pre4" data-sec="explain"><strong>服务流：</strong>耐用品不是一次吃完，而是在一段时间里持续给你“好处/功能/产出”（辅助理解）。</p>
+          <p class="p" id="pre5" data-sec="explain"><strong>机会成本：</strong>你选择了“把牛奶做成奶酪”，就放弃了“今天立刻喝掉牛奶”的快乐与用途（辅助理解）。</p>
+          <p class="p" id="pre6" data-sec="explain"><strong>资本：</strong>不是只有钱才是资本；任何能在未来带来服务或收入的东西（本领、设备、注意力）都可被看作资本（辅助理解）。</p>
+          <p class="p" id="pre7" data-sec="explain"><strong>固定成本：</strong>像工位、培训、管理制度这类成本，往往“多一个人不止多一份”，这会影响老板为何偏好让同一批人加班（辅助理解）。</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- 3 生僻字 -->
+    <section class="section" aria-label="生僻字与发音">
+      <details class="sec" id="sec-zi">
+        <summary>
+          <span class="secTitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M4 4h16v16H4zM7 8h10v2H7zm0 4h6v2H7zm0 4h10v2H7z"/>
+            </svg>
+            生僻字与发音
+          </span>
+          <span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></span>
+        </summary>
+        <div class="secBody">
+          <div class="note small">选的是“容易读错/容易误解”的词。括号里为拼音（带声调）。</div>
+
+          <p class="p" id="z1" data-sec="explain"><strong>稀缺</strong>（xī quē）｜误区：当成“完全没有”。｜释义：相对不足。｜例句：时间维度上也稀缺。</p>
+          <p class="p" id="z2" data-sec="explain"><strong>约束</strong>（yuē shù）｜误区：只指法律。｜释义：限制条件。｜例句：四种基本约束。</p>
+          <p class="p" id="z3" data-sec="explain"><strong>劈头</strong>（pī tóu）｜误区：读成“pì”。｜释义：一开始就。｜例句：劈头一句很震撼。</p>
+          <p class="p" id="z4" data-sec="explain"><strong>边际</strong>（biān jì）｜误区：以为是“边边角角”。｜释义：多一单位带来的变化。｜例句：边际概念来自奥地利学派。</p>
+          <p class="p" id="z5" data-sec="explain"><strong>禀赋</strong>（bǐng fù）｜误区：只指天生。｜释义：一个人拥有的资源/能力。｜例句：本领或禀赋能带来收入。</p>
+          <p class="p" id="z6" data-sec="explain"><strong>异化</strong>（yì huà）｜误区：当成“变化”。｜释义：人在工作中失去自我感。｜例句：工作太长会异化。</p>
+          <p class="p" id="z7" data-sec="explain"><strong>调研</strong>（diào yán）｜多音字：调（diào/tiáo），此处“调查研究”读 diào。｜例句：出去调研回来很累。</p>
+          <p class="p" id="z8" data-sec="explain"><strong>哄然</strong>（hōng rán）｜误区：读成“hǒng”。｜释义：同时大笑/喧闹。｜例句：引起全场哄然大笑。</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- 4 分层解释 -->
+    <section class="section" aria-label="分层解释">
+      <details class="sec" id="sec-concepts">
+        <summary>
+          <span class="secTitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 2l10 6-10 6L2 8zm0 7l10 6-10 6-10-6z"/>
+            </svg>
+            讲明白：分层解释（核心概念）
+          </span>
+          <span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></span>
+        </summary>
+        <div class="secBody">
+          <div class="concept">
+            <h4>1) 把“时间”加进稀缺框架</h4>
+            <div class="tier">
+              <div class="box"><div class="k">一句话</div><p class="p" id="e1" data-sec="explain">稀缺不是只在“这一刻”发生，跨到时间轴上依然不够。</p></div>
+              <div class="box"><div class="k">通俗版</div><p class="p" id="e2" data-sec="explain">你今天只有24小时，明天也只有24小时；同样的钱、同样的能力，放在不同时间点，能换来的幸福不一样。</p></div>
+              <div class="box"><div class="k">严谨版</div><p class="p" id="e3" data-sec="explain">经济选择要考虑跨期配置：把资源在不同时间点重新分配，比较“现在效用”和“未来效用”的权衡（辅助理解）。</p></div>
+            </div>
+            <div class="toggleMore"><button class="jump" data-target="o5">回到原文对应处</button></div>
+          </div>
+
+          <div class="concept">
+            <h4>2) 现货与期货：今天和明天怎么换</h4>
+            <div class="tier">
+              <div class="box"><div class="k">一句话</div><p class="p" id="e4" data-sec="explain">现货是今天能用的，期货是未来才能用的。</p></div>
+              <div class="box"><div class="k">通俗版</div><p class="p" id="e5" data-sec="explain">你可以把“今天的一杯牛奶”换成“未来的一块奶酪”；关键是：你愿意等多久，愿意为等待付出多少。</p></div>
+              <div class="box"><div class="k">严谨版</div><p class="p" id="e6" data-sec="explain">跨期交换的价格体现了耐心（不耐）与投资机会：越不想等、越稀缺的机会，越影响利率（辅助理解）。</p></div>
+            </div>
+            <div class="toggleMore"><button class="jump" data-target="o5">回到原文对应处</button></div>
+          </div>
+
+          <div class="concept">
+            <h4>3) “收入是一连串的事件”</h4>
+            <div class="tier">
+              <div class="box"><div class="k">一句话</div><p class="p" id="e7" data-sec="explain">收入不是一个点，而是一串“未来发生的服务/体验”。</p></div>
+              <div class="box"><div class="k">通俗版</div><p class="p" id="e8" data-sec="explain">买一棵苹果树，你买的不是立刻能吃的苹果，而是未来每年结出来的苹果；把这些“未来的一次次收获”加总，就像你的收入。</p></div>
+              <div class="box"><div class="k">严谨版</div><p class="p" id="e9" data-sec="explain">费雪把资本与收入区分：资本是能在时间里产生服务流的存量，收入是这些服务流在时间里的实现（辅助理解）。</p></div>
+            </div>
+            <div class="toggleMore"><button class="jump" data-target="o14">回到原文对应处</button></div>
+          </div>
+
+          <div class="concept">
+            <h4>4) 易耗品：一次性消耗完</h4>
+            <div class="tier">
+              <div class="box"><div class="k">一句话</div><p class="p" id="e10" data-sec="explain">易耗品的“享受”几乎可以在一瞬间完成。</p></div>
+              <div class="box"><div class="k">通俗版</div><p class="p" id="e11" data-sec="explain">苹果、鸡蛋、牛奶、奶酪：不管生产花多久，吃的时候都是“一口一口就没了”。</p></div>
+              <div class="box"><div class="k">严谨版</div><p class="p" id="e12" data-sec="explain">区分关键在“消费/服务释放的时间分布”，而不是生产周期长短（辅助理解）。</p></div>
+            </div>
+            <div class="toggleMore"><button class="jump" data-target="o23">回到原文对应处</button></div>
+          </div>
+
+          <div class="concept">
+            <h4>5) 耐用品：服务必须在时间里慢慢释放</h4>
+            <div class="tier">
+              <div class="box"><div class="k">一句话</div><p class="p" id="e13" data-sec="explain">耐用品的价值是“分期交付”的。</p></div>
+              <div class="box"><div class="k">通俗版</div><p class="p" id="e14" data-sec="explain">油画要花时间欣赏；果树要一年一年结果。你想“一口气享受完”做不到。</p></div>
+              <div class="box"><div class="k">严谨版</div><p class="p" id="e15" data-sec="explain">耐用品可以用“未来服务流的现值”来理解：越远的服务，折算到今天越少（辅助理解）。</p></div>
+            </div>
+            <div class="toggleMore"><button class="jump" data-target="o26">回到原文对应处</button></div>
+          </div>
+
+          <div class="concept">
+            <h4>6) 人力资本：你自己也是耐用品</h4>
+            <div class="tier">
+              <div class="box"><div class="k">一句话</div><p class="p" id="e16" data-sec="explain">本领和学历不能“批发变现”，只能用时间一点点换出来。</p></div>
+              <div class="box"><div class="k">通俗版</div><p class="p" id="e17" data-sec="explain">博士学位不能卖给别人；你只能讲课、写文章、做项目，把价值在工时里慢慢兑现。</p></div>
+              <div class="box"><div class="k">严谨版</div><p class="p" id="e18" data-sec="explain">人力资本的回报依赖劳动供给与岗位匹配；折现后的终身收入决定你愿意投入多少学习与工作（辅助理解）。</p></div>
+            </div>
+            <div class="toggleMore"><button class="jump" data-target="o35">回到原文对应处</button></div>
+          </div>
+
+          <div class="concept">
+            <h4>7) 儿童：可消费的耐用品（以及一个思考题）</h4>
+            <div class="tier">
+              <div class="box"><div class="k">一句话</div><p class="p" id="e19" data-sec="explain">孩子既带来当下的快乐，也是一项长期投入。</p></div>
+              <div class="box"><div class="k">通俗版</div><p class="p" id="e20" data-sec="explain">你不能“把孩子吃掉”，只能在多年相处里获得满足；同时孩子也需要长期投入与陪伴。</p></div>
+              <div class="box"><div class="k">严谨版</div><p class="p" id="e21" data-sec="explain">把生育看作家庭的理性选择：在预算、时间与偏好约束下，选择孩子数量与“质量”（教育投入等）（辅助理解）。</p></div>
+            </div>
+            <div class="toggleMore"><button class="jump" data-target="o43">回到原文对应处</button></div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- 5 结构与关系 -->
+    <section class="section" aria-label="结构与关系">
+      <details class="sec" id="sec-structure">
+        <summary>
+          <span class="secTitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 4h6v2h-6zm0-4h6v2h-6z"/>
+            </svg>
+            帮你理顺：结构与关系
+          </span>
+          <span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></span>
+        </summary>
+        <div class="secBody">
+          <div class="note small">提示：概念地图与思维导图中的节点可点击，会跳回原文或解释的正文段落。</div>
+
+          <h3 style="margin:12px 0 10px; font-size:15px; display:flex; align-items:center; gap:10px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l10 6-10 6-10-6zm0 13l10-6v8l-10 6-10-6v-8z"/></svg>
+            概念地图
+          </h3>
+          <div class="svgWrap">
+            <svg width="980" height="300" viewBox="0 0 980 300" role="img" aria-label="概念地图">
+              <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                  <path d="M0,0 L10,3 L0,6 z" fill="currentColor" opacity=".55"/>
+                </marker>
+              </defs>
+
+              <path class="edge" d="M160 70 C 240 70, 240 70, 320 70"/>
+              <path class="edge" d="M470 70 C 560 70, 560 70, 650 70"/>
+              <path class="edge" d="M650 90 C 650 140, 650 140, 650 190"/>
+              <path class="edge" d="M650 210 C 650 250, 650 250, 650 290"/>
+              <path class="edge" d="M470 90 C 470 160, 470 160, 470 230"/>
+              <path class="edge" d="M320 90 C 320 160, 320 160, 320 230"/>
+
+              <g class="node" data-target="o5" tabindex="0" role="button" aria-label="稀缺 + 时间维度">
+                <rect x="40" y="45" width="160" height="50"/>
+                <text x="60" y="76">稀缺 + 时间维度</text>
+              </g>
+
+              <g class="node" data-target="o5" tabindex="0" role="button" aria-label="现货 / 期货">
+                <rect x="320" y="45" width="150" height="50"/>
+                <text x="344" y="76">现货 / 期货</text>
+              </g>
+
+              <g class="node" data-target="o14" tabindex="0" role="button" aria-label="收入=事件串">
+                <rect x="650" y="45" width="170" height="50"/>
+                <text x="676" y="76">收入 = 事件串</text>
+              </g>
+
+              <g class="node" data-target="o20" tabindex="0" role="button" aria-label="易耗品">
+                <rect x="260" y="215" width="120" height="50"/>
+                <text x="302" y="246">易耗品</text>
+              </g>
+
+              <g class="node" data-target="o26" tabindex="0" role="button" aria-label="耐用品">
+                <rect x="410" y="215" width="120" height="50"/>
+                <text x="452" y="246">耐用品</text>
+              </g>
+
+              <g class="node" data-target="o35" tabindex="0" role="button" aria-label="人力资本">
+                <rect x="590" y="165" width="120" height="50"/>
+                <text x="628" y="196">人力资本</text>
+              </g>
+
+              <g class="node" data-target="o43" tabindex="0" role="button" aria-label="儿童（可消费耐用品）">
+                <rect x="560" y="245" width="220" height="50"/>
+                <text x="585" y="276">儿童（可消费耐用品）</text>
+              </g>
+            </svg>
+          </div>
+
+          <h3 style="margin:14px 0 10px; font-size:15px; display:flex; align-items:center; gap:10px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 5h-2v6l5 3 .9-1.5-3.9-2.3Z"/></svg>
+            思维导图
+          </h3>
+          <div class="svgWrap">
+            <svg width="980" height="340" viewBox="0 0 980 340" role="img" aria-label="思维导图">
+              <defs>
+                <marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                  <path d="M0,0 L10,3 L0,6 z" fill="currentColor" opacity=".55"/>
+                </marker>
+              </defs>
+              <path class="edge" style="marker-end:url(#arrow2)" d="M220 170 C 300 120, 330 120, 410 120"/>
+              <path class="edge" style="marker-end:url(#arrow2)" d="M220 170 C 300 170, 330 170, 410 170"/>
+              <path class="edge" style="marker-end:url(#arrow2)" d="M220 170 C 300 220, 330 220, 410 220"/>
+              <path class="edge" style="marker-end:url(#arrow2)" d="M540 120 C 640 90, 680 90, 780 90"/>
+              <path class="edge" style="marker-end:url(#arrow2)" d="M540 170 C 640 170, 680 170, 780 170"/>
+              <path class="edge" style="marker-end:url(#arrow2)" d="M540 220 C 640 250, 680 250, 780 250"/>
+
+              <g class="node" data-target="o4" tabindex="0" role="button" aria-label="主题：时间与耐心">
+                <rect x="40" y="145" width="180" height="50"/>
+                <text x="62" y="176">时间与耐心</text>
+              </g>
+
+              <g class="node" data-target="o5" tabindex="0" role="button" aria-label="跨期稀缺">
+                <rect x="410" y="95" width="130" height="50"/>
+                <text x="440" y="126">跨期稀缺</text>
+              </g>
+              <g class="node" data-target="o8" tabindex="0" role="button" aria-label="费雪利息理论">
+                <rect x="410" y="145" width="130" height="50"/>
+                <text x="432" y="176">利息理论</text>
+              </g>
+              <g class="node" data-target="o20" tabindex="0" role="button" aria-label="商品两分法">
+                <rect x="410" y="195" width="130" height="50"/>
+                <text x="435" y="226">两类物品</text>
+              </g>
+
+              <g class="node" data-target="o5" tabindex="0" role="button" aria-label="现货期货交换">
+                <rect x="780" y="65" width="170" height="50"/>
+                <text x="804" y="96">现货↔期货交换</text>
+              </g>
+              <g class="node" data-target="o14" tabindex="0" role="button" aria-label="收入事件串">
+                <rect x="780" y="145" width="170" height="50"/>
+                <text x="824" y="176">收入事件串</text>
+              </g>
+              <g class="node" data-target="o35" tabindex="0" role="button" aria-label="耐用品兑现靠时间">
+                <rect x="780" y="225" width="170" height="50"/>
+                <text x="808" y="256">兑现靠时间</text>
+              </g>
+            </svg>
+          </div>
+
+          <h3 style="margin:14px 0 10px; font-size:15px; display:flex; align-items:center; gap:10px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 6V2L8 6l4 4V7c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6H4c0 4.4 3.6 8 8 8s8-3.6 8-8-3.6-8-8-8z"/></svg>
+            结构树与逻辑链（不作为跳转目标）
+          </h3>
+          <div class="card" style="box-shadow:none;">
+            <ol class="small" style="margin:0; padding-left: 18px;">
+              <li>世界的四种约束 → 本单元引入“时间有限”。</li>
+              <li>把稀缺放到时间轴 → 现货/期货交换问题出现。</li>
+              <li>费雪视角：收入=未来事件串 → 资本提供服务流。</li>
+              <li>商品两分法：易耗品（瞬间消费） vs 耐用品（持续服务）。</li>
+              <li>耐用品扩展：人力资本、注意力切换、儿童 → 都需时间兑现。</li>
+            </ol>
+          </div>
+
+          <div class="grid" style="margin-top:12px;">
+            <div class="card">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 2 7l10 5 10-5-10-5zm0 7L2 4v11l10 5 10-5V4z"/></svg>
+                常见误解
+              </h3>
+              <ul class="small" style="margin:0; padding-left:18px;">
+                <li>“生产时间长”就等于耐用品（原文已提醒：奶酪不是）。</li>
+                <li>利息只跟银行有关（其实是跨期交换的普遍价格现象）。</li>
+                <li>耐用品只能是实物（原文举了注意力切换、人力资本）。</li>
+                <li>把儿童当作耐用品是在“道德评价”（经济分析强调解释选择，不是价值评判）。</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 12h6l3 8 4-16 3 8h2"/></svg>
+                应用场景
+              </h3>
+              <ul class="small" style="margin:0; padding-left:18px;">
+                <li>个人：该现在消费还是投资学习（人力资本）。</li>
+                <li>企业：加班 vs 增员的成本结构比较。</li>
+                <li>资产：买耐用品（房、设备）看“服务流”而非一次收益。</li>
+                <li>家庭：孩子数量/教育投入的权衡（数量与质量）。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- 6 复习与练习 -->
+    <section class="section" aria-label="复习与练习">
+      <details class="sec" id="sec-practice">
+        <summary>
+          <span class="secTitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M4 4h16v16H4zm3 3h10v2H7zm0 4h10v2H7zm0 4h6v2H7z"/>
+            </svg>
+            记住并能用：复习与练习
+          </span>
+          <span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></span>
+        </summary>
+        <div class="secBody">
+          <!-- Points -->
+          <details class="sec" id="sub-points">
+            <summary>
+              <span class="secTitle">
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l3 7h7l-5.5 4.2L18 21l-6-4-6 4 1.5-7.8L2 9h7z"/></svg>
+                要点清单
+              </span>
+              <span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></span>
+            </summary>
+            <div class="secBody">
+              <ul class="small" style="margin:0; padding-left: 18px;">
+                <li>稀缺不仅在当下发生，也在时间维度上持续存在。</li>
+                <li>现货与期货的交换，核心是“等与不等”的取舍。</li>
+                <li>费雪：收入像一串未来事件；资本通过时间提供服务。</li>
+                <li>易耗品按消费时长定义；生产慢不等于耐用品。</li>
+                <li>耐用品的价值是服务流，必须靠时间兑现。</li>
+                <li>人力资本、注意力切换、儿童都可视作耐用品。</li>
+              </ul>
+            </div>
+          </details>
+
+          <!-- Self test -->
+          <details class="sec" id="sub-selftest">
+            <summary>
+              <span class="secTitle">
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 21h6v-1H9zm3-19a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2z"/></svg>
+                自测题（答案隐藏）
+              </span>
+              <span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></span>
+            </summary>
+            <div class="secBody">
+              <div class="qa" id="q1" data-sec="explain">
+                <div class="q">1) 为什么“生产时间长的奶酪”仍然是易耗品？</div>
+                <button data-toggle="a1">显示答案</button>
+                <div class="ans" id="a1">因为分类看“消耗/享受的时间”。奶酪吃的时候仍然能在短时间内消耗完；生产周期长不等于耐用品（对照原文奶酪段）。</div>
+              </div>
+
+              <div class="qa" id="q2" data-sec="explain">
+                <div class="q">2) 用一句话解释“收入是一连串的事件”。</div>
+                <button data-toggle="a2">显示答案</button>
+                <div class="ans" id="a2">收入可以理解为未来一次次服务/体验的总和；把这些事件加起来，就是你在时间里得到的收入。</div>
+              </div>
+
+              <div class="qa" id="q3" data-sec="explain">
+                <div class="q">3) “加班更合算”在原文里靠什么逻辑支撑？</div>
+                <button data-toggle="a3">显示答案</button>
+                <div class="ans" id="a3">因为复用同一个人的固定成本（工位、培训、管理）更省；即便加班费更高，总成本可能更低。</div>
+              </div>
+
+              <div class="qa" id="q4" data-sec="explain">
+                <div class="q">4) 选一个耐用品例子，写出它的“服务流”。</div>
+                <button data-toggle="a4">显示答案</button>
+                <div class="ans" id="a4">例：苹果树。服务流是“今年结10个、明年结10个……”的果实产出；你只能在多年里逐步享用。</div>
+              </div>
+
+              <div class="qa" id="q5" data-sec="explain">
+                <div class="q">5) 课后思考题：为什么贫穷社会孩子多、富裕社会孩子少？（给一个经济学解释）</div>
+                <button data-toggle="a5">显示答案</button>
+                <div class="ans" id="a5">一个常见解释（辅助理解）：随着收入与教育机会提高，“养育成本（尤其时间成本）”上升，家庭更倾向于少生并提高每个孩子的投入（数量—质量权衡）。</div>
+              </div>
+            </div>
+          </details>
+
+          <!-- Flashcards -->
+          <details class="sec" id="sub-flash">
+            <summary>
+              <span class="secTitle">
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 7h16v10H4zm2 2v6h12V9z"/></svg>
+                闪卡
+              </span>
+              <span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></span>
+            </summary>
+            <div class="secBody">
+              <div class="qa" id="f1" data-sec="explain">
+                <div class="q">闪卡 1：现货 vs 期货？</div>
+                <button data-toggle="fa1">翻开</button>
+                <div class="ans" id="fa1">现货：现在可用；期货：未来可用。关键问题是如何在时间里交换以增加幸福。</div>
+              </div>
+              <div class="qa" id="f2" data-sec="explain">
+                <div class="q">闪卡 2：易耗品判定看什么？</div>
+                <button data-toggle="fa2">翻开</button>
+                <div class="ans" id="fa2">看消费/享受是不是可以在短时间内完成，而不是看生产周期。</div>
+              </div>
+              <div class="qa" id="f3" data-sec="explain">
+                <div class="q">闪卡 3：耐用品的核心特征？</div>
+                <button data-toggle="fa3">翻开</button>
+                <div class="ans" id="fa3">服务必须在一段时间内慢慢释放，你需要时间才能享受它。</div>
+              </div>
+              <div class="qa" id="f4" data-sec="explain">
+                <div class="q">闪卡 4：人力资本为什么像耐用品？</div>
+                <button data-toggle="fa4">翻开</button>
+                <div class="ans" id="fa4">价值不能一次性卖掉，只能通过长期的工作时间持续兑现。</div>
+              </div>
+              <div class="qa" id="f5" data-sec="explain">
+                <div class="q">闪卡 5：费雪这句话带来的视角变化？</div>
+                <button data-toggle="fa5">翻开</button>
+                <div class="ans" id="fa5">把“收入/资本”从静态的点，变成时间里连续发生的事件与服务流。</div>
+              </div>
+            </div>
+          </details>
+
+          <!-- Feynman -->
+          <details class="sec" id="sub-feyn">
+            <summary>
+              <span class="secTitle">
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3c4.4 0 8 3.6 8 8 0 3.4-2.1 6.3-5.1 7.5L15 21h-6l.1-2.5C6.1 17.3 4 14.4 4 11c0-4.4 3.6-8 8-8zm0 4a4 4 0 0 0-4 4h2a2 2 0 1 1 4 0c0 2-3 1.8-3 5h2c0-2.2 3-2.5 3-5a4 4 0 0 0-4-4z"/></svg>
+                费曼学习法：把你教会
+              </span>
+              <span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></span>
+            </summary>
+            <div class="secBody">
+              <div class="card" style="box-shadow:none;">
+                <p class="p" id="feyn1" data-sec="explain"><strong>教给小白：</strong>把世界想成一条时间线：你手里“现在”的东西叫现货，“以后”的东西叫期货。利息就是你愿意把现货换成期货时，要求多拿到的“等的补偿”。为什么？因为很多东西是耐用品——像油画、果树、你的本领，它们不是一口气吃完的，而是几年里一点点给你好处。例子：果树每年结苹果；反例/边界：奶酪虽然做得慢，但吃得快，仍是易耗品。</p>
+                <p class="p" id="feyn2" data-sec="explain"><strong>发现卡点：</strong>
+                  你可能卡在三处——（1）“收入是事件串”是什么意思；（2）易耗品/耐用品为什么按“消耗时间”分；（3）人力资本怎么会逼你加班。每个卡点都能回到对应段落对照原文。</p>
+                <div class="chips" style="padding:0;">
+                  <button class="chip" data-target="o14">卡点1：事件串</button>
+                  <button class="chip" data-target="o23">卡点2：奶酪不是耐用品</button>
+                  <button class="chip" data-target="o35">卡点3：耐用品兑现</button>
+                </div>
+                <p class="p" id="feyn3" data-sec="explain"><strong>回原文修正：</strong>（来自原文）耐用品的关键是“服务在时间里慢慢发散”；（来自原文）你的人力资本不能一次兑现，只能用工时兑现；（辅助理解）把耐用品看成“未来服务流”，能更容易连接到利息与贴现。</p>
+                <p class="p" id="feyn4" data-sec="explain"><strong>再讲一遍：</strong>收入不是一个瞬间，而是未来一次次发生的服务。易耗品能很快消耗完；耐用品必须花时间才能享受，所以它的价值要靠时间兑现。利息就是你把“现在”换成“未来”时，市场给出的交换价格。<br><span class="small">验收句（≤25字）：我能用“服务流”解释利息。</span></p>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+    </section>
+
+    <!-- 7 行动规划 -->
+    <section class="section" aria-label="行动规划">
+      <details class="sec" id="sec-action">
+        <summary>
+          <span class="secTitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M9 16.2 4.8 12 3.4 13.4 9 19 21 7l-1.4-1.4z"/>
+            </svg>
+            行动规划（3个动作）
+          </span>
+          <span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></span>
+        </summary>
+        <div class="secBody">
+          <div class="checks" id="actionChecks">
+            <label><input type="checkbox" data-key="act1"/>今天选一个耐用品（书/课程/技能），写出它未来三个月的“服务流”是什么。</label>
+            <label><input type="checkbox" data-key="act2"/>把“加班 vs 增员”当作一道题：列出你所在场景的固定成本与变动成本。</label>
+            <label><input type="checkbox" data-key="act3"/>回答课后思考题：用“时间成本 + 数量质量权衡”写100字解释。</label>
+          </div>
+          <div class="hint">勾选会自动保存到本地浏览器（仅此页面）。</div>
+        </div>
+      </details>
+    </section>
+
+    <!-- 8 复盘区 -->
+    <section class="section" aria-label="复盘区">
+      <details class="sec" id="sec-review">
+        <summary>
+          <span class="secTitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 21l-8-4V7l8-4 8 4v10l-8 4zm0-2.2 6-3V8.2l-6 3-6-3v7.6l6 3z"/>
+            </svg>
+            复盘区（保存你的下一步问题）
+          </span>
+          <span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></span>
+        </summary>
+        <div class="secBody">
+          <div class="grid">
+            <div class="card">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm-1 15-4-4 1.4-1.4L11 14.2l5.6-5.6L18 10z"/></svg>
+                理解度
+              </h3>
+              <select id="understand">
+                <option value="">请选择</option>
+                <option value="1">1｜还很模糊</option>
+                <option value="2">2｜能复述但不稳</option>
+                <option value="3">3｜能举例能解释</option>
+                <option value="4">4｜能迁移到工作/生活</option>
+              </select>
+              <div class="hint">选择会保存到本地浏览器。</div>
+            </div>
+            <div class="card">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 6h-2V3h-2v3H7V3H5v3H3v2h18zM3 20h18V10H3z"/></svg>
+                下次我想问
+              </h3>
+              <textarea id="nextQ" rows="5" placeholder="写下你下一次想追问的问题（例如：利率如何由不耐与机会决定？）"></textarea>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:12px;">
+            <h3>
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 1 21h22zM12 16h-1v-4h2v4zm0 2h-2v-2h2z"/></svg>
+              我卡在哪里
+            </h3>
+            <textarea id="stuck" rows="4" placeholder="比如：不理解“收入是事件串”与资本服务流的关系…"></textarea>
+            <div class="hint">会自动保存到本地浏览器。</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- 9 阅读延伸 -->
+    <section class="section" aria-label="阅读延伸：权威资料">
+      <details class="sec" id="sec-refs">
+        <summary>
+          <span class="secTitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 2 2 7v10l10 5 10-5V7zm0 2.2 7.8 3.9L12 12 4.2 8.1zM4 10.1l7 3.5v6.2L4 16.3zm16 6.2-7 3.5v-6.2l7-3.5z"/>
+            </svg>
+            阅读延伸：权威资料
+          </span>
+          <span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></span>
+        </summary>
+        <div class="secBody">
+          <div class="note small">每条都写了“为什么可信”的校验依据；链接将以新标签页打开。</div>
+
+          <div class="grid">
+            <div class="card">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/></svg>
+                费雪《利息理论》在线文本（Liberty Fund OLL）
+              </h3>
+              <p class="small">关联：费雪、利息、不耐与投资机会、收入视角。</p>
+              <p class="small">为什么可信：①权威机构（Liberty Fund 在线图书馆）②可追溯（书名/作者/版本清晰）③交叉验证（与其他馆藏同名版本一致）。</p>
+              <a href="https://oll.libertyfund.org/titles/fisher-the-theory-of-interest" target="_blank" rel="noopener">打开</a>
+            </div>
+
+            <div class="card">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16v16H4zM7 8h10v2H7z"/></svg>
+                FRASER 馆藏：The Theory of Interest（1930）
+              </h3>
+              <p class="small">关联：同一本书的数字馆藏版本。</p>
+              <p class="small">为什么可信：①权威机构（St. Louis Fed FRASER）②可追溯（馆藏条目与出版信息）③交叉验证（与 OLL/Econlib 同名对应）。</p>
+              <a href="https://fraser.stlouisfed.org/title/theory-interest-6255" target="_blank" rel="noopener">打开</a>
+            </div>
+
+            <div class="card">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 14h-2v-2h2Zm0-4h-2V6h2Z"/></svg>
+                UPenn Online Books Page：稳定书目入口
+              </h3>
+              <p class="small">关联：费雪《利息理论》的稳定索引与指向。</p>
+              <p class="small">为什么可信：①权威机构（宾大图书馆项目）②域名一致性（upenn.edu）③可追溯（书目条目与指向来源）。</p>
+              <a href="https://onlinebooks.library.upenn.edu/webbin/book/lookupid?key=olbp17081" target="_blank" rel="noopener">打开</a>
+            </div>
+
+            <div class="card">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l4 7h-8zM4 22h16l-8-14z"/></svg>
+                诺奖官网：Gary S. Becker Prize Lecture（PDF）
+              </h3>
+              <p class="small">关联：家庭选择、代际关系与经济分析。</p>
+              <p class="small">为什么可信：①权威机构（nobelprize.org）②可追溯（官方 PDF 与出版信息）③交叉验证（与学术引用一致）。</p>
+              <a href="https://www.nobelprize.org/uploads/2018/06/becker-lecture.pdf" target="_blank" rel="noopener">打开</a>
+            </div>
+
+            <div class="card">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6h16v2H4zm0 5h10v2H4zm0 5h16v2H4z"/></svg>
+                JSTOR：Are Babies Consumer Durables?（批判与讨论）
+              </h3>
+              <p class="small">关联：“儿童作为耐用品/消费品”这一分析框架的讨论。</p>
+              <p class="small">为什么可信：①权威平台（JSTOR 学术库）②可追溯（期刊文章、引文链）③交叉验证（与家庭经济学文献互引）。</p>
+              <a href="https://www.jstor.org/stable/2173350" target="_blank" rel="noopener">打开</a>
+            </div>
+
+            <div class="card">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l9 4v6c0 5-3.8 9.4-9 10-5.2-.6-9-5-9-10V6z"/></svg>
+                Böhm-Bawerk《Capital and Interest》（奥地利学派利息理论）
+              </h3>
+              <p class="small">关联：奥地利学派对利息与时间的讨论背景。</p>
+              <p class="small">为什么可信：①作者权威（经典经济学家著作）②可追溯（书名/版本清晰）③交叉验证（多处书目可对照）。</p>
+              <a href="https://mises.org/library/book/capital-and-interest" target="_blank" rel="noopener">打开</a>
+            </div>
+          </div>
+
+          <div class="hint">如果你希望我把“引用内容对应到你这篇课文的哪一句”，我可以逐条加上定位按钮。</div>
+        </div>
+      </details>
+    </section>
+  </main>
+
+<script>
+(function(){
+  // ---------- Palette from vibe + seed (internal) ----------
+  // 说明：页面不会显示任何色值，只用于样式。
+  const vibeTop1 = "理性分析";
+  const seed = 968493809;
+  function mod(n,m){ return ((n%m)+m)%m; }
+
+  function paletteFromVibe(vibe, seed){
+    // hue ranges by vibeTop1
+    const ranges = {
+      "理性分析": [190, 220],
+      "技术方法": [185, 215],
+      "哲思修行": [210, 255],
+      "温暖叙事": [20, 45],
+      "行动激励": [10, 25],
+      "批判反思": [285, 330],
+      "历史文化": [25, 55],
+      "情绪疗愈": [270, 305]
+    };
+    const r = ranges[vibe] || ranges["理性分析"];
+    const span = r[1]-r[0];
+    const h = r[0] + (seed % (span+1));
+    const s = 35 + (seed % 21); // 35–55
+    const l = 40 + (seed % 16); // 40–55
+    const accentH = mod(h + ((seed % 2) ? 160 : -160), 360);
+    const accentS = Math.min(75, s + 12);
+    const accentL = Math.min(62, l + 8);
+    // neutral tone: slightly cool for 理性/技术, slightly warm for others
+    const cool = (vibe === "理性分析" || vibe === "技术方法" || vibe === "哲思修行");
+    return {
+      primary: `hsl(${h} ${s}% ${l}%)`,
+      accent: `hsl(${accentH} ${accentS}% ${accentL}%)`,
+      neutralBg: cool ? "hsl(210 18% 97%)" : "hsl(36 22% 97%)",
+      neutralText: "hsl(220 20% 16%)",
+      neutralBorder: cool ? "hsl(220 15% 86%)" : "hsl(30 14% 86%)"
+    };
+  }
+
+  const pal = paletteFromVibe(vibeTop1, seed);
+  const root = document.documentElement;
+  root.style.setProperty("--primary", pal.primary);
+  root.style.setProperty("--accent", pal.accent);
+
+  // ---------- Meta ----------
+  function computeMeta(){
+    const origText = document.querySelector("#sec-orig .secBody").innerText || "";
+    const chineseCount = (origText.match(/[\u4e00-\u9fff]/g) || []).length;
+    const otherCount = origText.replace(/\s/g,"").length - chineseCount;
+    const words = chineseCount + Math.max(0, Math.round(otherCount/2));
+    document.getElementById("metaWords").textContent = words.toLocaleString();
+    const mins = Math.max(1, Math.round(words / 420)); // ~420字/分钟
+    document.getElementById("metaRead").textContent = mins + " 分钟";
+    const d = new Date();
+    document.getElementById("metaTime").textContent = d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0") + " " + String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0");
+  }
+
+  // ---------- Jump (strict id) ----------
+  function openParents(el){
+    let p = el.parentElement;
+    while(p){
+      if(p.tagName === "DETAILS") p.open = true;
+      p = p.parentElement;
+    }
+  }
+  function flash(el){
+    el.classList.remove("flash");
+    // force reflow
+    void el.offsetWidth;
+    el.classList.add("flash");
+    setTimeout(() => el.classList.remove("flash"), 2600);
+  }
+  function jumpTo(id){
+    const el = document.getElementById(id);
+    if(!el) return false;
+    openParents(el);
+    el.scrollIntoView({behavior:"smooth", block:"center"});
+    flash(el);
+    return true;
+  }
+
+  // Chips
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if(t && t.dataset && t.dataset.target){
+      jumpTo(t.dataset.target);
+    }
+    if(t && t.classList && t.classList.contains("jump") && t.dataset.target){
+      jumpTo(t.dataset.target);
+    }
+    if(t && t.dataset && t.dataset.toggle){
+      const a = document.getElementById(t.dataset.toggle);
+      if(!a) return;
+      const open = a.style.display === "block";
+      a.style.display = open ? "none" : "block";
+      t.textContent = open ? "显示答案" : "收起答案";
+      // For flashcards button copy
+      if(t.textContent === "收起答案" && t.closest(".qa") && t.closest(".qa").id.startsWith("f")) {
+        t.textContent = "合上";
+      }
+      if(!open && t.closest(".qa") && t.closest(".qa").id.startsWith("f")) {
+        t.textContent = "翻开";
+      }
+      if(!open) flash(a);
+    }
+  });
+
+  // SVG nodes click / keyboard
+  document.querySelectorAll("svg .node").forEach(node => {
+    node.addEventListener("click", () => {
+      const id = node.getAttribute("data-target");
+      if(id) jumpTo(id);
+    });
+    node.addEventListener("keydown", (ev) => {
+      if(ev.key === "Enter" || ev.key === " "){
+        ev.preventDefault();
+        const id = node.getAttribute("data-target");
+        if(id) jumpTo(id);
+      }
+    });
+  });
+
+  // ---------- Clamp toggle ----------
+  const origClamp = document.getElementById("origClamp");
+  const toggleOrig = document.getElementById("toggleOrig");
+  let origExpanded = false;
+  function setOrigExpanded(on){
+    origExpanded = !!on;
+    if(origExpanded) {
+      origClamp.classList.remove("clamp");
+      toggleOrig.textContent = "收起全文";
+    } else {
+      origClamp.classList.add("clamp");
+      toggleOrig.textContent = "展开全文";
+    }
+  }
+  toggleOrig.addEventListener("click", () => setOrigExpanded(!origExpanded));
+
+  // ---------- Modes ----------
+  const sections = {
+    orig: document.getElementById("sec-orig"),
+    pre: document.getElementById("sec-pre"),
+    zi: document.getElementById("sec-zi"),
+    concepts: document.getElementById("sec-concepts"),
+    structure: document.getElementById("sec-structure"),
+    practice: document.getElementById("sec-practice"),
+    action: document.getElementById("sec-action"),
+    review: document.getElementById("sec-review"),
+    refs: document.getElementById("sec-refs"),
+  };
+  const modeName = document.getElementById("modeName");
+  const btnSpeed = document.getElementById("btnSpeed");
+  const btnStudy = document.getElementById("btnStudy");
+  const btnExam = document.getElementById("btnExam");
+
+  function closeAll(){
+    Object.values(sections).forEach(d => d && (d.open = false));
+    // close nested details inside practice
+    document.querySelectorAll('#sec-practice details.sec').forEach(d => d.open = false);
+    // reset clamps & answers
+    setOrigExpanded(false);
+    document.querySelectorAll(".ans").forEach(a => a.style.display = "none");
+    document.querySelectorAll("[data-toggle]").forEach(b => {
+      const isFlash = b.closest(".qa") && b.closest(".qa").id.startsWith("f");
+      b.textContent = isFlash ? "翻开" : "显示答案";
+    });
+  }
+
+  function applyMode(mode){
+    closeAll();
+    const drawer = document.getElementById("drawer");
+    if(drawer) drawer.open = false;
+    // Always keep top info visible; folding affects sections below.
+    if(mode === "speed"){
+      sections.practice.open = true;
+      sections.action.open = true;
+      // speed: only points open
+      const subPoints = document.getElementById("sub-points");
+      const subSelf = document.getElementById("sub-selftest");
+      const subFlash = document.getElementById("sub-flash");
+      const subFeyn = document.getElementById("sub-feyn");
+      if(subPoints) subPoints.open = true;
+      if(subSelf) subSelf.open = false;
+      if(subFlash) subFlash.open = false;
+      if(subFeyn) subFeyn.open = false;
+      // keep original preview folded by default
+      sections.orig.open = false;
+      modeName.textContent = "速读模式";
+    } else if(mode === "study"){
+      if(drawer) drawer.open = true;
+      // expand: 学习卡点 + 通俗解释 + 前置Top2 + 生僻字Top5 + 结构树
+      sections.pre.open = true;
+      sections.zi.open = true;
+      sections.concepts.open = true;
+      sections.structure.open = true;
+      // practice: points open, others closed
+      const subPoints = document.getElementById("sub-points");
+      const subSelf = document.getElementById("sub-selftest");
+      const subFlash = document.getElementById("sub-flash");
+      const subFeyn = document.getElementById("sub-feyn");
+      if(subPoints) subPoints.open = true;
+      if(subSelf) subSelf.open = false;
+      if(subFlash) subFlash.open = false;
+      if(subFeyn) subFeyn.open = false;
+      // original stays folded preview
+      sections.orig.open = false;
+      modeName.textContent = "补课模式";
+    } else if(mode === "exam"){
+      sections.practice.open = true;
+      const subPoints = document.getElementById("sub-points");
+      const subSelf = document.getElementById("sub-selftest");
+      const subFlash = document.getElementById("sub-flash");
+      const subFeyn = document.getElementById("sub-feyn");
+      if(subPoints) subPoints.open = false;
+      if(subSelf) subSelf.open = true;
+      if(subFlash) subFlash.open = false;
+      if(subFeyn) subFeyn.open = false;
+      modeName.textContent = "考试模式";
+    }
+    // buttons state
+    btnSpeed.setAttribute("aria-pressed", mode === "speed");
+    btnStudy.setAttribute("aria-pressed", mode === "study");
+    btnExam.setAttribute("aria-pressed", mode === "exam");
+    localStorage.setItem("readingCard_mode", mode);
+  }
+
+  btnSpeed.addEventListener("click", () => applyMode("speed"));
+  btnStudy.addEventListener("click", () => applyMode("study"));
+  btnExam.addEventListener("click", () => applyMode("exam"));
+
+  document.getElementById("btnResetFold").addEventListener("click", () => {
+    const mode = localStorage.getItem("readingCard_mode") || "study";
+    applyMode(mode);
+  });
+
+  // ---------- Theme ----------
+  const btnTheme = document.getElementById("btnTheme");
+  function setTheme(theme){
+    root.setAttribute("data-theme", theme);
+    localStorage.setItem("readingCard_theme", theme);
+    btnTheme.setAttribute("aria-pressed", theme === "dark");
+  }
+  btnTheme.addEventListener("click", () => {
+    const cur = root.getAttribute("data-theme") || "light";
+    setTheme(cur === "dark" ? "light" : "dark");
+  });
+
+  // ---------- Print ----------
+  document.getElementById("btnPrint").addEventListener("click", () => window.print());
+
+  // ---------- Persist checkboxes + review ----------
+  function loadChecks(){
+    document.querySelectorAll('#actionChecks input[type="checkbox"]').forEach(cb => {
+      const key = "readingCard_" + cb.dataset.key;
+      cb.checked = localStorage.getItem(key) === "1";
+      cb.addEventListener("change", () => {
+        localStorage.setItem(key, cb.checked ? "1" : "0");
+      });
+    });
+  }
+  function persistField(id, key){
+    const el = document.getElementById(id);
+    const k = "readingCard_" + key;
+    const v = localStorage.getItem(k);
+    if(v !== null) el.value = v;
+    el.addEventListener("input", () => localStorage.setItem(k, el.value));
+    el.addEventListener("change", () => localStorage.setItem(k, el.value));
+  }
+
+  // ---------- Init ----------
+  computeMeta();
+  loadChecks();
+  persistField("understand", "understand");
+  persistField("nextQ", "nextQ");
+  persistField("stuck", "stuck");
+
+  // initial theme
+  const savedTheme = localStorage.getItem("readingCard_theme") || "light";
+  setTheme(savedTheme);
+
+  // initial mode
+  const savedMode = localStorage.getItem("readingCard_mode") || "study";
+  applyMode(savedMode);
+
+})();
+</script>
+</body>
+</html>
