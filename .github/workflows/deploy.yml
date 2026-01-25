@@ -1,0 +1,33 @@
+name: 自动生成索引并部署
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: 运行脚本生成 index.html
+        run: python generate_index.py
+
+      - name: 上传部署文件
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.' # 部署包含新生成的 index.html 的根目录
+
+      - name: 部署到 GitHub Pages
+        uses: actions/deploy-pages@v4
