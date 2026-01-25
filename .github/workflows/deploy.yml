@@ -3,6 +3,7 @@ name: 自动生成索引并部署
 on:
   push:
     branches: ["main"]
+  workflow_dispatch: # 允许手动点击运行
 
 permissions:
   contents: read
@@ -16,18 +17,22 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 设置 Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+      - name: 动态生成 index.html
+        run: |
+          echo "<html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>我的文档目录</title><style>body{font-family:sans-serif;padding:20px;} li{margin:10px 0;} a{color:#0366d6;text-decoration:none;font-size:18px;}</style></head><body>" > index.html
+          echo "<h1>📂 文件目录</h1><ul>" >> index.html
+          # 遍历所有 html 文件并写入列表
+          for file in *.html; do
+            if [ "$file" != "index.html" ]; then
+              echo "<li><a href='./$file'>$file</a></li>" >> index.html
+            fi
+          done
+          echo "</ul></body></html>" >> index.html
 
-      - name: 运行脚本生成 index.html
-        run: python generate_index.py
-
-      - name: 上传部署文件
+      - name: 上传到 Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # 部署包含新生成的 index.html 的根目录
+          path: '.'
 
-      - name: 部署到 GitHub Pages
+      - name: 部署
         uses: actions/deploy-pages@v4
