@@ -1,0 +1,1386 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自私、同情与市场：亚当·斯密的二分法｜阅读卡</title>
+<style>
+  :root{
+    --primary:#2b6f8a; --accent:#b85a2f; --bg:#0b0e11; --card:#10161b; --text:#e9eef2;
+    --muted:rgba(233,238,242,.72); --border:rgba(233,238,242,.14);
+    --shadow: 0 10px 30px rgba(0,0,0,.22);
+    --radius: 16px;
+    --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+  }
+  [data-theme="light"]{
+    --bg: #f6f7f9;
+    --card:#ffffff;
+    --text:#111418;
+    --muted: rgba(17,20,24,.68);
+    --border: rgba(17,20,24,.12);
+    --shadow: 0 12px 30px rgba(0,0,0,.08);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:var(--font); background: radial-gradient(900px 600px at 20% 10%, color-mix(in oklab, var(--primary) 25%, transparent), transparent 65%),
+    radial-gradient(800px 500px at 80% 30%, color-mix(in oklab, var(--accent) 20%, transparent), transparent 60%),
+    var(--bg);
+    color:var(--text);
+  }
+  a{color:inherit; text-decoration:none}
+  .wrap{max-width:1080px; margin:0 auto; padding:96px 16px 56px}
+  .toolbar{
+    position:sticky; top:0; z-index:10; height:72px;
+    display:flex; align-items:center; gap:12px;
+    padding:10px 14px;
+    background: linear-gradient(180deg, rgba(10,14,18,.82), rgba(10,14,18,.45));
+    backdrop-filter: blur(14px);
+    border-bottom:1px solid var(--border);
+    overflow-x:auto; white-space:nowrap;
+  }
+  [data-theme="light"] .toolbar{ background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.55)); }
+  .pill{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:10px 14px; border-radius:999px;
+    border:1px solid var(--border);
+    background: color-mix(in oklab, var(--card) 86%, transparent);
+    box-shadow: 0 8px 18px rgba(0,0,0,.08);
+    flex:0 0 auto;
+  }
+  .pill strong{font-size:14px; letter-spacing:.2px}
+  .pill .sub{font-size:12px; color:var(--muted)}
+  .mode-pill{gap:8px}
+  .right{margin-left:auto; display:flex; gap:10px; flex:0 0 auto}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:10px 12px; border-radius:999px;
+    border:1px solid var(--border);
+    background: color-mix(in oklab, var(--card) 78%, transparent);
+    color:var(--text);
+    cursor:pointer; user-select:none;
+  }
+  .btn:hover{border-color: color-mix(in oklab, var(--accent) 40%, var(--border))}
+  .btn:active{transform: translateY(1px)}
+  .btn.ghost{background: transparent}
+  .btn.mini{padding:6px 10px; font-size:12px}
+  .ico{width:18px; height:18px; fill:currentColor; opacity:.92}
+  .hero{
+    border:1px solid var(--border);
+    background: color-mix(in oklab, var(--card) 92%, transparent);
+    border-radius: calc(var(--radius) + 4px);
+    box-shadow: var(--shadow);
+    overflow:hidden;
+  }
+  .hero-top{padding:16px 18px 14px; display:flex; align-items:flex-start; gap:14px}
+  .title{flex:1}
+  h1{margin:0; font-size:22px; line-height:1.25}
+  .one{margin-top:8px; color:var(--muted); font-size:14px; line-height:1.5}
+  .meta{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; color:var(--muted); font-size:12px}
+  .meta span{padding:6px 10px; border:1px dashed var(--border); border-radius:999px}
+  .chipbar{margin-top:10px; display:flex; gap:8px; flex-wrap:wrap}
+  .chip{
+    border:1px solid var(--border); background: transparent; color:var(--text);
+    padding:7px 10px; border-radius:999px; cursor:pointer; font-size:12px;
+  }
+  .chip:hover{border-color: color-mix(in oklab, var(--accent) 45%, var(--border)); background: color-mix(in oklab, var(--accent) 10%, transparent)}
+  .chip[disabled]{opacity:.38; cursor:not-allowed}
+  .hero-drawer{ border-top:1px solid var(--border); background: color-mix(in oklab, var(--card) 96%, transparent); }
+  .drawer-head{display:flex; align-items:center; justify-content:space-between; padding:12px 18px}
+  .drawer-head .muted{font-size:12px}
+  .drawer-body{padding:0 18px 16px; display:none}
+  .drawer-body.open{display:block}
+  .grid2{display:grid; grid-template-columns:1fr; gap:12px}
+  @media (min-width:900px){ .grid2{grid-template-columns: 1.1fr .9fr} }
+  .box{ border:1px solid var(--border); border-radius: var(--radius); background: color-mix(in oklab, var(--card) 96%, transparent); padding:12px 12px 10px; }
+  .box h3{margin:0 0 8px; font-size:14px; display:flex; align-items:center; gap:8px}
+  .muted{color:var(--muted)}
+  .p{margin:10px 0; line-height:1.8; font-size:15px}
+  .p.small{font-size:13px}
+  .lb{border:1px solid var(--border); border-radius:var(--radius); padding:10px 10px 8px; background: color-mix(in oklab, var(--card) 98%, transparent)}
+  .lb-h{display:flex; justify-content:space-between; align-items:center; gap:10px}
+  .lb-title{font-weight:650; font-size:13px}
+  .lb-row{display:flex; gap:10px; padding:8px 2px 0; font-size:12px}
+  .lb-row .k{color:var(--muted); min-width:70px}
+  .card{border:1px solid var(--border); border-radius:var(--radius); padding:12px; background: color-mix(in oklab, var(--card) 98%, transparent)}
+  .card-h{font-weight:700; font-size:13px; margin-bottom:6px}
+  .card-b{color:var(--muted); line-height:1.7; font-size:13px}
+  details.panel{margin-top:14px; border:1px solid var(--border); border-radius: calc(var(--radius) + 6px); background: color-mix(in oklab, var(--card) 94%, transparent); box-shadow: var(--shadow); overflow:hidden}
+  details.panel > summary{ list-style:none; cursor:pointer; user-select:none; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border); }
+  details.panel > summary::-webkit-details-marker{display:none}
+  .sum-left{display:flex; align-items:center; gap:10px}
+  .sum-title{font-size:16px; font-weight:800}
+  .sum-hint{font-size:12px; color:var(--muted)}
+  .panel-body{padding:14px 16px 16px}
+  .preview{max-height:420px; overflow:hidden; position:relative}
+  .preview::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:120px; background: linear-gradient(180deg, rgba(0,0,0,0), var(--card)); pointer-events:none; }
+  [data-theme="light"] .preview::after{background: linear-gradient(180deg, rgba(255,255,255,0), var(--card))}
+  .preview.open{max-height:none}
+  .preview.open::after{display:none}
+  .hl{outline:2px solid color-mix(in oklab, var(--accent) 55%, transparent); border-radius:10px; padding:6px 8px; background: color-mix(in oklab, var(--accent) 10%, transparent)}
+  .concept{border:1px solid var(--border); border-radius:var(--radius); padding:12px; background: color-mix(in oklab, var(--card) 98%, transparent); margin:12px 0}
+  .concept-h{margin:0 0 10px; font-size:15px}
+  .concept-grid{display:grid; grid-template-columns:1fr; gap:10px}
+  @media (min-width:900px){ .concept-grid{grid-template-columns: 1fr 1fr 1fr} }
+  .concept-box{border:1px dashed var(--border); border-radius:12px; padding:10px}
+  .lbl{font-size:12px; color:var(--muted); margin-bottom:6px}
+  .concept-links{margin-top:8px; display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+  ul{margin:10px 0 0 18px; padding:0; line-height:1.75}
+  .rw{border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; background: color-mix(in oklab, var(--card) 98%, transparent); margin:10px 0}
+  .rw-h{display:flex; justify-content:space-between; align-items:baseline; padding:10px 12px; border-bottom:1px solid var(--border)}
+  .rw-w{font-weight:800}
+  .rw-p{color:var(--muted); font-size:12px}
+  .rw-b{padding:10px 12px}
+  .rw-row{display:flex; gap:10px; padding:6px 0; font-size:12px}
+  .rw-row .k{min-width:76px; color:var(--muted)}
+  .qa{border:1px solid var(--border); border-radius:var(--radius); padding:12px; background: color-mix(in oklab, var(--card) 98%, transparent); margin:10px 0}
+  .q{font-weight:800; line-height:1.6}
+  .q-links{margin-top:8px; display:flex; gap:8px; flex-wrap:wrap}
+  details.ans > summary{cursor:pointer; margin-top:10px; color:var(--text); font-weight:700}
+  .ans-body{margin-top:10px}
+  .fc-grid{display:grid; grid-template-columns:1fr; gap:10px}
+  @media (min-width:900px){ .fc-grid{grid-template-columns: 1fr 1fr 1fr} }
+  .fc{border:1px solid var(--border); border-radius:var(--radius); background: color-mix(in oklab, var(--card) 98%, transparent); padding:12px; min-height:140px; cursor:pointer; position:relative; perspective: 800px}
+  .fc:focus{outline:2px solid color-mix(in oklab, var(--primary) 50%, transparent)}
+  .fc-front,.fc-back{position:absolute; inset:12px; backface-visibility:hidden; display:flex; flex-direction:column; justify-content:space-between; transition: transform .5s}
+  .fc-back{transform: rotateY(180deg)}
+  .fc[data-flip="1"] .fc-front{transform: rotateY(180deg)}
+  .fc[data-flip="1"] .fc-back{transform: rotateY(360deg)}
+  .fc-tag{font-size:12px; color:var(--muted)}
+  .fc-main{font-size:14px; line-height:1.7; font-weight:750}
+  .fc-link{margin-top:8px}
+  .todo{display:flex; align-items:flex-start; gap:10px; padding:10px 12px; border:1px solid var(--border); border-radius:var(--radius); background: color-mix(in oklab, var(--card) 98%, transparent); margin:10px 0}
+  .todo input{margin-top:4px}
+  .svgmap{width:100%; height:auto; border:1px solid var(--border); border-radius: calc(var(--radius) + 6px); background: color-mix(in oklab, var(--card) 98%, transparent); box-shadow: var(--shadow)}
+  .svgmap .node rect{fill: color-mix(in oklab, var(--card) 88%, transparent); stroke: color-mix(in oklab, var(--primary) 35%, var(--border)); stroke-width:1.2}
+  .svgmap text{font-family:var(--font); fill:var(--text); font-size:14px; text-anchor:middle; dominant-baseline:middle}
+  .svgmap .edge path{fill:none; stroke: color-mix(in oklab, var(--border) 65%, var(--primary)); stroke-width:2.2; opacity:.75}
+  .svgmap .node:hover rect{stroke: color-mix(in oklab, var(--accent) 55%, var(--border))}
+  .svgmap .note text{font-size:12px; fill:var(--muted); text-anchor:start; dominant-baseline:auto}
+  .ref{border:1px solid var(--border); border-radius:var(--radius); padding:12px; background: color-mix(in oklab, var(--card) 98%, transparent); margin:10px 0}
+  .ref-h{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
+  .ref-title{font-weight:850; line-height:1.35}
+  .ref-why{margin-top:8px; line-height:1.7; color:var(--muted); font-size:13px}
+  .ref-src{margin-top:6px; font-size:12px}
+  .kpi{display:flex; gap:10px; flex-wrap:wrap}
+  .kpi .tag{padding:6px 10px; border-radius:999px; border:1px solid var(--border); color:var(--muted); font-size:12px}
+  .fbox{border:1px solid var(--border); border-radius:var(--radius); padding:12px; background: color-mix(in oklab, var(--card) 98%, transparent); margin:10px 0}
+  .fitem{display:flex; gap:10px; align-items:flex-start; justify-content:space-between; padding:10px 0; border-top:1px dashed var(--border)}
+  .fitem:first-child{border-top:0; padding-top:0}
+  .f-q{font-weight:850; line-height:1.5}
+  .f-a{line-height:1.6}
+  .footer{margin-top:22px; color:var(--muted); font-size:12px; text-align:center}
+
+  body[data-mode="speed"] [data-panel="review"] [data-panel-inner="quiz"],
+  body[data-mode="speed"] [data-panel="review"] [data-panel-inner="flash"],
+  body[data-mode="speed"] [data-panel="review"] [data-panel-inner="feynman"]{display:none;}
+  body[data-mode="exam"] [data-panel="review"] [data-panel-inner="keypoints"],
+  body[data-mode="exam"] [data-panel="review"] [data-panel-inner="flash"],
+  body[data-mode="exam"] [data-panel="review"] [data-panel-inner="feynman"]{display:none;}
+
+  @media (max-width:720px){ .toolbar{height:64px} .wrap{padding-top:84px} }
+  @media print{ .toolbar{display:none} body{background:#fff} .wrap{padding-top:18px} details.panel{box-shadow:none} .hero{box-shadow:none} .btn, .chip{display:none} .preview{max-height:none} .preview::after{display:none} }
+</style>
+</head>
+<body data-theme="dark" data-mode="speed">
+  <header class="toolbar" role="banner">
+    <div class="pill">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm7 1.5V7h2.5L14 4.5zM8 11h8v1.6H8V11zm0 4h8v1.6H8V15zm0-8h5v1.6H8V7z"/></svg>
+      <div>
+        <strong>HTML 阅读卡</strong>
+        <div class="sub">单文件｜离线可读</div>
+      </div>
+    </div>
+
+    <div class="pill mode-pill" aria-label="模式切换">
+      <span class="sub">模式：</span>
+      <button class="btn mini" type="button" data-mode="speed">速读模式</button>
+      <button class="btn mini" type="button" data-mode="learn">补课模式</button>
+      <button class="btn mini" type="button" data-mode="exam">考试模式</button>
+    </div>
+
+    <div class="right" aria-label="快捷按钮">
+      <button class="btn mini" type="button" data-mode="speed">速读</button>
+      <button class="btn mini" type="button" data-mode="learn">补课</button>
+      <button class="btn mini" type="button" data-mode="exam">考试</button>
+      <button class="btn mini" type="button" id="toggleTheme"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18a1 5 0 0 0 1-5.6l-.1-.2A6 6 0 1 0 8 16h3v2H9v2h6v-2h-2v-2h-1zm-3.3-4A4 4 0 1 1 12 10c.4 0 .8.1 1.1.2A6.9 6.9 0 0 0 11 14H8.7z"/></svg>深浅色</button>
+      <button class="btn mini" type="button" id="printBtn">打印</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" aria-label="顶部信息区">
+      <div class="hero-top">
+        <div class="title">
+          <h1>自私、同情与市场：亚当·斯密的二分法</h1>
+          <div class="one">一句话结论：在小圈子里，靠爱心维系；在陌生人大世界里，靠规则与市场让互助可持续。</div>
+          <div class="meta" id="meta">
+            <span id="mWords">字数：—</span>
+            <span id="mTime">阅读：—</span>
+            <span id="mGen">生成：—</span>
+          </div>
+          <div class="chipbar" id="chipbar"><button class="chip" type="button" data-jump="o1">经济学的基础</button>
+<button class="chip" type="button" data-jump="o6">自私与道德</button>
+<button class="chip" type="button" data-jump="o7">看不见的手</button>
+<button class="chip" type="button" data-jump="o19">同情心</button>
+<button class="chip" type="button" data-jump="o23">爱心半径</button>
+<button class="chip" type="button" data-jump="o28">伦敦绅士故事</button>
+<button class="chip" type="button" data-jump="o39">陌生人互助</button>
+<button class="chip" type="button" data-jump="o34">市场：陌生人互助平台</button>
+<button class="chip" type="button" data-jump="o40">二分法：小圈子/大世界</button>
+<button class="chip" type="button" data-jump="o36">面包师屠夫名言</button>
+<button class="chip" type="button" data-jump="o38">商业与慈善</button>
+<button class="chip" type="button" data-jump="o44">课后思考</button></div>
+        </div>
+        <button class="btn" type="button" id="toggleDrawer" aria-expanded="false">展开信息区</button>
+      </div>
+
+      <div class="hero-drawer" id="drawer">
+        <div class="drawer-head">
+          <div class="muted">这里放你最需要的“卡点 + 标签 + 一键回到本模式默认折叠”。</div>
+          <button class="btn mini" type="button" id="resetMode">回到本模式默认折叠</button>
+        </div>
+        <div class="drawer-body" id="drawerBody">
+          <div class="grid2">
+            <div class="box" aria-label="学习卡点">
+              <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18a1 5 0 0 0 1-5.6l-.1-.2A6 6 0 1 0 8 16h3v2H9v2h6v-2h-2v-2h-1zm-3.3-4A4 4 0 1 1 12 10c.4 0 .8.1 1.1.2A6.9 6.9 0 0 0 11 14H8.7z"/></svg>学习卡点</h3>
+              <div class="muted small">Top 3：每条都能一键回到原文位置。</div>
+              <div style="margin-top:10px"><div class="lb">
+        <div class="lb-h">
+          <div class="lb-title">听不懂概念：市场为什么能“补上空隙”</div>
+          <button class="btn mini" type="button" data-jump="o40">回到原文</button>
+        </div>
+        <div class="lb-body">
+          <div class="lb-row"><span class="k">原文线索</span><span class="v">“答案就是市场。”</span></div>
+          <div class="lb-row"><span class="k">为什么卡</span><span class="v">从情感跳到机制</span></div>
+        </div>
+      </div>
+<div class="lb">
+        <div class="lb-h">
+          <div class="lb-title">缺前置：同情心≠无条件付出</div>
+          <button class="btn mini" type="button" data-jump="o23">回到原文</button>
+        </div>
+        <div class="lb-body">
+          <div class="lb-row"><span class="k">原文线索</span><span class="v">“人的同情心…急速下降。”</span></div>
+          <div class="lb-row"><span class="k">为什么卡</span><span class="v">没分清范围/边界</span></div>
+        </div>
+      </div>
+<div class="lb">
+        <div class="lb-h">
+          <div class="lb-title">需要体系：小圈子与大世界两套规则</div>
+          <button class="btn mini" type="button" data-jump="o45">回到原文</button>
+        </div>
+        <div class="lb-body">
+          <div class="lb-row"><span class="k">原文线索</span><span class="v">“我们不会把陌生人…用到我们的小圈子里去。”</span></div>
+          <div class="lb-row"><span class="k">为什么卡</span><span class="v">没形成二分框架</span></div>
+        </div>
+      </div></div>
+            </div>
+            <div class="box" aria-label="学科与标签">
+              <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4 3 6v14l5-2 8 2 5-2V4l-5 2-8-2zm0 2.1 8 2v11.8l-8-2V6.1zm-3 1.2 2-.8v11.8l-2 .8V7.3zm16-1.7v11.8l-2 .8V6.4l2-.8z"/></svg>学科与标签</h3>
+              <div class="kpi" style="margin:10px 0 6px">
+                <span class="tag">经济学</span>
+                <span class="tag">道德哲学</span>
+                <span class="tag">社会心理</span>
+              </div>
+              <div class="muted small">标签（可点击跳回正文段落）：</div>
+              <div class="chipbar" style="margin-top:10px"><button class="chip" type="button" data-jump="o1">经济学的基础</button>
+<button class="chip" type="button" data-jump="o6">自私与道德</button>
+<button class="chip" type="button" data-jump="o7">看不见的手</button>
+<button class="chip" type="button" data-jump="o19">同情心</button>
+<button class="chip" type="button" data-jump="o23">爱心半径</button>
+<button class="chip" type="button" data-jump="o28">伦敦绅士故事</button>
+<button class="chip" type="button" data-jump="o39">陌生人互助</button>
+<button class="chip" type="button" data-jump="o34">市场：陌生人互助平台</button>
+<button class="chip" type="button" data-jump="o40">二分法：小圈子/大世界</button>
+<button class="chip" type="button" data-jump="o36">面包师屠夫名言</button>
+<button class="chip" type="button" data-jump="o38">商业与慈善</button>
+<button class="chip" type="button" data-jump="o44">课后思考</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <details class="panel" data-panel="orig">
+      <summary>
+        <div class="sum-left">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm7 1.5V7h2.5L14 4.5zM8 11h8v1.6H8V11zm0 4h8v1.6H8V15zm0-8h5v1.6H8V7z"/></svg>
+          <div>
+            <div class="sum-title">权威原文</div>
+            <div class="sum-hint">原文逐字保留｜默认预览｜可展开</div>
+          </div>
+        </div>
+        <span class="sum-hint">展开/收起</span>
+      </summary>
+      <div class="panel-body">
+        <div class="preview" id="origPreview" data-preview="orig"><p class="p" id="o1" data-anchor="1">你好，昨天我们讨论了人到底是不是理性的问题。我们的回答是，人理性和不理性跟经济学没关系，经济学关心的，不是人理性不理性的问题，而是人们要怎样才能存活下来的问题，在什么样的条件下，人比较容易存活，什么样的行为比较容易存活。这样经济学就找到了一个稳固的基础，它跟人具体是理性的还是不理性的没有关系。</p>
+<p class="p" id="o2" data-anchor="1">1.人性自私推动社会进步</p>
+<p class="p" id="o3" data-anchor="1">今天，我们讨论另外一个问题，就是人到底是自私的还是不是自私的。</p>
+<p class="p" id="o4" data-anchor="1">有一种说法，说经济学是建立在人性自私的前提之下，但实际上，人经常又是不自私的，所以经济学不一定对。当人自私的时候经济理论说对了，但是当人不自私的时候，经济理论就错了。</p>
+<p class="p" id="o5" data-anchor="1">还有一种说法，说人有时候可以自私自利，但人也要讲道德。特别是商人，一方面他在商场上要拼搏，要厮杀，但是同时商人的血管里应该流着道德的血液。</p>
+<p class="p" id="o6" data-anchor="1">很多人说，亚当·斯密的《国富论》（ Wealth of Nation，1776 ），主张人是自私的。</p>
+<p class="p" id="o7" data-anchor="1">斯密的名言我们都记得：“每一个人，不需要自己关心社会福利，他也不知道自己怎么去推动社会的福利。他只需要关心自己，追求他自己的福利就可以了。但是他在追求自己福利的过程中，会有一只看不见的手，让他的努力转变为对公共事业的推动。这只看不见的手，会让他的自私自利推动社会福利的改进。”</p>
+<p class="p" id="o8" data-anchor="1">但是，人们还会同时指出，其实亚当·斯密还写过另外一本著作，叫做《道德情操论》（ The Theory of Moral Sentiments，1759 ）。这本《道德情操论》你看标题就知道，它讲的是人应该有道德，所以人应该有两面性，一方面是自私的，但另外一方面要讲道德。</p>
+<p class="p" id="o9" data-anchor="1">到底亚当·斯密的看法是不是这样自我对立的呢？有时候要自私，有时候要讲道德？那什么时候自私，什么时候讲道德呢？我们来看看亚当·斯密到底是怎么说的。</p>
+<p class="p" id="o10" data-anchor="1">首先，亚当·斯密在1759年发表了《道德情操论》，隔了17年，也就是到了1776年才发表《国富论》。《道德情操论》是亚当·斯密整个理论框架的一个总和，一个总的体现，《国富论》是当中的一部分。</p>
+<p class="p" id="o11" data-anchor="1">当然，这本17年后才发表的《国富论》篇幅要更长，也更出名。这是后话。那么，人到底是不是自私的呢？亚当·斯密是怎么回答的呢？</p>
+<p class="p" id="o12" data-anchor="1">2.人性自私，同时具有同情心和爱心</p>
+<p class="p" id="o13" data-anchor="1">亚当·斯密首先说，人是自私的，那些完全不自私的人，连自己都不爱的人，自暴自弃的人，这种人在社会上是不受尊重的。</p>
+<p class="p" id="o14" data-anchor="1">但亚当·斯密紧接着说，人不仅仅是自私的，他们同时也具有同情心，也就是有设身处地的一种能力。他把他认为的别人幸不幸福，当作自己幸不幸福的一部分：你幸福，我幸福；你痛苦，我也感到痛苦。这是一种天生的能力，这叫“同情心”，人人都有的。</p>
+<p class="p" id="o15" data-anchor="1">当然，今天我们知道，并不是每一个人的同情心都一样强。有些人强一点，有些人弱一点；正常人强一些，自闭症患者可能弱一点；女人强一点，男人可能弱一点。</p>
+<p class="p" id="o16" data-anchor="1">但不管怎么样，人是能够同情的，有同情心，也就是有爱心的，也就是有爱的能力。这是亚当·斯密说的第二句话，人是自私的，但人有同情心。</p>
+<p class="p" id="o17" data-anchor="1">3.人的爱心有限，随着距离拉远而下降</p>
+<p class="p" id="o18" data-anchor="1">紧接着，亚当·斯密又说了第三句话：“人的同情心，是随着人与人之间距离的拉远而急速下降的。”</p>
+<p class="p" id="o19" data-anchor="1">我们自己看看，我们自己手机里面的通讯录，里面有多少人呢？微信里面的联系人有多少啊？几十人是至少的，很多人有几百人甚至上千人。</p>
+<p class="p" id="o20" data-anchor="1">那我问你，这几百人上千人的朋友里面，有多少人是真正爱你的？有多少个是你拿起电话来，对方就放下手上所有的东西，听你倾诉的？有多少人是说我要借钱，我需要帮助，对方就不顾一切不顾成本的去帮你的？</p>
+<p class="p" id="o21" data-anchor="1">有20个吗？有10个吗？有5个吗？很少的。这是说，我们只能爱很少的人。爱心是不能扩展到很大的范围里面去的。</p>
+<p class="p" id="o22" data-anchor="1">亚当·斯密在《道德情操论》里面就讲了这么一个故事：</p>
+<p class="p" id="o23" data-anchor="1">我们假设伦敦有一位非常得体的绅士，这位绅士听说，远在东方中国发生了一场地震，这场地震让中国人全死了。这个消息传到伦敦，传到了这位得体的绅士的耳边，这位得体的绅士会做什么？你猜他会做什么？听说全中国人都因为地震死了，他会怎么做？</p>
+<p class="p" id="o24" data-anchor="1">他会首先拿出地图来查一下，中国离伦敦有多远，先看看这场地震会不会波及到伦敦。一看，半个地球呢，很远，伦敦是安全的。</p>
+<p class="p" id="o25" data-anchor="1">然后他会做什么？他会哀悼一下死难的中国人，他会到微博上面发一个蜡烛，慨叹一下人的脆弱，大自然的强大。</p>
+<p class="p" id="o26" data-anchor="1">然后他再干什么？该干什么他就干什么。他会回到自己的生活，关心自己的起居饮食。这时候，如果他自己的手指头被刀割了一下，这件事情的重要性，那就远远比发生在中国的事情更重要了。</p>
+<p class="p" id="o27" data-anchor="1">你要注意，这是一个得体的英国绅士，他的爱心也就这么一点。这是一个正常人的应有的反应，也就这样了。</p>
+<p class="p" id="o28" data-anchor="1">4.仅靠爱心不够，陌生人互助需要市场协调</p>
+<p class="p" id="o29" data-anchor="1">所以，亚当·斯密非常睿智的看到了这一点：</p>
+<p class="p" id="o30" data-anchor="1">我们终我们的一生，花一辈子的时间，都很难赢得和维持几个人对我们的友情和爱情，但我们无时不刻需要成千上万人的帮助。我们看看自己吃的穿的住的，有多少人涉及其中，有多少人在帮助我们，但他们都不爱我们，他们都不认识我们。这怎么办？这么大的一个空隙怎么填补？</p>
+<p class="p" id="o31" data-anchor="1">答案就是市场。市场是一个陌生人跟陌生人之间打交道的地方，是一个陌生人服务陌生人的地方。</p>
+<p class="p" id="o32" data-anchor="1">5.人际互动二分法：小圈子靠爱心，大世界靠市场</p>
+<p class="p" id="o33" data-anchor="1">所以这是一种二分法：</p>
+<p class="p" id="o34" data-anchor="1">人是自私的，他有同情心，他能够爱，但是爱是非常有限的，随着人与人的距离的拉开，爱就会下降。我们不能靠爱，爱是不够的。靠的是什么，靠的是市场。市场是陌生人和陌生人打交道的地方。</p>
+<p class="p" id="o35" data-anchor="1">所以，亚当·斯密有另外一句名言：</p>
+<p class="p" id="o36" data-anchor="1">我们每天之所以能够吃上晚饭，不是因为面包师，不是因为屠夫，不是因为酿酒商，他们爱我们，他们的慈善，而是因为他们要自私自利，他们要追求他们的利益。每当我们跟他们做生意的时候，我们不说我们自己需要什么，而是说他们需要什么。</p>
+<p class="p" id="o37" data-anchor="1">我上课的时候，我总是跟同学说，你们为什么应该学点经济学，经济学为什么对你们会有帮助。而我从来不会告诉同学们我家里还缺钱，要买一个洗衣机，要买一个微波炉。</p>
+<p class="p" id="o38" data-anchor="1">商业才是最大的慈善，所以我们看到的，是这样一个连续的光谱：</p>
+<p class="p" id="o39" data-anchor="1">人是自私的 —&gt; 他有爱心 —&gt; 爱心有限，爱心不能扩张 —&gt; 于是我们需要一个陌生人互助的平台，那就是市场。</p>
+<p class="p" id="o40" data-anchor="1">我们不会把陌生人跟陌生人打交道的规则，用到我们的小圈子里去，不会把市场的规则用到家庭、用到朋友圈里去。同样，我们也不会用家庭里面的要求和标准，去要求社会上其他的陌生人。</p>
+<p class="p" id="o41" data-anchor="1">课堂小结</p>
+<p class="p" id="o42" data-anchor="1">我们今天介绍的二分法非常重要。也正是因为亚当·斯密看清了人性的这种两面性，也看清了我们对付这种两面性的基本方法：在小圈子里面，我们讲的是爱心；在大圈子里面，在陌生人的范围里面，我们讲的是规则。也正是这样，他替市场经济找到了坚实的基础，正是因为这样，我们把亚当·斯密看作是市场经济之父。</p>
+<p class="p" id="o43" data-anchor="1">课后思考</p>
+<p class="p" id="o44" data-anchor="1">你认为，市场经济会不会让人情变得淡薄？</p>
+<p class="p" id="o45" data-anchor="1">欢迎你给我留言，我们下次课见。</p></div>
+        <button class="btn ghost mini toggle-preview" type="button" data-for="orig">展开/收起</button>
+      </div>
+    </details>
+
+    <details class="panel" data-panel="prereq">
+      <summary>
+        <div class="sum-left">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4 3 6v14l5-2 8 2 5-2V4l-5 2-8-2zm0 2.1 8 2v11.8l-8-2V6.1zm-3 1.2 2-.8v11.8l-2 .8V7.3zm16-1.7v11.8l-2 .8V6.4l2-.8z"/></svg>
+          <div>
+            <div class="sum-title">我先帮你补上：前置知识地图</div>
+            <div class="sum-hint">只补最少、够用的那部分；标注“辅助理解（非原文事实）”</div>
+          </div>
+        </div>
+        <span class="sum-hint">展开/收起</span>
+      </summary>
+      <div class="panel-body">
+        <div class="muted small">补课模式默认展开其中的 Top 2。</div>
+        
+<div class="grid2" style="margin-top:10px"><div class="card">
+  <div class="card-h">交换与分工（辅助理解）</div>
+  <div class="card-b">把自己擅长的换成别人的擅长：你做PPT，我修水管。市场把这些交换“接起来”。</div>
+</div>
+<div class="card">
+  <div class="card-h">激励与约束（辅助理解）</div>
+  <div class="card-b">规则像护栏：让陌生人合作时，坏事成本更高、好事回报更明确。</div>
+</div></div>
+<div class="preview" id="prMore" data-preview="pr" style="margin-top:12px">
+  <div class="grid2"><div class="card">
+  <div class="card-h">“看不见的手”（来自原文）</div>
+  <div class="card-b">不是神秘力量，而是：个人追利在竞争与价格中被引导到更有效的配置。</div>
+</div>
+<div class="card">
+  <div class="card-h">同情心/共情（来自原文）</div>
+  <div class="card-b">设身处地地感受他人的处境，影响我们的判断与行为。</div>
+</div>
+<div class="card">
+  <div class="card-h">交易成本（辅助理解）</div>
+  <div class="card-b">和陌生人合作要找人、谈价、担心被骗。制度与市场能降低这些成本。</div>
+</div>
+<div class="card">
+  <div class="card-h">小圈子/大世界（来自原文）</div>
+  <div class="card-b">家人朋友靠情感维系；陌生人社会靠规则与契约。</div>
+</div>
+<div class="card">
+  <div class="card-h">道德与规则的区别（辅助理解）</div>
+  <div class="card-b">道德更像内心的“应该”；规则更像外在可执行的“必须”。</div>
+</div></div>
+</div>
+<button class="btn ghost mini toggle-preview" type="button" data-for="pr">展开/收起更多前置</button>
+
+      </div>
+    </details>
+
+    <details class="panel" data-panel="rare">
+      <summary>
+        <div class="sum-left">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18a1 5 0 0 0 1-5.6l-.1-.2A6 6 0 1 0 8 16h3v2H9v2h6v-2h-2v-2h-1zm-3.3-4A4 4 0 1 1 12 10c.4 0 .8.1 1.1.2A6.9 6.9 0 0 0 11 14H8.7z"/></svg>
+          <div>
+            <div class="sum-title">生僻字与发音</div>
+            <div class="sum-hint">拼音（含声调）＋常见误区＋小例句</div>
+          </div>
+        </div>
+        <span class="sum-hint">展开/收起</span>
+      </summary>
+      <div class="panel-body">
+        <div class="muted small">补课模式默认展开前 5 条。</div>
+        
+<div id="rwTop"><div class="rw">
+  <div class="rw-h"><span class="rw-w">理性</span><span class="rw-p">lǐ xìng</span></div>
+  <div class="rw-b">
+    <div class="rw-row"><span class="k">常见误区</span><span class="v">易读成“理性=冷漠”</span></div>
+    <div class="rw-row"><span class="k">释义</span><span class="v">能权衡利弊</span></div>
+    <div class="rw-row"><span class="k">例句</span><span class="v">他很理性地做决定。</span></div>
+    <div class="rw-row"><span class="k">语境提醒</span><span class="v">这里指更像“可预测的选择”。</span></div>
+  </div>
+</div>
+<div class="rw">
+  <div class="rw-h"><span class="rw-w">不理性</span><span class="rw-p">bù lǐ xìng</span></div>
+  <div class="rw-b">
+    <div class="rw-row"><span class="k">常见误区</span><span class="v">误以为=没脑子</span></div>
+    <div class="rw-row"><span class="k">释义</span><span class="v">选择不稳定/受情绪影响</span></div>
+    <div class="rw-row"><span class="k">例句</span><span class="v">冲动消费常被说不理性。</span></div>
+    <div class="rw-row"><span class="k">语境提醒</span><span class="v">经济学不必靠它来立基。</span></div>
+  </div>
+</div>
+<div class="rw">
+  <div class="rw-h"><span class="rw-w">经济学</span><span class="rw-p">jīng jì xué</span></div>
+  <div class="rw-b">
+    <div class="rw-row"><span class="k">常见误区</span><span class="v">当成“算钱学”</span></div>
+    <div class="rw-row"><span class="k">释义</span><span class="v">研究稀缺下的选择与制度</span></div>
+    <div class="rw-row"><span class="k">例句</span><span class="v">经济学关注激励与规则。</span></div>
+    <div class="rw-row"><span class="k">语境提醒</span><span class="v">这里强调“存活条件”。</span></div>
+  </div>
+</div>
+<div class="rw">
+  <div class="rw-h"><span class="rw-w">自私</span><span class="rw-p">zì sī</span></div>
+  <div class="rw-b">
+    <div class="rw-row"><span class="k">常见误区</span><span class="v">等同于“坏”</span></div>
+    <div class="rw-row"><span class="k">释义</span><span class="v">优先自身利益</span></div>
+    <div class="rw-row"><span class="k">例句</span><span class="v">自私不必然伤人。</span></div>
+    <div class="rw-row"><span class="k">语境提醒</span><span class="v">可被规则引导。</span></div>
+  </div>
+</div>
+<div class="rw">
+  <div class="rw-h"><span class="rw-w">自私自利</span><span class="rw-p">zì sī zì lì</span></div>
+  <div class="rw-b">
+    <div class="rw-row"><span class="k">常见误区</span><span class="v">与“合理追求”混淆</span></div>
+    <div class="rw-row"><span class="k">释义</span><span class="v">以自身利益为先</span></div>
+    <div class="rw-row"><span class="k">例句</span><span class="v">他更看重自私自利。</span></div>
+    <div class="rw-row"><span class="k">语境提醒</span><span class="v">语气更负面。</span></div>
+  </div>
+</div></div>
+<div class="preview" id="rwMore" data-preview="rw" style="margin-top:12px"><div class="rw">
+  <div class="rw-h"><span class="rw-w">道德</span><span class="rw-p">dào dé</span></div>
+  <div class="rw-b">
+    <div class="rw-row"><span class="k">常见误区</span><span class="v">以为=法律</span></div>
+    <div class="rw-row"><span class="k">释义</span><span class="v">行为的“应当”标准</span></div>
+    <div class="rw-row"><span class="k">例句</span><span class="v">他强调商人也要道德。</span></div>
+    <div class="rw-row"><span class="k">语境提醒</span><span class="v">不等于可强制。</span></div>
+  </div>
+</div>
+<div class="rw">
+  <div class="rw-h"><span class="rw-w">同情心</span><span class="rw-p">tóng qíng xīn</span></div>
+  <div class="rw-b">
+    <div class="rw-row"><span class="k">常见误区</span><span class="v">以为=纵容</span></div>
+    <div class="rw-row"><span class="k">释义</span><span class="v">能感受他人苦乐</span></div>
+    <div class="rw-row"><span class="k">例句</span><span class="v">看到他难过我也难过。</span></div>
+    <div class="rw-row"><span class="k">语境提醒</span><span class="v">近义：共情。</span></div>
+  </div>
+</div>
+<div class="rw">
+  <div class="rw-h"><span class="rw-w">设身处地</span><span class="rw-p">shè shēn chǔ dì</span></div>
+  <div class="rw-b">
+    <div class="rw-row"><span class="k">常见误区</span><span class="v">误写“设身处地”成别字</span></div>
+    <div class="rw-row"><span class="k">释义</span><span class="v">站在对方位置想</span></div>
+    <div class="rw-row"><span class="k">例句</span><span class="v">先设身处地再评价。</span></div>
+    <div class="rw-row"><span class="k">语境提醒</span><span class="v">与同情心相关。</span></div>
+  </div>
+</div>
+<div class="rw">
+  <div class="rw-h"><span class="rw-w">绅士</span><span class="rw-p">shēn shì</span></div>
+  <div class="rw-b">
+    <div class="rw-row"><span class="k">常见误区</span><span class="v">以为=有钱人</span></div>
+    <div class="rw-row"><span class="k">释义</span><span class="v">举止得体的男子</span></div>
+    <div class="rw-row"><span class="k">例句</span><span class="v">他是个得体的绅士。</span></div>
+    <div class="rw-row"><span class="k">语境提醒</span><span class="v">重“礼”。</span></div>
+  </div>
+</div>
+<div class="rw">
+  <div class="rw-h"><span class="rw-w">得体</span><span class="rw-p">dé tǐ</span></div>
+  <div class="rw-b">
+    <div class="rw-row"><span class="k">常见误区</span><span class="v">误读为“得体=讨好”</span></div>
+    <div class="rw-row"><span class="k">释义</span><span class="v">合乎分寸</span></div>
+    <div class="rw-row"><span class="k">例句</span><span class="v">他的回应很得体。</span></div>
+    <div class="rw-row"><span class="k">语境提醒</span><span class="v">不等于很有爱。</span></div>
+  </div>
+</div>
+<div class="rw">
+  <div class="rw-h"><span class="rw-w">慨叹</span><span class="rw-p">kǎi tàn</span></div>
+  <div class="rw-b">
+    <div class="rw-row"><span class="k">常见误区</span><span class="v">误读为kài</span></div>
+    <div class="rw-row"><span class="k">释义</span><span class="v">感叹、叹息</span></div>
+    <div class="rw-row"><span class="k">例句</span><span class="v">他慨叹人的脆弱。</span></div>
+    <div class="rw-row"><span class="k">语境提醒</span><span class="v">多用于书面语。</span></div>
+  </div>
+</div></div>
+<button class="btn ghost mini toggle-preview" type="button" data-for="rw">展开/收起更多发音</button>
+
+      </div>
+    </details>
+
+    <details class="panel" data-panel="explain">
+      <summary>
+        <div class="sum-left">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm7 1.5V7h2.5L14 4.5zM8 11h8v1.6H8V11zm0 4h8v1.6H8V15zm0-8h5v1.6H8V7z"/></svg>
+          <div>
+            <div class="sum-title">讲明白：分层解释</div>
+            <div class="sum-hint">一句话 → 通俗版 → 严谨版（每个概念都能回到原文）</div>
+          </div>
+        </div>
+        <span class="sum-hint">展开/收起</span>
+      </summary>
+      <div class="panel-body"><article class="concept">
+  <h4 class="concept-h">经济学关心的到底是什么？</h4>
+  <div class="concept-grid">
+    <div class="concept-box">
+      <div class="lbl">一句话</div>
+      <p class="p" id="e_经济学关心的到底是什么_1" data-anchor="1">看人怎样在约束下更容易“活下来”。</p>
+    </div>
+    <div class="concept-box">
+      <div class="lbl">通俗版</div>
+      <p class="p" id="e_经济学关心的到底是什么_2" data-anchor="1">文中说，经济学不纠缠“人理性不理性”，而看：在什么条件与规则下，人们的行为更可能带来持续的合作与生存。</p>
+    </div>
+    <div class="concept-box">
+      <div class="lbl">严谨版</div>
+      <p class="p" id="e_经济学关心的到底是什么_3" data-anchor="1">在稀缺约束下，经济学研究激励、规则与制度如何塑造选择与资源配置，从而影响长期可持续性。</p>
+    </div>
+  </div>
+  <div class="concept-links">
+    <span class="muted">回到原文：</span>
+    <button class="btn mini" type="button" data-jump="o1">o1</button>
+  </div>
+</article>
+<article class="concept">
+  <h4 class="concept-h">自私不是唯一：人也有同情心</h4>
+  <div class="concept-grid">
+    <div class="concept-box">
+      <div class="lbl">一句话</div>
+      <p class="p" id="e_自私不是唯一_人也有同情心_1" data-anchor="1">人会先顾自己，也会被他人苦乐影响。</p>
+    </div>
+    <div class="concept-box">
+      <div class="lbl">通俗版</div>
+      <p class="p" id="e_自私不是唯一_人也有同情心_2" data-anchor="1">斯密说人“自私”，但也有同情心：你幸福我也更幸福，你痛苦我也会难受——这让我们愿意帮人、也在意评价。</p>
+    </div>
+    <div class="concept-box">
+      <div class="lbl">严谨版</div>
+      <p class="p" id="e_自私不是唯一_人也有同情心_3" data-anchor="1">同情（sympathy）是一种把他人处境纳入自身效用/判断的心理机制，并不要求牺牲无限大。</p>
+    </div>
+  </div>
+  <div class="concept-links">
+    <span class="muted">回到原文：</span>
+    <button class="btn mini" type="button" data-jump="o18">o18</button><button class="btn mini" type="button" data-jump="o19">o19</button><button class="btn mini" type="button" data-jump="o21">o21</button>
+  </div>
+</article>
+<article class="concept">
+  <h4 class="concept-h">爱心半径：距离越远，同情越弱</h4>
+  <div class="concept-grid">
+    <div class="concept-box">
+      <div class="lbl">一句话</div>
+      <p class="p" id="e_爱心半径_距离越远_同情越弱_1" data-anchor="1">我们只能深度爱少数人。</p>
+    </div>
+    <div class="concept-box">
+      <div class="lbl">通俗版</div>
+      <p class="p" id="e_爱心半径_距离越远_同情越弱_2" data-anchor="1">通讯录里很多人，但真正能随叫随到的很少。斯密用“伦敦绅士听闻中国地震”的故事说明：远方灾难会引发短暂哀悼，但往往不如手指割伤更牵动自己。</p>
+    </div>
+    <div class="concept-box">
+      <div class="lbl">严谨版</div>
+      <p class="p" id="e_爱心半径_距离越远_同情越弱_3" data-anchor="1">同情具有衰减性：注意力、资源与情感投入是稀缺的，心理距离与信息不对称会导致关切下降。</p>
+    </div>
+  </div>
+  <div class="concept-links">
+    <span class="muted">回到原文：</span>
+    <button class="btn mini" type="button" data-jump="o23">o23</button><button class="btn mini" type="button" data-jump="o26">o26</button><button class="btn mini" type="button" data-jump="o28">o28</button><button class="btn mini" type="button" data-jump="o33">o33</button><button class="btn mini" type="button" data-jump="o35">o35</button>
+  </div>
+</article>
+<article class="concept">
+  <h4 class="concept-h">为什么陌生人互助不能只靠爱？</h4>
+  <div class="concept-grid">
+    <div class="concept-box">
+      <div class="lbl">一句话</div>
+      <p class="p" id="e_为什么陌生人互助不能只靠爱_1" data-anchor="1">我们需要大量帮助，但爱给不了那么多。</p>
+    </div>
+    <div class="concept-box">
+      <div class="lbl">通俗版</div>
+      <p class="p" id="e_为什么陌生人互助不能只靠爱_2" data-anchor="1">一生很难维持几段深情，却天天依赖成千上万陌生人的生产与服务。这个“需求巨大—爱心有限”的缺口，需要别的机制来填。</p>
+    </div>
+    <div class="concept-box">
+      <div class="lbl">严谨版</div>
+      <p class="p" id="e_为什么陌生人互助不能只靠爱_3" data-anchor="1">大规模协作依赖可复制的规则、契约与价格信号，而非个体间的亲密关系。</p>
+    </div>
+  </div>
+  <div class="concept-links">
+    <span class="muted">回到原文：</span>
+    <button class="btn mini" type="button" data-jump="o38">o38</button><button class="btn mini" type="button" data-jump="o39">o39</button>
+  </div>
+</article>
+<article class="concept">
+  <h4 class="concept-h">市场：陌生人服务陌生人的协调器</h4>
+  <div class="concept-grid">
+    <div class="concept-box">
+      <div class="lbl">一句话</div>
+      <p class="p" id="e_市场_陌生人服务陌生人的协调器_1" data-anchor="1">用规则把互利交易接起来。</p>
+    </div>
+    <div class="concept-box">
+      <div class="lbl">通俗版</div>
+      <p class="p" id="e_市场_陌生人服务陌生人的协调器_2" data-anchor="1">市场让彼此不认识的人也能合作：我想吃饭，你想赚钱；我说出你的需要（利润），你满足我的需要（面包）。这不是“更有爱”，而是“更可持续”。</p>
+    </div>
+    <div class="concept-box">
+      <div class="lbl">严谨版</div>
+      <p class="p" id="e_市场_陌生人服务陌生人的协调器_3" data-anchor="1">市场通过价格与竞争把分散信息聚合，利用自利动机形成供给，降低协作门槛并提升分工效率。</p>
+    </div>
+  </div>
+  <div class="concept-links">
+    <span class="muted">回到原文：</span>
+    <button class="btn mini" type="button" data-jump="o40">o40</button><button class="btn mini" type="button" data-jump="o41">o41</button><button class="btn mini" type="button" data-jump="o44">o44</button>
+  </div>
+</article>
+<article class="concept">
+  <h4 class="concept-h">二分法：小圈子讲爱，大世界讲规则</h4>
+  <div class="concept-grid">
+    <div class="concept-box">
+      <div class="lbl">一句话</div>
+      <p class="p" id="e_二分法_小圈子讲爱_大世界讲规则_1" data-anchor="1">把两套标准放对地方。</p>
+    </div>
+    <div class="concept-box">
+      <div class="lbl">通俗版</div>
+      <p class="p" id="e_二分法_小圈子讲爱_大世界讲规则_2" data-anchor="1">家庭朋友里，情感是主轴；陌生人社会里，契约与规则更可靠。不要拿“市场的算计”要求家人，也不要用“家人的无条件”要求陌生人。</p>
+    </div>
+    <div class="concept-box">
+      <div class="lbl">严谨版</div>
+      <p class="p" id="e_二分法_小圈子讲爱_大世界讲规则_3" data-anchor="1">不同情境对应不同治理机制：关系型规范适合小规模高重复互动；规则型制度适合大规模低信任互动。</p>
+    </div>
+  </div>
+  <div class="concept-links">
+    <span class="muted">回到原文：</span>
+    <button class="btn mini" type="button" data-jump="o42">o42</button><button class="btn mini" type="button" data-jump="o45">o45</button><button class="btn mini" type="button" data-jump="o46">o46</button>
+  </div>
+</article></div>
+    </details>
+
+    <details class="panel" data-panel="structure">
+      <summary>
+        <div class="sum-left">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4 3 6v14l5-2 8 2 5-2V4l-5 2-8-2zm0 2.1 8 2v11.8l-8-2V6.1zm-3 1.2 2-.8v11.8l-2 .8V7.3zm16-1.7v11.8l-2 .8V6.4l2-.8z"/></svg>
+          <div>
+            <div class="sum-title">帮你理顺：结构与关系</div>
+            <div class="sum-hint">概念地图＋思维导图＋结构树（结构树不做跳转目标）</div>
+          </div>
+        </div>
+        <span class="sum-hint">展开/收起</span>
+      </summary>
+      <div class="panel-body">
+        <div class="box">
+          <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4 3 6v14l5-2 8 2 5-2V4l-5 2-8-2zm0 2.1 8 2v11.8l-8-2V6.1zm-3 1.2 2-.8v11.8l-2 .8V7.3zm16-1.7v11.8l-2 .8V6.4l2-.8z"/></svg>概念地图</h3>
+          <div class="muted small">点击任意节点回到正文段落（只跳正文）。</div>
+          <div style="margin-top:10px">
+<svg class="svgmap" viewBox="0 0 860 280" role="img" aria-label="概念关系图">
+  <g class="node" data-jump="o6" transform="translate(70,110)">
+    <rect rx="14" ry="14" width="150" height="60" />
+    <text x="75" y="34">自利动机</text>
+  </g>
+  <g class="node" data-jump="o19" transform="translate(260,30)">
+    <rect rx="14" ry="14" width="170" height="60" />
+    <text x="85" y="34">同情心</text>
+  </g>
+  <g class="node" data-jump="o23" transform="translate(260,190)">
+    <rect rx="14" ry="14" width="170" height="60" />
+    <text x="85" y="34">爱心有限</text>
+  </g>
+  <g class="node" data-jump="o34" transform="translate(480,110)">
+    <rect rx="14" ry="14" width="190" height="60" />
+    <text x="95" y="34">市场协调</text>
+  </g>
+  <g class="node" data-jump="o40" transform="translate(700,110)">
+    <rect rx="14" ry="14" width="140" height="60" />
+    <text x="70" y="34">两套规则</text>
+  </g>
+  <g class="edge">
+    <path d="M220 140 C240 140, 245 80, 260 60" />
+    <path d="M220 140 C240 140, 245 200, 260 220" />
+    <path d="M430 60 C470 60, 470 120, 480 140" />
+    <path d="M430 220 C470 220, 470 160, 480 140" />
+    <path d="M670 140 L700 140" />
+    <path d="M220 140 C330 140, 360 140, 480 140" />
+  </g>
+  <g class="note">
+    <text x="70" y="20">点击节点可回到对应正文</text>
+  </g>
+</svg>
+</div>
+        </div>
+
+        <div class="box" style="margin-top:12px">
+          <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4 3 6v14l5-2 8 2 5-2V4l-5 2-8-2zm0 2.1 8 2v11.8l-8-2V6.1zm-3 1.2 2-.8v11.8l-2 .8V7.3zm16-1.7v11.8l-2 .8V6.4l2-.8z"/></svg>思维导图</h3>
+          <div class="muted small">从中心“二分法”向外理解：人性两面 → 爱心有限 → 市场补缺口。</div>
+          <div style="margin-top:10px">
+<svg class="svgmap" viewBox="0 0 860 360" role="img" aria-label="思维导图">
+  <g class="node" data-jump="o42" transform="translate(320,140)">
+    <rect rx="16" ry="16" width="220" height="80"/>
+    <text x="110" y="44">小圈子讲爱</text>
+    <text x="110" y="66">大世界讲规则</text>
+  </g>
+  <g class="node" data-jump="o19" transform="translate(70,60)">
+    <rect rx="14" ry="14" width="200" height="60"/>
+    <text x="100" y="34">人有同情心</text>
+  </g>
+  <g class="node" data-jump="o23" transform="translate(70,240)">
+    <rect rx="14" ry="14" width="200" height="60"/>
+    <text x="100" y="34">同情会衰减</text>
+  </g>
+  <g class="node" data-jump="o39" transform="translate(590,60)">
+    <rect rx="14" ry="14" width="220" height="60"/>
+    <text x="110" y="34">需要大量帮助</text>
+  </g>
+  <g class="node" data-jump="o34" transform="translate(590,240)">
+    <rect rx="14" ry="14" width="220" height="60"/>
+    <text x="110" y="34">市场来补缺口</text>
+  </g>
+  <g class="edge">
+    <path d="M270 90 C320 90, 320 160, 320 180" />
+    <path d="M270 270 C320 270, 320 210, 320 200" />
+    <path d="M540 180 C590 180, 590 90, 590 90" />
+    <path d="M540 180 C590 180, 590 270, 590 270" />
+  </g>
+  <g class="note">
+    <text x="70" y="20">从中心出发：先理解“爱心有限”，再理解“为什么需要市场”</text>
+  </g>
+</svg>
+</div>
+        </div>
+
+        <div class="box" style="margin-top:12px">
+          <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm7 1.5V7h2.5L14 4.5zM8 11h8v1.6H8V11zm0 4h8v1.6H8V15zm0-8h5v1.6H8V7z"/></svg>结构树与逻辑链</h3>
+          <p class="p small muted">（这是对原文的结构化梳理，不作为跳转目标。）</p>
+          <ul>
+            <li>问题：人是自私还是不自私？</li>
+            <li>澄清误解：经济学不依赖“人必须自私/必须理性”。</li>
+            <li>斯密三句话：人自私 → 人有同情心 → 同情随距离衰减。</li>
+            <li>缺口：爱心覆盖少数人，但生活依赖大量陌生人的帮助。</li>
+            <li>机制：市场让陌生人以规则与互利来互助。</li>
+            <li>结论：小圈子讲爱；大世界讲规则（两套标准各归其位）。</li>
+          </ul>
+        </div>
+
+        <div class="grid2" style="margin-top:12px">
+          <div class="box">
+            <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18a1 5 0 0 0 1-5.6l-.1-.2A6 6 0 1 0 8 16h3v2H9v2h6v-2h-2v-2h-1zm-3.3-4A4 4 0 1 1 12 10c.4 0 .8.1 1.1.2A6.9 6.9 0 0 0 11 14H8.7z"/></svg>常见误解</h3>
+            <ul>
+              <li>把“自私”直接等同于“伤害他人”。</li>
+              <li>以为市场需要人彼此“相爱”才能运转。</li>
+              <li>把家人的无条件付出，要求社会上每个陌生人。</li>
+              <li>把交易逻辑带回家庭，用“算账”替代情感沟通。</li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.6-8.6 1.4 1.4-10 10z"/></svg>应用场景</h3>
+            <ul>
+              <li>理解商业合作：谈判时说清对方的需要（利润/效率/风险）。</li>
+              <li>理解公共规则：为什么要合同、标准、信用与惩罚机制。</li>
+              <li>理解人际边界：亲密关系靠关照，陌生关系靠分寸。</li>
+              <li>理解“人情淡薄”的讨论：把机制和情感分开看。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="panel" data-panel="review">
+      <summary>
+        <div class="sum-left">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.6-8.6 1.4 1.4-10 10z"/></svg>
+          <div>
+            <div class="sum-title">记住并能用：复习与练习</div>
+            <div class="sum-hint">要点清单｜自测题（答案默认隐藏）｜闪卡｜费曼讲解</div>
+          </div>
+        </div>
+        <span class="sum-hint">展开/收起</span>
+      </summary>
+      <div class="panel-body">
+        <div class="box" data-panel-inner="keypoints">
+          <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.6-8.6 1.4 1.4-10 10z"/></svg>要点清单</h3>
+          <ul><li>经济学更关心：什么条件下更容易形成可持续合作，而非纠缠人是否“完美理性”。</li>
+<li>斯密并不只讲自私：人有同情心，但同情心会随距离急速衰减。</li>
+<li>爱心覆盖范围有限，而我们依赖的帮助范围巨大：缺口需要市场与规则来填补。</li>
+<li>市场不是“更道德”，而是让陌生人互助变得更可复制、更稳定。</li>
+<li>小圈子用爱维系，大世界用规则协调：两套标准不能乱用。</li></ul>
+        </div>
+
+        <div class="box" style="margin-top:12px" data-panel-inner="quiz">
+          <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18h2v2h-2v-2zm1-16C6.9 2 3 5.1 3 9h2c0-2.8 3.1-5 7-5s7 2.2 7 5c0 2.2-1.4 3.4-3.2 4.7-1.6 1.2-3.3 2.4-3.3 4.3V16h2v-1c0-.9 1.2-1.8 2.5-2.7C18 10.9 19 9.6 19 9c0-3.9-3.9-7-7-7z"/></svg>自测题</h3>
+          <div class="muted small">考试模式默认只展开这里，其它都折叠；每题答案区默认预览截断。</div>
+          <div style="margin-top:10px"><div class="qa">
+  <div class="q">1. 为什么文中说“经济学与人理性不理性没关系”？</div>
+  <div class="q-links"><button class="btn mini" type="button" data-jump="o1">回原文</button></div>
+  <details class="ans">
+    <summary>查看答案</summary>
+    <div class="ans-body preview" data-preview="answer">
+      <p class="p" data-anchor="1">因为它关心在约束与规则下，哪些行为/制度更能让人持续合作并“活下来”。</p>
+    </div>
+    <button class="btn ghost mini toggle-preview" type="button" data-for="answer">展开/收起</button>
+  </details>
+</div>
+<div class="qa">
+  <div class="q">2. 斯密对人性的第二句话是什么？</div>
+  <div class="q-links"><button class="btn mini" type="button" data-jump="o18">回原文</button><button class="btn mini" type="button" data-jump="o19">回原文</button></div>
+  <details class="ans">
+    <summary>查看答案</summary>
+    <div class="ans-body preview" data-preview="answer">
+      <p class="p" data-anchor="1">人不只自私，也有同情心（设身处地感受他人苦乐）。</p>
+    </div>
+    <button class="btn ghost mini toggle-preview" type="button" data-for="answer">展开/收起</button>
+  </details>
+</div>
+<div class="qa">
+  <div class="q">3. “爱心有限”在文中用什么例子说明？</div>
+  <div class="q-links"><button class="btn mini" type="button" data-jump="o26">回原文</button><button class="btn mini" type="button" data-jump="o28">回原文</button><button class="btn mini" type="button" data-jump="o35">回原文</button></div>
+  <details class="ans">
+    <summary>查看答案</summary>
+    <div class="ans-body preview" data-preview="answer">
+      <p class="p" data-anchor="1">通讯录很多但真心互助很少；伦敦绅士听闻中国地震只短暂哀悼。</p>
+    </div>
+    <button class="btn ghost mini toggle-preview" type="button" data-for="answer">展开/收起</button>
+  </details>
+</div>
+<div class="qa">
+  <div class="q">4. 为什么陌生人互助不能只靠爱心？</div>
+  <div class="q-links"><button class="btn mini" type="button" data-jump="o38">回原文</button><button class="btn mini" type="button" data-jump="o39">回原文</button></div>
+  <details class="ans">
+    <summary>查看答案</summary>
+    <div class="ans-body preview" data-preview="answer">
+      <p class="p" data-anchor="1">我们需要成千上万人的帮助，但一生只能维持少数深情关系。</p>
+    </div>
+    <button class="btn ghost mini toggle-preview" type="button" data-for="answer">展开/收起</button>
+  </details>
+</div>
+<div class="qa">
+  <div class="q">5. 文中的“二分法”是什么？</div>
+  <div class="q-links"><button class="btn mini" type="button" data-jump="o42">回原文</button><button class="btn mini" type="button" data-jump="o45">回原文</button></div>
+  <details class="ans">
+    <summary>查看答案</summary>
+    <div class="ans-body preview" data-preview="answer">
+      <p class="p" data-anchor="1">小圈子讲爱心；陌生人大世界讲规则与市场协调。</p>
+    </div>
+    <button class="btn ghost mini toggle-preview" type="button" data-for="answer">展开/收起</button>
+  </details>
+</div></div>
+        </div>
+
+        <div class="box" style="margin-top:12px" data-panel-inner="flash">
+          <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm7 1.5V7h2.5L14 4.5zM8 11h8v1.6H8V11zm0 4h8v1.6H8V15zm0-8h5v1.6H8V7z"/></svg>闪卡</h3>
+          <div class="muted small">点击翻面；可回到正文段落。</div>
+          <div class="fc-grid" style="margin-top:10px" id="flashGrid"><div class="fc" tabindex="0" role="button" aria-label="闪卡：同情心" data-flip="0">
+  <div class="fc-front">
+    <div class="fc-tag">正面</div>
+    <div class="fc-main">同情心</div>
+  </div>
+  <div class="fc-back">
+    <div class="fc-tag">背面</div>
+    <div class="fc-main">把他人的苦乐部分当成自己的苦乐；能设身处地。</div>
+    <div class="fc-link"><button class="btn mini" type="button" data-jump="o18">回原文</button></div>
+  </div>
+</div>
+<div class="fc" tabindex="0" role="button" aria-label="闪卡：爱心半径" data-flip="0">
+  <div class="fc-front">
+    <div class="fc-tag">正面</div>
+    <div class="fc-main">爱心半径</div>
+  </div>
+  <div class="fc-back">
+    <div class="fc-tag">背面</div>
+    <div class="fc-main">同情随心理/物理距离拉远而快速下降。</div>
+    <div class="fc-link"><button class="btn mini" type="button" data-jump="o23">回原文</button></div>
+  </div>
+</div>
+<div class="fc" tabindex="0" role="button" aria-label="闪卡：市场的作用" data-flip="0">
+  <div class="fc-front">
+    <div class="fc-tag">正面</div>
+    <div class="fc-main">市场的作用</div>
+  </div>
+  <div class="fc-back">
+    <div class="fc-tag">背面</div>
+    <div class="fc-main">让陌生人也能通过规则与利益实现互助。</div>
+    <div class="fc-link"><button class="btn mini" type="button" data-jump="o40">回原文</button></div>
+  </div>
+</div>
+<div class="fc" tabindex="0" role="button" aria-label="闪卡：“看不见的手”在这段话里指什么" data-flip="0">
+  <div class="fc-front">
+    <div class="fc-tag">正面</div>
+    <div class="fc-main">“看不见的手”在这段话里指什么</div>
+  </div>
+  <div class="fc-back">
+    <div class="fc-tag">背面</div>
+    <div class="fc-main">个人追求自身利益时，可能被引导成公共利益的推动。</div>
+    <div class="fc-link"><button class="btn mini" type="button" data-jump="o7">回原文</button></div>
+  </div>
+</div>
+<div class="fc" tabindex="0" role="button" aria-label="闪卡：二分法" data-flip="0">
+  <div class="fc-front">
+    <div class="fc-tag">正面</div>
+    <div class="fc-main">二分法</div>
+  </div>
+  <div class="fc-back">
+    <div class="fc-tag">背面</div>
+    <div class="fc-main">家人与朋友：关系/爱心；陌生人社会：规则/市场。</div>
+    <div class="fc-link"><button class="btn mini" type="button" data-jump="o42">回原文</button></div>
+  </div>
+</div>
+<div class="fc" tabindex="0" role="button" aria-label="闪卡：商业才是最大的慈善（文中观点）" data-flip="0">
+  <div class="fc-front">
+    <div class="fc-tag">正面</div>
+    <div class="fc-main">商业才是最大的慈善（文中观点）</div>
+  </div>
+  <div class="fc-back">
+    <div class="fc-tag">背面</div>
+    <div class="fc-main">陌生人互助靠交易可持续，不靠慈善情感。</div>
+    <div class="fc-link"><button class="btn mini" type="button" data-jump="o47">回原文</button></div>
+  </div>
+</div></div>
+        </div>
+
+        <div class="box" style="margin-top:12px" data-panel-inner="feynman">
+          <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18a1 5 0 0 0 1-5.6l-.1-.2A6 6 0 1 0 8 16h3v2H9v2h6v-2h-2v-2h-1zm-3.3-4A4 4 0 1 1 12 10c.4 0 .8.1 1.1.2A6.9 6.9 0 0 0 11 14H8.7z"/></svg>费曼学习法：把你教会</h3>
+          <div class="fbox">
+            <div class="muted small">教给小白（≤200字）</div>
+            <p class="p" data-anchor="1">把社会想成两种“合作圈”。第一种是小圈子：家人朋友，你愿意为他多付出，因为你们彼此在乎。第二种是大圈子：街上大多数陌生人。你不可能真的爱他们所有人，但你每天都靠他们做的面包、衣服和交通生活。市场就像一个“自动对接器”：大家各自为自己赚取收益，却在规则和交易里互相满足需要。例子：你买面包，是为了吃；面包师卖面包，是为了收入。反例/边界：如果把“家人的无条件”要求陌生人，容易失望；如果把“市场的算计”带回家，也会伤感情。</p>
+          </div>
+
+          <div class="fbox">
+            <div class="muted small">发现卡点（可回到正文）</div>
+            <div class="fitem">
+  <div style="flex:1">
+    <div class="f-q">我为什么要相信“市场能补上空隙”？</div>
+    <div class="f-a muted">把“互利”当成一种可复制的互助。</div>
+  </div>
+  <button class="btn mini" type="button" data-jump="o40">回到正文</button>
+</div>
+<div class="fitem">
+  <div style="flex:1">
+    <div class="f-q">同情心为什么会下降？</div>
+    <div class="f-a muted">注意力与资源有限，距离会放大不确定。</div>
+  </div>
+  <button class="btn mini" type="button" data-jump="o23">回到正文</button>
+</div>
+<div class="fitem">
+  <div style="flex:1">
+    <div class="f-q">二分法是不是在说“道德不重要”？</div>
+    <div class="f-a muted">不是：只是说大规模协作不能只靠道德情感。</div>
+  </div>
+  <button class="btn mini" type="button" data-jump="o42">回到正文</button>
+</div>
+<div class="fitem">
+  <div style="flex:1">
+    <div class="f-q">“自私”是不是等于“伤害别人”？</div>
+    <div class="f-a muted">不是：在规则下，自利可能被引导成互利。</div>
+  </div>
+  <button class="btn mini" type="button" data-jump="o44">回到正文</button>
+</div>
+          </div>
+
+          <div class="fbox">
+            <div class="muted small">回原文修正（最小补充）</div>
+            <div class="fitem">
+  <div style="flex:1">
+    <div class="f-q">辅助理解（非原文事实）</div>
+    <div class="f-a">把市场想成“陌生人之间的合作协议系统”：价格像信号灯，合同像安全带。</div>
+  </div>
+</div>
+<div class="fitem">
+  <div style="flex:1">
+    <div class="f-q">来自原文</div>
+    <div class="f-a">“市场是一个陌生人跟陌生人之间打交道的地方”。</div>
+  </div>
+</div>
+          </div>
+
+          <div class="fbox">
+            <div class="muted small">再讲一遍（更精炼）</div>
+            <p class="p" data-anchor="1">人会先顾自己，也能同情别人，但同情能覆盖的人很少。可我们每天要靠很多陌生人帮忙，所以不能只指望爱心。市场用规则与交易，把“我想要”变成“你也能得到好处”，让陌生人互助变得稳定。验收句：你能用一句话说明“为什么大世界靠规则”吗？</p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="panel" data-panel="action">
+      <summary>
+        <div class="sum-left">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.6-8.6 1.4 1.4-10 10z"/></svg>
+          <div>
+            <div class="sum-title">行动规划</div>
+            <div class="sum-hint">3 个动作｜可勾选保存（仅此处保存）</div>
+          </div>
+        </div>
+        <span class="sum-hint">展开/收起</span>
+      </summary>
+      <div class="panel-body">
+        <div class="muted small">建议：用 10 分钟把三条都做完，立刻能把“概念”变成“可用”。</div>
+        <div id="todoList" style="margin-top:10px"><label class="todo">
+  <input type="checkbox" data-todo="act1">
+  <span>把今天的二分法写成两句：小圈子靠什么？大世界靠什么？</span>
+</label>
+<label class="todo">
+  <input type="checkbox" data-todo="act2">
+  <span>挑一个日常交易（外卖/打车/买菜），写下：你满足了对方什么需要？</span>
+</label>
+<label class="todo">
+  <input type="checkbox" data-todo="act3">
+  <span>想一个你曾“用错规则”的场景（把市场规则用在家里/把家里标准用在陌生人），写出改法。</span>
+</label></div>
+      </div>
+    </details>
+
+    <details class="panel" data-panel="reflect">
+      <summary>
+        <div class="sum-left">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm7 1.5V7h2.5L14 4.5zM8 11h8v1.6H8V11zm0 4h8v1.6H8V15zm0-8h5v1.6H8V7z"/></svg>
+          <div>
+            <div class="sum-title">复盘区</div>
+            <div class="sum-hint">记录理解度、卡点、下次问题</div>
+          </div>
+        </div>
+        <span class="sum-hint">展开/收起</span>
+      </summary>
+      <div class="panel-body">
+        <div class="grid2">
+          <div class="box">
+            <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.6-8.6 1.4 1.4-10 10z"/></svg>我现在的理解度</h3>
+            <p class="p small muted">（写给自己就好）我能否用两句话解释：为什么大世界要靠市场与规则？</p>
+            <textarea id="t1" rows="6" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border); background:transparent; color:var(--text)"></textarea>
+          </div>
+          <div class="box">
+            <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18a1 5 0 0 0 1-5.6l-.1-.2A6 6 0 1 0 8 16h3v2H9v2h6v-2h-2v-2h-1zm-3.3-4A4 4 0 1 1 12 10c.4 0 .8.1 1.1.2A6.9 6.9 0 0 0 11 14H8.7z"/></svg>我卡在哪里</h3>
+            <p class="p small muted">把卡点写清楚，下次复习时直接对准它。</p>
+            <textarea id="t2" rows="6" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border); background:transparent; color:var(--text)"></textarea>
+          </div>
+        </div>
+        <div class="box" style="margin-top:12px">
+          <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18h2v2h-2v-2zm1-16C6.9 2 3 5.1 3 9h2c0-2.8 3.1-5 7-5s7 2.2 7 5c0 2.2-1.4 3.4-3.2 4.7-1.6 1.2-3.3 2.4-3.3 4.3V16h2v-1c0-.9 1.2-1.8 2.5-2.7C18 10.9 19 9.6 19 9c0-3.9-3.9-7-7-7z"/></svg>我下次想追问的问题</h3>
+          <textarea id="t3" rows="5" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border); background:transparent; color:var(--text)"></textarea>
+          <div style="margin-top:10px">
+            <button class="btn mini" type="button" id="saveNotes">保存复盘（本地）</button>
+            <span class="muted small" id="saveTip" style="margin-left:10px"></span>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="panel" data-panel="refs">
+      <summary>
+        <div class="sum-left">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a1 1 0 0 0 1.4 1.4l4.2-4.2a3 3 0 0 0-4.2-4.2L9.8 8.6a1 1 0 1 0 1.4 1.4l2.2-2.2a1 1 0 1 1 1.4 1.4l-4.2 4.2zM13.4 10.6a1 1 0 0 0-1.4-1.4L7.8 13.4a3 3 0 0 0 4.2 4.2l2.2-2.2a1 1 0 1 0-1.4-1.4l-2.2 2.2a1 1 0 1 1-1.4-1.4l4.2-4.2z"/></svg>
+          <div>
+            <div class="sum-title">阅读延伸：权威资料</div>
+            <div class="sum-hint">每条都写明“为什么可信”（域名/机构/可追溯/交叉验证）</div>
+          </div>
+        </div>
+        <span class="sum-hint">展开/收起</span>
+      </summary>
+      <div class="panel-body">
+        <div class="ref">
+  <div class="ref-h">
+    <div class="ref-title">《国富论》在线文本（公共领域版）</div>
+    <a class="btn mini" href="https://gutenberg.org/files/3300/3300-h/3300-h.htm" target="_blank" rel="noopener noreferrer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a1 1 0 0 0 1.4 1.4l4.2-4.2a3 3 0 0 0-4.2-4.2L9.8 8.6a1 1 0 1 0 1.4 1.4l2.2-2.2a1 1 0 1 1 1.4 1.4l-4.2 4.2zM13.4 10.6a1 1 0 0 0-1.4-1.4L7.8 13.4a3 3 0 0 0 4.2 4.2l2.2-2.2a1 1 0 1 0-1.4-1.4l-2.2 2.2a1 1 0 1 1-1.4-1.4l4.2-4.2z"/></svg>打开</a>
+  </div>
+  <div class="ref-src muted">Project Gutenberg: The Wealth of Nations</div>
+  <div class="ref-why">权威机构/作者：古登堡项目提供公共领域经典；可追溯：可直接查看全文与版本说明；交叉验证：与Britannica对出版信息一致。</div>
+</div>
+<div class="ref">
+  <div class="ref-h">
+    <div class="ref-title">《国富论》条目：出版时间与“看不见的手”背景</div>
+    <a class="btn mini" href="https://www.britannica.com/topic/the-Wealth-of-Nations" target="_blank" rel="noopener noreferrer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a1 1 0 0 0 1.4 1.4l4.2-4.2a3 3 0 0 0-4.2-4.2L9.8 8.6a1 1 0 1 0 1.4 1.4l2.2-2.2a1 1 0 1 1 1.4 1.4l-4.2 4.2zM13.4 10.6a1 1 0 0 0-1.4-1.4L7.8 13.4a3 3 0 0 0 4.2 4.2l2.2-2.2a1 1 0 1 0-1.4-1.4l-2.2 2.2a1 1 0 1 1-1.4-1.4l4.2-4.2z"/></svg>打开</a>
+  </div>
+  <div class="ref-src muted">Encyclopaedia Britannica: The Wealth of Nations</div>
+  <div class="ref-why">权威机构：Britannica编辑部；域名一致性：britannica.com；可追溯：有条目结构与编辑信息；交叉验证：与原著及其他学术来源相符。</div>
+</div>
+<div class="ref">
+  <div class="ref-h">
+    <div class="ref-title">《道德情操论》书目与导读</div>
+    <a class="btn mini" href="https://about.libertyfund.org/books/the-theory-of-moral-sentiments/" target="_blank" rel="noopener noreferrer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a1 1 0 0 0 1.4 1.4l4.2-4.2a3 3 0 0 0-4.2-4.2L9.8 8.6a1 1 0 1 0 1.4 1.4l2.2-2.2a1 1 0 1 1 1.4 1.4l-4.2 4.2zM13.4 10.6a1 1 0 0 0-1.4-1.4L7.8 13.4a3 3 0 0 0 4.2 4.2l2.2-2.2a1 1 0 1 0-1.4-1.4l-2.2 2.2a1 1 0 1 1-1.4-1.4l4.2-4.2z"/></svg>打开</a>
+  </div>
+  <div class="ref-src muted">Liberty Fund Books: The Theory of Moral Sentiments</div>
+  <div class="ref-why">权威机构：Liberty Fund/OLL长期维护经典文本；可追溯：含版本与编辑信息；交叉验证：可与学术出版社资料比对。</div>
+</div>
+<div class="ref">
+  <div class="ref-h">
+    <div class="ref-title">同情心与“公正旁观者”的学术解读（章节预览）</div>
+    <a class="btn mini" href="https://www.cambridge.org/core/books/cambridge-companion-to-adam-smith/sympathy-and-the-impartial-spectator/22F99F84DCAF697C57CC1F91D1AF457B" target="_blank" rel="noopener noreferrer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a1 1 0 0 0 1.4 1.4l4.2-4.2a3 3 0 0 0-4.2-4.2L9.8 8.6a1 1 0 1 0 1.4 1.4l2.2-2.2a1 1 0 1 1 1.4 1.4l-4.2 4.2zM13.4 10.6a1 1 0 0 0-1.4-1.4L7.8 13.4a3 3 0 0 0 4.2 4.2l2.2-2.2a1 1 0 1 0-1.4-1.4l-2.2 2.2a1 1 0 1 1-1.4-1.4l4.2-4.2z"/></svg>打开</a>
+  </div>
+  <div class="ref-src muted">Cambridge Companion to Adam Smith（Cambridge Core）</div>
+  <div class="ref-why">权威作者/机构：剑桥大学出版社平台；域名一致性：cambridge.org；可追溯：书籍章节信息完整；交叉验证：与《道德情操论》核心概念一致。</div>
+</div>
+<div class="ref">
+  <div class="ref-h">
+    <div class="ref-title">斯密的“公正旁观者”选段（课堂阅读）</div>
+    <a class="btn mini" href="https://web.stanford.edu/class/history34q/readings/VirtualWitnessDiscussion/SmithImpartialSpectator.html" target="_blank" rel="noopener noreferrer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a1 1 0 0 0 1.4 1.4l4.2-4.2a3 3 0 0 0-4.2-4.2L9.8 8.6a1 1 0 1 0 1.4 1.4l2.2-2.2a1 1 0 1 1 1.4 1.4l-4.2 4.2zM13.4 10.6a1 1 0 0 0-1.4-1.4L7.8 13.4a3 3 0 0 0 4.2 4.2l2.2-2.2a1 1 0 1 0-1.4-1.4l-2.2 2.2a1 1 0 1 1-1.4-1.4l4.2-4.2z"/></svg>打开</a>
+  </div>
+  <div class="ref-src muted">Stanford University course reading</div>
+  <div class="ref-why">权威机构：Stanford University；域名一致性：stanford.edu；可追溯：提供可引用的文本段落；交叉验证：可与原著版本核对。</div>
+</div>
+        <div class="muted small" style="margin-top:10px">提示：外部资料只用于延伸阅读，不改变原文结论。</div>
+      </div>
+    </details>
+
+    <div class="footer">本页所有交互均为本地运行；深浅色、行动勾选、复盘内容会保存到浏览器本地。</div>
+  </main>
+
+<script>
+(function(){
+  const seed = 2714318844;
+  function seeded(n){ return (seed % n + n) % n; }
+  function hsl(h,s,l){ return `hsl(${h} ${s}% ${l}%)`; }
+
+  // 气质：理性分析 → 冷静青蓝系（内部计算，不展示）
+  const H0 = 190, H1 = 215;
+  const h = H0 + (seeded(H1 - H0));
+  const s = 38 + (seeded(18));
+  const lDark = 44 + (seeded(8));
+  const lLight = 46 + (seeded(8));
+  const accentH = (h + (seeded(2) ? 30 : 160)) % 360;
+  const accentS = Math.min(70, s + 12);
+  const accentLDark = Math.min(60, lDark + 10);
+  const accentLLight = Math.min(58, lLight + 8);
+
+  function applyPalette(theme){
+    const root = document.documentElement;
+    const primary = hsl(h, s, theme==="light" ? lLight : lDark);
+    const accent = hsl(accentH, accentS, theme==="light" ? accentLLight : accentLDark);
+    root.style.setProperty('--primary', primary);
+    root.style.setProperty('--accent', accent);
+  }
+
+  const $ = (sel, el=document) => el.querySelector(sel);
+  const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+  function setTheme(theme){
+    document.body.dataset.theme = theme;
+    localStorage.setItem('readcard_theme', theme);
+    applyPalette(theme);
+  }
+
+  function formatChicago(dt){
+    try {
+      return new Intl.DateTimeFormat('zh-CN', {
+        timeZone: 'America/Chicago',
+        year:'numeric', month:'2-digit', day:'2-digit',
+        hour:'2-digit', minute:'2-digit'
+      }).format(dt);
+    } catch(e) {
+      return dt.toLocaleString();
+    }
+  }
+
+  function computeMeta(){
+    const origText = $('#origPreview').innerText || '';
+    const words = origText.replace(/\s+/g,'').length;
+    const mins = Math.max(1, Math.round(words / 500));
+    $('#mWords').textContent = `字数：${words.toLocaleString()}`;
+    $('#mTime').textContent = `阅读：约${mins}分钟`;
+    $('#mGen').textContent = `生成：${formatChicago(new Date())}`;
+  }
+
+  function openDrawer(open){
+    const body = $('#drawerBody');
+    const btn = $('#toggleDrawer');
+    if(open){
+      body.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      btn.textContent = '收起信息区';
+    } else {
+      body.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      btn.textContent = '展开信息区';
+    }
+  }
+
+  function scrollToId(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    const orig = $('#origPreview');
+    if(orig && orig.contains(el)) {
+      if(!orig.classList.contains('open')) orig.classList.add('open');
+    }
+    const panel = el.closest('details.panel');
+    if(panel && !panel.open) panel.open = true;
+
+    el.classList.add('hl');
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+    setTimeout(()=>el.classList.remove('hl'), 2200);
+  }
+
+  function wireJumps(){
+    $$('[data-jump]').forEach(btn => {
+      btn.addEventListener('click', ()=>{
+        const id = btn.getAttribute('data-jump');
+        if(id) scrollToId(id);
+      });
+    });
+  }
+
+  function wirePreviewToggles(){
+    $$('.toggle-preview').forEach(btn => {
+      btn.addEventListener('click', ()=>{
+        const key = btn.getAttribute('data-for');
+        const el = (key==='orig') ? $('#origPreview') : btn.parentElement.querySelector('.preview');
+        if(el) el.classList.toggle('open');
+      });
+    });
+  }
+
+  function wireFlashcards(){
+    $$('#flashGrid .fc').forEach(card => {
+      const flip = ()=> { card.dataset.flip = (card.dataset.flip === "1") ? "0" : "1"; };
+      card.addEventListener('click', flip);
+      card.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); flip(); } });
+    });
+  }
+
+  const todoKey = 'readcard_todos_' + seed;
+  function loadTodos(){
+    let saved = {};
+    try { saved = JSON.parse(localStorage.getItem(todoKey) || '{}'); } catch(e) {}
+    $$('input[data-todo]').forEach(cb => {
+      const k = cb.getAttribute('data-todo');
+      cb.checked = !!saved[k];
+      cb.addEventListener('change', ()=> {
+        saved[k] = cb.checked;
+        localStorage.setItem(todoKey, JSON.stringify(saved));
+      });
+    });
+  }
+
+  const noteKey = 'readcard_notes_' + seed;
+  function loadNotes(){
+    try {
+      const x = JSON.parse(localStorage.getItem(noteKey) || '{}');
+      $('#t1').value = x.t1 || '';
+      $('#t2').value = x.t2 || '';
+      $('#t3').value = x.t3 || '';
+    } catch(e) {}
+  }
+  function saveNotes(){
+    const x = {
+      t1: $('#t1').value,
+      t2: $('#t2').value,
+      t3: $('#t3').value,
+      at: new Date().toISOString()
+    };
+    localStorage.setItem(noteKey, JSON.stringify(x));
+    $('#saveTip').textContent = '已保存';
+    setTimeout(()=>$('#saveTip').textContent='', 1600);
+  }
+
+  const panels = {
+    orig: ()=> $('[data-panel="orig"]'),
+    prereq: ()=> $('[data-panel="prereq"]'),
+    rare: ()=> $('[data-panel="rare"]'),
+    explain: ()=> $('[data-panel="explain"]'),
+    structure: ()=> $('[data-panel="structure"]'),
+    review: ()=> $('[data-panel="review"]'),
+    action: ()=> $('[data-panel="action"]'),
+    reflect: ()=> $('[data-panel="reflect"]'),
+    refs: ()=> $('[data-panel="refs"]'),
+  };
+
+  function closeAll(){
+    Object.values(panels).forEach(fn=>{ const p = fn(); if(p) p.open = false; });
+    $$('.preview').forEach(p=>p.classList.remove('open'));
+    openDrawer(false);
+  }
+
+  function applyMode(mode){
+    document.body.dataset.mode = mode;
+    closeAll();
+    if(mode === 'speed'){
+      panels.review().open = true;
+      panels.action().open = true;
+    } else if(mode === 'learn'){
+      openDrawer(true);
+      panels.explain().open = true;
+      panels.prereq().open = true;
+      panels.rare().open = true;
+      panels.structure().open = true;
+    } else if(mode === 'exam'){
+      panels.review().open = true;
+      setTimeout(()=> {
+        const quizBox = $('[data-panel-inner="quiz"]');
+        if(quizBox) quizBox.scrollIntoView({behavior:'smooth', block:'start'});
+      }, 50);
+    }
+  }
+
+  function wireModes(){
+    $$('[data-mode]').forEach(btn => {
+      btn.addEventListener('click', ()=> {
+        const mode = btn.getAttribute('data-mode');
+        if(!mode) return;
+        localStorage.setItem('readcard_mode', mode);
+        applyMode(mode);
+      });
+    });
+    $('#resetMode').addEventListener('click', ()=> {
+      applyMode(document.body.dataset.mode || 'speed');
+    });
+  }
+
+  function wireChips(){
+    $$('.chip[data-jump]').forEach(chip => {
+      const id = chip.getAttribute('data-jump');
+      if(!id || !document.getElementById(id)) {
+        chip.disabled = true;
+        chip.title = '找不到对应正文段落';
+      }
+    });
+  }
+
+  function wireSVG(){
+    $$('.svgmap .node').forEach(n => {
+      n.style.cursor = 'pointer';
+      n.addEventListener('click', ()=> {
+        const id = n.getAttribute('data-jump');
+        if(id) scrollToId(id);
+      });
+    });
+  }
+
+  function wireTop(){
+    $('#toggleTheme').addEventListener('click', ()=> {
+      const next = (document.body.dataset.theme === 'light') ? 'dark' : 'light';
+      setTheme(next);
+    });
+    $('#printBtn').addEventListener('click', ()=> window.print());
+    $('#toggleDrawer').addEventListener('click', ()=> {
+      const open = !$('#drawerBody').classList.contains('open');
+      openDrawer(open);
+    });
+  }
+
+  const theme = localStorage.getItem('readcard_theme') || 'dark';
+  setTheme(theme);
+
+  const savedMode = localStorage.getItem('readcard_mode') || 'speed';
+  applyMode(savedMode);
+
+  computeMeta();
+  wireTop();
+  wireModes();
+  wireJumps();
+  wirePreviewToggles();
+  wireFlashcards();
+  wireChips();
+  wireSVG();
+  loadTodos();
+  loadNotes();
+  $('#saveNotes').addEventListener('click', saveNotes);
+})();
+</script>
+</body>
+</html>
