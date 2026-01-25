@@ -1,3 +1,24 @@
+name: 自动生成高级索引页
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: 动态生成高级索引页
         run: |
           echo "<html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -8,13 +29,13 @@
             .container { max-width: 700px; margin: 0 auto; }
             h1 { font-size: 28px; text-align: center; margin-bottom: 5px; color: #1a1a1a; }
             .stats { text-align: center; color: #666; font-size: 14px; margin-bottom: 25px; }
-            #searchInput { width: 100%; padding: 12px 20px; border: 2px solid #ddd; border-radius: 25px; font-size: 16px; margin-bottom: 20px; outline: none; transition: border-color 0.3s; }
+            #searchInput { width: 100%; padding: 12px 20px; border: 2px solid #ddd; border-radius: 25px; font-size: 16px; margin-bottom: 20px; outline: none; transition: border-color 0.3s; box-sizing: border-box; }
             #searchInput:focus { border-color: var(--primary); }
             ul { list-style: none; padding: 0; }
-            .file-card { background: var(--card); margin-bottom: 12px; padding: 18px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s; }
+            .file-card { background: var(--card); margin-bottom: 12px; padding: 18px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s; text-decoration: none; }
             .file-card:active { transform: scale(0.98); }
-            .file-info { display: flex; flex-direction: column; flex: 1; }
-            .file-name { color: var(--primary); font-weight: 600; font-size: 17px; text-decoration: none; margin-bottom: 4px; }
+            .file-info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+            .file-name { color: var(--primary); font-weight: 600; font-size: 17px; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
             .file-meta { font-size: 12px; color: #888; }
             .arrow { color: #ccc; font-size: 20px; margin-left: 10px; }
           </style></head>
@@ -25,35 +46,43 @@
               <input type='text' id='searchInput' placeholder='搜索文档名称...' onkeyup='searchFunction()'>
               <ul id='fileList'>" > index.html
           
-          # 生成列表逻辑
-          count=0
+          # 核心排序与生成逻辑
           git ls-files -z *.html | xargs -0 -I {} git log -1 --format="%ct {}" -- "{}" | sort -rn | while read -r line; do
               timestamp=$(echo "$line" | cut -d' ' -f1)
               filename=$(echo "$line" | cut -d' ' -f2-)
               if [ "$filename" = "index.html" ]; then continue; fi
-              ((count++))
-              date_str=$(TZ='Europe/Prague' date -d @"$timestamp" +"%Y年%m月%d日 %H:%M")
-              display_name=$(echo "$filename" | sed 's/\.html$//' | sed 's/_/ /g')
-              echo "<li class='file-card'><div class='file-info'><a class='file-name' href='./$filename'>$display_name</a><span class='file-meta'>更新于 $date_str</span></div><div class='arrow'>›</div></li>" >> index.html
+              
+              # 设置布拉格本地时间
+              date_str=$(TZ='Europe/Prague' date -d @"$timestamp" +"%Y-%m-%d %H:%M")
+              display_name=$(echo "$filename" | sed 's/\.html$//')
+              
+              echo "<a href='./$filename' class='file-card'><div class='file-info'><span class='file-name'>$display_name</span><span class='file-meta'>更新于 $date_str</span></div><div class='arrow'>›</div></a>" >> index.html
           done
           
-          # 注入搜索 JS 和底部
           echo "</ul></div>
           <script>
             function searchFunction() {
               var input = document.getElementById('searchInput');
               var filter = input.value.toUpperCase();
               var ul = document.getElementById('fileList');
-              var li = ul.getElementsByTagName('li');
+              var li = ul.getElementsByClassName('file-card');
               for (var i = 0; i < li.length; i++) {
-                var a = li[i].getElementsByClassName('file-name')[0];
-                if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                  li[i].style.display = '';
+                var name = li[i].getElementsByClassName('file-name')[0];
+                if (name.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                  li[i].style.display = 'flex';
                 } else {
                   li[i].style.display = 'none';
                 }
               }
             }
-            document.getElementById('count').innerHTML = '共收录 ' + document.getElementById('fileList').getElementsByTagName('li').length + ' 篇文档';
+            document.getElementById('count').innerHTML = '共收录 ' + document.getElementById('fileList').getElementsByClassName('file-card').length + ' 篇文档';
           </script>
           </body></html>" >> index.html
+
+      - name: 上传部署文件
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: 部署到 GitHub Pages
+        uses: actions/deploy-pages@v4
