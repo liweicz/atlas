@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light dark">
+  <title>佛陀如何说法现代视野里的金刚经｜交互式深度学习卡片</title>
+  <style>
+    :root{
+      --bg:#fbf7f0;
+      --card:#ffffffcc;
+      --ink:#1f2328;
+      --muted:#5b6672;
+      --accent:#8b5e34; /* 茶金 */
+      --accent2:#2b3a67; /* 靛蓝 */
+      --border:#e7ddcf;
+      --shadow: 0 10px 30px rgba(31,35,40,.10);
+      --shadow2: 0 6px 16px rgba(31,35,40,.08);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC","Hiragino Sans GB","Microsoft YaHei", sans-serif;
+      --serif: ui-serif, "Iowan Old Style","Palatino Linotype","Book Antiqua", Palatino, "Noto Serif SC","Songti SC","STSong", serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root{
+        --bg:#0f1216;
+        --card:#151a21cc;
+        --ink:#e7edf5;
+        --muted:#a6b0bc;
+        --accent:#d9b37a;
+        --accent2:#8ea0ff;
+        --border:#263042;
+        --shadow: 0 10px 30px rgba(0,0,0,.35);
+        --shadow2: 0 6px 16px rgba(0,0,0,.28);
+      }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--ink);
+      background:
+        radial-gradient(1000px 600px at 20% -10%, rgba(139,94,52,.10), transparent 60%),
+        radial-gradient(900px 600px at 110% 20%, rgba(43,58,103,.10), transparent 55%),
+        radial-gradient(800px 500px at 40% 120%, rgba(139,94,52,.08), transparent 50%),
+        var(--bg);
+      line-height:1.75;
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 90px}
+    header.hero{
+      position:relative;
+      padding:24px 18px 18px;
+      border:1px solid var(--border);
+      border-radius:calc(var(--radius) + 6px);
+      background:linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.40));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(10px);
+    }
+    @media (prefers-color-scheme: dark) {
+      header.hero{background:linear-gradient(180deg, rgba(21,26,33,.75), rgba(21,26,33,.35));}
+    }
+    .hero-top{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.55);
+      color:var(--muted);
+      font-size:13px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .badge{background:rgba(21,26,33,.55);}
+    }
+    h1{
+      margin:10px 0 6px;
+      font-family:var(--serif);
+      letter-spacing:.2px;
+      font-size:clamp(26px, 3.4vw, 40px);
+      line-height:1.2;
+    }
+    .subtitle{margin:0;color:var(--muted);max-width:70ch}
+    .hero-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+    .btn{
+      appearance:none;border:1px solid var(--border);
+      background:rgba(255,255,255,.55);
+      color:var(--ink);
+      padding:10px 12px;border-radius:12px;
+      font-weight:650;cursor:pointer;
+      box-shadow:var(--shadow2);
+      transition: transform .12s ease, background .12s ease;
+      display:inline-flex;align-items:center;gap:8px;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn:active{transform:translateY(0px)}
+    .btn.primary{border-color: color-mix(in srgb, var(--accent) 30%, var(--border));}
+    .btn.ghost{background:transparent;box-shadow:none}
+    @media (prefers-color-scheme: dark) {
+      .btn{background:rgba(21,26,33,.55);}
+      .btn.ghost{background:transparent;}
+    }
+    .grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+    @media (min-width: 900px) {
+      .grid{grid-template-columns: 1.2fr .8fr;align-items:start}
+    }
+    .card{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:var(--card);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+      backdrop-filter: blur(10px);
+    }
+    details{border-radius:var(--radius);}
+    details > summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 16px;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+      user-select:none;
+    }
+    details > summary::-webkit-details-marker{display:none}
+    .sum-left{display:flex;align-items:center;gap:10px}
+    .pill{
+      font-size:12px;font-weight:750;
+      padding:4px 10px;border-radius:999px;
+      border:1px solid var(--border);
+      color:var(--muted);
+      background:rgba(255,255,255,.45);
+    }
+    @media (prefers-color-scheme: dark) {
+      .pill{background:rgba(21,26,33,.45);}
+    }
+    .chev{
+      width:28px;height:28px;display:grid;place-items:center;
+      border:1px solid var(--border);border-radius:10px;
+      background:rgba(255,255,255,.45);
+      transition: transform .18s ease;
+      flex:0 0 auto;
+    }
+    @media (prefers-color-scheme: dark) {
+      .chev{background:rgba(21,26,33,.45);}
+    }
+    details[open] .chev{transform: rotate(180deg)}
+    .content{padding:0 16px 16px;color:var(--ink)}
+    .content p{margin:0 0 12px}
+    .content h3{margin:14px 0 8px;font-size:15px;color:var(--muted);letter-spacing:.2px}
+    .divider{height:1px;background:var(--border);margin:0 16px}
+    .mono{font-family:var(--mono)}
+    pre{
+      white-space:pre-wrap;
+      word-break:break-word;
+      margin:0;
+      padding:14px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(255,255,255,.40);
+      font-family:var(--serif);
+      font-size:15px;
+      line-height:1.85;
+    }
+    @media (prefers-color-scheme: dark) {
+      pre{background:rgba(21,26,33,.40);}
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(255,255,255,.40);
+    }
+    @media (prefers-color-scheme: dark) {
+      table{background:rgba(21,26,33,.40);}
+    }
+    th, td{padding:10px 10px;vertical-align:top;border-bottom:1px solid var(--border)}
+    tr:last-child td{border-bottom:none}
+    th{text-align:left;font-size:13px;color:var(--muted);font-weight:800;background:rgba(255,255,255,.35)}
+    @media (prefers-color-scheme: dark) {
+      th{background:rgba(21,26,33,.35);}
+    }
+    .kpi{
+      display:grid;gap:10px;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      margin-top:12px;
+    }
+    @media (min-width: 900px) {
+      .kpi{grid-template-columns:repeat(2, minmax(0,1fr));}
+    }
+    .kpi .box{
+      padding:12px;border:1px solid var(--border);border-radius:14px;
+      background:rgba(255,255,255,.38);
+    }
+    @media (prefers-color-scheme: dark) {
+      .kpi .box{background:rgba(21,26,33,.38);}
+    }
+    .box .label{font-size:12px;color:var(--muted);font-weight:800;margin-bottom:4px}
+    .box .value{font-family:var(--serif);font-weight:900}
+    ul{margin:0;padding-left:18px}
+    li{margin:6px 0}
+    .quote{
+      border-left:4px solid color-mix(in srgb, var(--accent) 60%, var(--border));
+      padding:12px 12px 12px 14px;
+      margin:10px 0;
+      border-radius:12px;
+      background:rgba(255,255,255,.35);
+    }
+    @media (prefers-color-scheme: dark) {
+      .quote{background:rgba(21,26,33,.35);}
+    }
+    .quote .lead{font-weight:900}
+    .quote .muted{color:var(--muted)}
+    .float-download{
+      position:fixed;right:18px;bottom:18px;z-index:50;
+    }
+    .toast{
+      position:fixed;left:50%;bottom:22px;transform:translateX(-50%);
+      background:rgba(31,35,40,.92);color:#fff;
+      padding:10px 12px;border-radius:999px;font-weight:700;
+      box-shadow:0 10px 24px rgba(0,0,0,.28);
+      opacity:0;pointer-events:none;transition:opacity .18s ease, transform .18s ease;
+      max-width:min(92vw, 520px);
+    }
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
+    .small{font-size:13px;color:var(--muted)}
+    .svg-wrap{border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.35);padding:10px;overflow:auto}
+    @media (prefers-color-scheme: dark) {
+      .svg-wrap{background:rgba(21,26,33,.35);}
+    }
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media (prefers-reduced-motion: reduce) {
+      *{transition:none !important;scroll-behavior:auto !important}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-top">
+        <div>
+          <div class="badge" title="交互式深度学习卡片">
+            <span aria-hidden="true">🪷</span>
+            <span>交互式深度学习卡片 · 单页离线可用</span>
+          </div>
+          <h1>佛陀如何说法</h1>
+          <p class="subtitle">现代视野里的《金刚经》导读：以“场景化的因材施教”为主线，梳理佛陀从南到北的弘法轨迹、对象差异与教学策略，并以当代学习法重新点亮其启示。</p>
+
+          <div class="hero-actions">
+            <button class="btn primary" id="expandAll" type="button">📂 展开全部</button>
+            <button class="btn" id="collapseAll" type="button">🗂️ 折叠全部</button>
+            <button class="btn ghost" id="scrollTop" type="button">⬆️ 回到顶部</button>
+          </div>
+        </div>
+
+        <div aria-hidden="true" style="min-width:240px;max-width:320px;flex:1">
+          <!-- inline lotus-like SVG -->
+          <svg viewBox="0 0 360 220" width="100%" height="180" role="img" aria-label="装饰性莲花图案">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="rgba(139,94,52,.55)"/>
+                <stop offset="1" stop-color="rgba(43,58,103,.55)"/>
+              </linearGradient>
+              <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="6"/>
+              </filter>
+            </defs>
+            <g opacity=".9">
+              <circle cx="290" cy="46" r="52" fill="url(#g1)" filter="url(#blur)"/>
+              <circle cx="76" cy="168" r="62" fill="url(#g1)" filter="url(#blur)" opacity=".6"/>
+            </g>
+            <g transform="translate(180 112)">
+              <path d="M0,-70 C-20,-44 -44,-26 -76,-18 C-50,-4 -24,10 0,34 C24,10 50,-4 76,-18 C44,-26 20,-44 0,-70Z"
+                    fill="none" stroke="url(#g1)" stroke-width="3" opacity=".85"/>
+              <path d="M0,-52 C-14,-34 -30,-20 -52,-14 C-34,-4 -16,8 0,24 C16,8 34,-4 52,-14 C30,-20 14,-34 0,-52Z"
+                    fill="rgba(255,255,255,.25)" stroke="url(#g1)" stroke-width="2" opacity=".85"/>
+              <circle r="10" fill="url(#g1)"/>
+              <path d="M-120,62 C-70,34 -36,22 0,22 C36,22 70,34 120,62"
+                    fill="none" stroke="rgba(43,58,103,.35)" stroke-width="2"/>
+              <path d="M-120,72 C-72,42 -36,30 0,30 C36,30 72,42 120,72"
+                    fill="none" stroke="rgba(139,94,52,.35)" stroke-width="2"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="kpi" role="group" aria-label="阅读导航">
+        <div class="box">
+          <div class="label">主线</div>
+          <div class="value">“方便法门”＝按人、按境、按时讲法</div>
+        </div>
+        <div class="box">
+          <div class="label">结构</div>
+          <div class="value">路线 · 对象 · 方法 · 结局 · 传播</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid" aria-label="内容卡片区">
+
+      <!-- Left column -->
+      <div class="card">
+        <details class="sec" id="sec-original">
+          <summary>
+            <span class="sum-left">📜 原文（100%保留）<span class="pill">可复制</span></span>
+            <span class="chev" aria-hidden="true">▾</span>
+          </summary>
+          <div class="divider"></div>
+          <div class="content">
+            <p class="small">提示：为保持“逐字保留”，此处用 <span class="mono">&lt;pre&gt;</span> 方式呈现（含原有标点与换行）。</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 12px">
+              <button class="btn" type="button" id="copyOriginal">📋 一键复制原文</button>
+            </div>
+            <pre id="originalPre">【01.佛陀如何说法｜现代视野里的《金刚经》
+大家好，我是成庆，很高兴在这里和大家一起开启《金刚经》的智慧旅程。
+任何一位想要深入佛学世界的人，都会面对如何理解佛经的问题。但是一旦接触佛教经典，我们又会发现，佛经的数量及其内容的广度与深度，都会让人却步，心有畏惧，很难找到入门的钥匙。
+比如单单是汉文的佛教典籍，总字数大约就有4.5亿字左右，这么庞大的体量，粗粗通读一遍都很困难。而且佛经特有的文体风格以及佛学本身繁复的概念体系，也是现代人理解佛经的重要障碍。
+那么，我们该如何揭开蒙在佛经上的这一层神秘的面纱？在正式进入《金刚经》之前，或许我们可以先了解一下故事的背景，也就是佛陀的弘法经历，以及他是如何面对众生说法的。不过由于篇幅限制，而且加上我们其实无法完全准确还原佛陀的游历过程，因此在这里只是大致描绘一下佛陀一生的说法经历。
+从鹿野苑到王舍城
+
+从现有的佛经来看，我们会发觉存在这样一个特点，那就是佛经中的时空观和现代人有一些明显的差别。
+首先，佛经中都会提到佛陀在什么地方教导弟子们，但是对具体时间的描述都只会用“一时”来表示，并没有具体的参考标准。因此，我们想要了解佛陀的说法经历，往往只能通过对不同经典内容进行比对，来大致还原出佛陀的弘化过程，但是当中很多信息仍然是模糊的。这或许是因为，佛经的结集编撰经历了一个非常漫长的过程，而无论弟子们的记忆还是后人的汇总，他们关注的重点是佛陀教导的具体内容本身，而不在于说法的时间。这使得我们如果以现代的眼光去看佛陀的生平，往往会发现许多含混乃至矛盾的地方。
+从地点来看，我们可以在很多经典中看到佛陀在许多北印度的城镇进行说法，而这些地方是可以通过历史的比对来确认的，比如鹿野苑、舍卫城、毗舍离乃至王舍城等等。有趣的是，佛陀有时候也在一些超出我们认知的地方说法。比如《地藏菩萨本愿经》，讲述了佛陀是在欲界的忉利天为母亲摩耶夫人讲法，其他的经典里，还有前往龙宫为龙王说法，但这些地点的记载相对不多，我们也不需要过多推敲。
+ 
+那么，佛陀为什么要出来说法呢？
+根据《佛本行集经》的记载，佛陀在菩提树下觉悟之后，一度产生不愿意度化众生的想法，这是因为佛陀觉得，自己所体悟的智慧太过微妙深邃，而众生却爱执深重，难以相信这样的道理。于是梵天，也就是佛教的护法神，出来请求佛陀要悲悯众生，为大家说法。佛陀也注意到，众生各自的禀赋和根机不同，于是想起过去无数诸佛在度化众生的时候，都会运用所谓的“方便法门”，也就是根据不同的情况来讲解相应的方法和道理，而不能把自己体验到的圆满境界直接讲给众生。就是在这样的背景下，佛陀开启了长达四十五年（还有四十九年的说法）的说法历程。
+佛陀讲法的首站，是在波罗奈城的鹿野苑，他面对的是憍陈如等五位修行人，这五位修行人曾侍奉在悉达多太子左右。
+在《人生解忧》节目里，我曾经简单讲过悉达多从苦行到觉悟的故事——当悉达多太子发现，极端苦行并不能让自己得到真正的解脱，便下山接受牧羊女所供养的食物，恢复了体力。这一举动让憍陈如等人认为，悉达多已经被欲望击败，放弃了修道之路，于是从太子身边离开了。但如今，悉达多太子已经觉悟，这五位修行人远远看见佛陀前来，还在彼此窃窃私语说，待会不应该起立迎接，也不要对他表示礼敬。可是当佛陀靠近后，他们或许是因为过去习惯侍奉太子，所以还是忍不住对佛陀表达很高的礼遇，同时，也对这位曾经离开雪山、放弃修行的太子表达了不满。
+面对这五位修行人的怀疑和诘难，佛陀首次讲述了他所领悟的四圣谛，也就是我们熟悉的“苦、集、灭、道”。憍陈如等人本身就是苦行多年的修行者，一听到佛陀对于人生之苦的解释，当下便疑情顿消，获得觉悟，成为了僧团的最初五位比丘。这场讲法，也被称为佛陀的“初转法轮”。
+这场讲法的地点鹿野苑位于波罗奈城附近。波罗奈城是当时印度主要的繁华都市之一，是恒河边的水陆交通要道，也是迦尸国的都城。以波罗奈城作为起点，佛陀正式开启了他的弘法历程。
+《过去现在因果经》中记载道，波罗奈城里有一位富商俱梨迦长者，他的儿子名叫耶舍。耶舍由于家境豪贵，整日饮酒，歌舞作乐，可是有一天深夜宴会散席后，歌舞伎们因为疲乏不堪，随意躺卧，衣不蔽体，昏睡不醒，毫无警觉，如同死人一般。耶舍看到这般情景，突然产生了强烈的人生虚无感，于是半夜前往王宫门口，想要面见国王，一边还嚎啕大叫：“我苦！我苦！”守卫见此，当然不会让他入宫，耶舍只能出城，沿着河岸边走边喊：“我苦！我苦！”此时，已至清晨，佛陀正在河对岸行禅，耶舍远远望去，就知道那是一位非凡圣者，于是赶紧脱掉鞋子，渡河而去，上前请教离苦之法。
+耶舍出身豪贵，却感受不到人生的意义，这大概与今天很多先富起来的群体的心态颇有相似之处——在创业期间觉得意义充沛、干劲十足，但是一旦功成名就，奢华的生活也体验过一番后，反倒觉得人生无趣，不知如何是好。反观佛陀，见到耶舍这般模样，并没有像他面对修苦行的憍陈如等人一样直接讲解苦、集、灭、道的四圣谛，而是告诉耶舍，他之所以身处豪富之家，是因为过去曾经持戒、布施，所以才会有今天如同天人一样的幸福和快乐。但就算如此，这种快乐也将是无常变动的，最终还是会在轮回中不断地循环往复。
+接着，佛陀进一步告诉耶舍，要真正的离苦得乐，需要断除烦恼，证得涅槃，而这就必须认识到，世间万物原本不过是苦、空、无常和无我。耶舍听到佛陀的说法，当下便恍然大悟，证得解脱，而且决定剃发出家。
+而在另外一边，耶舍的父亲俱梨迦长者得知儿子半夜出城，心中忧虑，前去寻子，来到河边便发现耶舍渡河前脱下的衣物，于是猜测耶舍或许去了佛陀那里，也渡河过去。佛陀见到俱梨迦长者，明白他寻子心切，于是先安慰长者，让他宽心，接着便给俱梨迦长者讲解人生离苦的方法，最终也让他明白了人生无非是苦、空、无常和无我。俱梨迦长者发心皈依，成为了优婆塞，也就是所谓的居士。
+俱梨迦长者回到城中，很热情地将佛陀所讲说的法转达给妻子以及家族的成员，众人听后也觉得非常开心。尤其是俱梨迦长者另外的四个儿子，他们得知耶舍出家修行并得到解脱，羡慕不已，于是也前往佛陀那里，请求剃发，成为沙门。如此，加上鹿野苑憍陈如等五人，这十位就成为了佛陀最早期的弟子。
+在波罗奈城，佛陀针对不同的人群都有讲法，不仅活泼生动，而且还各有特色。比如在《杂阿含经》（第二十四卷）中记载过这么一个场景：某日佛陀询问弟子说：如果美人路过，或者这些美人在歌舞的时候，会不会吸引很多人去围观？弟子们回答说：当然会围观聚集。佛陀接着说：假使这个时候我们手持着盛满的油碗经过，后面还跟随着一位监工，假如油碗溢出一滴油，这位监工就会手起刀落，取人性命，请问你们还会去看这些美人歌舞吗？弟子们纷纷回答说，当然不会去看。佛陀借此提醒弟子们，修行就要有这样“生死在一念之间”的认知，才能时时刻刻收摄自心，精进修行，得到解脱。
+ 
+离开波罗奈城，佛陀弘法的下一站则是摩揭陀国。在这里，他遇到了出身婆罗门的迦叶三兄弟，优楼频罗迦叶、伽耶迦叶、那提迦叶，以及他们所带领的修行团体。这个团体信奉的是火神阿耆尼，一共有一千多人，佛陀想将这个修行团体吸收入僧团，于是向优楼频罗迦叶提出在他们的道场留宿一晚。迦叶答应了佛陀的请求，但是告诫佛陀，这个地方常有毒蛇出没，希望佛陀不要因此而恐惧。但在佛陀夜宿的这一晚，毒蛇都感受到了佛陀所散发出来的慈悲和怜悯，变得温顺、安宁，这也让优楼频罗迦叶非常震惊。此外，佛陀还向迦叶展现出非常多的神通变化，比如身上显现出非常耀眼的光明等等，终于让刚强难调的优楼频罗迦叶心悦诚服，投归到佛陀门下。而迦叶三兄弟所带领的一千多位修行人，也因此全部皈依在佛陀门下。
+除了迦叶三兄弟的团体，佛陀的讲法还将许多当时的“外道”吸收进了僧团。
+跟释迦牟尼同时期，还有六位持不同观点的思想家，被当时的人们称为“六师”，他们同样也是修行者（当然，这些在佛教里被称呼为“外道”）。六师之一的珊奢耶的观点，大约属于不可知论的一派，不相信任何确定性的东西，他当时吸引了二百五十位修行人聚集在门下，其中，就有后来转而成为佛陀弟子的舍利弗与目犍连。
+舍利弗和目犍连是多年好友，同样出身于婆罗门家庭，后来一同出家修道，投入珊奢耶门下。虽然舍利弗和目犍连是珊奢耶最为杰出的弟子，但他们二人对于珊奢耶并不完全信服，因此打算外出寻访名师。
+在摩揭陀国的首都王舍城，舍利弗遇见了佛陀的弟子之一马胜比丘（也翻译为阿说示，他是佛陀最初的五位弟子其中之一）。这位马胜比丘常常在王舍城内托钵乞食，仪表堂堂，庄严肃穆，这引发了舍利弗的好奇，于是便上前请教马胜比丘师从何人，信奉什么教义。马胜比丘回答说，他出家时日不久，不能完全理解佛法深义，因此只能转述佛陀的教导，也就是著名的“诸法缘起颂”：
+诸法因缘生，是法说因缘。
+是法因缘尽，大师如是说。
+舍利弗听到这个偈颂，当下便证得了初果的果位，也就是通向阿罗汉的第一步。他喜出望外，马上回去转告目犍连。目犍连听闻之后便与舍利弗一起，带着珊奢耶的二百五十位弟子前往投奔佛陀，据说，老师珊奢耶因此气愤不已，失魂落魄。
+但正是因为舍利弗与目犍连的加入，佛陀所带领的僧团规模达到了一千二百五十人之多。我们在《金刚经》中读到的“一时，佛在舍卫国祗树给孤独园，与大比丘众千二百五十人俱”中的人数，就是来自于此。
+舍利弗与目犍连在佛陀座下剃度之后，继续精进修行。据说，目犍连七天后证得阿罗汉，而舍利弗则是在半月之后，当时佛陀正在对弟子长爪梵志讲法，而舍利弗刚好在佛陀身后为其摇扇，听到佛陀说法，也当下证得阿罗汉。
+这样的描述让我们感到，“觉悟”对于这些人而言似乎是一件十分轻松的事情，这固然一方面是因为舍利弗等人本身就是虔诚的修道者，另一方面，则大概是因为佛陀能够根据这些弟子的情况给出合理的指导，类似于孔子所说的“因材施教”，但这无疑非常考验为人师者的智慧。
+除了舍利弗和目犍连之外，在佛陀的所有弟子中，还有一位非常引人注目，就是大迦叶尊者。他出身于王舍城的一个婆罗门家庭，按照婆罗门的习俗早早结婚，但是夫妇二人对世俗生活没有兴趣，于是共同出家修行。大迦叶最初信奉的也是当时印度的外道，大约在舍利弗之后遇见了佛陀，便投入门下，很快也得到觉悟，证得阿罗汉。在佛陀的诸多弟子中，大迦叶尊者常常是作为修苦行的代表，不仅喜欢身着破袈裟，而且不善修饰。但佛陀对他非常重视，常常在其他人面前赞美大迦叶尊者，使得他成为僧团中的重要角色。在后世的佛造像中，后人常常把大迦叶安放在佛陀身边，和佛陀的堂弟兼侍者阿难一起，形成一佛二弟子的造像布局。
+ 
+我们刚刚介绍了一部分佛陀度化的出家弟子，此外，佛陀其实也很关注在家人的教导。当他在摩揭陀国的王舍城弘法时，就遇见了一位重要的在家信徒，也就是后来促成佛陀在舍卫国祇园精舍开讲《金刚经》的关键人物——给孤独长者。
+给孤独本名叫须达，是一位乐善好施的富商，常常救济孤儿与老人，所以有“给孤独”的美誉。当时，王舍城有一位富商准备第二天在家中供养佛陀及其弟子，给孤独看到富商家中如此忙碌，好奇询问有何事情发生。富商告知他次日将会供养佛陀，这让久慕佛陀大名的给孤独非常兴奋，甚至在第二天初晓时就赶往佛陀坐禅的地方，请佛陀为他举行皈依，佛陀并且为他说法。正是这次相遇，使得佛陀有机缘从南边的王舍城转向北边的舍卫城弘法，给孤独长老就是其中的关键人物。
+而在摩揭陀国，佛陀度化的群体就已经非常广泛，不仅度化了像给孤独这样的商人，还有国王频婆娑罗王以及他的妻眷和大臣们，还包括众多的婆罗门、耆那教徒以及一般的百姓，这也与佛陀所秉持的平等度化的观念有关。在度化过程中，我们也可以看到，佛陀在面对一般的在家信众说法时，有时候只是强调基本的人伦道德，比如不要杀生、偷盗、妄语乃至引诱他人妻子这些基本的戒律，还有不要沉溺饮酒、抛家弃子、从事赌博等等。这些听上去其实都是基本的道德劝善，明显和针对出家弟子所讲的教导存在一些差别。而这，也是佛陀针对不同对象而会有的不同的说法策略。
+ 
+度化亲人
+
+很多人在听到“出家”的说法时，都会在头脑中浮现类似“断亲”的想象，似乎僧人一旦出家，就是断亲绝爱。不过，佛陀本人似乎并非那么绝情，有一种学术界的看法是，在他觉悟之后的第二年，他就回到自己的故乡迦毗罗卫国。佛陀在他一生的弘法生涯中，曾多次回到家乡。当然，佛陀回来并不是为了叙旧，而是想借此引导释迦族人走向解脱的道路。
+佛陀回到故乡，其实也和他的父亲净饭王有关。得知悉达多太子获得觉悟并在摩揭陀国弘法后，净饭王就派出使者，请求佛陀回到故乡为大家讲法。但有趣的是，这些使者见到佛陀之后，被他所说的法深深地吸引，以至于忘记了原来的使命。最后，净饭王派出悉达多太子的童年好友优陀夷，但优陀夷也被佛陀说法打动，甚至出家修行，直到他证得阿罗汉，才想起净饭王的委托。于是佛陀便带着弟子回到迦毗罗卫国。
+佛陀第一次回到家乡，弘法的过程并不是一帆风顺的。因为释迦族人本身属于刹帝利种姓，自视不凡，初见佛陀，族人们不愿意去礼拜，直到佛陀施展出神通，才让释迦族人折服。当佛陀按照出家人的方式去托钵乞食，而不是在宫廷内用餐时，净饭王还认为，此举有伤释迦族人的颜面。
+面对自命不凡的释迦族人，佛陀自有教化的方法——他首先为族人讲说布施和持戒的好处，人们会因这些善业而生到天道，享受天人的快乐；然后讲说，这种快乐仍然是不圆满的，因为会无常变化，因此需要摆脱欲望的束缚、追求解脱，才能获得真正的自由。这样的说法，让佛陀的一些亲人产生了出家修行的冲动，比如佛陀的儿子罗睺罗、堂弟阿难以及同父异母的难陀，他们都在佛陀弘法过程中陆续出家，成为佛陀僧团中的重要成员。
+面对亲人，佛陀的说法同样是因人而异。在《佛说未曾有因缘经》中记载道，佛陀希望儿子罗睺罗能够出家修行，可是母亲耶输陀罗爱子心切，眷念不舍。佛陀则对耶输陀罗说起他们之间在过去世的因缘：他过去世曾从耶输陀罗手中买下五枝莲花用来供佛，而耶输陀罗见到佛陀便倾心不已，想与其生生世世结为夫妻。佛陀则对她说，自己一直都在修行菩萨道，对于TA人的需求，总是尽量给予满足，不忍心拒绝，如果他答应与其成为夫妻，希望对方也满足他的心愿，也就是未来也要学习像菩萨一样无私布施，不能吝惜。耶输陀罗答应了佛陀的请求，于是才有了他们这一世的夫妻之缘。
+佛陀问耶输陀罗，为何你忘记了过去的誓言，而将罗睺罗视为一己之物，不忍舍去呢？耶输陀罗顿时回忆起过去自己所立下的种种誓言，才放下了对儿子的眷念，任其出家。母子离别时，罗睺罗乖巧地跪下合掌，向母亲承诺：母亲切莫发愁，我现在跟随佛陀出家，未来也会常常回来探望母亲。
+劝导儿子罗睺罗出家，这当然反映出佛陀对于生命意义价值的理解，也就是沉溺于世俗生活的享乐是无法获得真正自由的。但是他劝说妻子耶输陀罗的方式，也并非是无情与粗暴的。事实上，他提到人和人之间，无论是夫妻还是母子关系，彼此的相处之道都应该是无私的“布施”，但一般人对于这些关系都是因亲密而执着，不愿意让对方去追求TA们认为幸福的人生，这样的“爱”或许动人，却又是狭隘的。佛陀的劝导充满了人间的温情，比如提到过去世他和耶输陀罗的夫妻之缘，同样充满人与人之间的关爱与珍重。而罗睺罗与母亲分离之时，也表现出对母亲的关心与呵护，绝非是我们现在一般认为的那种“出家者无情”的理解。
+而那位与佛陀同父异母的弟弟难陀，虽然也羡慕出家修道的生活，但奈何与他的妻子孙陀利之间情缘深厚，念念不舍，在剃度出家后，还常常与孙陀利私会。我们今天还可以在敦煌莫高窟第254窟看到难陀与孙陀利之间难舍难分的画面。
+为了让难陀安心修行，佛陀施展了一点神通法力，带着难陀上到天宮，见到无数绝色美丽的天女围绕。难陀心中蠢动不已，同时也发现宫中居然没有主人，于是好奇询问天女，为何此处没有主人？天女回答道，佛陀的弟弟难陀未来将会因为持戒而生到此地。难陀听到很高兴，并告诉了佛陀，而佛陀呢，则积极地勉励难陀，你好好修行，未来一定会来这里成为天宫主人。
+然后，佛陀又带着难陀前往须弥山的外围，也就是铁围山，见到一只瞎眼的猕猴。佛陀问难陀，这只猕猴比起孙陀利，谁更漂亮？难陀马上反驳道：当然是孙陀利！这怎么有可比性呢？佛陀又问，那天女比起孙陀利呢？难陀当下就明白，所谓的“美”不过是相对而言，比起天女，他心中的孙陀利，也不过只是如猕猴一般。
+接着，佛陀又带着难陀游历地狱，告知他因为他贪欲心重，虽然能短时间内享受福报，但当这些福报受尽，就会沦落地狱受苦，轮回不已。难陀因此生起了强烈的畏惧心，贪心也顿时消除，从此之后便跟随佛陀安心修道，最后也证得了阿罗汉。
+ 
+讲完这些，大家也可以看出，经典中所记载的佛陀说法度化的故事，听上去并没有什么玄妙至深的哲理，十分贴近我们生命的切实感受。比如难陀对于世间美色的贪求之心，迷失在他所认为的“美丽外相”里，殊不知那不过是因为自己的认知被牢牢地束缚，看不到他眼中的“美”不过是随贪心所现，并非是真正的“美”。而这样的贪心，只会让人陷入自己的烦恼牢网之中，未来也会因这样的贪心而受苦，不得自由。
+这也可见，佛陀度化众生，其实是针对每个人内心里最为执着的部分，或是说理，或是打比方，甚至会带着对方作情境化的教学。这就好像是我们假如利用今天的VR设备，让一个人模拟体验ta未来的人生道路，看看ta今天所做的选择会导致什么样的结果，或许就会让人们对于当下的生活有一种如梦初醒的感觉。
+ 
+从祇园到鹤林
+
+佛陀的弘法路线大体上是从南边的波罗奈城、王舍城开始，慢慢往北边移动。佛陀在南方的游化，让他开始有了一些名声和影响力，前面所提到的给孤独长者，本身居住在北方拘萨罗国的舍卫城，他因为倾慕佛陀，于是邀请佛陀及其僧团能够来到北方弘法。
+但此时的僧团已经有上千名比丘的规模，起居住宿并非易事。于是，给孤独长者四处寻觅合适安置僧团的空地，最后找到了祇陀太子的一块土地，提出转让的请求。可是太子始终不肯，并且戏说道，想要这块地，那就请用黄金铺满地面。
+给孤独长者听后并不当作玩笑，而是真的不惜代价用黄金铺地，这让祇陀太子深为感动，于是决定捐出这块地，并且用铺在地面的黄金作为修建的资金，这也就是《金刚经》中大名鼎鼎的祇树给孤独园，一般也称为祇园精舍。
+在每年的雨季，僧人们基本足不出户，精进修行，又称为雨安居。所以精舍中会配备僧人们居住的寮房、仓库等设施，而如果是在雨季之外的日子，佛陀则会带着僧人们去野外的林泉水下修行。据说佛陀在祇园精舍度过了许多次的雨安居，想必在这里也讲了很多的佛法。
+ 
+事实上，佛陀在舍卫城的弘法并没有那么顺利。因为舍卫城地处北方，受到各种思潮影响，其中包括我们刚刚提到的“六师”外道，他们都是非常资深的修行者，并且受到拘萨罗国王波斯匿王的礼遇。
+其中，末伽黎·拘舍罗所领导的 修行团体，主要的活动范围就在舍卫城。他们信奉一切都是宿命，人们不能改变自己的命运，所以行善作恶皆无意义。当佛陀和僧团来到舍卫城后，他们便感受到威胁，于是想尽各种方法阻拦佛陀的弘法。他们收买年轻妓女去破坏僧团的名誉，还向国王波斯匿王申请，要与佛陀比试神通等等。当然，这些挑战最终都被佛陀一一化解。
+除了观念不同的修道团体之外，佛陀还会遇见凶恶之徒。比如在《杂阿含经》中记载了在当时的舍卫城，有一位江湖大盗，叫央掘魔罗（又翻译为鸯崛髻），因为受到老师的蛊惑，告诉他想要升入天道，就要杀死一千个人。因此，央掘魔罗变得残暴无比，他每杀害一人，便从尸体上砍下一根手指串在头上，用作发髻。整个王国都非常恐慌，不知如何应对。
+佛陀知晓这件事情后，主动找上门要与这位江湖大盗会面。当两人远远见到，央掘魔罗便提刀想要去杀佛陀，而佛陀则快步转头急忙离开，央掘魔罗一边在后面追赶，一边叫道：这位沙门，快点停步！佛陀却回头告诉央掘魔罗：“我久自住，而汝不住。” 意思是说，佛陀能主宰自己的起心动念，而不会对众生起残害之心，这里的“自住”，近似于“自主”的意思。而央掘魔罗受到他的老师的蛊惑，贪心泛起，因此杀心永不停歇，完全无法做到对自己行为的自主，所以是“而汝不住”。 央掘魔罗听到佛陀的教导，有所省悟，最终在佛陀座下出家修行。
+这样的情节，更像是一堂活生生的生命教育课。佛陀并不像一般人所想象的那样，只是端坐在高台之上，面对众多来请教的弟子来讲说佛法，反而是积极地走向人间，去给不同的人给以教导，而不分对方是所谓的善人、恶人，或是贵族、贱民。而且佛陀的说法，其实是在流动性的生活场景中展开的多样化的教学，或是用言语开导，或是用行动去给予某些提醒。而在场的人，也并非只是记住佛陀所讲的话语，而是全部见证了一场具体的生命实践。这和我们今天所理解的那种局限于课堂里的知识教育理念，显然有很大的不同。
+ 
+佛陀在生前给弟子的最后说法，同样是一场伟大的精神示范。
+当他预感到自己将不久于世后，告诉弟子，他将于三个月后在拘尸那迦城的娑罗双树之间涅槃，勉励弟子们未来精进修学。弟子们听到消息，大为震惊，捶胸顿足，哀痛不已。而佛陀则教导众弟子们：“汝等且止，勿怀忧悲。天地人物，无生不终，欲使有为不变易者，无有是处。我亦先说恩爱无常，合会有离，身非己有，命不久存。”（出自《长阿含经》）讲的仍然是人世无常的道理。
+在接下来的三个月里，佛陀与阿难等弟子赤足前行，朝着拘尸那迦城的方向慢慢前进。一路上，佛陀不断地给随行的弟子或遇到的求法者讲说佛法。在波婆城，佛陀一行遇到一位工匠，名叫周那（又译为纯陀），他见到佛陀前来，非常恭敬，佛陀便为他讲法。周那听法之后欢喜雀跃，于是给佛陀供养旃檀树耳，这是旃檀树上长的一种蘑菇，味道虽然鲜美，但却含有毒素。佛陀或许预知到旃檀树耳有毒，还特别嘱咐不要供养给其他出家人。佛陀吃下之后，病情变得更为严重，阿难看到这样的情况，对佛陀说道，周那的供养让您病情加重，所以他将无法获得任何福德。佛陀马上便斥责阿难说，周那是用虔敬之心来供养的，无论我是否因此中毒，他都将因此得福。
+此后，佛陀拖着病躯，终于抵达拘尸那迦城，静静躺卧在娑罗双树之间，对阿难说，你可以入城告知所有人，佛陀今晚将入涅槃，如果还有佛法方面的疑问，可速速前往请教，莫要错过。
+当阿难进入拘尸那迦城，告知大家佛陀将入涅槃的消息，众人连忙赶往佛陀处请教，而佛陀便为大家继续讲说无常之道。
+佛陀在圆寂之前，伸出手臂，告知众弟子：“汝等当观如来时时出世，如优昙钵花时一现耳。”也就是佛陀的讲法因缘，就好像昙花一现那样难得。
+在《大般涅槃经》中，记载了佛陀对阿难和其他的比丘作出最后的嘱托与告诫后，说出他最后的法偈：“诸行无常，是生灭法。生灭灭已，寂灭为乐。” 而当佛陀圆寂后，身后的娑罗双树瞬间变为白色，如同双鹤飞舞，也见证了佛陀一生的说法。
+ 
+从菩提树下的觉悟开始，佛陀的一生行履基本就是说法，但是他的说法，并不只是讲台上的布道，而是以赤脚行走的方式，深入到北印度的各个角落，去真实感受众生的喜怒哀乐，继而给出合适的教导与提醒。而在佛陀的年代，这些教导只能通过弟子们的聆听、感受和记忆，然后通过口耳相传的方式去保存和传播，在这个过程中，难免就会有记忆上的错谬，或是在传播过程中的讹误等等。
+佛陀圆寂之后，为了保证佛陀说法的准确性，以大迦叶尊者为代表的僧团便想要通过集体的方式，来为佛陀的说法进行汇总和确认，而我们也会在下一集介绍佛陀的教导是如何通过口耳相传，逐渐演变为书面文字的集结、编撰和传播的，我们下集再见。】</pre>
+          </div>
+        </details>
+
+        <details class="sec" id="sec-rare">
+          <summary>
+            <span class="sum-left">🔍 生僻字 / 难点（发音｜误区｜释义｜例句）</span>
+            <span class="chev" aria-hidden="true">▾</span>
+          </summary>
+          <div class="divider"></div>
+          <div class="content">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:16%">词</th>
+                  <th style="width:16%">注音/拼音</th>
+                  <th style="width:20%">常见误区</th>
+                  <th>释义（贴合本文语境）+ 例句</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>祇</b>（祇园）</td>
+                  <td>zhī</td>
+                  <td>误读为“qí”</td>
+                  <td>指祇陀太子相关的园林处所（“祇树给孤独园”）。<br><span class="muted">例：</span>“佛在舍卫国祇树给孤独园……”</td>
+                </tr>
+                <tr>
+                  <td><b>祇陀</b></td>
+                  <td>qí tuó</td>
+                  <td>把“祇”按“zhī”连读成“zhī tuó”</td>
+                  <td>王子名号，本文中将土地捐建精舍。<br><span class="muted">例：</span>“祇陀太子深为感动，于是决定捐出这块地。”</td>
+                </tr>
+                <tr>
+                  <td><b>毗舍离</b></td>
+                  <td>pí shě lí</td>
+                  <td>“舍”误读为shè</td>
+                  <td>北印度城镇名，佛陀常在多地说法。<br><span class="muted">例：</span>“鹿野苑、舍卫城、毗舍离乃至王舍城……”</td>
+                </tr>
+                <tr>
+                  <td><b>摩揭陀</b></td>
+                  <td>mó jiē tuó</td>
+                  <td>“揭”误读为jié</td>
+                  <td>古印度重要国度，王舍城所在，僧团壮大关键点。<br><span class="muted">例：</span>“佛陀弘法的下一站则是摩揭陀国。”</td>
+                </tr>
+                <tr>
+                  <td><b>憍陈如</b></td>
+                  <td>jiāo chén rú</td>
+                  <td>“憍”误读为qiáo</td>
+                  <td>最初五比丘之一，与“四圣谛/初转法轮”相连。<br><span class="muted">例：</span>“憍陈如等五位修行人……”</td>
+                </tr>
+                <tr>
+                  <td><b>目犍连</b></td>
+                  <td>mù jiān lián</td>
+                  <td>“犍”误读为qián</td>
+                  <td>佛陀重要弟子之一，与舍利弗并称，推动僧团规模。<br><span class="muted">例：</span>“舍利弗与目犍连的加入……”</td>
+                </tr>
+                <tr>
+                  <td><b>央掘魔罗</b></td>
+                  <td>yāng jué mó luó</td>
+                  <td>把“央”读成yáng</td>
+                  <td>故事中的强盗，借“自住/不住”展现转化与教化。<br><span class="muted">例：</span>“我久自住，而汝不住。”</td>
+                </tr>
+                <tr>
+                  <td><b>优昙钵花</b></td>
+                  <td>yōu tán bō</td>
+                  <td>误写为“优昙婆”</td>
+                  <td>比喻稀有难逢，用来强调法缘珍贵。<br><span class="muted">例：</span>“如优昙钵花时一现耳。”</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="small" style="margin-top:10px">教学提示：生僻字不只为“读对”，更为把握文化指向（地名、人名、制度名），否则会在理解上“错位”。</p>
+          </div>
+        </details>
+
+        <details class="sec" id="sec-terms">
+          <summary>
+            <span class="sum-left">🧩 关键术语（概念｜语境解释｜文化对应）</span>
+            <span class="chev" aria-hidden="true">▾</span>
+          </summary>
+          <div class="divider"></div>
+          <div class="content">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:18%">术语</th>
+                  <th style="width:34%">概念（简明）</th>
+                  <th>语境解释 + 文化对应（当代类比）</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>四圣谛</b></td>
+                  <td>苦、集、灭、道：对“痛苦—原因—止息—路径”的结构性诊断。</td>
+                  <td>佛陀在鹿野苑对五比丘“首讲”，像医生第一次给出病因学与治疗方案。<br>对应：系统性问题分析（Symptom → Cause → Goal → Plan）。</td>
+                </tr>
+                <tr>
+                  <td><b>初转法轮</b></td>
+                  <td>第一次公开、成体系地“转动”法的教化。</td>
+                  <td>标志僧团起点与教学法定型。<br>对应：一门学科的“第一堂核心课”。</td>
+                </tr>
+                <tr>
+                  <td><b>方便法门</b></td>
+                  <td>不执一法：因人、因境、因时选择合适的表达与路径。</td>
+                  <td>对苦行者讲“四圣谛”；对富贵者先讲布施持戒与无常；对贪恋者用情境冲击。<br>对应：差异化教学/个性化学习（personalized learning）。</td>
+                </tr>
+                <tr>
+                  <td><b>缘起</b></td>
+                  <td>事物依条件而生、因关系而成立。</td>
+                  <td>“诸法因缘生，是法说因缘。”是把复杂哲理压缩成可背诵的“模型句”。<br>对应：系统思维、因果网络、复杂系统的依赖关系。</td>
+                </tr>
+                <tr>
+                  <td><b>无常 / 无我 / 空</b></td>
+                  <td>万事变动（无常）；自我非固定实体（无我）；固有自性不可得（空）。</td>
+                  <td>用来拆解“执着”的抓手，让人从“想占有”转向“能看见”。<br>对应：认知解缠（cognitive defusion），降低自我中心叙事。</td>
+                </tr>
+                <tr>
+                  <td><b>涅槃</b></td>
+                  <td>烦恼止息的自由境界（非简单“消失”）。</td>
+                  <td>作为“离苦得乐”的目标被反复指向。<br>对应：从反复内耗转向稳定清明的心理状态（但更超越）。</td>
+                </tr>
+                <tr>
+                  <td><b>雨安居</b></td>
+                  <td>雨季集中修学、少外出游行的制度。</td>
+                  <td>祇园精舍承载“深修的季节”，与“游化的日常”互为节律。<br>对应：冲刺学习/闭关训练 vs. 日常实践。</td>
+                </tr>
+                <tr>
+                  <td><b>结集</b></td>
+                  <td>以集体确认方式保存教法，减少口传误差。</td>
+                  <td>呼应“记忆会偏差、传播会讹误”的现实。<br>对应：知识管理/版本控制/共识流程（review &amp; governance）。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+
+      <!-- Right column -->
+      <div class="card">
+        <details class="sec" id="sec-map">
+          <summary>
+            <span class="sum-left">🧠 思维导图（纯 SVG｜结构关系）</span>
+            <span class="chev" aria-hidden="true">▾</span>
+          </summary>
+          <div class="divider"></div>
+          <div class="content">
+            <p class="small">阅读方法：从中心“说法策略”向外看三层——路线（时空）、对象（人群）、方法（教学）。</p>
+            <div class="svg-wrap" role="img" aria-label="纯SVG知识结构图">
+              <svg viewBox="0 0 980 560" width="980" height="560" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <style>
+                    .n{fill:rgba(255,255,255,.55);stroke:rgba(139,94,52,.55);stroke-width:2}
+                    .d{fill:rgba(255,255,255,.55);stroke:rgba(43,58,103,.55);stroke-width:2}
+                    .t{font-family: ui-sans-serif, system-ui; font-weight:800; font-size:18px; fill:rgba(31,35,40,.9)}
+                    .s{font-family: ui-sans-serif, system-ui; font-weight:650; font-size:14px; fill:rgba(91,102,114,.95)}
+                    .l{stroke:rgba(91,102,114,.55);stroke-width:2;fill:none}
+                  </style>
+                </defs>
+
+                <!-- center -->
+                <rect x="390" y="232" rx="18" ry="18" width="200" height="96" class="n"/>
+                <text x="490" y="270" text-anchor="middle" class="t">佛陀说法</text>
+                <text x="490" y="298" text-anchor="middle" class="s">核心：方便法门</text>
+
+                <!-- left cluster: route -->
+                <path class="l" d="M390 280 C300 280 300 170 210 170"/>
+                <rect x="70" y="130" rx="16" ry="16" width="220" height="80" class="d"/>
+                <text x="180" y="162" text-anchor="middle" class="t">路线 / 场域</text>
+                <text x="180" y="188" text-anchor="middle" class="s">南 → 北（游化 + 安居）</text>
+
+                <path class="l" d="M70 170 C40 170 40 90 90 90"/>
+                <rect x="90" y="54" rx="14" ry="14" width="200" height="64" class="n"/>
+                <text x="190" y="86" text-anchor="middle" class="s">鹿野苑：初转法轮</text>
+
+                <path class="l" d="M70 190 C40 210 40 280 90 300"/>
+                <rect x="90" y="268" rx="14" ry="14" width="200" height="64" class="n"/>
+                <text x="190" y="300" text-anchor="middle" class="s">王舍城：僧团壮大</text>
+
+                <path class="l" d="M70 190 C40 230 40 360 90 400"/>
+                <rect x="90" y="368" rx="14" ry="14" width="200" height="64" class="n"/>
+                <text x="190" y="400" text-anchor="middle" class="s">舍卫城：祇园精舍</text>
+
+                <!-- right cluster: audiences -->
+                <path class="l" d="M590 280 C680 280 680 170 770 170"/>
+                <rect x="690" y="130" rx="16" ry="16" width="220" height="80" class="d"/>
+                <text x="800" y="162" text-anchor="middle" class="t">对象 / 根机</text>
+                <text x="800" y="188" text-anchor="middle" class="s">出家 · 在家 · 外道 · 亲人</text>
+
+                <path class="l" d="M910 170 C940 170 940 110 860 100"/>
+                <rect x="740" y="64" rx="14" ry="14" width="240" height="64" class="n"/>
+                <text x="860" y="96" text-anchor="middle" class="s">五比丘：苦行者</text>
+
+                <path class="l" d="M910 190 C940 210 940 280 860 300"/>
+                <rect x="740" y="268" rx="14" ry="14" width="240" height="64" class="n"/>
+                <text x="860" y="300" text-anchor="middle" class="s">耶舍/给孤独：在家人</text>
+
+                <path class="l" d="M910 190 C940 230 940 360 860 400"/>
+                <rect x="740" y="368" rx="14" ry="14" width="240" height="64" class="n"/>
+                <text x="860" y="400" text-anchor="middle" class="s">央掘魔罗：恶人亦可度</text>
+
+                <!-- bottom cluster: methods -->
+                <path class="l" d="M490 328 C490 400 390 430 300 470"/>
+                <rect x="160" y="440" rx="16" ry="16" width="260" height="88" class="d"/>
+                <text x="290" y="474" text-anchor="middle" class="t">方法 / 教学</text>
+                <text x="290" y="500" text-anchor="middle" class="s">说理 · 比喻 · 情境化示范</text>
+
+                <path class="l" d="M490 328 C490 400 590 430 680 470"/>
+                <rect x="560" y="440" rx="16" ry="16" width="260" height="88" class="d"/>
+                <text x="690" y="474" text-anchor="middle" class="t">结局 / 传播</text>
+                <text x="690" y="500" text-anchor="middle" class="s">无常示范 · 口传 → 结集</text>
+
+                <!-- micro nodes -->
+                <circle cx="490" cy="360" r="6" fill="rgba(139,94,52,.7)"/>
+                <circle cx="490" cy="392" r="6" fill="rgba(43,58,103,.7)"/>
+              </svg>
+            </div>
+          </div>
+        </details>
+
+        <details class="sec" id="sec-takeaways">
+          <summary>
+            <span class="sum-left">✅ 要点清单（来自原文）</span>
+            <span class="chev" aria-hidden="true">▾</span>
+          </summary>
+          <div class="divider"></div>
+          <div class="content">
+            <ul>
+              <li>佛经常以“一时”标记时间，强调内容而非年表；以现代眼光追溯生平会出现含混与矛盾。</li>
+              <li>佛陀说法地理跨度大：鹿野苑、波罗奈、王舍城、舍卫城等；也有“忉利天、龙宫”等超越日常经验的叙述。</li>
+              <li>觉悟后佛陀一度不愿说法，因“所悟微妙深邃、众生爱执深重”；在梵天劝请下开启说法。</li>
+              <li>首站鹿野苑：对五比丘讲四圣谛，成“初转法轮”，僧团肇始。</li>
+              <li>对耶舍等在家人：先从布施持戒与福报讲起，再导向无常、 explain 轮回的循环性，最后指向涅槃。</li>
+              <li>摩揭陀与王舍城：吸纳迦叶三兄弟团体及舍利弗、目犍连等，使僧团规模扩展至“千二百五十人”。</li>
+              <li>教学风格多样：故事、设问、比喻与“生死在一念之间”的强烈情境。</li>
+              <li>佛陀也度化亲人：回乡以“布施—持戒—无常—解脱”的梯度劝导；对难陀以“对照美与果报”的情境转化贪欲。</li>
+              <li>在舍卫城遭遇外道阻挠与凶徒挑战；央掘魔罗故事凸显“自住/不住”的心行主宰。</li>
+              <li>临终三个月：以无常为核心教导继续行走说法；圆寂前后以身教示范，并引出后续“结集”以保真。</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="sec" id="sec-feynman">
+          <summary>
+            <span class="sum-left">💡 费曼学习法（给 16 岁学生的类比）</span>
+            <span class="chev" aria-hidden="true">▾</span>
+          </summary>
+          <div class="divider"></div>
+          <div class="content">
+            <p><b>把佛陀想成一位“顶级教练 + 医生 + 设计师”。</b></p>
+            <p>同一支队伍里，有人是“苦练过头”的五比丘，有人是“太有钱但很空”的耶舍，有人是“被错误观念带偏”的外道学徒，有人是“被欲望黏住”的难陀，还有人甚至是“走偏到伤人”的央掘魔罗。</p>
+            <p>如果教练拿同一套话去对所有人说，效果会很差。于是佛陀用的就是“<b>方便法门</b>”——像游戏里的自适应难度：你是什么状态，就给你一个你听得懂、又能往前走一步的关卡。</p>
+            <ul>
+              <li><b>对苦行者</b>：直接讲“四圣谛”，像医生告诉你“病是什么、怎么来的、怎么好、怎么治”。</li>
+              <li><b>对富贵但迷茫者</b>：先认可你经历过的快乐（福报），再告诉你“它会变”，引你看见更深的自由。</li>
+              <li><b>对贪恋者</b>：不只是讲道理，而是带你“看见对比”——让你亲自发现你抓住的东西其实不牢靠。</li>
+            </ul>
+            <p>所以《金刚经》前的这一段背景想告诉你：佛陀说法不是“背答案”，而是“<b>在现场把你从卡住的地方松开</b>”。你学习任何深的东西也一样：先找到你真正卡住的点，再用最合适的方式把它讲明白。</p>
+          </div>
+        </details>
+
+        <details class="sec" id="sec-quotes">
+          <summary>
+            <span class="sum-left">💬 金句精选（引出｜解读｜联结现实）</span>
+            <span class="chev" aria-hidden="true">▾</span>
+          </summary>
+          <div class="divider"></div>
+          <div class="content">
+            <div class="quote">
+              <div class="lead">引出｜“一时”</div>
+              <div class="muted">解读：</div>佛经把“时间”淡化，让“教法”成为主角——不是在做传记，而是在传递可实践的洞见。<br>
+              <div class="muted">联结：</div>做学习笔记时别只记“什么时候听到”，更要记“我被点醒了什么、怎么用”。 
+            </div>
+            <div class="quote">
+              <div class="lead">引出｜“方便法门”</div>
+              <div class="muted">解读：</div>真正的智慧不是“说得最深”，而是“让对方走得更远”。<br>
+              <div class="muted">联结：</div>沟通时别急着输出观点，先问：对方此刻最在意什么？我能用什么比喻让他懂？
+            </div>
+            <div class="quote">
+              <div class="lead">引出｜“苦、集、灭、道”</div>
+              <div class="muted">解读：</div>它是一套“人类痛苦的工程图”：症状、原因、目标、路径。<br>
+              <div class="muted">联结：</div>当你焦虑时，试着写下四列：我在苦什么？原因是什么？我想要的“灭”是什么？下一步“道”是什么？
+            </div>
+            <div class="quote">
+              <div class="lead">引出｜“诸法因缘生，是法说因缘。”</div>
+              <div class="muted">解读：</div>把世界看成“条件的网络”，就不会只怪某一个人或某一件事。<br>
+              <div class="muted">联结：</div>遇到关系冲突，先画“因缘图”：压力、误会、期待、节奏……你会更容易找到改动的杠杆点。
+            </div>
+            <div class="quote">
+              <div class="lead">引出｜“生死在一念之间”</div>
+              <div class="muted">解读：</div>修行不是玄学，是对注意力与心念的训练：一念散乱，就被外境牵走。<br>
+              <div class="muted">联结：</div>刷短视频前先停 3 秒：我现在是要休息，还是在逃避？这 3 秒就是“自住”。
+            </div>
+            <div class="quote">
+              <div class="lead">引出｜“我久自住，而汝不住。”</div>
+              <div class="muted">解读：</div>“住”是主宰心行的能力：能停下，能选择，能不被冲动带走。<br>
+              <div class="muted">联结：</div>情绪上头时，先做一个动作：深呼吸 + 复述事实。把“反应”换成“回应”。
+            </div>
+            <div class="quote">
+              <div class="lead">引出｜“天地人物，无生不终……恩爱无常。”</div>
+              <div class="muted">解读：</div>不是悲观，而是看清：所有相聚都带着离别的结构，因此更要珍惜与善待。<br>
+              <div class="muted">联结：</div>给你在乎的人一句“我很珍惜你”，别等“必须告别”才想起。
+            </div>
+            <div class="quote">
+              <div class="lead">引出｜“诸行无常……寂灭为乐。”</div>
+              <div class="muted">解读：</div>当你不再被“生灭起伏”牵着走，才会触到更深的安稳。<br>
+              <div class="muted">联结：</div>练习每天一次“放下练习”：把一件非必要的执念（赢、证明、控制）主动放下 24 小时。
+            </div>
+          </div>
+        </details>
+
+        <details class="sec" id="sec-cross">
+          <summary>
+            <span class="sum-left">🌍 跨文化摘要（捷克语｜英语）</span>
+            <span class="chev" aria-hidden="true">▾</span>
+          </summary>
+          <div class="divider"></div>
+          <div class="content">
+            <h3>🇨🇿 Čeština (inspirativní, stručné, s hloubkou)</h3>
+            <p>Text vykresluje Buddhu nikoli jako kazatele „na pódiu“, ale jako učitele v pohybu: kráčí krajinou severní Indie, vstupuje do konkrétních situací a podle schopností posluchačů volí odlišný způsob výkladu. Čas se v sútrách často označuje jen jako „jednou“ – důraz není na kronice, nýbrž na sdělení, které má být prakticky ověřitelné.</p>
+            <p>Klíčovým motivem je <i>upāya</i> („dovedný prostředek“): stejná pravda se neříká všem stejně. Asketům se nabízí strukturovaná diagnóza utrpení (Čtyři vznešené pravdy), bohatému a prázdnému člověku nejprve jazyk etiky a pomíjivosti, člověku připoutanému k touze zase prožitková „konfrontace“ a kontrast. Tak se učení mění v pedagogiku: cílem není ohromit hloubkou, ale otevřít cestu k osvobození.</p>
+            <p>Závěr zdůrazňuje dvě věci: Buddha učí i umíráním – připomíná pomíjivost a vede žáky k samostatnosti („zůstat sám v sobě“). A protože ústní tradice snadno chybuje, vzniká potřeba kolektivního ověření a uspořádání učení (koncily, „zkompilování“), aby se obsah předával co nejpřesněji.</p>
+
+            <h3>🇬🇧 English (native-like, professional, reflective)</h3>
+            <p>This episode frames the Buddha less as a podium preacher and more as a mobile teacher: he moves through real places, meets real people, and teaches in real situations. The sutras often mark time simply as “at one time,” suggesting that what matters is not a neat biography but the transmissible insight and practice.</p>
+            <p>The organizing principle is <i>skillful means</i> (upāya): the same liberation is approached through different doors. To seasoned ascetics he offers a clean diagnostic model—the Four Noble Truths. To the wealthy yet hollow-hearted, he begins with ethics, giving, and the instability of pleasure before pointing to deeper freedom. To those entangled in desire, he uses experiential contrast—almost like a guided simulation—so insight is felt, not merely heard.</p>
+            <p>The closing movement turns into an embodied lesson: even in the final months, teaching continues as a demonstration of impermanence and inner autonomy. And because oral transmission is vulnerable to drift, the community turns to collective review and compilation—an early form of knowledge governance—to preserve what was taught with integrity.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <div class="float-download">
+      <button class="btn primary" id="downloadBtn" type="button" title="把当前页面保存为HTML文件">⬇️ 下载此页面</button>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script>
+    (function(){
+      const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+      const toast = (msg) => {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.classList.add('show');
+        window.clearTimeout(el._t);
+        el._t = window.setTimeout(()=>el.classList.remove('show'), 1400);
+      };
+
+      // default: all collapsed
+      $$('.sec').forEach(d => d.open = false);
+
+      // expand / collapse all
+      document.getElementById('expandAll').addEventListener('click', ()=>{
+        $$('.sec').forEach(d => d.open = true);
+        toast('已展开全部章节');
+      });
+      document.getElementById('collapseAll').addEventListener('click', ()=>{
+        $$('.sec').forEach(d => d.open = false);
+        toast('已折叠全部章节');
+      });
+      document.getElementById('scrollTop').addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+
+      // copy original
+      document.getElementById('copyOriginal').addEventListener('click', async ()=>{
+        const text = document.getElementById('originalPre').innerText;
+        try {
+          await navigator.clipboard.writeText(text);
+          toast('原文已复制到剪贴板');
+        } catch(e) {
+          // fallback
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.focus(); ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          toast('原文已复制（兼容模式）');
+        }
+      });
+
+      // download current page as HTML
+      function sanitizeFilename(name) {
+        // remove spaces and most symbols; keep Chinese/letters/numbers
+        return (name || 'download')
+          .replace(/[\s\u00A0]+/g,'')
+          .replace(/[\\/:*?"<>|]/g,'')
+          .replace(/[\[\]【】（）()《》“”‘’—–·|｜•]/g,'')
+          .replace(/\.+$/,'');
+      }
+
+      document.getElementById('downloadBtn').addEventListener('click', ()=>{
+        const title = document.title || '佛陀如何说法现代视野里的金刚经';
+        const fname = sanitizeFilename(title.split('｜')[0] || '佛陀如何说法现代视野里的金刚经') + '.html';
+        const htmlText = '<!doctype html>\n' + document.documentElement.outerHTML;
+        const blob = new Blob([htmlText], {type:'text/html;charset=utf-8'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fname;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        toast('已开始下载：' + fname);
+      });
+    })();
+  </script>
+</body>
+</html>
