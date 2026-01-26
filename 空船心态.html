@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>空船心态｜情绪稳定的智慧</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#0f1a2e;
+      --card:#111f3a;
+      --text:#e8eefc;
+      --muted:#a8b6d8;
+      --line:rgba(232,238,252,.14);
+      --accent:#7dd3fc;
+      --accent2:#a78bfa;
+      --good:#34d399;
+      --warn:#fbbf24;
+      --shadow: 0 18px 55px rgba(0,0,0,.35);
+      --radius:18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --serif: ui-serif, "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+      --sans: ui-sans-serif, system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(125,211,252,.14), transparent 55%),
+        radial-gradient(1000px 500px at 80% 15%, rgba(167,139,250,.12), transparent 55%),
+        radial-gradient(900px 520px at 55% 95%, rgba(52,211,153,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070b14 68%, #060911);
+      color:var(--text);
+      line-height:1.75;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(11,18,32,.92), rgba(11,18,32,.55));
+      border-bottom:1px solid var(--line);
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:18px 18px;}
+    .hero{
+      display:flex; gap:18px; align-items:flex-start; justify-content:space-between;
+      padding:18px 0 6px;
+    }
+    .title{
+      display:flex; gap:14px; align-items:flex-start;
+    }
+    .badge{
+      width:52px; height:52px; border-radius:14px;
+      background: linear-gradient(145deg, rgba(125,211,252,.26), rgba(167,139,250,.22));
+      border:1px solid rgba(232,238,252,.18);
+      display:grid; place-items:center;
+      box-shadow: var(--shadow);
+      flex:0 0 auto;
+    }
+    .badge svg{opacity:.95}
+    h1{margin:0; font-size:28px; letter-spacing:.5px}
+    .subtitle{color:var(--muted); margin:6px 0 0; font-size:14px}
+    .toolbar{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+      margin-top:2px;
+    }
+    .btn{
+      border:1px solid rgba(232,238,252,.18);
+      background: rgba(17,31,58,.65);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      transition: transform .08s ease, border-color .2s ease, background .2s ease;
+      font-size:14px;
+      display:flex; align-items:center; gap:8px;
+      user-select:none;
+    }
+    .btn:hover{border-color: rgba(125,211,252,.45); background: rgba(17,31,58,.85)}
+    .btn:active{transform: translateY(1px)}
+    main{padding:14px 0 54px}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:16px;
+      align-items:start;
+    }
+    @media (max-width: 960px){
+      .grid{grid-template-columns:1fr}
+      .toolbar{justify-content:flex-start}
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(17,31,58,.72), rgba(15,26,46,.55));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .inner{padding:16px 16px 18px}
+    .card h2{
+      margin:0;
+      font-size:16px;
+      letter-spacing:.3px;
+      display:flex; align-items:center; gap:10px;
+    }
+    .chip{
+      font-size:12px;
+      padding:2px 8px;
+      border-radius:999px;
+      border:1px solid rgba(232,238,252,.18);
+      color:var(--muted);
+    }
+    details{
+      border-top:1px solid var(--line);
+    }
+    details:first-of-type{border-top:none}
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      background: rgba(15,26,46,.55);
+    }
+    summary::-webkit-details-marker{display:none}
+    .sum-left{
+      display:flex; align-items:center; gap:10px;
+      min-width: 0;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: linear-gradient(145deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 6px rgba(125,211,252,.10);
+      flex:0 0 auto;
+    }
+    .sum-title{
+      font-weight:650;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .chev{
+      width:18px; height:18px; flex:0 0 auto;
+      opacity:.8;
+      transition: transform .2s ease;
+    }
+    details[open] .chev{transform: rotate(180deg)}
+    .content{
+      padding: 0 16px 18px;
+      color: var(--text);
+    }
+    .content p{margin: 10px 0}
+    .content ul{margin:10px 0 0 18px}
+    .content li{margin:6px 0}
+    .callout{
+      border:1px solid rgba(125,211,252,.22);
+      background: rgba(125,211,252,.08);
+      padding:12px 12px;
+      border-radius:14px;
+      color: var(--text);
+      margin:12px 0;
+    }
+    .callout strong{color:#f1fbff}
+    .muted{color:var(--muted)}
+    .kpi{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width: 540px){ .kpi{grid-template-columns:1fr} }
+    .pill{
+      border:1px solid rgba(232,238,252,.16);
+      background: rgba(17,31,58,.45);
+      padding:10px 12px;
+      border-radius:16px;
+    }
+    .pill .t{font-weight:650}
+    .pill .d{color:var(--muted); font-size:13px; margin-top:4px}
+    .table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid rgba(232,238,252,.12);
+      border-radius:14px;
+    }
+    .table th, .table td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(232,238,252,.10);
+      vertical-align:top;
+    }
+    .table th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      background: rgba(17,31,58,.45);
+      position:sticky; top:0;
+    }
+    .table tr:last-child td{border-bottom:none}
+    .hl{
+      padding:0 2px;
+      border-radius:6px;
+      transition: background .2s ease, box-shadow .2s ease;
+    }
+    .hl.active{
+      background: rgba(251,191,36,.22);
+      box-shadow: 0 0 0 6px rgba(251,191,36,.08);
+    }
+    .quote{
+      border-left:3px solid rgba(167,139,250,.55);
+      padding:10px 12px;
+      background: rgba(167,139,250,.08);
+      border-radius: 12px;
+      margin:10px 0;
+    }
+    .quote .q{font-family:var(--serif)}
+    .quote .a{color:var(--muted); margin-top:6px}
+    .mini{
+      font-family: var(--mono);
+      font-size:12px;
+      color: var(--muted);
+      border:1px dashed rgba(232,238,252,.20);
+      padding:10px 10px;
+      border-radius:14px;
+      background: rgba(17,31,58,.35);
+      overflow:auto;
+    }
+    .mindmap{
+      width:100%;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid rgba(232,238,252,.12);
+      background: radial-gradient(800px 380px at 40% 20%, rgba(125,211,252,.10), transparent 60%),
+                  radial-gradient(700px 350px at 80% 65%, rgba(167,139,250,.10), transparent 60%),
+                  rgba(17,31,58,.35);
+      padding:10px;
+    }
+    .footer{
+      padding:22px 0 40px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    /* Print */
+    @media print{
+      header{position:static; backdrop-filter:none}
+      .btn, .toolbar{display:none !important}
+      body{background:#fff; color:#000}
+      .card{box-shadow:none; border-color:#ddd}
+      summary{background:#f7f7f7}
+      .muted{color:#333}
+      .quote{background:#f5f0ff}
+      .callout{background:#eef8ff}
+      details{break-inside:avoid}
+      details{border-color:#ddd}
+      .table th{position:static}
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="wrap">
+    <div class="hero">
+      <div class="title">
+        <div class="badge" aria-hidden="true">
+          <!-- Simple boat icon -->
+          <svg width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 38h44l-7 12H17l-7-12Z" stroke="rgba(232,238,252,.92)" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M20 38V16c10 1 18 7 24 14v8" stroke="rgba(232,238,252,.92)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M12 54c6 4 12 4 18 0 6 4 12 4 18 0 6 4 10 4 16 0" stroke="rgba(125,211,252,.8)" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h1>空船心态 🛶</h1>
+          <div class="subtitle">把“针对我”的念头放下，让情绪回到自己手里。</div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <button class="btn" onclick="toggleAll(true)" title="展开全部章节">
+          <span>📖</span><span>展开全部</span>
+        </button>
+        <button class="btn" onclick="toggleAll(false)" title="折叠全部章节">
+          <span>🧩</span><span>折叠全部</span>
+        </button>
+        <button class="btn" onclick="window.print()" title="打印或导出为 PDF">
+          <span>🖨️</span><span>一键打印</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+    <!-- Left: main reading -->
+    <section class="card">
+      <div class="inner">
+        <h2>阅读导航 <span class="chip">全部默认折叠</span></h2>
+        <p class="muted" style="margin:10px 0 0;">
+          小提示：在“生僻字”里点击条目，会跳回原文对应位置并高亮 5 秒。
+        </p>
+      </div>
+
+      <details id="sec-original">
+        <summary>
+          <div class="sum-left">
+            <div class="dot"></div>
+            <div class="sum-title">原文（100% 保留）</div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(232,238,252,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <p><span id="o1" class="hl">真正情绪稳定的人，其实都掌握了一种智慧，空船心态。</span></p>
+
+          <p>什么叫做空船心态？庄子讲过这样一个故事：乘船渡河，突然有另一艘船转过来了，本能的觉得是有人要跟你过不去。但是如果发现那是一条空船，就算受到了惊吓，也不会太生气。如果船上有人，多半会气得够<span id="o2" class="hl">呛</span>。</p>
+
+          <p>为什么空船撞了你不会生气？因为认为它不是故意撞过来的，这其实就是佛学里面说的<span id="o3" class="hl">着相</span>。太容易执着于事物的表象，而空船心态练习的恰恰是不着相的本事。</p>
+
+          <p>把那些惹你生气的事，先看作是一艘空船，船上其实并没有一个要针对你、要伤害你的人，那只是<span id="o4" class="hl">因缘</span>巧合下一个偶然发生的事情而已。很多时候生气并不是因为事情本身，而是因为心里面执着一个念头，肯定是冲我来的。而这样就把别人的情绪硬生生变成了自己的烦恼。</p>
+
+          <p>真正厉害的人都懂得空船心态，与人相处的时候要是有人话里带刺，非要争个输赢高低，不要下意识觉得他是在针对你，也不要急着争论、辩解，就把他看做那条空船。他不是在跟你过不去，他是自己也不知道自己要向哪里去。</p>
+
+          <p>他的行为是他的认知和心境决定的，和你的价值毫无关系。不接招、不较真、不往心里去，自己的心情一点都不受影响，这也是佛学里说的<span id="o5" class="hl">应无所住而生其心</span>。不要揪着负面的念头不放，心态自然就稳了，这就是空船心态的厉害之处。</p>
+
+          <p>把别人的情绪和偏见还给别人，把自己的心力留给自己，不要把空船当成敌船，就不会被外界搅得心神不宁。他是他，你是你，他的情绪与你无关。</p>
+        </div>
+      </details>
+
+      <details id="sec-core">
+        <summary>
+          <div class="sum-left">
+            <div class="dot"></div>
+            <div class="sum-title">核心解读：主旨一句话 + 三条要点</div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(232,238,252,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <div class="callout">
+            <strong>主旨一句话：</strong>遇到让你不舒服的人和事，先别急着当成“针对我”，把它当作“空船”，情绪就会稳下来。
+          </div>
+
+          <div class="kpi">
+            <div class="pill">
+              <div class="t">1）先把“故意”拿掉</div>
+              <div class="d">很多怒气来自“你就是冲我来的”。空船心态先暂停这个判断。</div>
+            </div>
+            <div class="pill">
+              <div class="t">2）对方的状态≠你的价值</div>
+              <div class="d">他话里带刺，是他的认知与心境在作决定，和你值不值得无关。</div>
+            </div>
+            <div class="pill">
+              <div class="t">3）不接招，就是在护心力</div>
+              <div class="d">不争输赢、不较真、不往心里去，把心力留给真正重要的事。</div>
+            </div>
+            <div class="pill">
+              <div class="t">一句好用的提醒</div>
+              <div class="d">“这也许不是敌船，只是空船。”</div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details id="sec-rare">
+        <summary>
+          <div class="sum-left">
+            <div class="dot"></div>
+            <div class="sum-title">生僻字（发音）｜误区｜释义｜例句</div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(232,238,252,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <p class="muted">注：本段按“可能读错/不常用”挑选。点击“回到原文”会定位并高亮 5 秒。</p>
+          <table class="table" aria-label="生僻字表">
+            <thead>
+              <tr>
+                <th style="width:16%">字/词</th>
+                <th style="width:14%">发音</th>
+                <th style="width:24%">常见误区</th>
+                <th style="width:26%">释义</th>
+                <th style="width:20%">例句（来自文意）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>呛</strong> <button class="btn" style="padding:6px 10px; border-radius:12px; font-size:12px" onclick="jumpTo('o2')">🔎 回到原文</button></td>
+                <td>qiàng</td>
+                <td>读成 qiāng（更常见于“呛水”的 qiàng）</td>
+                <td>刺激、难受；口语里也可形容“气得不行”。</td>
+                <td>“多半会气得够呛。”</td>
+              </tr>
+              <tr>
+                <td><strong>着相</strong> <button class="btn" style="padding:6px 10px; border-radius:12px; font-size:12px" onclick="jumpTo('o3')">🔎 回到原文</button></td>
+                <td>zhuó xiàng</td>
+                <td>把“着”读成 zháo / zhe；或把“着相”理解成“讲排场”</td>
+                <td>佛学语：执着于外在表象，把“相”当真。</td>
+                <td>“这其实就是佛学里面说的着相。”</td>
+              </tr>
+              <tr>
+                <td><strong>因缘</strong> <button class="btn" style="padding:6px 10px; border-radius:12px; font-size:12px" onclick="jumpTo('o4')">🔎 回到原文</button></td>
+                <td>yīn yuán</td>
+                <td>等同于“缘分/命中注定”</td>
+                <td>佛学语：条件与关系的聚合，事情在诸多原因下发生。</td>
+                <td>“那只是因缘巧合下一个偶然发生的事情而已。”</td>
+              </tr>
+              <tr>
+                <td><strong>应无所住而生其心</strong> <button class="btn" style="padding:6px 10px; border-radius:12px; font-size:12px" onclick="jumpTo('o5')">🔎 回到原文</button></td>
+                <td>yìng wú suǒ zhù ér shēng qí xīn</td>
+                <td>误解为“什么都不在乎/摆烂”</td>
+                <td>不执著停留在某个念头上，但仍能起正当之心、做该做之事。</td>
+                <td>“不要揪着负面的念头不放，心态自然就稳了。”</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <details id="sec-terms">
+        <summary>
+          <div class="sum-left">
+            <div class="dot"></div>
+            <div class="sum-title">关键术语：概念｜语境解释｜文化对应</div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(232,238,252,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <table class="table" aria-label="关键术语表">
+            <thead>
+              <tr>
+                <th style="width:18%">术语</th>
+                <th style="width:34%">概念与语境解释</th>
+                <th style="width:48%">跨文化对应（帮助理解）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>空船心态</strong></td>
+                <td>把冲突先当成“无主的碰撞”，不急着把意图、恶意投射到对方身上。</td>
+                <td>类似心理学的“<em>不做意图归因</em> / 降低敌意归因”；也像斯多葛的“区分可控与不可控”。</td>
+              </tr>
+              <tr>
+                <td><strong>着相</strong></td>
+                <td>执着表象：把“他这样说”直接等同于“他就是要害我/否定我”。</td>
+                <td>可对应为“认知偏差中的<em>读心术</em>（mind reading）与<em>个人化</em>（personalization）”。</td>
+              </tr>
+              <tr>
+                <td><strong>不接招</strong></td>
+                <td>不是软弱，而是拒绝把对方的情绪接到自己身上，让情绪回到源头。</td>
+                <td>非暴力沟通里强调“区分观察与评价”；冲突管理中的“去升级（de-escalation）”。</td>
+              </tr>
+              <tr>
+                <td><strong>应无所住而生其心</strong></td>
+                <td>心不黏住负面念头，但仍保持清醒与行动力：该回应就回应，只是不被拖走。</td>
+                <td>接近正念（mindfulness）里“念头来去如云”；行动上类似“带着情绪也能做正确的事”。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <details id="sec-mindmap">
+        <summary>
+          <div class="sum-left">
+            <div class="dot"></div>
+            <div class="sum-title">思维导图（SVG）</div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(232,238,252,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <div class="mindmap" role="img" aria-label="空船心态思维导图">
+            <svg viewBox="0 0 1060 520" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="6" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <!-- connectors -->
+              <path d="M520 250 C420 250, 360 160, 260 160" stroke="rgba(125,211,252,.55)" stroke-width="3" fill="none"/>
+              <path d="M520 250 C420 250, 360 250, 260 250" stroke="rgba(167,139,250,.45)" stroke-width="3" fill="none"/>
+              <path d="M520 250 C420 250, 360 340, 260 340" stroke="rgba(52,211,153,.45)" stroke-width="3" fill="none"/>
+              <path d="M540 250 C660 250, 720 160, 840 160" stroke="rgba(125,211,252,.45)" stroke-width="3" fill="none"/>
+              <path d="M540 250 C660 250, 720 250, 840 250" stroke="rgba(167,139,250,.45)" stroke-width="3" fill="none"/>
+              <path d="M540 250 C660 250, 720 340, 840 340" stroke="rgba(52,211,153,.45)" stroke-width="3" fill="none"/>
+
+              <!-- center -->
+              <g filter="url(#glow)">
+                <rect x="440" y="210" rx="18" ry="18" width="180" height="80" fill="rgba(232,238,252,.06)" stroke="rgba(232,238,252,.22)" />
+                <text x="530" y="250" text-anchor="middle" fill="rgba(232,238,252,.92)" font-size="24" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">空船心态</text>
+                <text x="530" y="276" text-anchor="middle" fill="rgba(168,182,216,.92)" font-size="13" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">把“针对我”先放一放</text>
+              </g>
+
+              <!-- left nodes -->
+              <g>
+                <rect x="90" y="125" rx="16" ry="16" width="240" height="70" fill="rgba(125,211,252,.08)" stroke="rgba(125,211,252,.25)"/>
+                <text x="210" y="155" text-anchor="middle" fill="rgba(232,238,252,.92)" font-size="18" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">故事：空船撞来</text>
+                <text x="210" y="178" text-anchor="middle" fill="rgba(168,182,216,.92)" font-size="13" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">有人 vs 无人 → 情绪不同</text>
+
+                <rect x="90" y="215" rx="16" ry="16" width="240" height="70" fill="rgba(167,139,250,.08)" stroke="rgba(167,139,250,.22)"/>
+                <text x="210" y="245" text-anchor="middle" fill="rgba(232,238,252,.92)" font-size="18" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">关键：不着相</text>
+                <text x="210" y="268" text-anchor="middle" fill="rgba(168,182,216,.92)" font-size="13" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">别执着表象与意图归因</text>
+
+                <rect x="90" y="305" rx="16" ry="16" width="240" height="70" fill="rgba(52,211,153,.08)" stroke="rgba(52,211,153,.20)"/>
+                <text x="210" y="335" text-anchor="middle" fill="rgba(232,238,252,.92)" font-size="18" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">练习：先当偶然</text>
+                <text x="210" y="358" text-anchor="middle" fill="rgba(168,182,216,.92)" font-size="13" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">把触发点当“因缘巧合”</text>
+              </g>
+
+              <!-- right nodes -->
+              <g>
+                <rect x="760" y="125" rx="16" ry="16" width="260" height="70" fill="rgba(125,211,252,.08)" stroke="rgba(125,211,252,.22)"/>
+                <text x="890" y="155" text-anchor="middle" fill="rgba(232,238,252,.92)" font-size="18" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">人际：话里带刺</text>
+                <text x="890" y="178" text-anchor="middle" fill="rgba(168,182,216,.92)" font-size="13" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">别急着争论辩解</text>
+
+                <rect x="760" y="215" rx="16" ry="16" width="260" height="70" fill="rgba(167,139,250,.08)" stroke="rgba(167,139,250,.22)"/>
+                <text x="890" y="245" text-anchor="middle" fill="rgba(232,238,252,.92)" font-size="18" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">原则：不接招</text>
+                <text x="890" y="268" text-anchor="middle" fill="rgba(168,182,216,.92)" font-size="13" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">他的情绪不变成你的烦恼</text>
+
+                <rect x="760" y="305" rx="16" ry="16" width="260" height="70" fill="rgba(52,211,153,.08)" stroke="rgba(52,211,153,.20)"/>
+                <text x="890" y="335" text-anchor="middle" fill="rgba(232,238,252,.92)" font-size="18" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">结果：心神不宁↓</text>
+                <text x="890" y="358" text-anchor="middle" fill="rgba(168,182,216,.92)" font-size="13" font-family="system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei'">心力留给自己与重要之事</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </details>
+
+      <details id="sec-checklist">
+        <summary>
+          <div class="sum-left">
+            <div class="dot"></div>
+            <div class="sum-title">要点清单（来自原文）</div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(232,238,252,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <ul>
+            <li>同样被“撞到”，你会不会生气，取决于你是否认为对方“故意”。</li>
+            <li>执着于表象与意图（着相）会放大愤怒；练习不着相会让心更稳。</li>
+            <li>把惹你生气的事先当作“空船”——很多只是偶然发生。</li>
+            <li>与人相处时，别急着把话里带刺当成针对你；不争输赢高低。</li>
+            <li>对方的行为由他的认知和心境决定，与你的价值无关。</li>
+            <li>不接招、不较真、不往心里去：把别人的情绪与偏见还给别人。</li>
+            <li>不揪着负面念头不放（应无所住而生其心），心态自然稳定。</li>
+          </ul>
+        </div>
+      </details>
+
+      <details id="sec-feynman">
+        <summary>
+          <div class="sum-left">
+            <div class="dot"></div>
+            <div class="sum-title">费曼学习法（成人版：低门槛但不降智）</div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(232,238,252,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <div class="callout">
+            <strong>把它讲给“忙到没空修行的人”听：</strong>你生气往往不是因为发生了什么，而是因为你给它加了一个解释——“他是故意的、冲我来的”。空船心态就是先把这个解释拿掉。
+          </div>
+
+          <p><strong>1）用一句话复述</strong><br/>
+            “先别把别人的行为当成针对我，给自己留 3 秒‘空船缓冲’。”
+          </p>
+
+          <p><strong>2）用一个生活例子讲清楚</strong><br/>
+            地铁里有人挤了你一下：如果你觉得他在挑衅，你会越想越气；如果你想到“可能他赶时间/没注意”，情绪就会缓下来。
+          </p>
+
+          <p><strong>3）找出你理解的漏洞（最容易掉坑的点）</strong></p>
+          <ul>
+            <li><strong>坑 A：</strong>“空船=忍气吞声”。其实不是；你可以表达边界，只是不把恶意投射当成事实。</li>
+            <li><strong>坑 B：</strong>“不接招=不回应”。不接招是“不被拖着走”，回应可以更清晰、更少情绪成本。</li>
+            <li><strong>坑 C：</strong>“他不尊重我=我不值钱”。这是把对方的状态误当作自己的价值评估。</li>
+          </ul>
+
+          <p><strong>4）给自己一个可执行的微练习（每天 1 次就够）</strong></p>
+          <div class="mini">
+            触发点出现 → 心里默念：这可能是一条空船 → 先做一次深呼吸（4 秒吸、6 秒呼） → 再决定：回应/离开/设边界。<br/>
+            只要你能把“自动反应”换成“有选择的回应”，空船心态就正在生长。
+          </div>
+        </div>
+      </details>
+
+      <details id="sec-quotes">
+        <summary>
+          <div class="sum-left">
+            <div class="dot"></div>
+            <div class="sum-title">金句（8 句）：引出 → 解读 → 联结</div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(232,238,252,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <div class="quote">
+            <div class="q">【引出】“空船心态” → 【解读】先把“他故意”的剧情关掉 → 【联结】少一次脑补，多一分清明。</div>
+          </div>
+          <div class="quote">
+            <div class="q">【引出】“发现是空船，就不太生气” → 【解读】情绪的燃料是“意图归因” → 【联结】先问一句：我确定他是故意的吗？</div>
+          </div>
+          <div class="quote">
+            <div class="q">【引出】“着相” → 【解读】把表象当真，就会被牵着走 → 【联结】把注意力从“他怎么想”移回“我怎么做”。</div>
+          </div>
+          <div class="quote">
+            <div class="q">【引出】“因缘巧合的偶然” → 【解读】很多冲突不必升级成对立 → 【联结】把事件降级，人生就升级。</div>
+          </div>
+          <div class="quote">
+            <div class="q">【引出】“话里带刺…就把他看做空船” → 【解读】刺很多时候来自对方的困局 → 【联结】不必把别人的困局搬进自己的心里。</div>
+          </div>
+          <div class="quote">
+            <div class="q">【引出】“他的行为…和你的价值毫无关系” → 【解读】别用他人的状态给自己打分 → 【联结】自尊要长在自己手里。</div>
+          </div>
+          <div class="quote">
+            <div class="q">【引出】“应无所住而生其心” → 【解读】念头可以来，但别让它住下 → 【联结】让情绪经过你，而不是接管你。</div>
+          </div>
+          <div class="quote">
+            <div class="q">【引出】“把空船当成敌船” → 【解读】把世界想成敌人，心就永远在战场 → 【联结】能撤兵的人，才有余力生活。</div>
+          </div>
+        </div>
+      </details>
+
+      <details id="sec-script">
+        <summary>
+          <div class="sum-left">
+            <div class="dot"></div>
+            <div class="sum-title">60 秒跨文化口播稿：中文｜捷克语｜英语</div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="rgba(232,238,252,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="content">
+          <p class="muted">语气：启发性、简洁、有深度；可直接照着念。</p>
+
+          <h3 style="margin:12px 0 6px; font-size:15px;">中文</h3>
+          <div class="mini">
+            真正情绪稳定的人，往往有一种“空船心态”。庄子说：渡河时若被另一艘船撞到，若船上无人，我们惊吓一下就过去了；若船上有人，我们会立刻生气，因为我们给它加了一个解释：他是故意的。<br/>
+            空船心态就是练习把“针对我”的念头先放下。很多时候，事情本身没那么大，是我们执着于表象、执着于意图，把别人的情绪变成了自己的烦恼。<br/>
+            所以下次有人话里带刺、非要争输赢，你可以先把他当作一条空船：他的行为更多由他的认知与心境决定，与你的价值无关。你不接招、不较真，心就稳了。把别人的情绪还给别人，把心力留给自己。
+          </div>
+
+          <h3 style="margin:12px 0 6px; font-size:15px;">捷克语（Čeština）</h3>
+          <div class="mini">
+            Skutečně emočně stabilní lidé často ovládají postoj, kterému můžeme říkat „mentální nastavení prázdné lodi“. V příběhu od Čuang-c’ se člověk při převozu přes řeku lekne, když do něj narazí jiná loď. Když je však loď prázdná, hněv rychle odezní. Když v ní někdo sedí, hněv vzplane — protože si automaticky vytvoříme výklad: „udělal to schválně, je to proti mně“. <br/>
+            Prázdná loď nás učí nejdřív odložit tento výklad. Mnoho konfliktů není tak velkých samo o sobě; zvětšují se tím, že se připoutáme k domnělému úmyslu a vezmeme si cizí emoce jako vlastní břemeno. <br/>
+            Až příště někdo mluví jedovatě nebo chce vyhrát za každou cenu, zkuste ho nejprve vidět jako „prázdnou loď“. Jeho chování vychází hlavně z jeho poznání a rozpoložení — ne z vaší hodnoty. Když „nepřijmete výzvu“, vaše mysl zůstane klidná a energie zůstane vám.
+          </div>
+
+          <h3 style="margin:12px 0 6px; font-size:15px;">English</h3>
+          <div class="mini">
+            Emotionally steady people often share one quiet skill: the “empty boat” mindset. Zhuangzi tells a story: if another boat bumps into yours on the river, you’ll feel very different depending on what you believe. If the boat is empty, you may be startled, but you won’t stay angry. If someone is on it, anger flares—because you instantly add a narrative: “They did it on purpose. It’s about me.”<br/>
+            The empty boat mindset is the practice of dropping that narrative first. Many conflicts aren’t that big by themselves; they grow when we cling to appearances and assumed intent, turning someone else’s emotion into our own burden.<br/>
+            So when someone speaks with sharp edges or insists on winning, try seeing them as an empty boat: their behavior is shaped by their own mindset, not your worth. Don’t take the bait. Don’t argue for ego. Keep your energy for what actually matters.
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- Right: quick panel -->
+    <aside class="card">
+      <div class="inner">
+        <h2>随手可用的小卡片 ✨</h2>
+        <p class="muted" style="margin:10px 0 0;">把“空船”当作一个暂停键：暂停归因，暂停对立，暂停内耗。</p>
+
+        <div class="callout" style="margin-top:12px">
+          <strong>三秒空船法：</strong><br/>
+          1）这可能不是故意的；<br/>
+          2）就算是故意的，也不代表我不重要；<br/>
+          3）我选择怎么回应。
+        </div>
+
+        <div class="pill" style="margin-top:12px">
+          <div class="t">一句自我提醒</div>
+          <div class="d">“不要把空船当成敌船。”</div>
+        </div>
+
+        <div class="pill" style="margin-top:10px">
+          <div class="t">一句边界表达（不接招≠不说话）</div>
+          <div class="d">“我听见你的观点了，但我不想用对抗的方式交流。我们可以换一种说法吗？”</div>
+        </div>
+
+        <div class="pill" style="margin-top:10px">
+          <div class="t">一条反刍终止语</div>
+          <div class="d">“我不再重复那句‘他是冲我来的’。”</div>
+        </div>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:14px 0"/>
+
+        <div class="muted" style="font-size:13px">
+          ✅ 你可以把这页保存为本地文件；打印可导出 PDF。<br/>
+          ✅ 所有章节默认折叠，适合碎片化阅读。
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="footer">
+    Made with 🧠 + 🛶｜空船心态：把心力留给自己。
+  </div>
+</main>
+
+<script>
+  function toggleAll(open){
+    document.querySelectorAll('details').forEach(d => d.open = !!open);
+  }
+
+  function jumpTo(id){
+    // Ensure original is visible before jumping
+    const sec = document.getElementById('sec-original');
+    if (sec && !sec.open) sec.open = true;
+
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+    el.classList.add('active');
+
+    window.clearTimeout(el._hlTimer);
+    el._hlTimer = window.setTimeout(() => {
+      el.classList.remove('active');
+    }, 5000);
+  }
+</script>
+</body>
+</html>
