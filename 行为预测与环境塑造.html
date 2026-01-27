@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>行为预测与环境塑造｜萨波斯基要点整理</title>
+  <style>
+    :root{
+      --bg: #0b1220;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.09);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --muted2: rgba(255,255,255,.55);
+      --line: rgba(255,255,255,.14);
+      --accent: #7ee0c1;
+      --accent2:#ffd18a;
+      --danger:#ff7a7a;
+      --ok:#9cffc5;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --serif: ui-serif, "Noto Serif SC","Source Han Serif SC","Songti SC", STSong, SimSun, serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 15% 10%, rgba(126,224,193,.20), transparent 55%),
+        radial-gradient(900px 600px at 85% 15%, rgba(255,209,138,.18), transparent 60%),
+        radial-gradient(900px 800px at 55% 90%, rgba(126,150,255,.12), transparent 60%),
+        var(--bg);
+      line-height:1.75;
+    }
+    a{color:inherit}
+    .wrap{max-width:1120px;margin:0 auto;padding:26px 18px 80px}
+    .topbar{
+      position:sticky;top:0;z-index:10;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(11,18,32,.92), rgba(11,18,32,.55));
+      border-bottom:1px solid var(--line);
+    }
+    .topbar .wrap{padding:14px 18px}
+    .hero{
+      display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap;
+    }
+    .badge{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:6px 10px;border:1px solid var(--line);
+      border-radius:999px;background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .title{
+      margin:10px 0 6px;
+      font-family: var(--serif);
+      letter-spacing:.4px;
+      font-weight:800;
+      line-height:1.2;
+      font-size: clamp(28px, 3.3vw, 44px);
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: 15px;
+      max-width: 76ch;
+    }
+    .actions{
+      margin-left:auto;
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    button{
+      appearance:none;border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      padding:10px 12px;border-radius:12px;
+      cursor:pointer;
+      transition:.15s transform ease, .15s background ease, .15s border-color ease;
+      box-shadow: none;
+      font-weight:650;
+    }
+    button:hover{transform: translateY(-1px); background:rgba(255,255,255,.08); border-color: rgba(255,255,255,.22)}
+    button:active{transform: translateY(0px)}
+    .btn-accent{border-color: rgba(126,224,193,.55); background: rgba(126,224,193,.10)}
+    .btn-accent:hover{background: rgba(126,224,193,.16)}
+    .btn-warn{border-color: rgba(255,122,122,.55); background: rgba(255,122,122,.08)}
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+      margin-top:18px;
+    }
+    @media (min-width: 980px){
+      .grid{grid-template-columns: 320px 1fr; gap:18px}
+    }
+    .card{
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .inner{padding:16px 16px 14px}
+    .card h3{
+      margin:0 0 10px;
+      font-size: 15px;
+      color: var(--muted);
+      font-weight:800;
+      letter-spacing:.2px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .toc a{
+      display:flex; gap:10px; align-items:center;
+      text-decoration:none;
+      padding:10px 10px;
+      border-radius: 12px;
+      border:1px dashed transparent;
+      color:var(--muted);
+    }
+    .toc a:hover{background:rgba(255,255,255,.06); color:var(--text); border-color: rgba(255,255,255,.18)}
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: rgba(126,224,193,.75);
+      box-shadow: 0 0 0 6px rgba(126,224,193,.12);
+      flex:0 0 auto;
+    }
+    details{
+      border-top:1px solid var(--line);
+    }
+    details:first-of-type{border-top:none}
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 16px;
+      font-weight:850;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      background: rgba(255,255,255,.03);
+      user-select:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    .sumleft{display:flex; align-items:center; gap:10px; min-width:0}
+    .chip{
+      font-size:12px;color:var(--muted);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      padding:3px 8px;border-radius:999px;
+      white-space:nowrap;
+    }
+    .caret{
+      width:22px;height:22px;border-radius:10px;
+      border:1px solid var(--line);
+      display:grid; place-items:center;
+      color:var(--muted);
+      flex:0 0 auto;
+    }
+    details[open] summary{background: rgba(255,255,255,.05)}
+    details[open] .caret{transform: rotate(90deg)}
+    .content{padding:14px 16px 18px}
+    .muted{color:var(--muted)}
+    .note{
+      border:1px solid rgba(126,224,193,.35);
+      background: rgba(126,224,193,.08);
+      padding:12px 12px;
+      border-radius: 14px;
+      color: rgba(255,255,255,.86);
+      margin:10px 0 0;
+    }
+    .kpi{
+      display:grid; gap:10px;
+      grid-template-columns: 1fr;
+      margin-top: 8px;
+    }
+    @media (min-width: 680px){
+      .kpi{grid-template-columns: repeat(3, 1fr)}
+    }
+    .pill{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      padding: 12px;
+      min-height: 86px;
+    }
+    .pill .t{font-size:13px; color:var(--muted2); margin-bottom:6px; font-weight:800}
+    .pill .v{font-size:15px; font-weight:750}
+    .list{
+      margin:10px 0 0; padding-left: 20px;
+    }
+    .list li{margin:6px 0}
+    .table{
+      width:100%;
+      border-collapse: collapse;
+      margin-top:10px;
+      overflow:hidden;
+      border-radius: 14px;
+      border:1px solid var(--line);
+    }
+    .table th,.table td{
+      padding:10px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    .table th{
+      text-align:left;
+      color: var(--muted);
+      font-size: 13px;
+      background: rgba(255,255,255,.04);
+      font-weight: 900;
+    }
+    .table tr:last-child td{border-bottom:none}
+    .quote{
+      border-left: 3px solid rgba(255,209,138,.75);
+      background: rgba(255,209,138,.08);
+      padding: 12px 12px;
+      border-radius: 14px;
+      margin:10px 0;
+    }
+    pre{
+      margin:0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: var(--serif);
+      font-size: 15px;
+      color: rgba(255,255,255,.90);
+    }
+    mark.ref{
+      background: rgba(255,209,138,.24);
+      color: var(--text);
+      padding: 0 .18em;
+      border-radius: .35em;
+    }
+    .flash{
+      animation: flash 5s ease 1;
+      outline: 2px solid rgba(126,224,193,.75);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+    @keyframes flash{
+      0%{background: rgba(126,224,193,.35)}
+      12%{background: rgba(255,209,138,.30)}
+      100%{background: transparent}
+    }
+    .mindmap{
+      width:100%;
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.03);
+      padding:10px;
+    }
+    .gold{
+      background: linear-gradient(90deg, rgba(126,224,193,.2), rgba(255,209,138,.18));
+      border:1px solid rgba(255,255,255,.16);
+      border-radius: 16px;
+      padding: 12px;
+    }
+    .tagrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .tag{
+      font-size:12px;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+    }
+
+    /* print */
+    @media print{
+      :root{--bg:#fff;--text:#111;--muted:#333;--muted2:#444;--line:#ccc;--card:#fff;--card2:#fff}
+      body{background:#fff; color:#111}
+      .topbar{position:static; background:#fff; border-bottom:1px solid #ddd}
+      .actions, .toc, .badge, .tagrow{display:none !important}
+      .grid{grid-template-columns: 1fr}
+      .card{box-shadow:none}
+      summary{background:#f6f6f6}
+      pre{color:#111}
+      .quote{background:#fff4e2}
+      .note{background:#eaf9f3}
+      details{page-break-inside:avoid}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="hero">
+        <div>
+          <div class="badge">🧠 全栈教育交互设计｜可折叠 · 可打印 · 可跳转高亮</div>
+          <h1 class="title">行为预测与环境塑造：把“人为什么会这样”拆到时间轴上</h1>
+          <p class="subtitle">
+            依据你提供的原文内容，按“原文保留 → 白话解读 → 生僻字与术语 → 思维导图 → 清单与方法 → 金句 → 60秒口播”的学习路径排版。
+          </p>
+          <div class="tagrow" aria-label="tags">
+            <span class="tag">⏱️ 毫秒到几十年</span>
+            <span class="tag">⚖️ 决策受状态影响</span>
+            <span class="tag">👑 权力是激发器</span>
+            <span class="tag">🏭 系统塑造个体</span>
+            <span class="tag">🕊️ 少恨一点，多理解</span>
+          </div>
+        </div>
+
+        <div class="actions" role="group" aria-label="page actions">
+          <button class="btn-accent" id="btnOpenAll">展开全部</button>
+          <button id="btnCloseAll">折叠全部</button>
+          <button id="btnPrint">🖨️ 一键打印全文</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="grid">
+      <aside class="card toc" aria-label="table of contents">
+        <div class="inner">
+          <h3>🧭 导航</h3>
+          <a href="#sec-original"><span class="dot"></span><span>原文（100%保留）</span></a>
+          <a href="#sec-one-sentence"><span class="dot"></span><span>核心解读：一句话 + 三要点</span></a>
+          <a href="#sec-rare"><span class="dot"></span><span>生僻字：发音｜误区｜释义｜例句</span></a>
+          <a href="#sec-terms"><span class="dot"></span><span>关键术语：概念｜语境｜文化对应</span></a>
+          <a href="#sec-mindmap"><span class="dot"></span><span>思维导图（SVG）</span></a>
+          <a href="#sec-bullets"><span class="dot"></span><span>要点清单（来自原文）</span></a>
+          <a href="#sec-feynman"><span class="dot"></span><span>费曼学习法（成年人版）</span></a>
+          <a href="#sec-quotes"><span class="dot"></span><span>金句（5–10句）</span></a>
+          <a href="#sec-script"><span class="dot"></span><span>60秒跨文化口播稿：中｜捷｜英</span></a>
+          <div class="note">
+            <b>小提示：</b>“生僻字”表格里的每一项都能一键跳到原文对应位置，并高亮 5 秒。
+          </div>
+        </div>
+      </aside>
+
+      <main class="card">
+        <details id="sec-original">
+          <summary>
+            <div class="sumleft">
+              <span>📜 原文（100%保留）</span>
+              <span class="chip">默认折叠</span>
+            </div>
+            <span class="caret">›</span>
+          </summary>
+          <div class="content">
+            <div class="gold muted" style="margin-bottom:12px">
+              下面原文会在页面加载后自动为部分“生僻字/术语”打上可跳转锚点（不改动文字内容）。
+            </div>
+            <pre id="originalText" aria-label="original text">
+我最近很惊讶，国内竟然没有重点关注一下这个人，我搜了一下，甚至连他的词条都没有。这个人叫罗伯特·萨波斯基，麦克阿瑟天才奖的得主。他在2017年的时候出了一本书叫《Behave》（《行为》），教我们怎么精准预测任何一个人的行为。而且不光是预测，他还干了一件更狠的事：他把一个人为什么会做出一个行为拆成了从毫秒级到几十年的完整的时间轴。
+
+你们知道行为经济学的大牛丹尼尔·卡尼曼就是用萨波斯基的发现去分析人的各种不可预测的行为，结果得了诺奖。美国思想界有一个主持天花板叫克里斯塔·蒂贝特，她说这个世界上最不希望死的人就是萨波斯基。废话不多说，直接把萨波斯基最有用的东西捋一下，教大家怎么去预判一个人的行为，怎么判断一个人以后会不会变，以及到底有没有可能去真正改变一个人？
+
+我们每天都会遇到各种各样的人，有些人这辈子只可能见一次，比方去办签证、去银行办业务、去一家公司面试、去谈合作。怎么做能让这种见面尽量的顺利，避免在第一步就被卡死？
+
+2011年在以色列发生了一件持续出现的怪事，这个事本身特别偶然，就是当时有一组科学家想去监狱里面看一看法官到底是怎么释放犯人的。因为在美国和以色列的司法体系里面有一个制度叫做“假释”。如果一个罪犯被判了刑，服刑期间他表现的特别良好，态度很积极，他就能申请提前出狱。这个决定不是法官拍脑袋决定的，要一个假释委员会来投票。
+
+每天早上九点开始，假释官刚刚吃完早饭，喝完咖啡，这个时候罪犯就被一个一个带进来。假释官看材料、讨论一下，决定放不放人。早上九点到十点之间，罪犯被批准放出去的比例差不多是60%左右，非常高。但是随着时间一点一点过去，假释官开始频繁看表，讨论时间变短，对风险的变化格外敏感。罪犯的通过率一路从60%掉到了20%以下。临近吃饭之前几乎降到了零，哪怕这些罪犯犯的事更轻，表现的更好，通过率依旧是零。
+
+等假释官吃完午饭，短暂的休息一下，几乎是立刻的，罪犯的通过率瞬间回到了60%多，不是缓慢回升，是立刻恢复。萨普斯基就发现，在其他条件完全相同的前提下，一个罪犯能不能放出去，跟他犯了什么事关系根本就不大，反而跟假释官当时的精神状态、疲劳程度、血糖水平高度相关。
+
+这个结果后来在认知行为界引发了大地震。所以当你只跟一个人接触一次的时候，不要去研究他的人格，只关注他此刻的状态。当我们去做重要的对话的时候，比方讲面试、签证、谈合作、重大沟通。
+
+如果你能选择时间，尽量选在早上八点到十点，或者是下午一点到四点之间，避开一个人最容易饿、累、烦，大脑前额叶效率最低的时间段。因为在那个时间点，哪怕最理性的人也可能只是一个被身体状态牵着走的普通人。
+
+刚才这个故事讲的是跟对方只有一面之缘，那我们去选择自己的长期合作伙伴、朋友、伴侣的时候，我们怎么判断这个人未来的行为不会变形？这个就要讲到萨波斯基20多岁的时候，他在哈佛读人类学的博士，他没有留在实验室，而是跑去了非洲，在肯尼亚的马赛马拉草原上面住帐篷、吃罐头、被蚊子咬。
+
+研究一种和人类社会极其相似的动物：狒狒。因为肯尼亚的狒狒和其他的灵长类动物不一样，他们不缺吃的，他们每天只需要花三个小时觅食，剩下的九个小时全部用来社交，包括结盟、打架、争夺权力，几乎就是一个被无限放大的人类社会。
+
+萨波斯基发现，有一些温和的雄性狒狒在低位的时候非常安静，不惹事，看起来特别友好。但是一旦社会地位上升之后，行为会在几天之内迅速翻转，开始主动的挑衅、恐吓、打压、羞辱，速度快到你根本来不及用性格改变去解释。
+
+所以为什么会这样？原来这些狒狒在打赢的瞬间，体内睾酮水平迅速升高，多巴胺系统被强烈的激活，身体开始不断向大脑发出信号：你现在拥有资源了，你必须要守住。也就是说，他们的身体变化快过心理变化。
+
+还有，萨波斯基发现变化最极端的那批狒狒，恰恰是曾经在低位的时候被打得最惨，被羞辱最多的个体。他们记得自己是怎么被驱赶，被剥夺食物，被无视的。所以当权力到来的那一刻，大脑就会立刻启动防御机制，开始提前攻击、羞辱，过度控制。
+
+所以对应到人类社会，当一个人在刚刚获得一点点权力的时候，行为发生剧烈变化，我们大概率可以判断，这个人本来就不是稳定型的人格，只是之前没有机会表现出来而已。
+
+其实这里说的权力不光是地位提高，突然成了领导、老板、高管，也指信息优势、关系优势、认知和资源领先，任何一个位置差。比方讲，有些人比你早知道一些内幕，他就立刻开始卖关子。有些人一在朋友圈子里面更受欢迎，他就开始贬低、嘲讽你。一个人刚赚了一点钱，就开始突然对你说教，把你不如他归结为你不够努力，不够自律。
+
+其实一个人不需要有多大的权力，只要位置稍微不对称，我们就能看到他真实的反应模式。但是大家注意，这里不是在区分好人跟坏人，我们不做道德审判，而是告诉大家，权力变化，是观察行为是否稳定的最佳激发器。
+
+因为真正稳定的人，地位上升，态度不会变，优势增加，边界也不会乱。因为对于他们来说，权力不是自我价值的唯一来源。而那些变化非常剧烈，突然开始打击嘲讽羞辱的人，他们也不是忽然堕落，而是他们一直没有稳定的内化的安全感。所以对于后者，我们可以预判，他们未来的行为是一定会发生变形的。
+
+那更进一步，我们怎么预判一群人的行为呢？当你进入一家新的公司，新的团体，你怎么判断这个地方会让你成长，还是不宜久留呢？你听，上个世纪80年代的后期，萨波斯基在肯尼亚，开始长期追踪一个新的狒狒团体。有一天，群体里面，攻击性最强的那一波雄性狒狒，组团去人类垃圾场里面找吃的，结果不小心误食了被结核病感染的牛肉，集体“嘎了”。
+
+这么一来群体里面就只剩下那些没有攻击性的温和的雄性狒狒了。在几个月的时间里打架消失了，食物争夺的情况明显减少，狒狒之间互相梳毛多了，整体的氛围变平和了。两年之后新一批年轻的雄性狒狒加入，按道理来讲他们应该建立新的暴力秩序，但是结果完全相反。这些外来的雄性被整个群体同化，学会了这一套温和的社交方式。
+
+这个观察一直持续了30年，萨普斯基得出了一个结论：个体的行为跟他的品性关系不大，而是系统长期奖励出来的结果。那帮新来的雄性狒狒之所以能够变得温和不是因为他们本性善良，而是因为现在的这个环境不再奖励攻击。
+
+这个例子如果放到我们人类世界你会发现为什么有些地方强硬的人更吃香，不讲理的人升得更快，会甩锅的人活得反而更安全？是因为整个系统奖励攻击，于是所有人就会被慢慢训练成同一种样子，不是因为大家想改变，而是因为你不变就活不下去。
+
+萨波斯基把这种环境叫做慢性高压锅式环境，它有四个特点：
+
+• 第一点，不可预测。你永远不知道哪一句话会踩雷，哪一件事会被追责。人一旦无法预测未来，神经系统就会长期处在一个警戒的状态。
+
+• 第二点，缺乏控制感。你很努力但是努力得不到回报，行为就会慢慢开始失控。
+
+• 第三点，付出无效。你加班忍让妥协，但是回报是随机的。久而久之大脑就会学会一件事不如算了，不如躺平，反正都一样。
+
+• 第四点，缺乏社会支持。出了问题没有人兜底，错误被无限放大，没有人同情你，支持你。人在这种环境下就会本能的变得防御冷漠功利。
+
+所以当我们判断一个群体的未来行为的时候不要只看这些人人品好不好，而是看他们在被什么样的系统塑造。因为在慢性高压锅里好人也会变得冷漠，温和的人也会学会攻击，理性的人也会变得极端。所以遇到这种环境尽早远离，不要觉得自己是不是不够有耐力，任何大脑在这种环境下都会变形。
+
+不知道大家有没有发现。
+
+上面我说的三个故事没有一次在讨论好人和坏人，萨波斯基真正让我觉得震撼的地方就在于他告诉我们人的行为和道德品质的关系远远比我们以为的要小得多。你看法官会被血糖的水平左右，个体会在权力变化的时候迅速变形，群体会被大环境塑造。从头到尾他都没有说一句这个人是坏的，那个人是懒汉，他不行是因为他不够努力。
+
+因为在萨波斯基的世界里人类几乎没有任何一个行为是凭空发生的。他提出了一个非常反直觉的观点，人在任何一个时间尺度上都不存在真正意义上的自主选择。你做的每一个决定都来自于前一秒的神经兴奋，前一天的睡眠质量，前几个月的压力，十几年前形成的神经回路，甚至你没出生之前母体激素水平的变化。
+
+他有一句流传非常广的名言：如果你早出生30分钟，你的整个性格可能都会不同，因为母体的荷尔蒙、神经发育、压力都会发生微妙的变化。那很多人就会说了：如果真的是这样，那我努力还有什么意义？那我还要奋斗干什么？但是这个正是我觉得萨波斯基最深刻的地方。
+
+他说：当你理解到其实我们没有所谓的自由意志和自由选择的时候，你才不会去恨自己，你也不会再去恨别人，你会真正的松一口气。因为我们不是站在同一起跑线上，而是被推到那里之后才开始做选择的。
+
+我们很多人这辈子都在自责，为什么我这么焦虑？为什么我谈不好恋爱？为什么别人可以我不行？是不是因为我不够自律，不够狠不够强？萨普斯基给出的答案是，你不是不够好，你是在用一个被创伤塑形的大脑，在一个并不友善的系统里，努力的活着。而不再去恨别人，是因为你会发现，别人的行为也不是凭空发生的。那个人之所以冷漠、控制、逃避、伤人，不是因为他故意这样，他根本没有能力。
+
+这个不是让我们为别人的行为找理由，原谅伤害我们的人，而是让自己不再被仇恨困住，能够彻底从关系当中抽离。
+
+而萨波斯基最让我浑身起鸡皮疙瘩的点，是我最近有一天走在路上的时候，我忽然之间意识到的：我们越是明白自己其实没有选择，我们越是能获得一点点真正的自由。因为这个你“忽然之间的明白”，会在你和你的行为之间产生一个停顿。你会出现一秒钟的犹豫，不会马上爆炸，马上重复旧的模式，不会立刻伤害别人。而这一秒钟，就是人类能拥有的全部自由。当我们能把这一秒尽量拉长一点，你就不再是被过去推着走的人，而是一个拥有了自由的人。
+
+最后想问大家一个问题啊，你是什么时候开始意识到，原来很多事情不是你不够好，而是你真的已经尽力了呢？想听听大家的看法。
+            </pre>
+          </div>
+        </details>
+
+        <details id="sec-one-sentence">
+          <summary>
+            <div class="sumleft">
+              <span>🎯 原文核心解读：主旨一句话 + 三条要点</span>
+              <span class="chip">白话版</span>
+            </div>
+            <span class="caret">›</span>
+          </summary>
+          <div class="content">
+            <div class="kpi">
+              <div class="pill">
+                <div class="t">主旨一句话</div>
+                <div class="v">想预判人的行为，别只盯“性格”，要同时看<strong>当下状态</strong>、<strong>权力/位置变化</strong>，以及<strong>系统长期奖励</strong>会把人训练成什么样。</div>
+              </div>
+              <div class="pill">
+                <div class="t">要点 1</div>
+                <div class="v">一次性见面：重点不是“这个人是谁”，而是“他现在处于什么状态”（饿不饿、累不累、烦不烦）。</div>
+              </div>
+              <div class="pill">
+                <div class="t">要点 2</div>
+                <div class="v">长期关系：看一个人遇到<strong>一点点权力/优势</strong>时会不会变形——权力是暴露真实反应模式的放大镜。</div>
+              </div>
+            </div>
+            <div class="pill" style="margin-top:10px">
+              <div class="t">要点 3</div>
+              <div class="v">群体与组织：别只评判个体好坏，要看系统是不是“慢性高压锅”（不可预测、缺控制、付出无效、缺支持）——这种环境会把所有人塑形。</div>
+            </div>
+            <div class="note">
+              ✅ 你原文最后的“停顿一秒钟”是行动入口：不是让人消极，而是把“自动反应”改成“可选择的反应”。
+            </div>
+          </div>
+        </details>
+
+        <details id="sec-rare">
+          <summary>
+            <div class="sumleft">
+              <span>🧩 生僻字（发音）｜误区｜释义｜例句</span>
+              <span class="chip">可点击跳转原文</span>
+            </div>
+            <span class="caret">›</span>
+          </summary>
+          <div class="content">
+            <p class="muted">选取原文中相对更“少见/更专业”的字词（不做权威字典替代，用于学习定位）。点击“跳到原文”会自动高亮 5 秒。</p>
+            <table class="table" aria-label="rare characters table">
+              <thead>
+                <tr>
+                  <th style="width:14ch">生僻字/词</th>
+                  <th style="width:10ch">发音</th>
+                  <th style="width:18ch">常见误区</th>
+                  <th>释义（语境化）</th>
+                  <th style="width:18ch">例句（来自原文语境）</th>
+                  <th style="width:12ch">定位</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>狒狒</b></td>
+                  <td>fèi fèi</td>
+                  <td>误写成“猒猒/非非”等</td>
+                  <td>一种灵长类动物（你文中用来映射“人类社会的权力与社交”）。</td>
+                  <td>“研究一种和人类社会极其相似的动物：狒狒。”</td>
+                  <td><button onclick="jumpTo('ref-feifei')">跳到原文</button></td>
+                </tr>
+                <tr>
+                  <td><b>假释</b></td>
+                  <td>jiǎ shì</td>
+                  <td>把“假”理解成“假的放人”</td>
+                  <td>服刑期间表现良好，经过委员会审议后提前释放的制度安排。</td>
+                  <td>“有一个制度叫做‘假释’。”</td>
+                  <td><button onclick="jumpTo('ref-jiaoshi')">跳到原文</button></td>
+                </tr>
+                <tr>
+                  <td><b>前额叶</b></td>
+                  <td>qián é yè</td>
+                  <td>误以为“情绪都在前额叶”</td>
+                  <td>与自控、计划、权衡等有关的脑区（你文中强调其在疲劳/饥饿时效率下降）。</td>
+                  <td>“大脑前额叶效率最低的时间段。”</td>
+                  <td><button onclick="jumpTo('ref-qianeye')">跳到原文</button></td>
+                </tr>
+                <tr>
+                  <td><b>睾酮</b></td>
+                  <td>gāo tóng</td>
+                  <td>把“睾”读成“gǎo”</td>
+                  <td>一种与竞争/动机等相关的激素（你文中用于解释权力变化后的快速行为翻转）。</td>
+                  <td>“体内睾酮水平迅速升高……”</td>
+                  <td><button onclick="jumpTo('ref-gaotong')">跳到原文</button></td>
+                </tr>
+                <tr>
+                  <td><b>多巴胺</b></td>
+                  <td>duō bā àn</td>
+                  <td>把它简化成“快乐激素”</td>
+                  <td>与奖励学习、动机、强化有关的神经递质（你文中用于说明“赢了→系统被激活”）。</td>
+                  <td>“多巴胺系统被强烈的激活……”</td>
+                  <td><button onclick="jumpTo('ref-doba')">跳到原文</button></td>
+                </tr>
+                <tr>
+                  <td><b>结核</b></td>
+                  <td>jié hé</td>
+                  <td>误读为“jiē hé”</td>
+                  <td>一种传染病（你文中作为“偶然事件”触发群体结构变化）。</td>
+                  <td>“误食了被结核病感染的牛肉……”</td>
+                  <td><button onclick="jumpTo('ref-jiehe')">跳到原文</button></td>
+                </tr>
+                <tr>
+                  <td><b>兜底</b></td>
+                  <td>dōu dǐ</td>
+                  <td>只理解成“别人替你背锅”</td>
+                  <td>出现问题时有人提供支持/补救/承担风险；你文中用它描述“缺乏社会支持”。</td>
+                  <td>“出了问题没有人兜底……”</td>
+                  <td><button onclick="jumpTo('ref-doudi')">跳到原文</button></td>
+                </tr>
+                <tr>
+                  <td><b>塑形</b></td>
+                  <td>sù xíng</td>
+                  <td>误以为只和“外貌/健身”有关</td>
+                  <td>在长期压力与系统奖励下，大脑/行为模式被“训练成固定样子”。</td>
+                  <td>“用一个被创伤塑形的大脑……”</td>
+                  <td><button onclick="jumpTo('ref-suxing')">跳到原文</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details id="sec-terms">
+          <summary>
+            <div class="sumleft">
+              <span>🧷 关键术语（概念 + 语境解释 + 文化对应）</span>
+              <span class="chip">理解框架</span>
+            </div>
+            <span class="caret">›</span>
+          </summary>
+          <div class="content">
+            <ul class="list">
+              <li><b>状态依赖决策</b>：人的判断会被当下能量/疲劳/血糖等“生理状态”牵引。<br><span class="muted">语境：</span>假释通过率随时间跌落、午饭后瞬间回升。<br><span class="muted">文化对应：</span>在很多组织里，流程“看起来理性”，但实际被“人类硬件”左右；因此沟通要学会选时机。</li>
+              <li><b>权力/优势作为激发器</b>：一点点位置不对称，就能把真实反应模式放大出来。<br><span class="muted">语境：</span>狒狒地位上升后迅速挑衅、恐吓、羞辱；人类也会在信息/关系/资源优势时变形。<br><span class="muted">文化对应：</span>中式关系里“面子/圈层/资源差”更常见，优势一出现，边界与尊重最容易被测试。</li>
+              <li><b>系统奖励（reinforcement）</b>：环境长期奖励什么，群体就会被训练成什么。<br><span class="muted">语境：</span>新来的雄性狒狒被同化为温和方式，是因为环境不再奖励攻击。<br><span class="muted">文化对应：</span>绩效、晋升、问责机制就是“奖励/惩罚装置”，它决定“谁活得更安全”。</li>
+              <li><b>慢性高压锅式环境</b>：长期压力并非来自一次性事件，而是来自结构性条件（四要素）。<br><span class="muted">语境：</span>不可预测、缺控制、付出无效、缺支持。<br><span class="muted">文化对应：</span>这类组织常用“模糊规则 + 随机问责”维持控制；个人再强也会被系统磨损。</li>
+              <li><b>自由意志的“停顿一秒”</b>：当你看见自己被过去推着走，哪怕只多出一秒犹豫，也是在扩展自由。<br><span class="muted">语境：</span>理解“选择并非凭空发生”，减少自责与仇恨。<br><span class="muted">文化对应：</span>从“责备型文化”过渡到“机制理解 + 可行动的自我调节”。</li>
+            </ul>
+          </div>
+        </details>
+
+        <details id="sec-mindmap">
+          <summary>
+            <div class="sumleft">
+              <span>🗺️ 思维导图（纯 SVG）</span>
+              <span class="chip">结构关系视角</span>
+            </div>
+            <span class="caret">›</span>
+          </summary>
+          <div class="content">
+            <div class="mindmap" role="img" aria-label="mind map svg">
+              <svg width="1100" height="560" viewBox="0 0 1100 560" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="8" stdDeviation="10" flood-opacity="0.35"/>
+                  </filter>
+                  <style>
+                    .node{fill:rgba(255,255,255,.06); stroke:rgba(255,255,255,.18); stroke-width:1.2}
+                    .node2{fill:rgba(126,224,193,.10); stroke:rgba(126,224,193,.55); stroke-width:1.4}
+                    .node3{fill:rgba(255,209,138,.10); stroke:rgba(255,209,138,.55); stroke-width:1.4}
+                    .t{fill:rgba(255,255,255,.92); font: 700 16px system-ui, -apple-system, Segoe UI, Roboto}
+                    .s{fill:rgba(255,255,255,.72); font: 600 13px system-ui, -apple-system, Segoe UI, Roboto}
+                    .l{stroke:rgba(255,255,255,.22); stroke-width:2}
+                    .la{stroke:rgba(126,224,193,.55); stroke-width:2}
+                    .lb{stroke:rgba(255,209,138,.55); stroke-width:2}
+                  </style>
+                </defs>
+
+                <!-- center -->
+                <rect x="420" y="32" rx="18" ry="18" width="260" height="86" class="node2" filter="url(#softShadow)"/>
+                <text x="550" y="68" text-anchor="middle" class="t">预判行为的三把钥匙</text>
+                <text x="550" y="92" text-anchor="middle" class="s">状态 · 权力变化 · 系统奖励</text>
+
+                <!-- left: one-shot -->
+                <line x1="420" y1="75" x2="220" y2="150" class="la"/>
+                <rect x="48" y="120" rx="16" ry="16" width="300" height="120" class="node"/>
+                <text x="198" y="154" text-anchor="middle" class="t">一次性接触</text>
+                <text x="198" y="178" text-anchor="middle" class="s">别研究人格</text>
+                <text x="198" y="201" text-anchor="middle" class="s">先看“此刻状态”</text>
+                <text x="198" y="224" text-anchor="middle" class="s">（饥饿/疲劳/血糖）</text>
+
+                <rect x="70" y="255" rx="16" ry="16" width="256" height="84" class="node3"/>
+                <text x="198" y="288" text-anchor="middle" class="t">实操策略</text>
+                <text x="198" y="312" text-anchor="middle" class="s">尽量选 8–10 / 13–16</text>
+
+                <line x1="198" y1="240" x2="198" y2="255" class="lb"/>
+
+                <!-- right: power -->
+                <line x1="680" y1="75" x2="910" y2="150" class="lb"/>
+                <rect x="760" y="120" rx="16" ry="16" width="300" height="132" class="node"/>
+                <text x="910" y="154" text-anchor="middle" class="t">长期关系选择</text>
+                <text x="910" y="178" text-anchor="middle" class="s">看“优势到来”时</text>
+                <text x="910" y="201" text-anchor="middle" class="s">边界是否乱、尊重是否掉</text>
+                <text x="910" y="224" text-anchor="middle" class="s">权力=激发器（放大镜）</text>
+
+                <rect x="780" y="270" rx="16" ry="16" width="260" height="94" class="node2"/>
+                <text x="910" y="304" text-anchor="middle" class="t">机制线索</text>
+                <text x="910" y="328" text-anchor="middle" class="s">“身体变化快过心理”</text>
+                <text x="910" y="351" text-anchor="middle" class="s">（激素/奖励系统）</text>
+
+                <line x1="910" y1="252" x2="910" y2="270" class="la"/>
+
+                <!-- bottom: system -->
+                <line x1="550" y1="118" x2="550" y2="226" class="l"/>
+                <rect x="320" y="230" rx="16" ry="16" width="460" height="128" class="node"/>
+                <text x="550" y="264" text-anchor="middle" class="t">群体/组织层面的预判</text>
+                <text x="550" y="288" text-anchor="middle" class="s">别只看“人品”，看系统奖励什么</text>
+                <text x="550" y="311" text-anchor="middle" class="s">系统奖励攻击 → 温和者也被训练成攻击</text>
+                <text x="550" y="334" text-anchor="middle" class="s">系统不奖励攻击 → 新人也会被同化成温和</text>
+
+                <line x1="550" y1="358" x2="550" y2="414" class="l"/>
+                <rect x="250" y="414" rx="16" ry="16" width="600" height="116" class="node3"/>
+                <text x="550" y="448" text-anchor="middle" class="t">慢性高压锅（四要素）</text>
+                <text x="550" y="472" text-anchor="middle" class="s">不可预测 · 缺控制感 · 付出无效 · 缺社会支持</text>
+                <text x="550" y="496" text-anchor="middle" class="s">结局：防御、冷漠、功利、极端 —— 不是道德问题，是塑形结果</text>
+
+                <!-- footer -->
+                <text x="14" y="548" class="s">SVG Mind Map · 结构来自原文脉络（状态→个体→系统→自由的停顿）</text>
+              </svg>
+            </div>
+          </div>
+        </details>
+
+        <details id="sec-bullets">
+          <summary>
+            <div class="sumleft">
+              <span>✅ 要点清单（来自原文）</span>
+              <span class="chip">可直接复述</span>
+            </div>
+            <span class="caret">›</span>
+          </summary>
+          <div class="content">
+            <ul class="list">
+              <li>一次性见面别急着判断人格，先判断对方当下状态（精神、疲劳、血糖）。</li>
+              <li>重要对话尽量选：早上 8–10 点 或 下午 1–4 点，避开最容易饿、累、烦的时间段。</li>
+              <li>权力/优势变化是“行为稳定性测试器”：地位、信息、关系、认知、资源的任何位置差都会触发真实反应。</li>
+              <li>地位上升后如果迅速出现挑衅、恐吓、打压、羞辱，往往不是“突然变坏”，而是原本就不稳定，只是以前没机会显露。</li>
+              <li>群体行为取决于系统奖励：系统奖励攻击，所有人会被训练成攻击；系统不奖励攻击，新人也会被同化为温和。</li>
+              <li>“慢性高压锅”四要素：不可预测、缺控制感、付出无效、缺社会支持——任何大脑长期处在其中都会变形。</li>
+              <li>行为与道德品质的关系比我们以为的更小：很多选择来自多尺度因果链，而非凭空的自由意志。</li>
+              <li>理解“非凭空选择”能减少自责与仇恨；真正的自由是一秒钟的停顿——把这一秒拉长，旧模式就不再自动发生。</li>
+            </ul>
+          </div>
+        </details>
+
+        <details id="sec-feynman">
+          <summary>
+            <div class="sumleft">
+              <span>🧪 费曼学习法（成年人版）</span>
+              <span class="chip">低门槛不降智</span>
+            </div>
+            <span class="caret">›</span>
+          </summary>
+          <div class="content">
+            <p class="muted">目标：把你这篇内容变成“遇到人、选伙伴、看组织、管自己反应”四个可执行模型。</p>
+
+            <div class="quote">
+              <b>1）用一句话讲给完全不了解的人听：</b><br>
+              “人做什么，往往不是因为他‘本来就那样’，而是因为他现在的状态、他刚拿到的优势，以及系统长期奖励了什么——把这三件事看清，你就能更稳地预判。”
+            </div>
+
+            <div class="quote">
+              <b>2）把概念拆成四个日常问题（每个都能立刻用）：</b>
+              <ul class="list">
+                <li><b>见一次的人</b>：他现在饿不饿/累不累/烦不烦？（先看状态，再谈理性。）</li>
+                <li><b>要长期相处的人</b>：他一占点便宜/有点权力，会不会边界乱、开始贬低或控制？</li>
+                <li><b>一群人</b>：这个地方奖励什么？奖励甩锅？奖励强硬？奖励踏实？（奖励=训练。）</li>
+                <li><b>我自己</b>：我现在是在自动反应，还是能多停一秒？（停一秒=可选择。）</li>
+              </ul>
+            </div>
+
+            <div class="quote">
+              <b>3）用一个“反例”自测你是否真的懂了：</b><br>
+              如果你仍然习惯把一切归结为“他就是坏/我就是不行”，那说明你还没把“系统塑造”和“状态牵引”放进解释框架里。
+            </div>
+
+            <div class="quote">
+              <b>4）把知识变成动作：三张小卡片（贴在备忘录）</b>
+              <ul class="list">
+                <li>🕰️ <b>对话选时机</b>：尽量在对方前额叶“在线”的时段谈关键事。</li>
+                <li>👑 <b>观察权力时刻</b>：对方优势刚出现的那一周，看他怎么对待你。</li>
+                <li>🏭 <b>看系统奖励</b>：谁升得快、谁更安全，你就知道这里在训练什么。</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details id="sec-quotes">
+          <summary>
+            <div class="sumleft">
+              <span>✨ 金句（5–10句）</span>
+              <span class="chip">引出 → 解读 → 联结</span>
+            </div>
+            <span class="caret">›</span>
+          </summary>
+          <div class="content">
+            <div class="quote">
+              <b>【引出】</b>“当你只跟一个人接触一次的时候，不要去研究他的人格，只关注他此刻的状态。”<br>
+              <b>【解读】</b>一次性交互里，所谓“性格判断”往往是误差最大的维度；状态才是最强的短期预测变量。<br>
+              <b>【联结】</b>重要沟通先做“状态管理”：选时间、留余地、把关键诉求说短说清。
+            </div>
+
+            <div class="quote">
+              <b>【引出】</b>“哪怕最理性的人也可能只是一个被身体状态牵着走的普通人。”<br>
+              <b>【解读】</b>理性并不是常开技能，而是消耗资源的功能；疲劳时它会下线。<br>
+              <b>【联结】</b>别在对方最饿最累时硬杠；你赢了争论，可能输掉关系与结果。
+            </div>
+
+            <div class="quote">
+              <b>【引出】</b>“权力变化，是观察行为是否稳定的最佳激发器。”<br>
+              <b>【解读】</b>优势出现会释放潜在模式：边界、尊重、同理心会被立刻测试。<br>
+              <b>【联结】</b>择友/择偶/择合作：看他赢的时候怎么对你，比看他难的时候怎么说更关键。
+            </div>
+
+            <div class="quote">
+              <b>【引出】</b>“个体的行为跟他的品性关系不大，而是系统长期奖励出来的结果。”<br>
+              <b>【解读】</b>道德不是唯一变量，激励结构更像“无形的训犬绳”。<br>
+              <b>【联结】</b>职场判断：观察谁靠什么升上去，你就知道这里会把你训练成什么样。
+            </div>
+
+            <div class="quote">
+              <b>【引出】</b>“慢性高压锅里好人也会变得冷漠……任何大脑在这种环境下都会变形。”<br>
+              <b>【解读】</b>长期压力的可怕在于它不靠一次重击，而靠天天“微小随机伤害”。<br>
+              <b>【联结】</b>当你识别出高压锅四要素，优先考虑撤离或建立缓冲，而不是靠意志硬扛。
+            </div>
+
+            <div class="quote">
+              <b>【引出】</b>“人在任何一个时间尺度上都不存在真正意义上的自主选择。”<br>
+              <b>【解读】</b>这不是否定努力，而是把努力放回因果链：睡眠、压力、习惯、创伤、环境都会参与‘选择’。<br>
+              <b>【联结】</b>别用道德鞭子抽自己：先修复睡眠、降低压力、换环境，再谈更好的选择。
+            </div>
+
+            <div class="quote">
+              <b>【引出】</b>“当你理解到……你才不会去恨自己……也不会再去恨别人。”<br>
+              <b>【解读】</b>理解不是纵容；理解是把自己从仇恨和自责的牢里放出来。<br>
+              <b>【联结】</b>与其反复复盘‘我怎么这么差’，不如问：我处在怎样的系统？我缺了哪些支持？
+            </div>
+
+            <div class="quote">
+              <b>【引出】</b>“这一秒钟，就是人类能拥有的全部自由。”<br>
+              <b>【解读】</b>自由不是永远正确，而是能在冲动和行动之间插入一个可选择的空隙。<br>
+              <b>【联结】</b>练习把“停顿”拉长：深呼吸、走开、写下感受、延迟回应——你就在改写旧回路。
+            </div>
+          </div>
+        </details>
+
+        <details id="sec-script">
+          <summary>
+            <div class="sumleft">
+              <span>🎙️ 60秒跨文化口播稿（可照着念）</span>
+              <span class="chip">中文｜捷克语｜英语</span>
+            </div>
+            <span class="caret">›</span>
+          </summary>
+          <div class="content">
+            <div class="quote">
+              <b>中文（约60秒）</b><br>
+              我们常以为“一个人就是那样”，所以才会做出那样的事。可萨波斯基提醒我们：预测行为，先别急着贴性格标签。一次性的见面，最关键的是对方此刻的状态——饿不饿、累不累、烦不烦；长期关系，最关键的是权力或优势刚出现时，他会不会边界失控、开始贬低或控制；而在群体里，真正塑造人的往往不是道德，而是系统奖励——奖励攻击，人就学会攻击；不奖励攻击，新人也会被同化成温和。理解这些，并不是让我们放弃努力，而是少恨自己、也少被仇恨困住。真正的自由，可能只是一秒钟的停顿：在自动反应之前，多停一下，你就有机会做出不同的选择。
+            </div>
+
+            <div class="quote">
+              <b>捷克语（Česky, ~60 s）</b><br>
+              Často si myslíme, že „takový člověk prostě je“, a proto se tak chová. Robert Sapolsky ale ukazuje, že chování není jen „povaha“, ale výsledek časové osy. Při jednorázovém setkání bývá nejdůležitější aktuální stav: hlad, únava, stres a kognitivní zátěž. V dlouhodobých vztazích sledujte, co se stane ve chvíli, kdy se objeví i malá výhoda nebo moc — zda se nezmění hranice, respekt a způsob komunikace. A u skupin platí ještě silnější pravidlo: lidé se přizpůsobují tomu, co systém dlouhodobě odměňuje. Když prostředí odměňuje agresi, naučí se agresi téměř každý; když ji neodměňuje, skupina si udrží mírnější normy. Tahle perspektiva nás neomlouvá, ale osvobozuje: místo nenávisti získáme prostor na jednu vteřinu zastavit automatickou reakci — a právě v té vteřině začíná naše svoboda.
+            </div>
+
+            <div class="quote">
+              <b>English (native-like, ~60 s)</b><br>
+              We like to say, “That’s just who they are.” Sapolsky’s work pushes back: behavior isn’t a personality snapshot—it’s a timeline. In one-off encounters, the best predictor often isn’t character; it’s state: hunger, fatigue, stress, cognitive load. In long-term relationships, watch what happens when someone gains even a little power or advantage—do boundaries wobble, does respect drop, does control creep in? And at the group level, the strongest force is what the system rewards. Reward aggression and people learn aggression; stop rewarding it and calmer norms can spread—even to newcomers. This view doesn’t excuse harm, but it does reduce self-blame and hatred. It gives you one practical move: create a one-second pause between impulse and action. Stretch that pause, and you start choosing instead of repeating.
+            </div>
+          </div>
+        </details>
+
+        <div class="content" style="border-top:1px solid var(--line)">
+          <p class="muted" style="margin:0">
+            🧠 你文末的提问也值得被保留：<b>“你是什么时候开始意识到，原来很多事情不是你不够好，而是你真的已经尽力了？”</b><br>
+            如果你愿意，我也可以把这句话做成一张可分享的海报图（同风格）。
+          </p>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // ---- section controls
+    const allDetails = () => Array.from(document.querySelectorAll('main details'));
+    const openAll = () => allDetails().forEach(d => d.open = true);
+    const closeAll = () => allDetails().forEach(d => d.open = false);
+
+    document.getElementById('btnOpenAll').addEventListener('click', openAll);
+    document.getElementById('btnCloseAll').addEventListener('click', closeAll);
+
+    document.getElementById('btnPrint').addEventListener('click', () => {
+      const prev = allDetails().map(d => d.open);
+      openAll();
+      setTimeout(() => {
+        window.print();
+        // restore
+        setTimeout(() => {
+          allDetails().forEach((d, i) => d.open = prev[i]);
+        }, 350);
+      }, 180);
+    });
+
+    // ---- rare term anchors: wrap first occurrence in originalText with a span id
+    const anchorMap = [
+      { key: '狒狒', id: 'ref-feifei' },
+      { key: '假释', id: 'ref-jiaoshi' },
+      { key: '前额叶', id: 'ref-qianeye' },
+      { key: '睾酮', id: 'ref-gaotong' },
+      { key: '多巴胺', id: 'ref-doba' },
+      { key: '结核', id: 'ref-jiehe' },
+      { key: '兜底', id: 'ref-doudi' },
+      { key: '塑形', id: 'ref-suxing' },
+    ];
+
+    function escapeHtml(str){
+      return str.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+    }
+
+    function injectAnchors(){
+      const pre = document.getElementById('originalText');
+      // read raw text content (already in DOM), re-render with anchors
+      const raw = pre.textContent;
+      let html = escapeHtml(raw);
+
+      // For each key, wrap first occurrence only
+      anchorMap.forEach(item => {
+        const idx = html.indexOf(escapeHtml(item.key));
+        if(idx !== -1){
+          const before = html.slice(0, idx);
+          const mid = html.slice(idx, idx + escapeHtml(item.key).length);
+          const after = html.slice(idx + escapeHtml(item.key).length);
+          html = before + `<span id="${item.id}" class="ref">${mid}</span>` + after;
+        }
+      });
+
+      pre.innerHTML = html;
+    }
+
+    function jumpTo(id){
+      // open the original section if closed
+      const d = document.getElementById('sec-original');
+      d.open = true;
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.classList.remove('flash');
+      // force reflow
+      void el.offsetWidth;
+      el.classList.add('flash');
+      setTimeout(() => el.classList.remove('flash'), 5200);
+    }
+    window.jumpTo = jumpTo;
+
+    injectAnchors();
+  </script>
+</body>
+</html>
