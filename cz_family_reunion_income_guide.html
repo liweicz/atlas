@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>捷克夫妻团聚｜四口之家最低支出与建议月收入</title>
+  <style>
+    :root{
+      --bg: #0b1220;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.085);
+      --border: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --muted2: rgba(255,255,255,.55);
+      --accent: #7dd3fc;   /* sky */
+      --accent2:#34d399;   /* emerald */
+      --warn:#fbbf24;      /* amber */
+      --danger:#fb7185;    /* rose */
+      --shadow: 0 18px 55px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      background:
+        radial-gradient(1200px 800px at 18% 12%, rgba(125,211,252,.18), transparent 55%),
+        radial-gradient(900px 700px at 82% 20%, rgba(52,211,153,.14), transparent 60%),
+        radial-gradient(900px 600px at 50% 92%, rgba(251,191,36,.12), transparent 55%),
+        linear-gradient(180deg, #07101e 0%, #070b14 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    a{ color: var(--accent); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+    .wrap{ max-width: 1080px; margin: 0 auto; padding: 28px 18px 70px; }
+    header{
+      position: relative;
+      padding: 26px 22px 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .badge{
+      display:inline-flex; gap:10px; align-items:center;
+      font-size: 12px; letter-spacing:.4px; text-transform: uppercase;
+      color: rgba(255,255,255,.74);
+      padding: 6px 10px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 999px;
+      background: rgba(0,0,0,.18);
+      backdrop-filter: blur(8px);
+    }
+    .badge svg{ width: 14px; height: 14px; opacity:.95; }
+    h1{
+      margin: 14px 0 8px;
+      font-size: clamp(24px, 3.5vw, 40px);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .sub{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 70ch;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.35fr .9fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    @media (max-width: 900px){
+      .heroGrid{ grid-template-columns: 1fr; }
+    }
+    .card{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 16px 14px;
+      background: rgba(255,255,255,.055);
+      box-shadow: 0 12px 40px rgba(0,0,0,.22);
+    }
+    .card h2{
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      display:flex; align-items:center; gap:10px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.82);
+      font-size: 13px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+      white-space: nowrap;
+    }
+    .pill b{ font-weight: 700; color: rgba(255,255,255,.95); }
+    .kpi{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width: 520px){
+      .kpi{ grid-template-columns: 1fr; }
+    }
+    .kpiBox{
+      padding: 14px 14px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+    }
+    .kpiBox .label{ color: var(--muted2); font-size: 12px; }
+    .kpiBox .value{ font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin-top: 4px; }
+    .kpiBox .note{ color: var(--muted); font-size: 12px; margin-top: 4px; }
+    .value .unit{ font-size: 13px; font-weight: 700; color: rgba(255,255,255,.7); margin-left: 6px; }
+    .glow{
+      position:absolute; inset:-120px -160px auto auto; width: 420px; height: 420px;
+      background: radial-gradient(circle at 35% 35%, rgba(125,211,252,.28), transparent 60%),
+                  radial-gradient(circle at 65% 65%, rgba(52,211,153,.20), transparent 60%);
+      filter: blur(2px);
+      transform: rotate(12deg);
+      pointer-events:none;
+      opacity:.85;
+    }
+
+    main{ margin-top: 18px; display:grid; gap: 14px; }
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 920px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+    .sectionTitle{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .sectionTitle h3{
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      display:flex; align-items:center; gap:10px;
+    }
+    .mini{ font-size: 12px; color: var(--muted2); }
+    .divider{
+      height:1px; background: rgba(255,255,255,.12);
+      margin: 12px 0;
+    }
+    .list{
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(255,255,255,.82);
+    }
+    .list li{ margin: 8px 0; }
+    .callout{
+      border: 1px solid rgba(125,211,252,.28);
+      background: linear-gradient(180deg, rgba(125,211,252,.13), rgba(255,255,255,.045));
+      border-radius: var(--radius);
+      padding: 16px 16px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .callout::after{
+      content:"";
+      position:absolute; right:-70px; top:-70px; width: 220px; height: 220px;
+      background: radial-gradient(circle at 40% 40%, rgba(125,211,252,.25), transparent 60%);
+      transform: rotate(18deg);
+    }
+    .callout h2{ margin: 0 0 10px; font-size: 17px; display:flex; align-items:center; gap:10px; }
+    .bigNumber{
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin: 6px 0 2px;
+    }
+    .bigNumber .unit{ font-size: 14px; font-weight: 800; margin-left: 8px; color: rgba(255,255,255,.7); }
+    .hint{ color: var(--muted); font-size: 13px; max-width: 80ch; }
+
+    /* Calculator */
+    .calc{
+      border: 1px solid rgba(52,211,153,.24);
+      background: linear-gradient(180deg, rgba(52,211,153,.10), rgba(255,255,255,.045));
+      border-radius: var(--radius);
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .calc::after{
+      content:"";
+      position:absolute; left:-60px; bottom:-60px; width: 220px; height: 220px;
+      background: radial-gradient(circle at 60% 60%, rgba(52,211,153,.22), transparent 60%);
+    }
+    .calc h2{ margin:0 0 10px; font-size: 17px; display:flex; align-items:center; gap:10px; }
+    .formGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 620px){
+      .formGrid{ grid-template-columns: 1fr; }
+    }
+    label{
+      display:block;
+      font-size: 12px;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 6px;
+    }
+    select, input{
+      width: 100%;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(10,16,30,.55);
+      color: rgba(255,255,255,.92);
+      outline: none;
+    }
+    select:focus, input:focus{
+      border-color: rgba(125,211,252,.55);
+      box-shadow: 0 0 0 4px rgba(125,211,252,.14);
+    }
+    .toggle{
+      display:flex; gap:10px; align-items:center;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(10,16,30,.55);
+      color: rgba(255,255,255,.86);
+      user-select:none;
+      cursor:pointer;
+    }
+    .switch{
+      width: 40px; height: 22px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.22);
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .knob{
+      width: 18px; height: 18px; border-radius: 50%;
+      background: rgba(255,255,255,.92);
+      position:absolute; top: 1px; left: 1px;
+      transition: all .18s ease;
+    }
+    .switch.on{ background: rgba(52,211,153,.30); border-color: rgba(52,211,153,.45); }
+    .switch.on .knob{ left: 19px; background: rgba(255,255,255,.95); }
+    .calcKpis{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 820px){
+      .calcKpis{ grid-template-columns: 1fr; }
+    }
+    .calcKpis .kpiBox{ background: rgba(255,255,255,.05); }
+    .tagline{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      font-size: 12px;
+      color: rgba(255,255,255,.78);
+    }
+
+    footer{
+      margin-top: 16px;
+      padding: 16px 16px 18px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.66);
+      font-size: 12px;
+    }
+    .muted{ color: var(--muted); }
+    .mono{ font-family: var(--mono); }
+    .smallCaps{ letter-spacing:.3px; text-transform: uppercase; font-size: 11px; color: rgba(255,255,255,.6); }
+    .row{
+      display:flex; gap: 10px; flex-wrap: wrap; align-items:center;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.9);
+      cursor:pointer;
+      user-select:none;
+      transition: transform .08s ease, background .18s ease, border-color .18s ease;
+    }
+    .btn:hover{ background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.22); }
+    .btn:active{ transform: translateY(1px); }
+    .btn svg{ width: 16px; height: 16px; }
+    .printHint{
+      color: rgba(255,255,255,.6);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="glow"></div>
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2l3 7 7 .6-5.3 4.5 1.7 6.9L12 17.9 5.6 21 7.3 14.1 2 9.6 9 9l3-7z" stroke="rgba(255,255,255,.85)" stroke-width="1.6" />
+        </svg>
+        一页看懂｜最低门槛与建议月收入
+      </div>
+      <h1>捷克夫妻团聚：四口之家<br/>最低标准支出 &amp; 建议月净收入</h1>
+      <p class="sub">
+        适用场景：陈海涛（永久居留）＋配偶团聚＋两个孩子（均在捷克居留），合并后共同生活（四口之家）。
+        <span class="muted">本页把关键信息做成“可视化备忘录 + 快速计算器”。</span>
+      </p>
+
+      <div class="heroGrid">
+        <div class="callout">
+          <h2>✅ 先给结论（更稳通过的建议）</h2>
+          <div class="bigNumber" id="suggested">45,000–50,000<span class="unit">Kč / 月（净收入）</span></div>
+          <p class="hint">
+            建议不要卡线。内务部通常更偏好 <b>稳定规律</b> 的收入证明（工资单/雇主证明/报税等），并且住房成本若高于定额，门槛会被抬高。
+          </p>
+          <div class="divider"></div>
+          <div class="row">
+            <span class="pill">🧾 <b>稳定</b> 比“余额截图”更关键</span>
+            <span class="pill">🏠 住房成本可能决定门槛高低</span>
+            <span class="pill">📅 常见看法：按季度/多月平均</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>
+            <span aria-hidden="true">🔎</span>
+            内务部在算什么（逻辑）
+          </h2>
+          <p class="muted" style="margin:0 0 8px;">
+            常见审核口径：合并后家庭的月度净收入 ≥
+          </p>
+          <div class="kpi">
+            <div class="kpiBox">
+              <div class="label">① 家庭生活最低限额</div>
+              <div class="value mono">životní minimum</div>
+              <div class="note">按家庭结构（成人+儿童年龄）合计</div>
+            </div>
+            <div class="kpiBox">
+              <div class="label">② 住房成本</div>
+              <div class="value mono">nájem + energie</div>
+              <div class="note">可用“规范定额”或可信的实际成本</div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <p class="muted" style="margin:0;">
+            💡 你可以把它理解为：<b>“养家底线 + 住得起”</b> 的证明。
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="calc">
+        <h2>🧮 四口之家快速计算器（可改孩子年龄/住房成本）</h2>
+
+        <div class="formGrid">
+          <div>
+            <label>孩子 1 年龄档</label>
+            <select id="c1">
+              <option value="2480">0–6 岁（2,480 Kč）</option>
+              <option value="3050" selected>6–15 岁（3,050 Kč）</option>
+              <option value="3490">15–26 岁（3,490 Kč）</option>
+            </select>
+          </div>
+          <div>
+            <label>孩子 2 年龄档</label>
+            <select id="c2">
+              <option value="2480">0–6 岁（2,480 Kč）</option>
+              <option value="3050" selected>6–15 岁（3,050 Kč）</option>
+              <option value="3490">15–26 岁（3,490 Kč）</option>
+            </select>
+          </div>
+
+          <div>
+            <label>住房成本模式</label>
+            <div class="toggle" id="toggleHousing">
+              <div class="switch on" id="switch">
+                <div class="knob"></div>
+              </div>
+              <div>
+                <div style="font-weight:700;">使用“规范定额”</div>
+                <div class="mini">四人家庭：21,510 Kč / 月（可切换为实际成本）</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label>实际住房成本（房租+能源等）</label>
+            <input id="housingInput" type="number" min="0" step="10" placeholder="例如：26000" disabled />
+            <div class="mini" style="margin-top:6px;">当切换到“实际成本”时启用</div>
+          </div>
+        </div>
+
+        <div class="calcKpis">
+          <div class="kpiBox">
+            <div class="label">生活最低限额（合计）</div>
+            <div class="value" id="lifeMin">14,610<span class="unit">Kč</span></div>
+            <div class="note">第一成人 4,470 + 第二成人 4,040 + 两个孩子</div>
+          </div>
+          <div class="kpiBox">
+            <div class="label">住房成本（用于门槛）</div>
+            <div class="value" id="housingUsed">21,510<span class="unit">Kč</span></div>
+            <div class="note" id="housingNote">当前使用规范定额</div>
+          </div>
+          <div class="kpiBox">
+            <div class="label">最低门槛月净收入</div>
+            <div class="value" id="threshold">36,120<span class="unit">Kč</span></div>
+            <div class="note">建议留 buffer，不要贴线</div>
+          </div>
+        </div>
+
+        <div class="tagline">
+          <span class="tag">✨ 推荐：<b style="color:rgba(255,255,255,.92);">45,000–50,000 Kč</b> / 月净收入</span>
+          <span class="tag">🧱 不贴线：至少 <b style="color:rgba(255,255,255,.92);">40,000 Kč</b> 更安心</span>
+          <span class="tag">📌 若房租更高：门槛随之上调</span>
+        </div>
+      </section>
+
+      <section class="grid2">
+        <div class="card">
+          <div class="sectionTitle">
+            <h3>📌 “生活最低限额”构成</h3>
+            <div class="mini">按家庭共同计算</div>
+          </div>
+
+          <div class="row">
+            <span class="pill">👨‍🦱 第一位成人：<b>4,470 Kč</b></span>
+            <span class="pill">👩‍🦰 第二位成人：<b>4,040 Kč</b></span>
+          </div>
+          <div class="divider"></div>
+          <div class="row">
+            <span class="pill">🧒 0–6 岁：<b>2,480 Kč</b></span>
+            <span class="pill">🧑 6–15 岁：<b>3,050 Kč</b></span>
+            <span class="pill">🎓 15–26 岁（受抚养）：<b>3,490 Kč</b></span>
+          </div>
+          <p class="muted" style="margin:12px 0 0;">
+            你只要把两个孩子对应年龄档选进去，生活最低限额就能算出家庭合计。
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="sectionTitle">
+            <h3>🏠 住房成本：别忽略这块</h3>
+            <div class="mini">可能是门槛“抬升器”</div>
+          </div>
+          <p class="muted" style="margin:0 0 10px;">
+            四人家庭常用的规范定额为：<b>21,510 Kč / 月</b>。如果你要用更高的“实际成本”，记得准备可核验材料（合同、转账、账单）。
+          </p>
+          <div class="divider"></div>
+          <ul class="list">
+            <li>📄 租赁合同（或产权/入住证明）</li>
+            <li>🏦 房租支付记录（转账/收据）</li>
+            <li>⚡ 能源与服务：电/气/水/垃圾等账单</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="grid2">
+        <div class="card">
+          <div class="sectionTitle">
+            <h3>🗂️ 材料策略：让审核“看得懂”</h3>
+            <div class="mini">减少补件概率</div>
+          </div>
+          <ul class="list">
+            <li><b>收入证明要“规律稳定”</b>：工资单（3个月或以上）、雇主证明、劳动合同/持续雇佣证明。</li>
+            <li><b>按“净收入”思路准备</b>：能清晰对应到每月/季度平均。</li>
+            <li><b>若配偶暂时无收入</b>：通常按主申请人收入覆盖全家门槛准备最稳。</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="sectionTitle">
+            <h3>🚦建议收入区间（一句话版）</h3>
+            <div class="mini">更贴合实务</div>
+          </div>
+
+          <div class="kpi">
+            <div class="kpiBox" style="border-color: rgba(251,191,36,.28);">
+              <div class="label">最低可操作线</div>
+              <div class="value">40,000<span class="unit">Kč/月</span></div>
+              <div class="note">别太贴线，减少解释成本</div>
+            </div>
+            <div class="kpiBox" style="border-color: rgba(52,211,153,.30);">
+              <div class="label">更稳推荐线</div>
+              <div class="value">45,000–50,000<span class="unit">Kč/月</span></div>
+              <div class="note">留出住房/波动 buffer</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <p class="muted" style="margin:0;">
+            ✅ 你可以先用本页计算器算出“法定底线”，再把目标定在推荐线附近。
+          </p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="sectionTitle">
+          <h3>🧷 三个常见情形（固定示例）</h3>
+          <div class="mini">默认住房用规范定额 21,510 Kč</div>
+        </div>
+
+        <div class="grid2">
+          <div class="kpiBox">
+            <div class="label">情形 A：两个孩子 6–15 岁</div>
+            <div class="value">36,120<span class="unit">Kč/月净收入</span></div>
+            <div class="note mono">14,610 + 21,510</div>
+          </div>
+          <div class="kpiBox">
+            <div class="label">情形 B：两个孩子 15–26 岁（更保守）</div>
+            <div class="value">37,000<span class="unit">Kč/月净收入</span></div>
+            <div class="note mono">15,490 + 21,510</div>
+          </div>
+          <div class="kpiBox">
+            <div class="label">情形 C：两个孩子都小于 6 岁</div>
+            <div class="value">34,980<span class="unit">Kč/月净收入</span></div>
+            <div class="note mono">13,470 + 21,510</div>
+          </div>
+          <div class="kpiBox">
+            <div class="label">一句话建议</div>
+            <div class="value">45–50k<span class="unit">更稳</span></div>
+            <div class="note">贴线容易被“住房成本/稳定性”挑战</div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="row" style="justify-content: space-between; align-items:flex-start;">
+          <div>
+            <div class="smallCaps">Notes</div>
+            <div style="margin-top:6px;">
+              这是一份“内容导向”的可视化说明页。若你要用于正式递交，建议把计算依据、家庭成员信息、住房成本材料清单附在同一份说明中。
+            </div>
+            <div style="margin-top:8px;" class="muted">
+              🧠 小贴士：如果你愿意给出两个孩子的真实年龄 + 你们每月实际房租/能源成本，我可以把“计算区 + 材料清单”直接定制成可打印版本（A4）。
+            </div>
+          </div>
+          <div style="min-width: 240px; margin-top: 8px;">
+            <div class="btn" onclick="window.print()">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 8V4h10v4" stroke="rgba(255,255,255,.9)" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M7 17h10v3H7v-3Z" stroke="rgba(255,255,255,.9)" stroke-width="1.6" />
+                <path d="M6 10h12a3 3 0 0 1 3 3v3h-4v-2H7v2H3v-3a3 3 0 0 1 3-3Z" stroke="rgba(255,255,255,.9)" stroke-width="1.6"/>
+              </svg>
+              一键打印/保存 PDF
+            </div>
+            <div class="printHint" style="margin-top:8px;">（浏览器打印对这版式最友好）</div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+<script>
+  // Values used in this page
+  const ADULT1 = 4470;
+  const ADULT2 = 4040;
+  const NORM_HOUSING = 21510;
+
+  const c1 = document.getElementById('c1');
+  const c2 = document.getElementById('c2');
+  const toggle = document.getElementById('toggleHousing');
+  const sw = document.getElementById('switch');
+  const housingInput = document.getElementById('housingInput');
+
+  const lifeMinEl = document.getElementById('lifeMin');
+  const housingUsedEl = document.getElementById('housingUsed');
+  const housingNoteEl = document.getElementById('housingNote');
+  const thresholdEl = document.getElementById('threshold');
+
+  function fmt(n){
+    try{
+      return new Intl.NumberFormat('cs-CZ').format(Math.round(n));
+    }catch(e){
+      return String(Math.round(n)).replace(/\\B(?=(\\d{3})+(?!\\d))/g, ",");
+    }
+  }
+
+  function recompute(){
+    const kid1 = Number(c1.value || 0);
+    const kid2 = Number(c2.value || 0);
+    const lifeMin = ADULT1 + ADULT2 + kid1 + kid2;
+
+    const useNorm = sw.classList.contains('on');
+    let housing = NORM_HOUSING;
+
+    if(!useNorm){
+      const v = Number(housingInput.value || 0);
+      housing = Math.max(0, v);
+    }
+
+    const threshold = lifeMin + housing;
+
+    lifeMinEl.innerHTML = `${fmt(lifeMin)}<span class="unit">Kč</span>`;
+    housingUsedEl.innerHTML = `${fmt(housing)}<span class="unit">Kč</span>`;
+    housingNoteEl.textContent = useNorm ? "当前使用规范定额" : "当前使用实际成本";
+    thresholdEl.innerHTML = `${fmt(threshold)}<span class="unit">Kč</span>`;
+  }
+
+  function setHousingMode(useNorm){
+    if(useNorm){
+      sw.classList.add('on');
+      housingInput.disabled = true;
+      housingInput.value = "";
+    }else{
+      sw.classList.remove('on');
+      housingInput.disabled = false;
+      if(!housingInput.value) housingInput.value = String(NORM_HOUSING);
+    }
+    recompute();
+  }
+
+  c1.addEventListener('change', recompute);
+  c2.addEventListener('change', recompute);
+  housingInput.addEventListener('input', recompute);
+
+  toggle.addEventListener('click', () => {
+    const useNorm = sw.classList.contains('on');
+    setHousingMode(!useNorm);
+  });
+
+  // initial
+  setHousingMode(true);
+</script>
+</body>
+</html>
