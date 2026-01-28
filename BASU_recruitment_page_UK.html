@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BASU 招聘 | HPP 全职服务员 & DPP 临时跑堂</title>
+  <meta name="description" content="BASU Hot Pot & Sichuan cuisine 招聘页面：全职服务员（HPP）与临时跑堂（DPP）。多语言：中文/捷克语/英文/越南语/乌克兰语。" />
+  <style>
+    :root{
+      --panel: rgba(255,255,255,.06);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --muted2: rgba(255,255,255,.56);
+      --line: rgba(255,255,255,.10);
+      --accent: #ff4d4d;
+      --accent2:#ffb020;
+      --good:#41d18e;
+      --shadow: 0 18px 50px rgba(0,0,0,.55);
+      --radius: 18px;
+      --max: 1080px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 900px at 15% -5%, rgba(255,77,77,.30), transparent 60%),
+        radial-gradient(900px 700px at 95% 5%, rgba(255,176,32,.22), transparent 55%),
+        radial-gradient(700px 600px at 50% 110%, rgba(65,209,142,.16), transparent 55%),
+        linear-gradient(180deg, #0b0b0e 0%, #101017 55%, #0b0b0e 100%);
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 54px;}
+    .topbar{
+      position:sticky; top:0; z-index:30;
+      backdrop-filter: blur(12px);
+      background: rgba(15,15,18,.62);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar .inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:10px 18px;
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px;}
+    .brand .logo{
+      width:36px; height:36px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(255,77,77,.95), rgba(255,176,32,.85));
+      box-shadow: 0 10px 30px rgba(255,77,77,.18);
+      display:grid; place-items:center;
+    }
+    .brand small{display:block; color:var(--muted2); font-weight:600}
+    .pillrow{display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end;}
+    .pill{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:13px;
+      cursor:pointer;
+      user-select:none;
+      transition: all .18s ease;
+      display:flex; gap:8px; align-items:center;
+    }
+    .pill:hover{background:rgba(255,255,255,.08); color:var(--text); transform:translateY(-1px)}
+    .pill.active{
+      border-color: rgba(255,77,77,.45);
+      background: rgba(255,77,77,.12);
+      color: var(--text);
+      box-shadow: 0 8px 24px rgba(255,77,77,.18);
+    }
+    .pill .dot{width:8px; height:8px; border-radius:999px; background: rgba(255,255,255,.28);}
+    .pill.active .dot{background: var(--accent)}
+    .hero{padding:26px 0 18px}
+    .heroGrid{display:grid; grid-template-columns: 1.25fr .75fr; gap:16px; align-items:stretch;}
+    @media (max-width: 900px){ .heroGrid{grid-template-columns:1fr} }
+    .card{
+      background: var(--panel);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .heroCard{padding:22px 20px; position:relative; overflow:hidden;}
+    .heroCard:before{
+      content:"";
+      position:absolute; inset:-40px -40px auto auto;
+      width:260px; height:260px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,77,77,.35), transparent 60%),
+                  radial-gradient(circle at 65% 70%, rgba(255,176,32,.22), transparent 55%);
+      transform: rotate(18deg);
+      filter: blur(2px);
+      pointer-events:none;
+    }
+    h1{margin:0 0 10px; font-size: clamp(28px, 4vw, 44px); line-height:1.06; letter-spacing:-.6px;}
+    .sub{margin:0; color: var(--muted); font-size: 15.5px; line-height:1.5; max-width: 62ch;}
+    .badges{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;}
+    .badge{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      font-size:13px;
+      color: var(--text);
+      display:flex; gap:8px; align-items:center;
+    }
+    .badge strong{font-family:var(--mono); font-weight:800; letter-spacing:.2px;}
+    .sideCard{padding:18px 16px;}
+    .sideTitle{display:flex; align-items:center; gap:10px; margin:0 0 10px; font-size:16px}
+    .kv{display:grid; grid-template-columns: 92px 1fr; gap:10px; row-gap:10px; font-size:14px;}
+    .kv div{color:var(--muted)}
+    .kv strong{color:var(--text); font-weight:750}
+    .linkBtn{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      width:100%; margin-top:14px;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      transition: all .18s ease;
+    }
+    .linkBtn:hover{transform:translateY(-1px); background: rgba(255,255,255,.08)}
+    .arrow{opacity:.75}
+    .section{margin-top:18px;}
+    .sectionHead{display:flex; justify-content:space-between; align-items:flex-end; gap:12px; margin:18px 0 10px;}
+    .sectionHead h2{margin:0; font-size: 18px; letter-spacing:-.2px;}
+    .hint{color:var(--muted2); font-size:13px}
+    .jobs{display:grid; grid-template-columns: 1fr 1fr; gap:14px;}
+    @media (max-width: 900px){ .jobs{grid-template-columns:1fr} }
+    .job{
+      padding:18px 16px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+      border:1px solid var(--line);
+      position:relative;
+      overflow:hidden;
+    }
+    .job:before{
+      content:"";
+      position:absolute; inset:-60px -60px auto auto;
+      width:220px; height:220px;
+      background: radial-gradient(circle at 35% 30%, rgba(255,77,77,.22), transparent 60%);
+      transform: rotate(-10deg);
+      pointer-events:none;
+    }
+    .jobHeader{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:10px;}
+    .role{font-weight:900; font-size:18px; letter-spacing:-.2px;}
+    .tag{
+      font-size:12px; color: var(--text);
+      padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      white-space:nowrap;
+    }
+    .highlights{display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin:12px 0 8px;}
+    .hi{
+      padding:10px 10px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .hi .k{color:var(--muted2); font-size:12px}
+    .hi .v{font-family:var(--mono); font-weight:900; font-size:16px; margin-top:4px}
+    .hi .v.accent{color: var(--accent2)}
+    .list{margin:10px 0 0; padding:0; list-style:none; display:grid; gap:8px; color: var(--muted); font-size:14px; line-height:1.45;}
+    .li{display:flex; gap:10px; align-items:flex-start;}
+    .li svg{flex:0 0 18px; margin-top:2px}
+    .divider{height:1px; background: var(--line); margin:12px 0}
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .cta{
+      flex:1;
+      min-width: 180px;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      transition: all .18s ease;
+    }
+    .cta:hover{transform:translateY(-1px); background: rgba(255,255,255,.09)}
+    .cta strong{font-family:var(--mono); letter-spacing:.1px}
+    .langBlock{display:none;}
+    .langBlock.active{display:block;}
+    .langTitle{display:flex; align-items:center; gap:8px; font-weight:850; color:var(--text); font-size:14px; margin:0 0 8px;}
+    .note{
+      margin:10px 0 0;
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size:13px;
+      line-height:1.45;
+    }
+    footer{
+      margin-top:18px;
+      padding:16px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: var(--muted2);
+      font-size:12.5px;
+      line-height:1.5;
+    }
+    @media print{
+      .topbar{position:static}
+      .pillrow{display:none}
+      body{background:#fff; color:#000}
+      .card,.job,footer{box-shadow:none}
+      a{color:#000}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M5 10h14v3a6 6 0 0 1-6 6H11a6 6 0 0 1-6-6v-3Z" stroke="rgba(255,255,255,.92)" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M7 10c0-2.2 1.8-4 4-4h2c2.2 0 4 1.8 4 4" stroke="rgba(255,255,255,.92)" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M8 4c1.2 1 1.2 2.2 0 3.2M12 4c1.2 1 1.2 2.2 0 3.2M16 4c1.2 1 1.2 2.2 0 3.2" stroke="rgba(255,255,255,.70)" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          BASU 招聘
+          <small>HPP 全职 | DPP 临时 | 多语言一页搞定</small>
+        </div>
+      </div>
+      <div class="pillrow" role="tablist" aria-label="Language selector">
+        <div class="pill active" data-lang="zh" role="tab" aria-selected="true"><span class="dot"></span>中文 🇨🇳</div>
+        <div class="pill" data-lang="cs" role="tab" aria-selected="false"><span class="dot"></span>Česky 🇨🇿</div>
+        <div class="pill" data-lang="en" role="tab" aria-selected="false"><span class="dot"></span>English 🇬🇧</div>
+        <div class="pill" data-lang="vi" role="tab" aria-selected="false"><span class="dot"></span>Tiếng Việt 🇻🇳</div>
+        <div class="pill" data-lang="uk" role="tab" aria-selected="false"><span class="dot"></span>Українська 🇺🇦</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="heroGrid">
+        <div class="card heroCard">
+          <h1>来 BASU 做一份<br/>稳定、透明、<span style="color:var(--accent2)">拿得到钱</span> 的餐厅工作 🍲</h1>
+          <p class="sub">
+            我们在 Praha 1 的 BASU 招两类岗位：<b>HPP 全职服务员</b>（长期稳定）与 <b>DPP 临时跑堂</b>（提前约班）。
+            小费透明公开、福利实在、沟通舒服 —— 欢迎靠谱的人一起把服务做漂亮。
+          </p>
+          <div class="badges">
+            <div class="badge">📍 Praha 1 · Slovanský dům</div>
+            <div class="badge">🧾 小费透明 · 每日更新</div>
+            <div class="badge">🎫 每年有度假机票</div>
+            <div class="badge"><strong>HPP</strong> 全职 | <strong>DPP</strong> 临时</div>
+          </div>
+        </div>
+
+        <aside class="card sideCard">
+          <h3 class="sideTitle">📌 快速信息</h3>
+          <div class="kv">
+            <div>地点</div><strong>BASU（Slovanský dům）</strong>
+            <div>地址</div><strong>Na Příkopě 859/22, Praha 1</strong>
+            <div>营业</div><strong>11:00 – 23:00</strong>
+            <div>联系</div><strong>Leni / Michal</strong>
+          </div>
+
+          <a class="linkBtn" href="https://www.google.com/maps/search/?api=1&query=BASU%20Hot%20Pot%20%26%20Sichuan%20cuisine%20Prague" target="_blank" rel="noopener">
+            <span>🗺️ 打开 Google Maps 定位</span>
+            <span class="arrow">↗</span>
+          </a>
+
+          <div class="note">
+            ✅ 申请方式：短信/WhatsApp 直接发<br/>
+            <span style="color:var(--text)"><b>姓名</b> + <b>可上班日期</b> + <b>语言（CZ/EN）</b> + <b>经验（有/无）</b></span><br/>
+            我们会尽快联系你安排面试/试工。
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sectionHead">
+        <h2>岗位一览 ✨</h2>
+        <div class="hint">上方切换语言 · 下面内容会同步切换</div>
+      </div>
+
+      <div class="jobs">
+        <article class="job">
+          <div class="jobHeader">
+            <div>
+              <div class="role">全职服务员（HPP）</div>
+              <div style="color:var(--muted2); font-size:13px; margin-top:2px;">长期稳定 · 2 个名额</div>
+            </div>
+            <div class="tag">🌶️ 主力岗位</div>
+          </div>
+
+          <div class="highlights">
+            <div class="hi"><div class="k">时薪</div><div class="v">130 CZK/h</div></div>
+            <div class="hi"><div class="k">每月业绩奖金</div><div class="v accent">5,000+ CZK</div></div>
+            <div class="hi"><div class="k">小费（到手）</div><div class="v">10,000+ CZK</div></div>
+            <div class="hi"><div class="k">排班</div><div class="v">1 个月提前</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="langBlock active" data-lang="zh">
+            <div class="langTitle">🧩 工作内容</div>
+            <ul class="list">
+              <li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>迎宾带位、点单/推荐、上菜撤台、桌边服务</li>
+              <li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>结账刷卡（培训，上手快）</li>
+            </ul>
+            <div class="langTitle" style="margin-top:12px;">🎯 我们希望你</div>
+            <ul class="list">
+              <li class="li"><span>⏱️</span><b>守时</b>、<b>着装规范</b>、愿意学习、配合团队</li>
+              <li class="li"><span>🗣️</span>捷克语基础即可，英语也 OK；有经验更好，无经验愿学也行</li>
+              <li class="li"><span>📅</span>适合长期稳定（希望至少 1 年）</li>
+            </ul>
+            <div class="langTitle" style="margin-top:12px;">🎁 福利亮点</div>
+            <ul class="list">
+              <li class="li"><span>🍱</span>员工餐 + 小吃/零食</li>
+              <li class="li"><span>🧾</span>小费透明公开（按出勤分配）</li>
+              <li class="li"><span>🎫</span>每年度假机票</li>
+              <li class="li"><span>🚌</span>公交补贴</li>
+            </ul>
+          </div>
+
+          <div class="langBlock" data-lang="uk">
+            <div class="langTitle">🧩 Обовʼязки</div>
+            <ul class="list">
+              <li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Зустріч гостей, посадка, прийом замовлень/рекомендації, сервіс за столом, подача страв, прибирання столів</li>
+              <li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Оплата карткою (навчимо)</li>
+            </ul>
+            <div class="langTitle" style="margin-top:12px;">🎯 Вимоги</div>
+            <ul class="list">
+              <li class="li"><span>⏱️</span>Пунктуальність, охайний вигляд/форма, готовність вчитись, командна робота</li>
+              <li class="li"><span>🗣️</span>Базова чеська або англійська — OK</li>
+              <li class="li"><span>📅</span>Довгостроково (бажано мін. 1 рік)</li>
+            </ul>
+            <div class="langTitle" style="margin-top:12px;">🎁 Переваги</div>
+            <ul class="list">
+              <li class="li"><span>🍱</span>Харчування для персоналу + снеки</li>
+              <li class="li"><span>🧾</span>Прозорий tip pool (розподіл за днями виходу)</li>
+              <li class="li"><span>🎫</span>Щорічний квиток на відпустку</li>
+              <li class="li"><span>🚌</span>Компенсація проїзду (MHD)</li>
+            </ul>
+          </div>
+
+          <!-- other languages omitted for brevity in file size? keep original -->
+          <div class="langBlock" data-lang="cs"><div class="langTitle">🧩 Náplň práce</div><ul class="list"><li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Obsluha hostů: usazování, objednávky/doporučení, servis, roznos jídel, úklid stolů</li><li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Platby kartou (zaučíme)</li></ul><div class="langTitle" style="margin-top:12px;">🎯 Požadujeme</div><ul class="list"><li class="li"><span>⏱️</span>Dochvilnost, dodržování dress code, chuť se učit</li><li class="li"><span>🗣️</span>Základy češtiny nebo angličtina (CZ basic / EN OK)</li><li class="li"><span>📅</span>Dlouhodobě (ideálně min. 1 rok)</li></ul><div class="langTitle" style="margin-top:12px;">🎁 Benefity</div><ul class="list"><li class="li"><span>🍱</span>Jídlo + snacky</li><li class="li"><span>🧾</span>Transparentní tip pool (podle docházky)</li><li class="li"><span>🎫</span>Každoroční „holiday ticket“</li><li class="li"><span>🚌</span>Příspěvek na MHD</li></ul></div>
+          <div class="langBlock" data-lang="en"><div class="langTitle">🧩 Responsibilities</div><ul class="list"><li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Seating, orders/recommendations, table service, running food, clearing tables</li><li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Card payments (training provided)</li></ul><div class="langTitle" style="margin-top:12px;">🎯 Requirements</div><ul class="list"><li class="li"><span>⏱️</span>Punctual, proper uniform/appearance, willing to learn</li><li class="li"><span>🗣️</span>Basic Czech or English OK</li><li class="li"><span>📅</span>Long-term (ideally 1 year+)</li></ul><div class="langTitle" style="margin-top:12px;">🎁 Perks</div><ul class="list"><li class="li"><span>🍱</span>Staff meal + snacks</li><li class="li"><span>🧾</span>Transparent tip pool (by attendance days)</li><li class="li"><span>🎫</span>Annual holiday ticket</li><li class="li"><span>🚌</span>Public transport allowance</li></ul></div>
+          <div class="langBlock" data-lang="vi"><div class="langTitle">🧩 Công việc</div><ul class="list"><li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Đón khách, nhận order/tư vấn món, phục vụ tại bàn, bưng món, dọn bàn</li><li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Thanh toán thẻ (được đào tạo)</li></ul><div class="langTitle" style="margin-top:12px;">🎯 Yêu cầu</div><ul class="list"><li class="li"><span>⏱️</span>Đúng giờ, tác phong gọn gàng/đồng phục, chịu học</li><li class="li"><span>🗣️</span>Tiếng Séc cơ bản hoặc tiếng Anh OK</li><li class="li"><span>📅</span>Làm lâu dài (ưu tiên tối thiểu 1 năm)</li></ul><div class="langTitle" style="margin-top:12px;">🎁 Phúc lợi</div><ul class="list"><li class="li"><span>🍱</span>Cơm nhân viên + đồ ăn nhẹ</li><li class="li"><span>🧾</span>Tip pool minh bạch, chia theo ngày đi làm</li><li class="li"><span>🎫</span>Vé du lịch hằng năm</li><li class="li"><span>🚌</span>Hỗ trợ đi lại (MHD)</li></ul></div>
+
+          <div class="ctaRow">
+            <a class="cta" href="https://wa.me/420777737228" target="_blank" rel="noopener"><span>WhatsApp 联系 <b>Leni</b></span><strong>+420 777 737 228</strong></a>
+            <a class="cta" href="https://wa.me/420775666668" target="_blank" rel="noopener"><span>WhatsApp 联系 <b>Michal</b></span><strong>+420 775 666 668</strong></a>
+          </div>
+        </article>
+
+        <article class="job">
+          <div class="jobHeader">
+            <div>
+              <div class="role">临时跑堂（DPP）</div>
+              <div style="color:var(--muted2); font-size:13px; margin-top:2px;">提前约班 · 1–2 人</div>
+            </div>
+            <div class="tag">⚡ 灵活排班</div>
+          </div>
+
+          <div class="highlights">
+            <div class="hi"><div class="k">时薪</div><div class="v">160 CZK/h</div></div>
+            <div class="hi"><div class="k">结算</div><div class="v">日 / 周 / 月</div></div>
+            <div class="hi"><div class="k">语言</div><div class="v">CZ/EN OK</div></div>
+            <div class="hi"><div class="k">岗位特点</div><div class="v">不做收银</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="langBlock active" data-lang="zh">
+            <div class="langTitle">🧩 工作内容</div>
+            <ul class="list">
+              <li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>迎宾带位、点单/推荐、上菜撤台、桌边服务（不做收银）</li>
+              <li class="li"><span>📅</span>提前约班，灵活安排</li>
+            </ul>
+            <div class="langTitle" style="margin-top:12px;">🎯 我们希望你</div>
+            <ul class="list">
+              <li class="li"><span>⏱️</span>守时、着装规范、配合团队</li>
+              <li class="li"><span>🗣️</span>捷克语基础或英语 OK</li>
+            </ul>
+          </div>
+
+          <div class="langBlock" data-lang="uk">
+            <div class="langTitle">🧩 Обовʼязки</div>
+            <ul class="list">
+              <li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Зустріч гостей, прийом замовлень/рекомендації, подача страв, прибирання столів (без каси)</li>
+              <li class="li"><span>📅</span>Зміни домовляємося заздалегідь</li>
+            </ul>
+            <div class="langTitle" style="margin-top:12px;">🎯 Вимоги</div>
+            <ul class="list">
+              <li class="li"><span>⏱️</span>Пунктуальність, охайний вигляд/форма, командна робота</li>
+              <li class="li"><span>🗣️</span>Базова чеська або англійська — OK</li>
+            </ul>
+          </div>
+
+          <div class="langBlock" data-lang="cs"><div class="langTitle">🧩 Náplň</div><ul class="list"><li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Usazování hostů, objednávky/doporučení, servis, roznos jídel, úklid stolů (bez pokladny)</li><li class="li"><span>📅</span>Směny po domluvě předem</li></ul><div class="langTitle" style="margin-top:12px;">🎯 Požadujeme</div><ul class="list"><li class="li"><span>⏱️</span>Dochvilnost, dress code, týmová spolupráce</li><li class="li"><span>🗣️</span>Základy češtiny nebo angličtina OK</li></ul></div>
+          <div class="langBlock" data-lang="en"><div class="langTitle">🧩 Tasks</div><ul class="list"><li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Seating, orders/recommendations, running food, clearing tables (no cashier)</li><li class="li"><span>📅</span>Shifts scheduled in advance</li></ul><div class="langTitle" style="margin-top:12px;">🎯 Requirements</div><ul class="list"><li class="li"><span>⏱️</span>Punctual, proper appearance, team player</li><li class="li"><span>🗣️</span>Basic Czech or English OK</li></ul></div>
+          <div class="langBlock" data-lang="vi"><div class="langTitle">🧩 Công việc</div><ul class="list"><li class="li"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M20 7L10.5 17 4 10.5" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Đón khách, nhận order/tư vấn món, bưng món, dọn bàn (không làm thu ngân)</li><li class="li"><span>📅</span>Xếp ca theo lịch hẹn trước</li></ul><div class="langTitle" style="margin-top:12px;">🎯 Yêu cầu</div><ul class="list"><li class="li"><span>⏱️</span>Đúng giờ, tác phong gọn gàng/đồng phục, làm việc nhóm</li><li class="li"><span>🗣️</span>Tiếng Séc cơ bản hoặc tiếng Anh OK</li></ul></div>
+
+          <div class="ctaRow">
+            <a class="cta" href="https://wa.me/420777737228" target="_blank" rel="noopener"><span>WhatsApp 联系 <b>Leni</b></span><strong>+420 777 737 228</strong></a>
+            <a class="cta" href="https://wa.me/420775666668" target="_blank" rel="noopener"><span>WhatsApp 联系 <b>Michal</b></span><strong>+420 775 666 668</strong></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <b>提示：</b>这是一页式招聘网页，右上角切换语言。你也可以直接打印（浏览器打印即可）或截图做海报。
+      <br/>如果你想加二维码（WhatsApp/地图）或做“手机长图版”，我也可以继续给你做。
+    </footer>
+  </main>
+
+  <script>
+    (function(){
+      const pills = Array.from(document.querySelectorAll('.pill[data-lang]'));
+      const blocks = Array.from(document.querySelectorAll('.langBlock'));
+
+      function setLang(lang){
+        pills.forEach(p=>{
+          const active = p.getAttribute('data-lang') === lang;
+          p.classList.toggle('active', active);
+          p.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        blocks.forEach(b=>{
+          b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+        });
+
+        document.documentElement.lang =
+          (lang === 'cs') ? 'cs' :
+          (lang === 'en') ? 'en' :
+          (lang === 'vi') ? 'vi' :
+          (lang === 'uk') ? 'uk' : 'zh-CN';
+
+        const heroH1 = document.querySelector('h1');
+        const heroSub = document.querySelector('.sub');
+
+        const copy = {
+          zh: {
+            h1: '来 BASU 做一份<br/>稳定、透明、<span style="color:var(--accent2)">拿得到钱</span> 的餐厅工作 🍲',
+            sub: '我们在 Praha 1 的 BASU 招两类岗位：<b>HPP 全职服务员</b>（长期稳定）与 <b>DPP 临时跑堂</b>（提前约班）。小费透明公开、福利实在、沟通舒服 —— 欢迎靠谱的人一起把服务做漂亮。'
+          },
+          cs: {
+            h1: 'Přidej se do BASU<br/>stabilní práce, férové peníze 💬🍲',
+            sub: 'V BASU (Praha 1) nabíráme dvě pozice: <b>HPP full-time obsluha</b> a <b>DPP brigáda</b>. Transparentní tip pool, solidní benefity a pohodová komunikace.'
+          },
+          en: {
+            h1: 'Join BASU<br/>stable work, transparent tips, real perks 🍲',
+            sub: 'At BASU (Prague 1) we’re hiring for two roles: <b>HPP full-time server</b> and <b>DPP temporary runner</b>. Transparent tip pool, solid perks, and a team that communicates well.'
+          },
+          vi: {
+            h1: 'Gia nhập BASU<br/>ổn định, minh bạch, phúc lợi thật 🍲',
+            sub: 'BASU (Praha 1) đang tuyển 2 vị trí: <b>Phục vụ toàn thời gian (HPP)</b> và <b>Phục vụ thời vụ (DPP)</b>. Tip minh bạch, phúc lợi tốt, giao tiếp thoải mái.'
+          },
+          uk: {
+            h1: 'Приєднуйся до BASU<br/>стабільна робота, прозорі чайові, реальні бонуси 🍲',
+            sub: 'BASU (Praha 1) шукає дві позиції: <b>офіціант/ка на повну зайнятість (HPP)</b> та <b>тимчасова допомога (DPP)</b>. Прозорий tip pool, хороші бонуси та нормальна комунікація в команді.'
+          }
+        };
+
+        const c = copy[lang] || copy.zh;
+        if(heroH1) heroH1.innerHTML = c.h1;
+        if(heroSub) heroSub.innerHTML = c.sub;
+      }
+
+      pills.forEach(p=>p.addEventListener('click', ()=>setLang(p.getAttribute('data-lang'))));
+      setLang('zh');
+    })();
+  </script>
+</body>
+</html>
