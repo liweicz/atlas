@@ -1,0 +1,1252 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>《天道》五台山论道｜文化属性与自我觉醒</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.085);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --faint: rgba(255,255,255,.52);
+      --line: rgba(255,255,255,.12);
+      --accent: #78dce8;
+      --accent2: #a6e3a1;
+      --warn: #f9e2af;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+      background: radial-gradient(1200px 600px at 15% 0%, rgba(120,220,232,.18), transparent 55%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(166,227,161,.14), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 18px 80px; }
+    header.hero {
+      margin-top: 8px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border-radius: calc(var(--radius) + 6px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .hero-top {
+      padding: 18px 18px 12px;
+      display: grid;
+      gap: 10px;
+    }
+    .kicker {
+      display:flex; align-items:center; gap:10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .kicker .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(120,220,232,.14);
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(22px, 3.6vw, 34px);
+      letter-spacing: .2px;
+    }
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .toolbar {
+      display:flex; flex-wrap: wrap; gap:10px;
+      padding: 12px 18px 18px;
+      border-top: 1px solid var(--line);
+      background: rgba(0,0,0,.12);
+    }
+    .btn {
+      cursor: pointer;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      display:flex; align-items:center; gap:8px;
+      font-size: 14px;
+    }
+    .btn:hover { background: rgba(255,255,255,.10); }
+    .btn.primary {
+      border-color: rgba(120,220,232,.45);
+      background: rgba(120,220,232,.12);
+    }
+    .btn.primary:hover { background: rgba(120,220,232,.18); }
+
+    .grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 16px;
+    }
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .panel {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 28px rgba(0,0,0,.26);
+    }
+    .panel .pad { padding: 14px 14px 12px; }
+    .panel h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      color: rgba(255,255,255,.88);
+      display:flex; align-items:center; gap:8px;
+    }
+    .panel p { margin: 0; color: var(--muted); }
+
+    .toc {
+      display:flex; flex-wrap: wrap; gap:10px;
+      padding: 12px 14px 14px;
+      border-top: 1px solid var(--line);
+    }
+    .toc a {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      padding: 8px 10px;
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 13px;
+    }
+    .toc a:hover { background: rgba(255,255,255,.09); }
+
+    details.section {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      overflow: hidden;
+    }
+    details.section[open] { background: rgba(255,255,255,.055); }
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 14px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display:none; }
+    .sum-left { display:flex; align-items:center; gap:10px; min-width: 0; }
+    .icon {
+      width: 28px; height: 28px; border-radius: 10px;
+      display:grid; place-items:center;
+      background: rgba(120,220,232,.14);
+      border: 1px solid rgba(120,220,232,.28);
+      flex: 0 0 auto;
+    }
+    .sum-title {
+      font-weight: 700;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sum-meta {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+    .content {
+      padding: 0 14px 16px;
+      border-top: 1px solid var(--line);
+    }
+    .content h4 {
+      margin: 14px 0 8px;
+      font-size: 14px;
+      color: rgba(255,255,255,.88);
+    }
+    .content h5 {
+      margin: 10px 0 6px;
+      font-size: 13px;
+      color: rgba(255,255,255,.88);
+    }
+    ul, ol { margin: 10px 0 0 20px; color: var(--muted); }
+    li { margin: 6px 0; }
+
+    .note {
+      border: 1px dashed rgba(249,226,175,.38);
+      background: rgba(249,226,175,.08);
+      padding: 12px 12px;
+      border-radius: 14px;
+      color: rgba(255,255,255,.85);
+      margin-top: 10px;
+    }
+    .tagline {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(166,227,161,.32);
+      background: rgba(166,227,161,.10);
+      color: rgba(255,255,255,.90);
+    }
+
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+    .muted { color: var(--muted); }
+    .badge {
+      display:inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.82);
+      font-size: 12px;
+      margin-right: 6px;
+    }
+
+    /* Transcript */
+    .transcript {
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 14px;
+      padding: 12px 12px;
+      overflow-x: auto;
+      color: rgba(255,255,255,.86);
+      line-height: 1.9;
+    }
+    .src-term {
+      border-bottom: 2px dotted rgba(120,220,232,.65);
+      padding: 0 2px;
+      border-radius: 6px;
+    }
+    .hl {
+      animation: glow 5s ease-out 1;
+      background: rgba(120,220,232,.22);
+      box-shadow: 0 0 0 3px rgba(120,220,232,.16);
+    }
+    @keyframes glow {
+      0% { background: rgba(120,220,232,.28); box-shadow: 0 0 0 4px rgba(120,220,232,.18); }
+      100% { background: transparent; box-shadow: 0 0 0 0 rgba(120,220,232,0); }
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      padding: 10px 10px;
+      vertical-align: top;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    th {
+      text-align: left;
+      color: rgba(255,255,255,.86);
+      background: rgba(255,255,255,.05);
+      position: sticky;
+      top: 0;
+    }
+    tr:hover td { background: rgba(255,255,255,.03); }
+    .chip {
+      cursor: pointer;
+      border: 1px solid rgba(120,220,232,.35);
+      background: rgba(120,220,232,.10);
+      color: rgba(255,255,255,.90);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+    }
+    .chip:hover { background: rgba(120,220,232,.16); }
+    .link { color: var(--accent); }
+    .link:hover { text-decoration: underline; }
+
+    /* Cards */
+    .cards {
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    @media (max-width: 860px) {
+      .cards { grid-template-columns: 1fr; }
+    }
+    .card {
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      border-radius: 14px;
+      padding: 12px 12px;
+    }
+    .card p { margin: 6px 0 0; color: var(--muted); }
+    .grid2 {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    @media (max-width: 860px) {
+      .grid2 { grid-template-columns: 1fr; }
+    }
+
+    /* Quotes */
+    .quote-card {
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      border-radius: 14px;
+      overflow:hidden;
+      margin-top: 10px;
+    }
+    .quote-head {
+      padding: 10px 12px;
+      background: rgba(120,220,232,.10);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.92);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .quote-body { padding: 10px 12px; }
+    .quote-body p { margin: 8px 0 0; color: var(--muted); }
+
+    /* Mind map */
+    .mindmap {
+      margin-top: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      border-radius: 14px;
+      padding: 10px;
+      overflow-x: auto;
+    }
+    .mm-line { fill: none; stroke: rgba(255,255,255,.22); stroke-width: 3; }
+    .mm-center { fill: rgba(120,220,232,.16); stroke: rgba(120,220,232,.35); stroke-width: 2; }
+    .mm-node { fill: rgba(255,255,255,.06); stroke: rgba(255,255,255,.16); stroke-width: 2; }
+    .mm-title { font-size: 18px; fill: rgba(255,255,255,.92); font-weight: 800; }
+    .mm-sub { font-size: 12px; fill: rgba(255,255,255,.72); }
+    .mm-h { font-size: 14px; fill: rgba(255,255,255,.90); font-weight: 800; }
+    .mm-t { font-size: 12px; fill: rgba(255,255,255,.74); }
+
+    /* Print */
+    @media print {
+      body { background: #fff; color: #111; }
+      .hero, .btn, .toc a { box-shadow: none !important; }
+      header.hero, details.section { border-color: #ddd; background: #fff; }
+      summary { border-bottom: 1px solid #eee; }
+      .icon { background: #eef; border-color: #cdd; }
+      .panel, .card, .quote-card, .transcript, .mindmap { background: #fff !important; border-color: #ddd !important; }
+      .muted, .sub, .kicker, td, li, p { color: #222 !important; }
+      a { color: #0366d6 !important; }
+      .toolbar { display:none; }
+      details.section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero" id="top">
+      <div class="hero-top">
+        <div class="kicker"><span class="dot"></span><span>内容转网页设计师 · 单文件交互版 · 生成日期 2026-01-29</span></div>
+        <h1>《天道》五台山论道｜文化属性与自我觉醒</h1>
+        <p class="sub">📌 全部章节默认折叠；支持一键打印；“生僻字”可跳回原文并高亮 5 秒。</p>
+      </div>
+      <div class="toolbar">
+        <button class="btn primary" id="btnExpand">📖 全部展开</button>
+        <button class="btn" id="btnCollapse">🧳 全部折叠</button>
+        <button class="btn" id="btnPrint">🖨️ 一键打印全文</button>
+        <a class="btn" href="#s-original">⛳ 跳到原文</a>
+        <a class="btn" href="#s-rare">🔎 生僻字</a>
+        <a class="btn" href="#s-culture">🧠 文化属性</a>
+      </div>
+
+      <div class="grid">
+        <div class="panel">
+          <div class="pad">
+            <h3>🧭 内容摘要</h3>
+            <p>该视频深度解析了《天道》中丁元英五台山论道的经典片段。丁元英为实施“杀富济贫”的商业计划以帮助王庙村脱贫，同时也为应对计划可能带来的社会指责与内心困惑，与韩楚风前往五台山寺庙，寻求精神支撑。他先是以香火钱叩门被拒，后以诗作打动智玄大师得以相见。论道中，丁元英对佛教本质、修行真谛及文化扶贫的核心进行了深刻阐释，其见解通透且逻辑缜密，既展现了对规律的洞察，又体现了对弱势文化的反思，最终获得智玄大师的认可，也为自己的计划找到了文化层面的支撑，揭示了真正的救赎与觉悟在于自我觉醒和文化属性的改变。</p>
+          </div>
+          <div class="toc">
+            <a href="#s-original">① 原文逐字</a>
+            <a href="#s-core">② 核心解读</a>
+            <a href="#s-rare">③ 生僻字</a>
+            <a href="#s-terms">④ 关键术语</a>
+            <a href="#s-culture">⑤ 文化属性（补充）</a>
+            <a href="#s-map">⑥ 思维导图</a>
+            <a href="#s-list">⑦ 要点清单</a>
+            <a href="#s-feynman">⑧ 费曼学习法</a>
+            <a href="#s-quotes">⑨ 金句</a>
+            <a href="#s-script">⑩ 60秒口播</a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="pad">
+            <h3>✨ 主旨一句话</h3>
+            <p>这场“论道”表面谈佛理，实则在回答：真正的脱困不是“有人救你”，而是你学会改变自己的文化属性，完成自我觉醒。</p>
+            <div class="note">
+              <strong>三条要点（白话版）</strong>
+              <ol><li>叩门被拒：钱买不到“精神答案”，也买不到真正的认可；交换逻辑一进门就被挡回。</li>
+<li>真经不在外：向外求是“痴梦”，向内求才可能从执念中醒来——修行是让本心自然显现。</li>
+<li>扶贫的关键不是分配：要打碎“等靠要”的惯性，让弱者从依附转向自立，才有长期命运的改变。</li></ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ① 原文逐字 -->
+    <details class="section" id="s-original">
+      <summary>
+        <div class="sum-left">
+          <div class="icon">📜</div>
+          <div class="sum-title">① 原文逐字保留（可折叠）</div>
+        </div>
+        <div class="sum-meta">点击展开 · 100%保留</div>
+      </summary>
+      <div class="content">
+        <div class="transcript" aria-label="原文逐字转写">
+          在家靠父母<br>
+出门靠朋友<br>
+靠皇恩<br>
+总之靠什么都行<br>
+在电视剧天道的经典片段中<br>
+丁元英为帮助王庙村脱贫<br>
+精心策划了一场<br>
+杀富济贫的商业计划<br>
+但他知道<br>
+将给音响行业巨头乐圣公司<br>
+带来沉重打击<br>
+也可能让王庙村的村民<br>
+在利益冲击下<br>
+迷失方向<br>
+社会的指责与非议<br>
+与行为的合理性<br>
+丁元英和韩楚风<br>
+一同踏上了前往五台山的寺庙<br>
+为自己的抉择找到精神支撑<br>
+丁元英先以五万元<br>
+香火钱当做叩门石<br>
+请求拜见智玄大师<br>
+却被小和尚以非也二字回绝<br>
+不甘心的他随即追加五万元<br>
+凑足十万元再次扣门<br>
+然而得到的仍是同样的拒绝<br>
+当以前叩门的策略彻底失效后<br>
+丁元英转而以诗为媒<br>
+呈上早已备好的诗作<br>
+这一次诗文<br>
+竟成了敲开智玄大师<br>
+禅房之门的钥匙<br>
+事实上智玄大师的两次拒绝<br>
+恰恰印证了丁元英内心的判断<br>
+大师所拒绝的并非金钱本身<br>
+而是丁元英试图<br>
+用金钱换取见面的世俗交换逻辑<br>
+这一举动让丁元英确信<br>
+眼前的这位高僧<br>
+绝非贪图香火的凡俗僧人<br>
+而是真正值得他敞开心扉<br>
+探讨天道与人性<br>
+试想倘若大师当时<br>
+收下了那十万元<br>
+反而失去了其应有的精神价值<br>
+悟道修言天命<br>
+修行悟取真经<br>
+一悲一喜一枯荣<br>
+哪个前生注定<br>
+<span id="src-01" class="src-term">袈裟</span>本无清净<br>
+红尘不染性空<br>
+悠悠古刹千年钟<br>
+都是痴人<br>
+说梦<br>
+有人说读懂了丁元英这首词<br>
+就读懂了天道<br>
+他带着一身尘嚣<br>
+踏入清净古刹<br>
+写下的不是归依<br>
+而是清醒<br>
+不去信天命的安排<br>
+不去求刻板的真经<br>
+人生的起起落落<br>
+从来都不是前世的注定<br>
+而是今生的因果<br>
+袈裟遮不住内心的执念<br>
+红尘也困不住觉醒的灵魂<br>
+真正的修行<br>
+从来不是躲进深山<br>
+而是在烟火人间里<br>
+守住本心<br>
+不被得失困扰<br>
+千年古刹的钟声<br>
+向外求皆是痴梦<br>
+向内求方得觉醒<br>
+智玄大师的一字之改<br>
+留下了慈悲<br>
+原来最高级的通透<br>
+是看透规律却依旧温和<br>
+身处红尘却始终清醒<br>
+这世间最好的救赎<br>
+从来都是自己渡自己<br>
+敢问二位施主<br>
+什么是真经<br>
+修行不取真经<br>
+又修的什么行<br>
+自在情理之中<br>
+晚辈就斗胆妄言了<br>
+所谓真经<br>
+就是能够达到<br>
+<span id="src-03" class="src-term">寂空涅槃</span>的究竟法门<br>
+修为成佛在求<br>
+悟为明性在知<br>
+修行以行至性<br>
+悟道以性实行<br>
+觉者由心生律<br>
+修者以律治心<br>
+有性无证者<br>
+虽不落恶果<br>
+却助因助果<br>
+助念助心<br>
+如是<span id="src-07" class="src-term">生灭</span><br>
+丁元英的这番见解<br>
+彻底重构了<br>
+人们对传统修行的理解体系<br>
+他认为真正的觉悟与成佛<br>
+绝非依靠外在戒律的<br>
+束缚与强制<br>
+而是源自内心世界的<br>
+彻底觉醒与通透<br>
+往往只是用既定的规则<br>
+来强行压抑本性<br>
+这不过是一种表面的伪装<br>
+是让觉醒后的本心自然流露<br>
+不刻意不造作<br>
+达到一种纯粹的状态<br>
+一个真正洞察万物本质的觉悟者<br>
+无需刻意遵守戒律条文<br>
+其内心自会与天地规律<br>
+自然大道同频共振<br>
+一言一行皆符合章法<br>
+相反那些过度执着于因果循环<br>
+福报报应的修行者<br>
+反而会被表象所困<br>
+深陷生灭轮回的<br>
+执念中无法自拔<br>
+智玄大师见状追问<br>
+如果修行的终极目的并非成佛<br>
+那佛教的核心本质究竟是什么<br>
+丁元英的回答逻辑缜密<br>
+层层递进<br>
+一语道破了佛教的终极内核<br>
+佛乃<span id="src-04" class="src-term">觉性</span><br>
+人人都有觉性<br>
+不等于觉性就是人<br>
+人相可坏<br>
+即绝即显<br>
+即障即沉蔽<br>
+了胀涅槃<br>
+觉行圆满之佛<br>
+乃佛教人相之佛<br>
+即非无量<br>
+若佛有量<br>
+即非<span id="src-05" class="src-term">阿弥陀佛</span><br>
+在丁元英的理解中<br>
+佛并非一个具象化的神灵<br>
+而是潜藏在每个人<br>
+内心深处的觉醒本性<br>
+这种觉性不会随着<br>
+人的生死而消失<br>
+它永恒存在<br>
+只是被世人的执念<br>
+与妄念层层遮蔽难以显现<br>
+它进一步将佛教的本质<br>
+拆解为三个清晰的层次<br>
+最高层级<br>
+只可意会的天道本源规律<br>
+那是宇宙运行的终极真理<br>
+中间层级是引导世人向善<br>
+规范言行的文化体系<br>
+它构建了社会的道德框架<br>
+最低层级则是抚慰众生心灵<br>
+给予精神寄托的情感工具<br>
+它满足了人们面对<br>
+苦难时的心理需求<br>
+彻底挣脱了传统经文<br>
+直抵佛法的核心要义<br>
+其深刻与通透<br>
+连智玄大师也由衷折服<br>
+大师凝视着丁元英<br>
+字字珠玑的<br>
+给出了极为精准的评价<br>
+见解的深刻认可<br>
+即觉行无量<br>
+无圆无不圆<br>
+无满无不满<br>
+以无事名<br>
+究竟圆满<br>
+以施主这文笔言辞<br>
+断不是佛门中人<br>
+施主参议不拘经文<br>
+自悟能达到这样的<br>
+境界也难能可贵<br>
+以贫僧看来<br>
+施主已经踩到得道的门槛了<br>
+离得道只差一步<br>
+进则净土<br>
+退则凡尘<br>
+只是这一步<br>
+难如登天<br>
+智玄大师对丁元英的评价<br>
+道尽了这位智者的终极局限<br>
+离得道只差一步<br>
+退则凡尘<br>
+这一步难如登天<br>
+丁元英早已看透文化属性本质<br>
+看破宗教形式主义<br>
+以强势文化逻辑操盘一切<br>
+既怀初世心境<br>
+又具入世勇气<br>
+丁元英的认知层面远超凡人<br>
+而这一步之差<br>
+从不是智商或认知的欠缺<br>
+而是从智者到觉者的心性跨越<br>
+却少了立的慈悲与圆融<br>
+困于极致的我执<br>
+与世俗刻意疏离<br>
+生出悲悯<br>
+抵达精神净土<br>
+退则困于孤冷<br>
+清醒者这一步难在颠覆自我<br>
+多数智者终难放下<br>
+引以为傲的理性<br>
+做个孤独的旁观者<br>
+承蒙大师开示 惭愧惭愧<br>
+佛门讲一个缘字<br>
+我与佛的缘<br>
+就算缘尽了<br>
+不进不出<br>
+于基督我进不得<span id="src-06" class="src-term">窄门</span><br>
+于佛我不可得道<br>
+我是几等货色<br>
+大师已从这首词里看得明白<br>
+装了斯文<br>
+满纸一个<span id="src-02" class="src-term">嗔</span>字<br>
+今天来到佛门境地拜见大师<br>
+只为讨得一个心安<br>
+丁元英是通透悟道者<br>
+与世俗执念者的矛盾结合体<br>
+既看破世事本质<br>
+又扎根凡尘不遁空门<br>
+他所求的心安<br>
+是为杀富济贫计划寻找文化支撑<br>
+而非单纯向佛门求索庇护<br>
+面对智玄大师<br>
+他直言杀富绝非扶贫<br>
+根本核心是借商业冲击<br>
+击碎弱势群体<br>
+等靠要的文化惯性<br>
+打破其对救世主的幻想<br>
+倒逼自我觉醒<br>
+智玄大师知道<br>
+这并非简单财富转移<br>
+而是搅动弱势文化死水的惊雷<br>
+世人的指责争议<br>
+恰是对僵化扶贫模式的反思<br>
+也是丁元英的预设结果<br>
+他以争议撬动思考<br>
+传递强势文化内核<br>
+唯有摒弃依附自立自强<br>
+方能实现精神与物质双重脱困<br>
+这场论道是两位通透者<br>
+对文化扶贫的叩问<br>
+直指得救的本质<br>
+是自我觉醒后的主动破局<br>
+面对智玄大师<br>
+剖析了整个计划的核心诉求<br>
+他从未将杀富<br>
+视为解决贫困的终极方案<br>
+商业层面的强弱对垒<br>
+终究只能改变一时的<br>
+无法根除贫困的根源<br>
+他真正的图谋<br>
+是借这场注定引发<br>
+轩然大波的商业冲击<br>
+击碎弱势群体<br>
+根深蒂固的等靠要文化基因<br>
+这种文化惯性<br>
+让弱者始终将希望<br>
+寄托于救世主的降临<br>
+而非主动掌控自身命运<br>
+而丁元英要做的<br>
+就是亲手打破这份虚妄的幻想<br>
+以极致的现实冲击<br>
+倒逼他们完成自我觉醒
+        </div>
+        <p class="muted" style="margin-top:10px;">提示：带虚线下划线的词条已做“生僻字/术语定位点”。</p>
+      </div>
+    </details>
+
+    <!-- ② 核心解读 -->
+    <details class="section" id="s-core">
+      <summary>
+        <div class="sum-left">
+          <div class="icon">🧩</div>
+          <div class="sum-title">② 原文核心解读：主旨一句话 + 三条要点</div>
+        </div>
+        <div class="sum-meta">点击展开</div>
+      </summary>
+      <div class="content">
+        <h4>主旨一句话</h4>
+        <p class="tagline">这场“论道”表面谈佛理，实则在回答：真正的脱困不是“有人救你”，而是你学会改变自己的文化属性，完成自我觉醒。</p>
+
+        <h4>三条要点（非常白话）</h4>
+        <ol><li>叩门被拒：钱买不到“精神答案”，也买不到真正的认可；交换逻辑一进门就被挡回。</li>
+<li>真经不在外：向外求是“痴梦”，向内求才可能从执念中醒来——修行是让本心自然显现。</li>
+<li>扶贫的关键不是分配：要打碎“等靠要”的惯性，让弱者从依附转向自立，才有长期命运的改变。</li></ol>
+
+        <div class="note">
+          <strong>理解抓手</strong>：把“佛理”当作语言外衣，把“文化属性”当作真实主题；这段戏最关心的是“人如何从依附走向自立”。
+        </div>
+      </div>
+    </details>
+
+    <!-- ③ 生僻字 -->
+    <details class="section" id="s-rare">
+      <summary>
+        <div class="sum-left">
+          <div class="icon">🔎</div>
+          <div class="sum-title">③ 生僻字（发音）｜误区｜释义｜例句</div>
+        </div>
+        <div class="sum-meta">点击展开 · 可跳回原文</div>
+      </summary>
+      <div class="content">
+        <p class="muted">点击“词条”或“定位原文”，会滚动到原文位置并高亮 5 秒。</p>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:110px;">词/字</th>
+              <th style="width:140px;">发音</th>
+              <th>常见误区</th>
+              <th>释义（文本语境）</th>
+              <th>例句（来自原文）</th>
+              <th style="width:90px;">跳转</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td><button class="chip" data-jump="src-01">袈裟</button></td>
+      <td class="mono">jiā shā</td>
+      <td>以为袈裟=天然清净的“身份加成”。</td>
+      <td>僧衣；在文中是隐喻：外在形式遮不住内在执念。</td>
+      <td>“袈裟遮不住内心的执念”。</td>
+      <td><a href="#src-01" class="link" data-jump="src-01">定位原文</a></td>
+    </tr>
+    
+    <tr>
+      <td><button class="chip" data-jump="src-02">嗔</button></td>
+      <td class="mono">chēn</td>
+      <td>把“嗔”当成简单发火。</td>
+      <td>贪、嗔、痴之一；更偏“对抗/怨怼/不甘”的心性。</td>
+      <td>“满纸一个嗔字”。</td>
+      <td><a href="#src-02" class="link" data-jump="src-02">定位原文</a></td>
+    </tr>
+    
+    <tr>
+      <td><button class="chip" data-jump="src-03">寂空涅槃</button></td>
+      <td class="mono">jì kōng niè pán</td>
+      <td>以为是“躺平式的虚无”。</td>
+      <td>借用佛教语汇指向心念止息、分别心淡化后的究竟安住（文本语境）。</td>
+      <td>“达到寂空涅槃的究竟法门”。</td>
+      <td><a href="#src-03" class="link" data-jump="src-03">定位原文</a></td>
+    </tr>
+    
+    <tr>
+      <td><button class="chip" data-jump="src-04">觉性</button></td>
+      <td class="mono">jué xìng</td>
+      <td>把觉性等同于“聪明”。</td>
+      <td>觉悟的可能性/自证能力；文本里指每个人内在的“能醒来”的部分。</td>
+      <td>“佛乃觉性，人人都有觉性”。</td>
+      <td><a href="#src-04" class="link" data-jump="src-04">定位原文</a></td>
+    </tr>
+    
+    <tr>
+      <td><button class="chip" data-jump="src-05">阿弥陀佛</button></td>
+      <td class="mono">ā mí tuó fó</td>
+      <td>只当作口头禅。</td>
+      <td>佛教名号；文本中用“若佛有量，即非阿弥陀佛”强调不可执着于“可量化的神”。</td>
+      <td>“若佛有量，即非阿弥陀佛”。</td>
+      <td><a href="#src-05" class="link" data-jump="src-05">定位原文</a></td>
+    </tr>
+    
+    <tr>
+      <td><button class="chip" data-jump="src-06">窄门</button></td>
+      <td class="mono">zhǎi mén</td>
+      <td>以为是地理上的门。</td>
+      <td>源自基督教语境的比喻：通向救赎的道路艰难而自律（文本语境）。</td>
+      <td>“于基督我进不得窄门”。</td>
+      <td><a href="#src-06" class="link" data-jump="src-06">定位原文</a></td>
+    </tr>
+    
+    <tr>
+      <td><button class="chip" data-jump="src-07">生灭</button></td>
+      <td class="mono">shēng miè</td>
+      <td>把“生灭”理解成简单的生死。</td>
+      <td>起心动念的生起与消散；在文中指执念驱动的反复循环。</td>
+      <td>“如是生灭”。</td>
+      <td><a href="#src-07" class="link" data-jump="src-07">定位原文</a></td>
+    </tr>
+    
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- ④ 关键术语 -->
+    <details class="section" id="s-terms">
+      <summary>
+        <div class="sum-left">
+          <div class="icon">🧠</div>
+          <div class="sum-title">④ 关键术语（概念 + 语境解释 + 文化对应）</div>
+        </div>
+        <div class="sum-meta">点击展开</div>
+      </summary>
+      <div class="content">
+        <div class="cards">
+          
+    <div class="card">
+      <h5>文化属性</h5>
+      <p>一种“默认操作系统”：解释世界、做选择、分配责任的习惯结构。</p>
+      <p class="muted"><span class="badge">跨文化对应</span> 对应英文更接近 cultural operating system / default mindset；在多文化语境里也可理解为“社会化后的行为算法”。</p>
+    </div>
+    
+    <div class="card">
+      <h5>等靠要</h5>
+      <p>等政策、靠关系、要救济的依附路径。</p>
+      <p class="muted"><span class="badge">跨文化对应</span> 在不同文化中常与“恩庇式关系”“施与受”结构相连，容易压制自我负责与能力建设。</p>
+    </div>
+    
+    <div class="card">
+      <h5>强势文化 / 弱势文化</h5>
+      <p>强势：承认规律、建系统、能复制；弱势：外包希望、重情面、难迭代。</p>
+      <p class="muted"><span class="badge">跨文化对应</span> 不是道德评价，而是对“行为模式能否在竞争环境中持续自洽”的描述。</p>
+    </div>
+    
+    <div class="card">
+      <h5>真经</h5>
+      <p>不是一本书，而是能让人抵达“究竟”的方法论/法门（文本语境）。</p>
+      <p class="muted"><span class="badge">跨文化对应</span> 跨文化可类比为：能让你稳定地做对事、降低幻觉、减少执念的“实践路径”。</p>
+    </div>
+    
+    <div class="card">
+      <h5>觉性</h5>
+      <p>人内在的“能醒来”的能力：看见执念、回到本心。</p>
+      <p class="muted"><span class="badge">跨文化对应</span> 可类比现代心理学里的“元认知/觉察力”，但文本强调其更本体论的意味。</p>
+    </div>
+    
+    <div class="card">
+      <h5>规律 / 天道</h5>
+      <p>超越个人意志的运行逻辑：因果、概率、激励、成本等。</p>
+      <p class="muted"><span class="badge">跨文化对应</span> 在商业语境里表现为市场规律；在生命语境里表现为自我与世界的结构性限制。</p>
+    </div>
+    
+    <div class="card">
+      <h5>文化扶贫</h5>
+      <p>不只给资源，更要改变“可复制的生存方法”。</p>
+      <p class="muted"><span class="badge">跨文化对应</span> 跨文化发展研究中常谈“能力建设（capacity building）”而非单次援助。</p>
+    </div>
+    
+        </div>
+      </div>
+    </details>
+
+    <!-- ⑤ 文化属性（补充章节） -->
+    <details class="section" id="s-culture">
+      <summary>
+        <div class="sum-left">
+          <div class="icon">🧬</div>
+          <div class="sum-title">⑤ 文化属性：补充理解（独立章节）</div>
+        </div>
+        <div class="sum-meta">点击展开</div>
+      </summary>
+      <div class="content">
+        
+<p>我理解的“文化属性”，不是“读了多少书/懂多少道理”，而是一个人（或一个群体）在长期生活里<strong>被训练出来的默认操作系统</strong>——你遇到问题时，下意识会怎么想、怎么选、怎么解释自己和世界。</p>
+<p>它更像“习惯性因果链”，而不是“口头观念”。</p>
+
+<h4>✅ 文化属性是什么</h4>
+<p><strong>文化属性 = 你的“默认解释框架” + “默认行动路径” + “默认责任归属”。</strong></p>
+<ul>
+  <li><strong>默认解释框架</strong>：发生一件事，你先把它归因给什么？天命/运气？制度/领导？市场/规律？还是自己可控的变量？</li>
+  <li><strong>默认行动路径</strong>：你会先去求谁、靠谁、等什么？关系、恩赐、补贴、贵人？还是做预算、试错、复盘、迭代？</li>
+  <li><strong>默认责任归属</strong>：出了问题，你会先怪谁、先改谁？“社会不公/别人不帮我”还是“我哪里没学会/没做到”。</li>
+</ul>
+
+<h4>🔍 为什么它比贫富更底层</h4>
+<p>贫困很多时候是结果，文化属性更像“生成结果的算法”。同样一笔钱、同样一条机会：</p>
+<ul>
+  <li>有人把它当“救命稻草”，于是依赖更深；</li>
+  <li>有人把它当“资本/工具”，于是建立能力、系统和边界。</li>
+</ul>
+<p>所以“扶一把”可能改变短期生活，但不一定改变长期轨迹；真正决定长期轨迹的，是文化属性里那套<strong>可复制的生存方法</strong>。</p>
+
+<h4>🎭 在《天道》的语境里，它大概指什么</h4>
+<p>你这段解说里反复提到的“等靠要”“弱势文化”“强势文化”，我会这样理解：</p>
+<div class="grid2">
+  <div class="card">
+    <h5>弱势文化属性（机制描述，不是骂人）</h5>
+    <ol>
+      <li>习惯把希望外包：等政策、等老板、等贵人、等“被拯救”。</li>
+      <li>更看重关系与情面，而不是规则与成本。</li>
+      <li>面对变化先求稳、先抱团、先分配，不先学习和升级。</li>
+      <li>更容易把失败解释为“命/不公/别人坑我”，难形成可迭代方法。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h5>强势文化属性</h5>
+    <ol>
+      <li>先承认规律：市场、成本、效率、概率、激励。</li>
+      <li>先建系统：流程、标准、分工、财务、复盘。</li>
+      <li>先练能力：学习、试错、迭代，靠可复制的方法吃饭。</li>
+      <li>先立边界：不靠情绪推动，不靠道德绑架兑现承诺。</li>
+    </ol>
+  </div>
+</div>
+<p>丁元英所谓“扶贫不是杀富”，更像是：<strong>把外包的希望收回来，把“求恩”改成“学会”</strong>——改变的不是钱，而是那套默认操作系统。</p>
+
+<h4>🧪 三个快速自测问题</h4>
+<ul>
+  <li>你遇到困境时，第一反应是找人还是找方法？</li>
+  <li>你做决策更看“关系/面子”，还是看“成本/收益/概率”？</li>
+  <li>你复盘时更容易得出“我不行”，还是“我缺一个方法/结构”？</li>
+</ul>
+
+<h4>🛠️ 改变文化属性：改“可重复动作”</h4>
+<ul>
+  <li>把“找贵人”换成“做清单”：目标—路径—资源—时间—风险</li>
+  <li>把“讲情面”换成“立规则”：合同、分配、退出机制</li>
+  <li>把“求稳定”换成“小步试错”：先跑通最小闭环再扩大</li>
+  <li>把“等别人”换成“自我教育”：每周固定输入、练习、复盘</li>
+</ul>
+<p class="tagline">一句话落地：文化属性最终体现在——<strong>你能不能在没有救世主时，仍然稳步变强</strong>。</p>
+
+      </div>
+    </details>
+
+    <!-- ⑥ 思维导图 -->
+    <details class="section" id="s-map">
+      <summary>
+        <div class="sum-left">
+          <div class="icon">🗺️</div>
+          <div class="sum-title">⑥ 思维导图（纯 SVG）</div>
+        </div>
+        <div class="sum-meta">点击展开 · 结构关系视角</div>
+      </summary>
+      <div class="content">
+        <div class="mindmap">
+<svg viewBox="0 0 980 520" role="img" aria-label="五台山论道思维导图">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity=".18"/>
+    </filter>
+  </defs>
+
+  <g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, PingFang SC, Microsoft YaHei">
+    <!-- Center -->
+    <rect x="380" y="220" rx="18" ry="18" width="220" height="80" class="mm-center" filter="url(#shadow)"/>
+    <text x="490" y="255" text-anchor="middle" class="mm-title">五台山论道</text>
+    <text x="490" y="282" text-anchor="middle" class="mm-sub">从“求外”到“觉内”</text>
+
+    <!-- Left branch: 叩门 -->
+    <path d="M380 260 C 280 260, 240 210, 170 190" class="mm-line"/>
+    <rect x="40" y="150" rx="16" ry="16" width="220" height="90" class="mm-node" filter="url(#shadow)"/>
+    <text x="150" y="182" text-anchor="middle" class="mm-h">叩门逻辑</text>
+    <text x="150" y="205" text-anchor="middle" class="mm-t">金钱被拒：交换无效</text>
+    <text x="150" y="228" text-anchor="middle" class="mm-t">诗作得见：价值穿透</text>
+
+    <!-- Top branch: 真经/修行 -->
+    <path d="M490 220 C 490 150, 540 120, 620 95" class="mm-line"/>
+    <rect x="600" y="40" rx="16" ry="16" width="320" height="110" class="mm-node" filter="url(#shadow)"/>
+    <text x="760" y="74" text-anchor="middle" class="mm-h">真经与修行</text>
+    <text x="760" y="97" text-anchor="middle" class="mm-t">真经＝究竟法门（方法）</text>
+    <text x="760" y="120" text-anchor="middle" class="mm-t">向内求：识执念，守本心</text>
+
+    <!-- Right branch: 佛=觉性（三层） -->
+    <path d="M600 260 C 700 260, 740 290, 820 320" class="mm-line"/>
+    <rect x="690" y="280" rx="16" ry="16" width="260" height="150" class="mm-node" filter="url(#shadow)"/>
+    <text x="820" y="314" text-anchor="middle" class="mm-h">佛的本质</text>
+    <text x="820" y="337" text-anchor="middle" class="mm-t">佛＝觉性（内在觉醒）</text>
+    <text x="820" y="360" text-anchor="middle" class="mm-t">三层：规律/文化/情感</text>
+    <text x="820" y="383" text-anchor="middle" class="mm-t">去遮蔽，而非求神迹</text>
+
+    <!-- Bottom branch: 文化扶贫 -->
+    <path d="M490 300 C 490 380, 420 410, 330 440" class="mm-line"/>
+    <rect x="70" y="400" rx="16" ry="16" width="520" height="95" class="mm-node" filter="url(#shadow)"/>
+    <text x="330" y="435" text-anchor="middle" class="mm-h">文化扶贫的核心</text>
+    <text x="330" y="458" text-anchor="middle" class="mm-t">不是“杀富”，而是击碎“等靠要”惯性</text>
+    <text x="330" y="481" text-anchor="middle" class="mm-t">把希望收回：方法、规则、自我负责</text>
+  </g>
+</svg>
+</div>
+        <p class="muted" style="margin-top:10px;">提示：该导图强调“叩门 → 论道 → 文化扶贫”的逻辑链，而非剧情时间线。</p>
+      </div>
+    </details>
+
+    <!-- ⑦ 要点清单 -->
+    <details class="section" id="s-list">
+      <summary>
+        <div class="sum-left">
+          <div class="icon">✅</div>
+          <div class="sum-title">⑦ 要点清单（来自原文）</div>
+        </div>
+        <div class="sum-meta">点击展开</div>
+      </summary>
+      <div class="content">
+        <ul><li>以香火钱叩门被拒 → 交换逻辑无效。</li>
+<li>以诗作叩门成功 → 价值与诚意穿透形式。</li>
+<li>“向外求皆是痴梦，向内求方得觉醒” → 修行指向自证。</li>
+<li>“真经”被定义为通向“寂空涅槃”的究竟法门（文本语境）。</li>
+<li>“佛乃觉性” → 佛不是具象神灵，而是内在觉醒本性。</li>
+<li>佛教被拆成三层：天道本源规律 / 向善的文化体系 / 抚慰心灵的情感工具。</li>
+<li>大师评价：丁元英已踩到“得道门槛”，进则净土、退则凡尘。</li>
+<li>计划核心：不是财富转移，而是用冲击打碎“等靠要”文化惯性，倒逼自我觉醒。</li></ul>
+      </div>
+    </details>
+
+    <!-- ⑧ 费曼学习法 -->
+    <details class="section" id="s-feynman">
+      <summary>
+        <div class="sum-left">
+          <div class="icon">🧪</div>
+          <div class="sum-title">⑧ 费曼学习法（成年人｜低门槛但不降智）</div>
+        </div>
+        <div class="sum-meta">点击展开</div>
+      </summary>
+      <div class="content">
+        
+<p>把这段“论道”用费曼学习法讲清楚，关键是：用<strong>你能马上用的语言</strong>复述，并且能回答“为什么”。</p>
+
+<h4>1）用一句话教给朋友</h4>
+<p>“这段戏讲的不是拜佛求答案，而是：人真正的出路在于不再把希望外包，学会在规律里自我负责、自我觉醒。”</p>
+
+<h4>2）把难词翻译成白话</h4>
+<ul>
+  <li><strong>真经</strong>：不是一本书，是一套能让你稳住、不被执念牵着走的方法。</li>
+  <li><strong>觉性</strong>：你能不能看见自己在执着什么、被什么带跑。</li>
+  <li><strong>修行</strong>：不是躲起来，而是在现实里不被得失牵着走。</li>
+  <li><strong>文化属性</strong>：你遇到事的“默认反应”，是依赖还是自立。</li>
+</ul>
+
+<h4>3）用三个例子验证你懂了</h4>
+<ol>
+  <li><strong>工作</strong>：遇到卡点，你是先“找关系求通融”，还是先“补能力、找方法、做复盘”？</li>
+  <li><strong>家庭</strong>：冲突出现，你是先“争对错”，还是先“看结构：边界、分工、激励”？</li>
+  <li><strong>金钱</strong>：拿到一笔钱，你是先“改善面子”，还是先“建立现金流/技能/系统”？</li>
+</ol>
+
+<h4>4）找出你讲不清的地方（就是你的盲点）</h4>
+<p>如果你解释不出“为什么向外求是痴梦”，那就回到原文：向外求意味着把决定权交给外部；外部不可控，所以你只能在不安里反复求。向内求不是自恋，而是把可控变量收回：认清执念、改变行为、建立方法。</p>
+
+<h4>5）给自己一个可执行的小作业（7天）</h4>
+<ul>
+  <li>每天记录一次：今天我把希望外包给了谁/什么？我能收回哪个可控变量？</li>
+  <li>把一个“等靠要”的动作，替换成一个“可复制动作”（清单/预算/复盘/小步试错）。</li>
+</ul>
+
+      </div>
+    </details>
+
+    <!-- ⑨ 金句 -->
+    <details class="section" id="s-quotes">
+      <summary>
+        <div class="sum-left">
+          <div class="icon">💎</div>
+          <div class="sum-title">⑨ 金句（5–10句）：引出 → 解读 → 联结</div>
+        </div>
+        <div class="sum-meta">点击展开</div>
+      </summary>
+      <div class="content">
+        
+    <div class="quote-card">
+      <div class="quote-head">【向内求】（向外求皆是痴梦 → 向内求方得觉醒）</div>
+      <div class="quote-body">
+        <p><strong>【解读】</strong>外部世界永远不缺可供依附的对象，缺的是你对自身执念的识别能力。向内求不是离群索居，而是把决定权从外界收回到可控变量。</p>
+        <p><strong>【联结】</strong>把一个长期困扰你的问题写成“我能控制的3件事 + 我不能控制的3件事”，只对前者行动。</p>
+      </div>
+    </div>
+    
+    <div class="quote-card">
+      <div class="quote-head">【救赎】（这世间最好的救赎 → 自己渡自己）</div>
+      <div class="quote-body">
+        <p><strong>【解读】</strong>真正的救赎不是被拯救，而是你愿意承担改变所需的代价。依赖会带来短暂安慰，自渡才带来长期自由。</p>
+        <p><strong>【联结】</strong>把“求帮助”的问题改写为“我愿意先做哪一步”，再去寻求资源。</p>
+      </div>
+    </div>
+    
+    <div class="quote-card">
+      <div class="quote-head">【形式与本心】（袈裟本无清净 → 红尘不染性空）</div>
+      <div class="quote-body">
+        <p><strong>【解读】</strong>外在身份与场域都不能替你完成心性工作。真正的清净不是环境无尘，而是你在尘里不被牵着走。</p>
+        <p><strong>【联结】</strong>在高压场景练习“暂停2秒”：先识别情绪，再决定回应。</p>
+      </div>
+    </div>
+    
+    <div class="quote-card">
+      <div class="quote-head">【真经】（修行不取真经 → 又修的什么行）</div>
+      <div class="quote-body">
+        <p><strong>【解读】</strong>“真经”在文中像一套究竟法门：让人从执念与轮回式重复里出来。缺少方法，努力会沦为自我消耗。</p>
+        <p><strong>【联结】</strong>为一个目标写下“最小闭环”：输入→行动→反馈→调整。</p>
+      </div>
+    </div>
+    
+    <div class="quote-card">
+      <div class="quote-head">【觉性】（佛乃觉性 → 人人都有觉性）</div>
+      <div class="quote-body">
+        <p><strong>【解读】</strong>觉性不是少数人的特权，而是一种随时可被遮蔽也可被点亮的能力。修行的重点是“去遮蔽”，不是“求神迹”。</p>
+        <p><strong>【联结】</strong>每天一次：写下今天最强的一个执念，并问“它保护我什么？”</p>
+      </div>
+    </div>
+    
+    <div class="quote-card">
+      <div class="quote-head">【门槛】（进则净土 → 退则凡尘）</div>
+      <div class="quote-body">
+        <p><strong>【解读】</strong>智者与觉者的差距不在聪明，而在能否放下“我执”的优越感，与世界建立更圆融的关系。</p>
+        <p><strong>【联结】</strong>找一个你一直看不上的人，尝试理解他行为背后的需求与限制。</p>
+      </div>
+    </div>
+    
+    <div class="quote-card">
+      <div class="quote-head">【文化扶贫】（击碎等靠要 → 倒逼自我觉醒）</div>
+      <div class="quote-body">
+        <p><strong>【解读】</strong>扶贫若只停在资源输入，可能固化依附；真正改变的是可复制的方法与责任结构。</p>
+        <p><strong>【联结】</strong>把“给钱/给物”替换为“给方法+给规则+给复盘”。</p>
+      </div>
+    </div>
+    
+    <div class="quote-card">
+      <div class="quote-head">【规律与温和】（看透规律 → 依旧温和）</div>
+      <div class="quote-body">
+        <p><strong>【解读】</strong>最高级的通透不是冷酷地正确，而是知道规律仍愿意对人保持慈悲：既不骗，也不伤。</p>
+        <p><strong>【联结】</strong>在指出问题时，保持“事实+影响+建议”三段式，而非情绪评判。</p>
+      </div>
+    </div>
+    
+      </div>
+    </details>
+
+    <!-- ⑩ 60秒口播 -->
+    <details class="section" id="s-script">
+      <summary>
+        <div class="sum-left">
+          <div class="icon">🎙️</div>
+          <div class="sum-title">⑩ 60秒跨文化口播稿：中文｜捷克语｜英语</div>
+        </div>
+        <div class="sum-meta">点击展开</div>
+      </summary>
+      <div class="content">
+        <div class="cards">
+          <div class="card">
+            <h5>中文（可直接照念）</h5>
+            <p class="mono" style="white-space:pre-wrap;">（约60秒）
+这段《天道》的“五台山论道”，表面是在谈佛，其实是在问：一个人真正的出路在哪里。
+丁元英先用香火钱叩门被拒，说明“交换逻辑”买不到精神答案；后来用诗叩门成功，是因为价值与诚意能穿透形式。
+论道里最狠的一句是：向外求皆是痴梦，向内求方得觉醒——真正的修行，是在现实里不被得失牵着走。
+放到扶贫语境，就是：贫困不只是缺钱，更是“等靠要”的文化惯性。外部救济能救一时，但要改变命运，必须把希望收回，建立方法、规则和自我负责的能力。
+最后，最好的救赎，永远是自己渡自己。</p>
+          </div>
+          <div class="card">
+            <h5>捷克语（Česky）</h5>
+            <p class="mono" style="white-space:pre-wrap;">(cca 60 sekund)
+Scéna „debaty na Wutai“ v seriálu *Tian Dao* se na povrchu tváří jako rozhovor o buddhismu, ve skutečnosti však klade otázku: kde leží skutečná životní cesta člověka.
+Když Ding Yuan-ying nejprve nabízí peníze jako „vstupenku“ a je odmítnut, ukazuje to, že duchovní oporu nelze koupit logikou směny. Teprve báseň – tedy smysl a upřímnost – otevírá dveře.
+Nejpodstatnější myšlenka zní: hledat odpověď „venku“ je klam; probuzení začíná „uvnitř“. Praxe není útěk ze světa, ale schopnost zůstat bdělý uprostřed zisků a ztrát.
+V kontextu chudoby to znamená: problém není jen nedostatek peněz, ale i kultura závislosti „čekat–spoléhat–žádat“. Pomoc zvenčí může ulevit krátkodobě, ale změna osudu vyžaduje osvojit si metody, pravidla a odpovědnost.
+Nejlepší spása je nakonec ta, kterou si člověk dá sám. </p>
+          </div>
+          <div class="card" style="grid-column:1 / -1;">
+            <h5>English (native-like)</h5>
+            <p class="mono" style="white-space:pre-wrap;">(~60 seconds)
+The “Wutai Mountain debate” in *Tian Dao* looks like a conversation about Buddhism, but it’s really asking: where does a person’s real way out come from?
+When Ding Yuan-ying tries to “knock with money” and gets rejected, it exposes a core point: you can’t purchase inner clarity with transaction logic. The poem works because meaning and sincerity cut through form.
+The sharpest line is essentially: seeking outward is a delusion; awakening starts inward. Practice isn’t escaping the world—it’s staying clear-minded inside the world, without being dragged around by gains and losses.
+Applied to poverty, the argument is even more direct: it’s not only a lack of money, but a dependency culture—waiting, relying, asking. External aid may relieve the present, but changing trajectory requires building methods, rules, and personal agency.
+In the end, the most reliable salvation is self-deliverance.</p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <footer style="margin-top:18px; color:var(--faint); font-size:12px;">
+      <p>🧷 交互提示：点击上方“全部展开/折叠”，或在“生僻字”里点词条跳回原文；打印会自动展开全部章节。</p>
+      <p>© 仅对你提供的解说文本做网页化排版与学习辅助，不代表原剧台词/版权归属。</p>
+    </footer>
+  </div>
+
+  <script>
+    const sections = Array.from(document.querySelectorAll('details.section'));
+    const btnExpand = document.getElementById('btnExpand');
+    const btnCollapse = document.getElementById('btnCollapse');
+    const btnPrint = document.getElementById('btnPrint');
+
+    function openAll() {
+      sections.forEach(d => d.open = true);
+    }
+    function closeAll() {
+      sections.forEach(d => d.open = false);
+    }
+
+    btnExpand?.addEventListener('click', openAll);
+    btnCollapse?.addEventListener('click', closeAll);
+
+    // Print: open all before printing
+    btnPrint?.addEventListener('click', () => {
+      openAll();
+      setTimeout(() => window.print(), 50);
+    });
+
+    // Rare-term jump + highlight
+    function jumpTo(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      // ensure original section open
+      const original = document.getElementById('s-original');
+      if (original) original.open = true;
+
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.remove('hl');
+      // force reflow
+      void el.offsetWidth;
+      el.classList.add('hl');
+      setTimeout(() => el.classList.remove('hl'), 5200);
+    }
+
+    document.addEventListener('click', (e) => {
+      const t = e.target;
+      if (t && t.dataset && t.dataset.jump) {
+        e.preventDefault();
+        jumpTo(t.dataset.jump);
+      }
+    });
+
+    // If URL has hash for a src term, highlight
+    window.addEventListener('load', () => {
+      const hash = (location.hash || '').replace('#','');
+      if (hash.startsWith('src-')) {
+        jumpTo(hash);
+      }
+    });
+  </script>
+</body>
+</html>
