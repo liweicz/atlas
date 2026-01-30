@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI 相关专业与跨学科方向迅速增长｜给 16–17 岁的选专业指南</title>
+  <meta name="description" content="AI 专业化 + AI 通识素养 + AI+X 跨学科：给高中阶段的专业选择策略（中英捷三语）。" />
+  <style>
+    :root{
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.09);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --subtle: rgba(255,255,255,.55);
+      --border: rgba(255,255,255,.12);
+      --accent: #7c5cff;
+      --accent2: #23c483;
+      --warn: #ffcc66;
+      --danger: #ff6b6b;
+      --shadow: 0 10px 35px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1040px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% -10%, rgba(124,92,255,.35), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(35,196,131,.22), transparent 55%),
+        radial-gradient(900px 700px at 35% 120%, rgba(255,204,102,.18), transparent 60%),
+        var(--bg);
+      line-height: 1.45;
+    }
+    a{ color: inherit; }
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 18px 80px;
+    }
+    .hero{
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+      border-radius: var(--radius2);
+      padding: 26px 22px;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(700px 200px at 30% 0%, rgba(124,92,255,.22), transparent 70%);
+      pointer-events:none;
+    }
+    .hero-top{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .title{
+      margin: 12px 0 8px;
+      font-size: clamp(24px, 3.2vw, 40px);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .subtitle{
+      margin:0;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 75ch;
+    }
+    .chips{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 16px;
+    }
+    .chip{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--muted);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      white-space: nowrap;
+    }
+    .chip b{ color: var(--text); font-weight: 650; }
+
+    .section{
+      margin-top: 22px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.045);
+      border-radius: var(--radius2);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .section h2{
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .section p{
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .lang-tag{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--subtle);
+      border: 1px solid var(--border);
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.18);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .card{
+      grid-column: span 12;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      padding: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      width: 260px; height: 260px;
+      right:-160px; top:-160px;
+      background: radial-gradient(circle at center, rgba(124,92,255,.18), transparent 70%);
+      pointer-events:none;
+    }
+
+    @media (min-width: 820px){
+      .span6{ grid-column: span 6; }
+      .span7{ grid-column: span 7; }
+      .span5{ grid-column: span 5; }
+      .span4{ grid-column: span 4; }
+      .span8{ grid-column: span 8; }
+    }
+
+    .card h3{
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .card ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .card li{ margin: 6px 0; }
+
+    .callout{
+      border: 1px solid rgba(124,92,255,.35);
+      background: linear-gradient(180deg, rgba(124,92,255,.18), rgba(124,92,255,.06));
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .callout strong{ color: var(--text); }
+
+    .divider{
+      height:1px;
+      background: var(--border);
+      margin: 16px 0 0;
+    }
+
+    .links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 12px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.22);
+      text-decoration:none;
+      color: var(--text);
+      font-size: 13px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,.22);
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.18);
+    }
+    .btn .mini{
+      font-family: var(--mono);
+      color: var(--subtle);
+      font-size: 11px;
+    }
+
+    .icon{
+      width: 18px; height: 18px;
+      display:inline-block;
+    }
+    .icon svg{ width: 18px; height: 18px; }
+    .badge{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(35,196,131,.35);
+      background: linear-gradient(180deg, rgba(35,196,131,.17), rgba(35,196,131,.06));
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .footer{
+      margin-top: 18px;
+      color: var(--subtle);
+      font-size: 12px;
+    }
+
+    @media print{
+      body{ background:#fff; color:#111; }
+      .hero,.section,.card{ box-shadow:none; background:#fff; }
+      .btn{ display:none; }
+      .kicker,.chip,.lang-tag,.badge{ background:#fff; color:#333; }
+      a{ color:#111; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-top">
+        <div class="kicker">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2c4.2 0 7.6 3.4 7.6 7.6 0 2.6-1.4 4.9-3.4 6.2V20a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-4.2C5.8 14.5 4.4 12.2 4.4 9.6 4.4 5.4 7.8 2 12 2Z" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M9.2 9.4h5.6M9.2 12.1h3.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span>AI & Decision-Making • Major trends for students</span>
+        </div>
+        <div class="badge">✅ 可打印 | ✅ 手机友好 | ✅ 三语版本</div>
+      </div>
+
+      <h1 class="title">AI 正在“变成专业”也“变成通识”<br/>— 给 16–17 岁的选专业方向感</h1>
+      <p class="subtitle">
+        这页把关键信息压缩成你们能马上行动的版本：<b>趋势 → 路线 → 策略 → 资源链接</b>。
+        三个语言版本在下方独立章节（中文 / English / Čeština）。
+      </p>
+
+      <div class="chips" aria-label="Key themes">
+        <div class="chip">🚀 <b>AI Major</b>：AI 成为独立本科</div>
+        <div class="chip">🧠 <b>AI Fluency</b>：AI 变成通识能力</div>
+        <div class="chip">🧩 <b>AI+X</b>：跨学科更值钱</div>
+        <div class="chip">🎯 <b>策略</b>：选行业 + 用 AI 放大优势</div>
+      </div>
+    </header>
+
+    <!-- 中文 -->
+    <section class="section" id="zh">
+      <h2>中文版本 <span class="lang-tag">ZH</span> 🇨🇳</h2>
+      <p>一句话：<b>不要只问“要不要学 AI”，而要问“我想进哪个行业，然后用 AI 把它做得更强”。</b></p>
+
+      <div class="grid">
+        <div class="card span7">
+          <h3>🔥 三个趋势（你们一定要知道）</h3>
+          <ul>
+            <li><b>AI 正在变成独立专业</b>：有学校直接开 AI 本科（例如 MIT 的 <b>AI+D</b>）。</li>
+            <li><b>AI 正在变成通识能力</b>：有学校要求所有专业都要训练 AI 素养（不只 CS）。</li>
+            <li><b>AI+X 更有“含金量”</b>：AI 与医疗、网络安全、商业、设计、政策等结合，机会更广。</li>
+          </ul>
+          <div class="divider"></div>
+          <p style="margin-top:12px;color:var(--subtle)">
+            直觉判断：未来很多岗位不是“纯 AI”，而是“<b>懂行业 + 懂 AI</b>”的人更稀缺。
+          </p>
+        </div>
+
+        <div class="card span5 callout">
+          <h3>🎯 选专业策略（最短可执行版）</h3>
+          <ul>
+            <li>先选 <b>你愿意长期投入的行业</b>（医疗/金融/物流/媒体…）</li>
+            <li>再配 <b>AI 工具与数据能力</b>（编程 + 数据 + 模型思维）</li>
+            <li>最后做 1–2 个 <b>小项目</b>验证兴趣（哪怕很小）</li>
+          </ul>
+        </div>
+
+        <div class="card span4">
+          <h3>路线 A：硬核技术派 💻</h3>
+          <ul>
+            <li>适合：喜欢数学/编程/工程</li>
+            <li>目标岗位：AI/ML 工程、算法、数据科学</li>
+            <li>建议：AI/CS/EE + 数学/统计</li>
+          </ul>
+        </div>
+
+        <div class="card span4">
+          <h3>路线 B：行业王牌派 🧭</h3>
+          <ul>
+            <li>适合：对某行业很有兴趣</li>
+            <li>目标岗位：AI 产品、智能运营、风控、供应链优化</li>
+            <li>建议：行业专业 + AI/数据副修或证书</li>
+          </ul>
+        </div>
+
+        <div class="card span4">
+          <h3>路线 C：人文社会派 ⚖️</h3>
+          <ul>
+            <li>适合：关注社会影响、法律、伦理、政策</li>
+            <li>目标岗位：AI 治理、合规、政策、教育应用</li>
+            <li>建议：法/政/心理/传播 + 数据素养</li>
+          </ul>
+        </div>
+
+        <div class="card span12">
+          <h3>✅ 最关键的提醒（别忽略）</h3>
+          <ul>
+            <li><b>AI 只是放大器</b>：真正值钱的是“会思考 + 会解决问题 + 会与人协作”。</li>
+            <li>无论学什么，都把“三件套”练出来：<b>基础（数学/逻辑）+ 工具（编程/数据/AI）+ 领域（行业知识）</b>。</li>
+          </ul>
+
+          <div class="links" aria-label="Authoritative links (Chinese section)">
+            <a class="btn" href="https://capd.mit.edu/blog/2025/12/04/mits-aid-major-becomes-one-of-the-institutes-most-popular-undergraduate-programs/" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M10 6h9a2 2 0 0 1 2 2v9" stroke="currentColor" stroke-width="1.6"/><path d="M14 10 21 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M21 3h-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M21 3v7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5 7h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/></svg>
+              </span>
+              MIT：AI+D 专业热门（官方文章） <span class="mini">capd.mit.edu</span>
+            </a>
+
+            <a class="btn" href="https://www.eecs.mit.edu/academics/undergraduate-programs/curriculum/6-4-artificial-intelligence-and-decision-making/" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 8h7M8.5 12h7M8.5 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </span>
+              MIT EECS：AI+D（6-4）课程介绍 <span class="mini">eecs.mit.edu</span>
+            </a>
+
+            <a class="btn" href="https://www.theguardian.com/us-news/2025/jun/09/ohio-university-ai-training" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6.5A2.5 2.5 0 0 1 4 17.5v-11Z" stroke="currentColor" stroke-width="1.6"/><path d="M8 8h8M8 11.5h8M8 15h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </span>
+              OSU：面向所有学生的 AI 训练（报道） <span class="mini">theguardian.com</span>
+            </a>
+
+            <a class="btn" href="https://www.axios.com/local/boston/2025/04/03/northeastern-ai-claude-partnership" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 6-9 6-9-6 9-6Z" stroke="currentColor" stroke-width="1.6"/><path d="M3 9v8l9 6 9-6V9" stroke="currentColor" stroke-width="1.6"/></svg>
+              </span>
+              Northeastern × Anthropic：AI 工具进课堂 <span class="mini">axios.com</span>
+            </a>
+          </div>
+
+          <p class="footer">提示：这些按钮是“权威出处”入口，方便你们进一步验证与扩展阅读。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- English -->
+    <section class="section" id="en">
+      <h2>English Version <span class="lang-tag">EN</span> 🇺🇸</h2>
+      <p>One-liner: <b>Don’t only ask “Should I major in AI?” Ask “Which field do I care about—and how can AI amplify my edge in it?”</b></p>
+
+      <div class="grid">
+        <div class="card span7">
+          <h3>🚀 The 3 big trends (why this matters)</h3>
+          <ul>
+            <li><b>AI is becoming its own major</b>: some universities now offer dedicated AI degrees (e.g., MIT’s AI+D).</li>
+            <li><b>AI is becoming “general literacy”</b>: some schools push AI fluency across <i>all</i> majors, not just CS.</li>
+            <li><b>AI+X is often the highest-leverage path</b>: pairing AI with healthcare, security, business, design, policy, etc.</li>
+          </ul>
+          <div class="divider"></div>
+          <p style="margin-top:12px;color:var(--subtle)">
+            Scarcity signal: people who understand a domain deeply <b>and</b> can apply AI responsibly tend to stand out.
+          </p>
+        </div>
+
+        <div class="card span5 callout">
+          <h3>🎯 A practical major-selection strategy</h3>
+          <ul>
+            <li>Pick a <b>domain you can commit to</b> (health, finance, logistics, media…)</li>
+            <li>Add <b>AI + data skills</b> (coding, data analysis, model thinking)</li>
+            <li>Build <b>1–2 small projects</b> to test real interest (small is fine)</li>
+          </ul>
+        </div>
+
+        <div class="card span4">
+          <h3>Path A: Tech-heavy 💻</h3>
+          <ul>
+            <li>Best for: math / coding / engineering lovers</li>
+            <li>Roles: ML engineer, data scientist, algorithms</li>
+            <li>Majors: AI/CS/EE + math/stats</li>
+          </ul>
+        </div>
+
+        <div class="card span4">
+          <h3>Path B: Domain-first 🧭</h3>
+          <ul>
+            <li>Best for: strong interest in one industry</li>
+            <li>Roles: AI product, analytics, ops optimization</li>
+            <li>Majors: domain major + AI/data minor/certs</li>
+          </ul>
+        </div>
+
+        <div class="card span4">
+          <h3>Path C: Society & governance ⚖️</h3>
+          <ul>
+            <li>Best for: policy, ethics, law, human factors</li>
+            <li>Roles: AI governance, compliance, policy, education</li>
+            <li>Majors: policy/law/psych + data literacy</li>
+          </ul>
+        </div>
+
+        <div class="card span12">
+          <h3>✅ The key reminder</h3>
+          <ul>
+            <li><b>AI is a multiplier</b>, not a replacement for thinking.</li>
+            <li>Whatever you study, strengthen the trio: <b>foundations (math/logic) + tools (coding/data/AI) + domain depth</b>.</li>
+          </ul>
+
+          <div class="links" aria-label="Authoritative links (English section)">
+            <a class="btn" href="https://capd.mit.edu/blog/2025/12/04/mits-aid-major-becomes-one-of-the-institutes-most-popular-undergraduate-programs/" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M10 6h9a2 2 0 0 1 2 2v9" stroke="currentColor" stroke-width="1.6"/><path d="M14 10 21 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M21 3h-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M21 3v7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5 7h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/></svg>
+              </span>
+              MIT CAPD: AI+D popularity (official) <span class="mini">capd.mit.edu</span>
+            </a>
+
+            <a class="btn" href="https://www.eecs.mit.edu/academics/undergraduate-programs/curriculum/6-4-artificial-intelligence-and-decision-making/" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 8h7M8.5 12h7M8.5 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </span>
+              MIT EECS: 6-4 AI+D curriculum <span class="mini">eecs.mit.edu</span>
+            </a>
+
+            <a class="btn" href="https://www.theguardian.com/us-news/2025/jun/09/ohio-university-ai-training" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6.5A2.5 2.5 0 0 1 4 17.5v-11Z" stroke="currentColor" stroke-width="1.6"/><path d="M8 8h8M8 11.5h8M8 15h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </span>
+              Ohio State AI fluency (report) <span class="mini">theguardian.com</span>
+            </a>
+
+            <a class="btn" href="https://www.axios.com/local/boston/2025/04/03/northeastern-ai-claude-partnership" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 6-9 6-9-6 9-6Z" stroke="currentColor" stroke-width="1.6"/><path d="M3 9v8l9 6 9-6V9" stroke="currentColor" stroke-width="1.6"/></svg>
+              </span>
+              Northeastern + Anthropic in teaching <span class="mini">axios.com</span>
+            </a>
+
+            <a class="btn" href="https://its.northeastern.edu/2025/04/03/introducing-claude-northeasterns-new-ai-tool/" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 0 1 7 7v3a7 7 0 0 1-14 0V9a7 7 0 0 1 7-7Z" stroke="currentColor" stroke-width="1.6"/><path d="M8 21h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </span>
+              Northeastern IT: official Claude rollout <span class="mini">its.northeastern.edu</span>
+            </a>
+          </div>
+
+          <p class="footer">Tip: Use the buttons as “source-of-truth” checkpoints when exploring programs and claims online.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Čeština -->
+    <section class="section" id="cs">
+      <h2>Česká verze <span class="lang-tag">CS</span> 🇨🇿</h2>
+      <p>Jedna věta: <b>Neptej se jen „mám studovat AI?“, ale „jaký obor mě baví a jak mi AI pomůže být v něm výrazně lepší“.</b></p>
+
+      <div class="grid">
+        <div class="card span7">
+          <h3>⚡ 3 trendy (co se teď děje na univerzitách)</h3>
+          <ul>
+            <li><b>AI jako samostatný obor</b>: některé školy otevírají přímo AI bakaláře (např. MIT AI+D).</li>
+            <li><b>AI jako „gramotnost“ pro všechny</b>: AI dovednosti se tlačí napříč všemi obory, nejen informatikou.</li>
+            <li><b>AI+X je často největší páka</b>: AI v medicíně, kyberbezpečnosti, byznysu, designu, politice…</li>
+          </ul>
+          <div class="divider"></div>
+          <p style="margin-top:12px;color:var(--subtle)">
+            Prakticky: lidé, kteří rozumí oboru do hloubky <b>a</b> umí AI smysluplně použít, budou hodně žádaní.
+          </p>
+        </div>
+
+        <div class="card span5 callout">
+          <h3>🎯 Strategie výběru oboru</h3>
+          <ul>
+            <li>Vyber si <b>oblast, kterou chceš dlouhodobě dělat</b> (zdravotnictví, finance, logistika…)</li>
+            <li>Doplň <b>AI + data</b> (programování, analýza dat, „modelové myšlení“)</li>
+            <li>Ověř si zájem přes <b>malý projekt</b> (i drobný stačí)</li>
+          </ul>
+        </div>
+
+        <div class="card span4">
+          <h3>Cesta A: Technická 💻</h3>
+          <ul>
+            <li>Pro: kdo má rád matematiku a kód</li>
+            <li>Pozice: ML engineer, data scientist, algoritmy</li>
+            <li>Doporučení: AI/CS/EE + matematika/statistika</li>
+          </ul>
+        </div>
+
+        <div class="card span4">
+          <h3>Cesta B: Oborová 🧭</h3>
+          <ul>
+            <li>Pro: kdo ví, jaký průmysl ho baví</li>
+            <li>Pozice: AI produkt, analytika, optimalizace provozu</li>
+            <li>Doporučení: hlavní obor + AI/data minor/kurzy</li>
+          </ul>
+        </div>
+
+        <div class="card span4">
+          <h3>Cesta C: Společnost & pravidla ⚖️</h3>
+          <ul>
+            <li>Pro: zájem o etiku, právo, politiku, lidi</li>
+            <li>Pozice: governance, compliance, policy, vzdělávání</li>
+            <li>Doporučení: právo/politologie/psychologie + datová gramotnost</li>
+          </ul>
+        </div>
+
+        <div class="card span12">
+          <h3>✅ Důležitá poznámka</h3>
+          <ul>
+            <li><b>AI je násobič</b> — nejvíc se počítá schopnost přemýšlet, řešit problémy a spolupracovat.</li>
+            <li>V jakémkoli oboru posiluj trojici: <b>základy (matika/logika) + nástroje (kód/data/AI) + hloubka oboru</b>.</li>
+          </ul>
+
+          <div class="links" aria-label="Authoritative links (Czech section)">
+            <a class="btn" href="https://capd.mit.edu/blog/2025/12/04/mits-aid-major-becomes-one-of-the-institutes-most-popular-undergraduate-programs/" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M10 6h9a2 2 0 0 1 2 2v9" stroke="currentColor" stroke-width="1.6"/><path d="M14 10 21 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M21 3h-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M21 3v7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5 7h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/></svg>
+              </span>
+              MIT: popularita AI+D (oficiální) <span class="mini">capd.mit.edu</span>
+            </a>
+
+            <a class="btn" href="https://www.eecs.mit.edu/academics/undergraduate-programs/curriculum/6-4-artificial-intelligence-and-decision-making/" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 8h7M8.5 12h7M8.5 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </span>
+              MIT EECS: 6-4 AI+D kurikulum <span class="mini">eecs.mit.edu</span>
+            </a>
+
+            <a class="btn" href="https://www.theguardian.com/us-news/2025/jun/09/ohio-university-ai-training" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6.5A2.5 2.5 0 0 1 4 17.5v-11Z" stroke="currentColor" stroke-width="1.6"/><path d="M8 8h8M8 11.5h8M8 15h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </span>
+              Ohio State: AI pro všechny studenty <span class="mini">theguardian.com</span>
+            </a>
+
+            <a class="btn" href="https://www.axios.com/local/boston/2025/04/03/northeastern-ai-claude-partnership" target="_blank" rel="noopener">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 6-9 6-9-6 9-6Z" stroke="currentColor" stroke-width="1.6"/><path d="M3 9v8l9 6 9-6V9" stroke="currentColor" stroke-width="1.6"/></svg>
+              </span>
+              Northeastern × Anthropic ve výuce <span class="mini">axios.com</span>
+            </a>
+          </div>
+
+          <p class="footer">Pozn.: Odkazy jsou „rychlé důkazy“ — užitečné, když někdo tvrdí, že nějaký program je (ne)populární.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer" style="margin-top:18px;">
+      <span style="opacity:.9">Made for family use 👨‍👩‍👦‍👦 •</span>
+      <span>Tip: otevři v telefonu, ulož jako PDF, nebo vytiskni.</span>
+    </div>
+  </div>
+</body>
+</html>
