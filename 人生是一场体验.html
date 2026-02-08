@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>人生是一场体验</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f1b33;
+      --card2:#0c1730;
+      --text:#e9eefc;
+      --muted:#b8c3e6;
+      --accent:#7c5cff;
+      --accent2:#22c55e;
+      --warn:#f59e0b;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "PingFang SC","Microsoft YaHei","Noto Sans CJK SC", "Heiti SC", Arial, sans-serif;
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(124,92,255,.35), transparent 55%),
+        radial-gradient(900px 600px at 90% 0%, rgba(34,197,94,.22), transparent 55%),
+        radial-gradient(900px 600px at 50% 120%, rgba(245,158,11,.15), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.75;
+    }
+    a{color:inherit}
+    .wrap{max-width:1080px; margin:0 auto; padding:28px 18px 64px}
+    header{
+      position:relative;
+      padding:26px 22px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    header:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 220px at 15% 0%, rgba(124,92,255,.35), transparent 55%),
+        radial-gradient(500px 220px at 85% 20%, rgba(34,197,94,.18), transparent 60%);
+      filter: blur(0px);
+      pointer-events:none;
+    }
+    .title{
+      position:relative;
+      display:flex; gap:14px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;
+    }
+    .title h1{
+      margin:0;
+      font-size:28px;
+      letter-spacing:.5px;
+    }
+    .subtitle{
+      margin:8px 0 0;
+      color:var(--muted);
+      max-width:68ch;
+    }
+    .chiprow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .btns{display:flex; gap:10px; flex-wrap:wrap}
+    button{
+      appearance:none; border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:600;
+      transition:.15s transform, .15s background, .15s border-color;
+    }
+    button:hover{transform:translateY(-1px); background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.22)}
+    button.primary{background:rgba(124,92,255,.22); border-color:rgba(124,92,255,.35)}
+    button.primary:hover{background:rgba(124,92,255,.28); border-color:rgba(124,92,255,.55)}
+    main{margin-top:18px; display:grid; gap:14px}
+    details{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      box-shadow: 0 6px 20px rgba(0,0,0,.18);
+      overflow:hidden;
+    }
+    details[open]{background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02))}
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 16px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      user-select:none;
+      font-weight:800;
+      letter-spacing:.3px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .sumleft{display:flex; align-items:center; gap:10px}
+    .badge{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:28px; height:28px;
+      border-radius:10px;
+      background:rgba(124,92,255,.25);
+      border:1px solid rgba(124,92,255,.35);
+      flex:0 0 auto;
+    }
+    .chev{
+      width:18px; height:18px; flex:0 0 auto;
+      opacity:.9;
+      transform: rotate(0deg);
+      transition: .15s transform;
+    }
+    details[open] .chev{transform: rotate(180deg)}
+    .content{padding:0 16px 16px}
+    .note{
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px dashed rgba(255,255,255,.2);
+      background: rgba(0,0,0,.18);
+      color:var(--muted);
+      margin:10px 0 0;
+    }
+    .grid2{display:grid; grid-template-columns:1fr; gap:12px}
+    @media (min-width:860px){ .grid2{grid-template-columns:1.2fr .8fr} }
+    .card{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px 12px;
+      background: rgba(255,255,255,.03);
+    }
+    .kpi{
+      display:grid; grid-template-columns:1fr; gap:10px;
+    }
+    @media (min-width:640px){ .kpi{grid-template-columns:repeat(3,1fr)} }
+    .kpi .card strong{display:block; font-size:15px}
+    .kpi .card span{color:var(--muted); font-size:13px}
+    ul{margin:10px 0 0 1.1em}
+    li{margin:6px 0}
+    .quote{
+      border-left:3px solid rgba(124,92,255,.6);
+      padding:8px 10px;
+      margin:10px 0;
+      background: rgba(124,92,255,.08);
+      border-radius:10px;
+    }
+    .tag{
+      display:inline-flex; gap:6px; align-items:center;
+      padding:6px 10px; border-radius:999px;
+      background: rgba(34,197,94,.12);
+      border:1px solid rgba(34,197,94,.22);
+      color: #dff7e8;
+      font-size:12px;
+      margin:6px 8px 0 0;
+    }
+    .muted{color:var(--muted)}
+    .table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+    }
+    .table th,.table td{
+      padding:10px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      font-size:14px;
+    }
+    .table th{color:#dfe7ff; background:rgba(255,255,255,.04); text-align:left}
+    .table tr:last-child td{border-bottom:none}
+    .src{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:12px;
+      border:1px solid rgba(245,158,11,.25);
+      background: rgba(245,158,11,.08);
+      color:#ffe8b7;
+      font-size:13px;
+      margin-top:10px;
+    }
+    .orig p{margin:10px 0}
+    .hl{
+      padding:0 2px;
+      border-radius:6px;
+      border:1px solid rgba(245,158,11,.35);
+      background: rgba(245,158,11,.12);
+      cursor:pointer;
+      transition: .15s transform;
+      white-space:nowrap;
+    }
+    .hl:hover{transform:translateY(-1px)}
+    .glow{
+      outline:2px solid rgba(245,158,11,.75);
+      box-shadow: 0 0 0 6px rgba(245,158,11,.12);
+      background: rgba(245,158,11,.18);
+    }
+
+    /* print */
+    @media print{
+      body{background:#fff; color:#000}
+      header, details{box-shadow:none}
+      header{border:1px solid #ddd}
+      details{break-inside:avoid; background:#fff; border:1px solid #ddd}
+      summary{padding:10px 12px}
+      .btns, .chiprow{display:none !important}
+      .muted{color:#333}
+      .hl{border-color:#999; background:#fff}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">
+        <div>
+          <h1>🌿 人生是一场体验</h1>
+          <p class="subtitle">把“必须完美”换成“允许发生”，把“追结果”换成“走过程”——你会发现：美好不是终点，它在路上。</p>
+          <div class="chiprow">
+            <span class="chip">🧭 主题：活在当下</span>
+            <span class="chip">🧠 关键词：接受 / 过程 / 体验</span>
+            <span class="chip">🕯️ 提醒：除了生与死，其他多是小事</span>
+          </div>
+        </div>
+        <div class="btns">
+          <button class="primary" onclick="toggleAll(true)">📖 展开全部</button>
+          <button onclick="toggleAll(false)">🧩 折叠全部</button>
+          <button onclick="window.print()">🖨️ 一键打印全文</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- 1 原文 -->
+      <details>
+        <summary>
+          <div class="sumleft">
+            <span class="badge">1</span>
+            <span>📜 原文（100%保留）</span>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="content orig" id="original">
+          <p><strong>人生是一场体验</strong></p>
+          <p>人生是用来体验的，不是用来演绎完美的。<br>
+          这是我活到现在才明白的深刻道理。<br>
+          当我明白这句话，我开始接受自己的<span id="r-yudun" class="hl" data-term="愚钝">愚钝</span>和平庸，允许自己出错，允许自己有情绪，允许生活有遗憾。我从此只负责拼命<span id="r-zhanfang" class="hl" data-term="绽放">绽放</span>。<br>
+          如果有一天，你不再寻找爱情，而只是去爱；你不再追求结果，而只是去做……美好才刚刚开始。</p>
+
+          <p>人生的本质，是一切体验的总和。很多看似无意义的事，比如发呆、看日出、数星星，恰恰才是人生有趣的体验，而这些体验却是我们老了之后能回忆起的画面。<br>
+          如果追求结果，每个人的结果都是一样的，那就是死亡。人和人最大的区别不是结果，而是过程是否精彩。</p>
+
+          <p>小学时，觉得没完成作业是天大的事；高中时，觉得考不上大学是天大的事；恋爱时，觉得和喜欢的人分开是天大的事；毕业时，觉得没找到一份好工作是天大的事。<br>
+          但是，现在回头看看那些难以跨过的山，都在不知不觉中跨过去了。从前以为自己不能接受的事，最后也慢慢接受了。还是那句话，人生除了生与死，其他都是小事。</p>
+
+          <p>你活着的时候，没有几个人在意；你死了以后，也不会有几个人记得。请相信我，除了生病以外，你的痛苦大都是你的认知带来的，而非事实本身。<br>
+          钱没了可以再赚，工作丢了可以再找，朋友没了可以再交，爱情没了可以再遇。真正的强大不是忘记，而是接受——接受<span id="r-fendaoyangbiao" class="hl" data-term="分道扬镳">分道扬镳</span>，接受世事无常，接受孤独挫败，接受困惑不安，接受焦虑遗憾。<br>
+          你只需要平静下来，把该做的事情做好。生命那么短暂，没有标准答案和完美人生。回头看，轻舟已过<span id="r-wanchongshan" class="hl" data-term="万重山">万重山</span>，这就是人生。</p>
+
+          <p>得到未必是福，失去未必是祸。有些事你总是做不成，有些人你总是得不到，你以为错过了是遗憾，其实也可能是逃过一劫。<br>
+          前世不欠，今生不见；今生相见，定有亏欠。不要害怕失去，失去的本来就不属于你。<br>
+          请不要再因为<span id="r-jimaosuampi" class="hl" data-term="鸡毛蒜皮">鸡毛蒜皮</span>的小事去烦恼，更不要拿别人的错误来<span id="r-chengfa" class="hl" data-term="惩罚">惩罚</span>自己。<br>
+          请你用心品尝每一口饭菜，用心<span id="r-lingting" class="hl" data-term="聆听">聆听</span>每一朵花开，用心感受每一份爱和喜悦，这就是人生的意义。</p>
+
+          <p>人在二三十岁的时候，总以为年龄大一点是好的，那时会应有尽有。但一旦你到了四五十岁，无论你多么有钱、有地位，你都会怀念二三十岁时的样子。那时的你也许会<span id="r-gankai" class="hl" data-term="感慨">感慨</span>：无论花多少钱，你都愿意去换回青春。<br>
+          所以，无论生命走到哪个阶段，都要学着享受那一段的时光，去完成那一阶段的使命。这就是活在当下。</p>
+
+          <p>人生总是经过得太快，<span id="r-lingwu" class="hl" data-term="领悟">领悟</span>得太晚。有多少人说好要过一辈子，走着走着就剩下了曾经。有多少人说明天见，可醒来已是天各一方。不经意间一抬眼，人生已过半。往后余生，请善待每一天。<br>
+          请大家记住这句话：人生的意义就是没有意义，当下就是意义。<br>
+          可惜当我们说要“活在当下”四个字的时候，“当下”已经过去了。<br>
+          所以人生是用来体验的，不是用来评判的。让我们尽情享受当下。</p>
+
+          <div class="src">🔎 生僻字与术语已在正文中用<span class="hl" style="cursor:default">高亮</span>标注：点击可定位/联动。</div>
+        </div>
+      </details>
+
+      <!-- 2 主旨+要点 -->
+      <details>
+        <summary>
+          <div class="sumleft">
+            <span class="badge">2</span>
+            <span>🪄 原文核心解读（主旨一句话 + 三条要点）</span>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="content">
+          <div class="quote"><strong>主旨一句话：</strong>人生不是拿来“打分”的，而是拿来“经历”的——你允许不完美，过程就会变得鲜活。</div>
+          <div class="kpi">
+            <div class="card">
+              <strong>① 别把结果当成唯一意义</strong>
+              <span>结果终究相同；真正拉开差距的是过程是否丰盈。</span>
+            </div>
+            <div class="card">
+              <strong>② 接受，比强撑更强大</strong>
+              <span>允许出错、允许情绪、允许遗憾：你不必证明自己“永远正确”。</span>
+            </div>
+            <div class="card">
+              <strong>③ 把注意力放回当下</strong>
+              <span>认真吃饭、认真听花开、认真去爱：意义就在这些小事里。</span>
+            </div>
+          </div>
+          <p class="note">💡 读这篇时可以试试一句“替换咒语”：把“我必须”换成“我可以”；把“万一失败”换成“就算失败也算经历”。</p>
+        </div>
+      </details>
+
+      <!-- 3 生僻字 -->
+      <details>
+        <summary>
+          <div class="sumleft">
+            <span class="badge">3</span>
+            <span>🈶 生僻字（发音）｜误区｜释义｜例句</span>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="content">
+          <p class="muted">提示：点击“原文定位”会跳回原文并高亮 5 秒。</p>
+          <table class="table" aria-label="生僻字表">
+            <thead>
+              <tr>
+                <th>词/字</th>
+                <th>发音</th>
+                <th>常见误区</th>
+                <th>释义（贴近语境）</th>
+                <th>例句</th>
+                <th>原文定位</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>愚钝</strong></td>
+                <td>yú dùn</td>
+                <td>把它等同于“没救了/废了”</td>
+                <td>反应慢一点、不开窍一点，但仍然可以努力、可以成长。</td>
+                <td>我允许自己愚钝：慢一点，也能走到。</td>
+                <td><a href="javascript:void(0)" onclick="jump('r-yudun')">➡️ 去原文</a></td>
+              </tr>
+              <tr>
+                <td><strong>绽放</strong></td>
+                <td>zhàn fàng</td>
+                <td>以为“绽放=要被所有人看见”</td>
+                <td>把自己的生命力用出来：做事投入、活得有光。</td>
+                <td>不必完美，我只负责绽放。</td>
+                <td><a href="javascript:void(0)" onclick="jump('r-zhanfang')">➡️ 去原文</a></td>
+              </tr>
+              <tr>
+                <td><strong>分道扬镳</strong></td>
+                <td>fēn dào yáng biāo</td>
+                <td>误以为“分开=谁对谁错”</td>
+                <td>彼此走向不同的路；不一定是背叛，也可能是人生阶段不同。</td>
+                <td>接受分道扬镳，是成人关系的一课。</td>
+                <td><a href="javascript:void(0)" onclick="jump('r-fendaoyangbiao')">➡️ 去原文</a></td>
+              </tr>
+              <tr>
+                <td><strong>万重山</strong></td>
+                <td>wàn chóng shān</td>
+                <td>以为“山=永远过不去的痛”</td>
+                <td>层层困难与关卡；回头看才发现都被时间和行动带过去了。</td>
+                <td>轻舟已过万重山：那段难，终于成了过去。</td>
+                <td><a href="javascript:void(0)" onclick="jump('r-wanchongshan')">➡️ 去原文</a></td>
+              </tr>
+              <tr>
+                <td><strong>鸡毛蒜皮</strong></td>
+                <td>jī máo suàn pí</td>
+                <td>把“小事”当成“必须立刻解决的大事”</td>
+                <td>琐碎、价值不大，却很容易耗尽情绪的事。</td>
+                <td>别让鸡毛蒜皮把你的一天撕碎。</td>
+                <td><a href="javascript:void(0)" onclick="jump('r-jimaosuampi')">➡️ 去原文</a></td>
+              </tr>
+              <tr>
+                <td><strong>惩罚</strong></td>
+                <td>chéng fá</td>
+                <td>以为“自责越重=越负责”</td>
+                <td>用痛苦来“补偿”错误；但多数时候只会让你更难前进。</td>
+                <td>别拿别人的错误惩罚自己。</td>
+                <td><a href="javascript:void(0)" onclick="jump('r-chengfa')">➡️ 去原文</a></td>
+              </tr>
+              <tr>
+                <td><strong>聆听</strong></td>
+                <td>líng tīng</td>
+                <td>以为“听=在场”</td>
+                <td>用心地听：不急着评判，不急着回应，让感受先落地。</td>
+                <td>聆听花开，是把注意力还给当下。</td>
+                <td><a href="javascript:void(0)" onclick="jump('r-lingting')">➡️ 去原文</a></td>
+              </tr>
+              <tr>
+                <td><strong>感慨</strong></td>
+                <td>gǎn kǎi</td>
+                <td>把它当“矫情”</td>
+                <td>经历之后自然生出的叹息：对时间、得失、命运的体会。</td>
+                <td>到某个年龄，你会对青春感慨。</td>
+                <td><a href="javascript:void(0)" onclick="jump('r-gankai')">➡️ 去原文</a></td>
+              </tr>
+              <tr>
+                <td><strong>领悟</strong></td>
+                <td>lǐng wù</td>
+                <td>以为“领悟=听懂道理就行”</td>
+                <td>把道理变成生活方式：你做事的节奏、对人的态度都变了。</td>
+                <td>领悟得太晚，是因为人生要走过才算数。</td>
+                <td><a href="javascript:void(0)" onclick="jump('r-lingwu')">➡️ 去原文</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <!-- 4 关键术语 -->
+      <details>
+        <summary>
+          <div class="sumleft">
+            <span class="badge">4</span>
+            <span>🧩 关键术语（概念 + 语境解释 + 文化对应）</span>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="content grid2">
+          <div class="card">
+            <strong>体验</strong>
+            <p class="muted">概念：把“发生的一切”当作素材与滋养，而不是当作“成绩单”。</p>
+            <p>语境解释：发呆、看日出、数星星，都是“看似无用却很人生”的时刻。</p>
+            <div>
+              <span class="tag">🌏 英语：lived experience</span>
+              <span class="tag">🇨🇿 捷克语：životní zkušenost</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <strong>接受</strong>
+            <p class="muted">概念：承认现实存在，不把精力浪费在“如果当初”。</p>
+            <p>语境解释：强大不是忘记，而是能与分离、无常、孤独共处。</p>
+            <div>
+              <span class="tag">🌏 英语：acceptance</span>
+              <span class="tag">🇨🇿 捷克语：přijetí</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <strong>活在当下</strong>
+            <p class="muted">概念：把注意力从“控制未来”移回“做好此刻”。</p>
+            <p>语境解释：当我们说“当下”时，它已过去——所以更要珍惜下一秒。</p>
+            <div>
+              <span class="tag">🌏 英语：being present</span>
+              <span class="tag">🇨🇿 捷克语：být tady a teď</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <strong>过程精彩</strong>
+            <p class="muted">概念：用行动与感受把日子“点亮”，而不是只等结局。</p>
+            <p>语境解释：人人都会走向终点；差别在于你路上有没有活过。</p>
+            <div>
+              <span class="tag">🌏 英语：a meaningful process</span>
+              <span class="tag">🇨🇿 捷克语：smysluplná cesta</span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 5 思维导图 -->
+      <details>
+        <summary>
+          <div class="sumleft">
+            <span class="badge">5</span>
+            <span>🗺️ 思维导图（纯 SVG）</span>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="content">
+          <p class="muted">结构视角：核心 → 分支 → 行动落点。</p>
+
+          <svg viewBox="0 0 960 520" width="100%" height="auto" role="img" aria-label="人生是一场体验 思维导图">
+            <defs>
+              <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="rgba(0,0,0,.35)"/>
+              </filter>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="rgba(124,92,255,.55)"/>
+                <stop offset="1" stop-color="rgba(34,197,94,.35)"/>
+              </linearGradient>
+            </defs>
+
+            <!-- center -->
+            <g filter="url(#shadow)">
+              <rect x="360" y="210" rx="18" ry="18" width="240" height="92" fill="url(#g1)" opacity="0.95" stroke="rgba(255,255,255,.25)"/>
+              <text x="480" y="252" text-anchor="middle" font-size="22" fill="#fff" font-weight="800">人生是一场体验</text>
+              <text x="480" y="278" text-anchor="middle" font-size="14" fill="rgba(255,255,255,.92)">不评判 · 去经历 · 活当下</text>
+            </g>
+
+            <!-- connectors -->
+            <g stroke="rgba(255,255,255,.25)" stroke-width="2" fill="none">
+              <path d="M360 256 C 280 256, 250 170, 170 170" />
+              <path d="M360 256 C 280 256, 250 256, 170 256" />
+              <path d="M360 256 C 280 256, 250 342, 170 342" />
+              <path d="M600 256 C 680 256, 710 170, 790 170" />
+              <path d="M600 256 C 680 256, 710 256, 790 256" />
+              <path d="M600 256 C 680 256, 710 342, 790 342" />
+            </g>
+
+            <!-- left nodes -->
+            <g filter="url(#shadow)">
+              <rect x="40" y="130" rx="16" ry="16" width="260" height="80" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.18)"/>
+              <text x="170" y="165" text-anchor="middle" font-size="18" fill="#e9eefc" font-weight="800">允许不完美</text>
+              <text x="170" y="190" text-anchor="middle" font-size="13" fill="#b8c3e6">允许出错 / 情绪 / 遗憾</text>
+
+              <rect x="40" y="216" rx="16" ry="16" width="260" height="80" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.18)"/>
+              <text x="170" y="251" text-anchor="middle" font-size="18" fill="#e9eefc" font-weight="800">过程比结果更像人生</text>
+              <text x="170" y="276" text-anchor="middle" font-size="13" fill="#b8c3e6">差别在过程是否精彩</text>
+
+              <rect x="40" y="302" rx="16" ry="16" width="260" height="80" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.18)"/>
+              <text x="170" y="337" text-anchor="middle" font-size="18" fill="#e9eefc" font-weight="800">小事别放大</text>
+              <text x="170" y="362" text-anchor="middle" font-size="13" fill="#b8c3e6">除了生与死，其他多是小事</text>
+            </g>
+
+            <!-- right nodes -->
+            <g filter="url(#shadow)">
+              <rect x="660" y="130" rx="16" ry="16" width="260" height="80" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.18)"/>
+              <text x="790" y="165" text-anchor="middle" font-size="18" fill="#e9eefc" font-weight="800">真正强大：接受</text>
+              <text x="790" y="190" text-anchor="middle" font-size="13" fill="#b8c3e6">分道扬镳 / 无常 / 孤独</text>
+
+              <rect x="660" y="216" rx="16" ry="16" width="260" height="80" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.18)"/>
+              <text x="790" y="251" text-anchor="middle" font-size="18" fill="#e9eefc" font-weight="800">当下即意义</text>
+              <text x="790" y="276" text-anchor="middle" font-size="13" fill="#b8c3e6">认真吃饭/看花开/去爱</text>
+
+              <rect x="660" y="302" rx="16" ry="16" width="260" height="80" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.18)"/>
+              <text x="790" y="337" text-anchor="middle" font-size="18" fill="#e9eefc" font-weight="800">时间会把山翻过去</text>
+              <text x="790" y="362" text-anchor="middle" font-size="13" fill="#b8c3e6">轻舟已过万重山</text>
+            </g>
+          </svg>
+
+          <p class="note">🧠 读图建议：中心一句话不变；你只需要从六个分支里任选一条，给自己一个“今天能做到的小动作”。</p>
+        </div>
+      </details>
+
+      <!-- 6 要点清单 -->
+      <details>
+        <summary>
+          <div class="sumleft">
+            <span class="badge">6</span>
+            <span>✅ 要点清单（来自原文）</span>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="content">
+          <ul>
+            <li>人生是用来体验的，不是用来演绎完美的。</li>
+            <li>允许自己出错、允许有情绪、允许生活有遗憾；只负责拼命绽放。</li>
+            <li>不再寻找爱情，而只是去爱；不再追求结果，而只是去做。</li>
+            <li>人生的本质，是一切体验的总和；发呆、看日出、数星星也很重要。</li>
+            <li>每个人的结果终将一致；区别在过程是否精彩。</li>
+            <li>回头看，很多“天大的事”都会在不知不觉中跨过去。</li>
+            <li>除了生病以外，很多痛苦来自认知，而非事实本身。</li>
+            <li>真正的强大不是忘记，而是接受：分道扬镳、无常、孤独、挫败、焦虑与遗憾。</li>
+            <li>平静下来，把该做的事情做好；人生没有标准答案。</li>
+            <li>得到未必是福，失去未必是祸；错过也可能是逃过一劫。</li>
+            <li>不要因鸡毛蒜皮烦恼，更不要拿别人的错误惩罚自己。</li>
+            <li>用心品尝饭菜、聆听花开、感受爱与喜悦：这就是意义。</li>
+            <li>无论生命到哪个阶段，都要享受那一段的时光，完成那一阶段的使命。</li>
+            <li>人生领悟得太晚；往后余生，请善待每一天。</li>
+            <li>人生的意义就是没有意义：当下就是意义。</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 7 费曼学习法 -->
+      <details>
+        <summary>
+          <div class="sumleft">
+            <span class="badge">7</span>
+            <span>🧪 费曼学习法（低门槛但不降智）</span>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="content">
+          <div class="grid2">
+            <div class="card">
+              <strong>第 1 步：用一句话教给“忙到没空想的人”</strong>
+              <p>“别把人生当考核表，把每一天当一次真实的体验：做该做的、爱该爱的人，允许不完美发生。”</p>
+              <p class="muted">如果你说不出口，说明你还把它讲得太抽象。</p>
+            </div>
+            <div class="card">
+              <strong>第 2 步：举一个你自己的例子</strong>
+              <p>比如：你因为工作出错懊恼一整天。</p>
+              <ul>
+                <li>“结果思维”会问：我是不是不行？我是不是完了？</li>
+                <li>“体验思维”会问：我从这次出错里学到什么？下次我怎么做得更稳？</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <strong>第 3 步：找出你卡住的词（然后把它换成日常语言）</strong>
+            <ul>
+              <li><strong>接受</strong> ≈ “承认已经发生，把力气留给下一步”。</li>
+              <li><strong>活在当下</strong> ≈ “先把眼前这一件事做好，不在脑子里自我审判”。</li>
+              <li><strong>过程精彩</strong> ≈ “每天有一点在认真生活，而不是只在熬”。</li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <strong>第 4 步：用一个 7 天实验把它变成你的</strong>
+            <ul>
+              <li>每天选一件小事，刻意“体验”：一顿饭、一段路、一场对话、一段安静。</li>
+              <li>每天晚上写 2 行：<em>今天我体验了什么？我把什么从‘评判’改成了‘经历’？</em></li>
+              <li>第 7 天回看：你的情绪耗损是否下降？你对自己的苛刻是否变轻？</li>
+            </ul>
+            <p class="note">📌 重点不是“变得厉害”，而是“变得更像自己”。</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 8 金句 -->
+      <details>
+        <summary>
+          <div class="sumleft">
+            <span class="badge">8</span>
+            <span>✨ 金句（5-10 句：引出 → 解读 → 联结）</span>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="content">
+          <div class="card">
+            <p><strong>【引出】</strong>人生是用来体验的，不是用来演绎完美的。<br>
+              <strong>【解读】</strong>“完美”像一个永远够不到的标准，会把你从生活里抽离出来。<br>
+              <strong>【联结】</strong>今天做一件“会出错也照做”的事：开口、提交、尝试、道歉。</p>
+          </div>
+
+          <div class="card" style="margin-top:10px">
+            <p><strong>【引出】</strong>我从此只负责拼命绽放。<br>
+              <strong>【解读】</strong>把注意力放回“我能做什么”，而不是“别人怎么看”。<br>
+              <strong>【联结】</strong>列出你能控制的三件事：睡眠/行动/表达，先抓住一个。</p>
+          </div>
+
+          <div class="card" style="margin-top:10px">
+            <p><strong>【引出】</strong>结果都一样，那就是死亡。<br>
+              <strong>【解读】</strong>终点不稀奇，稀奇的是你怎么走。<br>
+              <strong>【联结】</strong>别只问“值不值”，多问“我是不是更活了”。</p>
+          </div>
+
+          <div class="card" style="margin-top:10px">
+            <p><strong>【引出】</strong>人生除了生与死，其他都是小事。<br>
+              <strong>【解读】</strong>这是在给焦虑降噪：很多“天大的事”，其实只是“阶段性的难”。<br>
+              <strong>【联结】</strong>当你慌时，先做身体层面的稳定：喝水、散步、睡一觉。</p>
+          </div>
+
+          <div class="card" style="margin-top:10px">
+            <p><strong>【引出】</strong>痛苦大都是认知带来的，而非事实本身。<br>
+              <strong>【解读】</strong>事实是“发生了”；痛苦常来自“我给它的解释”。<br>
+              <strong>【联结】</strong>把“我完了”改成“我遇到了一件难事”，语气会改变行动。</p>
+          </div>
+
+          <div class="card" style="margin-top:10px">
+            <p><strong>【引出】</strong>真正的强大不是忘记，而是接受。<br>
+              <strong>【解读】</strong>忘记是压住；接受是看见、承认、继续走。<br>
+              <strong>【联结】</strong>给自己一句允许：我可以难过，但我也会往前。</p>
+          </div>
+
+          <div class="card" style="margin-top:10px">
+            <p><strong>【引出】</strong>请不要拿别人的错误来惩罚自己。<br>
+              <strong>【解读】</strong>自我惩罚不会让别人变好，只会让你变疲惫。<br>
+              <strong>【联结】</strong>把界限说清楚：这件事我不同意，但我不为它毁掉一天。</p>
+          </div>
+
+          <div class="card" style="margin-top:10px">
+            <p><strong>【引出】</strong>当下就是意义。<br>
+              <strong>【解读】</strong>意义不是奖杯，是你此刻的投入与感受。<br>
+              <strong>【联结】</strong>现在就做一件“回忆里会发光的小事”：拍一张天空、拥抱一次、专心吃一餐。</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 9 口播稿 -->
+      <details>
+        <summary>
+          <div class="sumleft">
+            <span class="badge">9</span>
+            <span>🎙️ 60 秒跨文化口播稿（中文｜捷克语｜英语）</span>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="content">
+          <div class="card">
+            <strong>中文（约 60 秒）</strong>
+            <p>我越来越相信：人生不是用来演绎完美的，而是用来体验的。我们总想把生活变成一张成绩单：结果、评价、输赢。但如果只盯着结果，结局其实都一样。真正拉开差距的，是你走在路上的那一刻，是否真实地活着。允许自己愚钝、允许出错、允许情绪、允许遗憾——这不是放弃，而是把力气省下来，用在行动上。别拿鸡毛蒜皮耗尽心情，也别用别人的错误惩罚自己。把该做的事做好，用心吃一口饭、看一次日出、听一朵花开。意义不在远方的答案里，意义就在当下，你愿意认真生活的这一秒。</p>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <strong>捷克语（约 60 秒｜学术/文化语境，启发性）</strong>
+            <p>Čím jsem starší, tím víc chápu jednu věc: život není představení dokonalosti, ale souhrn zkušeností. Často proměníme dny v hodnoticí tabulku — výsledky, srovnávání, očekávání. Jenže když se upneme jen na výsledek, konec je pro všechny stejný. To, co nás odlišuje, je cesta: zda jsme přítomní a živí uprostřed každodennosti. Přijetí není rezignace. Je to schopnost připustit omyl, emoce i ztrátu — a zároveň pokračovat v tom, co má smysl. Nenechme se zničit maličkostmi a netrestejme se za chyby druhých. Vraťme se k tomu, co je právě teď: klidná práce, opravdový vztah, jednoduché okamžiky. Smysl se často nerodí z odpovědi, ale z pozornosti k přítomnému okamžiku.</p>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <strong>English (about 60 seconds｜native-like, professional)</strong>
+            <p>The older I get, the more I believe this: life isn’t a performance of perfection—it’s a collection of experiences. We often turn our days into a scorecard: outcomes, approval, comparisons. But if you obsess over results, the ending is the same for everyone. What truly differentiates us is the process—whether we’re actually present while we’re living it. Acceptance isn’t giving up. It’s the strength to allow mistakes, emotions, and regret, without letting them define you. Don’t let small, trivial things drain your life, and don’t punish yourself for other people’s failures. Do what needs to be done, calmly and consistently. Taste your food, watch a sunrise, listen—to a person, to silence, to a moment. Meaning isn’t always a final answer. Very often, meaning is simply attention: being fully here, in this one breath, this one step, this one day.</p>
+          </div>
+
+          <p class="note">🎧 口播小技巧：每段中间停 1 秒，把“允许、接受、当下”三个词轻轻强调，你的表达会更有力量。</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div class="sumleft">
+            <span class="badge">🎁</span>
+            <span>小彩蛋：一键回到顶部 & 阅读指引</span>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="content">
+          <button onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆️ 回到顶部</button>
+          <p class="muted" style="margin-top:10px">阅读建议：先看「主旨一句话 + 三条要点」，再回到原文读一遍。读第二遍时，点一点高亮词，会更容易把它变成你的语言。</p>
+        </div>
+      </details>
+
+    </main>
+
+    <footer class="muted" style="margin-top:18px; text-align:center">
+      <small>© 交互版学习页 · 支持折叠阅读 / 定位高亮 / 一键打印</small>
+    </footer>
+  </div>
+
+  <script>
+    function toggleAll(open){
+      document.querySelectorAll('main details').forEach(d => d.open = open);
+      // keep header visible
+      if(open){ window.scrollTo({top:0, behavior:'smooth'}); }
+    }
+
+    function jump(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      // ensure original section open
+      const originalDetails = document.querySelector('#original')?.closest('details');
+      if(originalDetails) originalDetails.open = true;
+
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+
+      el.classList.add('glow');
+      setTimeout(() => el.classList.remove('glow'), 5000);
+    }
+
+    // allow clicking highlighted terms in original to self-jump (re-highlight)
+    document.querySelectorAll('.hl[data-term]').forEach(el=>{
+      el.addEventListener('click', ()=> jump(el.id));
+    });
+  </script>
+</body>
+</html>
