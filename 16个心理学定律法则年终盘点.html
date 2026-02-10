@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>知识年终盘点：16个心理学定律法则速览</title>
+<style>
+  :root{
+    --bg:#0b1220;
+    --text:#e8eefc;
+    --muted:#b7c3e6;
+    --accent:#7dd3fc;
+    --accent2:#a78bfa;
+    --good:#34d399;
+    --border: rgba(255,255,255,.10);
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: ui-sans-serif, system-ui, -apple-system, "PingFang SC","Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+    background: radial-gradient(1200px 700px at 20% -10%, rgba(125,211,252,.25), transparent 60%),
+                radial-gradient(1000px 600px at 90% 10%, rgba(167,139,250,.18), transparent 55%),
+                linear-gradient(180deg, #070b14, var(--bg));
+    color:var(--text);
+    line-height:1.6;
+  }
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1100px; margin:0 auto; padding:28px 18px 80px}
+  header{
+    position:sticky; top:0; z-index:20;
+    backdrop-filter: blur(10px);
+    background: rgba(11,18,32,.72);
+    border-bottom:1px solid var(--border);
+  }
+  .topbar{max-width:1100px; margin:0 auto; padding:14px 18px; display:flex; gap:12px; align-items:center; justify-content:space-between}
+  .brand{display:flex; gap:10px; align-items:center}
+  .logo{
+    width:38px; height:38px; border-radius:12px;
+    background: linear-gradient(135deg, rgba(125,211,252,.95), rgba(167,139,250,.95));
+    box-shadow: 0 10px 18px rgba(0,0,0,.25);
+    display:grid; place-items:center; color:#06101d; font-weight:900;
+  }
+  .brand h1{margin:0; font-size:16px; letter-spacing:.5px}
+  .brand p{margin:0; font-size:12px; color:var(--muted)}
+  .actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+  button,.pill{
+    border:1px solid var(--border);
+    background: rgba(255,255,255,.04);
+    color:var(--text);
+    padding:10px 12px;
+    border-radius:12px;
+    cursor:pointer;
+    box-shadow: 0 6px 16px rgba(0,0,0,.18);
+    transition: transform .08s ease, background .2s ease, border-color .2s ease;
+    font-size:13px;
+  }
+  button:hover{transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(125,211,252,.35)}
+  button:active{transform: translateY(0)}
+  .pill{display:inline-flex; align-items:center; gap:8px; cursor:default}
+  .grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:16px; margin-top:18px}
+  @media (max-width: 920px){.grid{grid-template-columns:1fr}}
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid var(--border);
+    border-radius:18px;
+    box-shadow: var(--shadow);
+    padding:16px 16px 12px;
+  }
+  .card h2{margin:0 0 8px; font-size:15px; letter-spacing:.2px}
+  .meta{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+  .meta .pill{font-size:12px; color:var(--muted)}
+  .kpi{display:grid; grid-template-columns: repeat(3,1fr); gap:10px; margin-top:12px}
+  .kpi .box{border:1px solid var(--border); border-radius:16px; padding:10px 12px; background: rgba(0,0,0,.18)}
+  .kpi .box .n{font-size:18px; font-weight:800}
+  .kpi .box .t{font-size:12px; color:var(--muted)}
+  details{
+    border:1px solid var(--border);
+    border-radius:18px;
+    background: rgba(0,0,0,.16);
+    margin-top:14px;
+    overflow:hidden;
+  }
+  summary{
+    list-style:none;
+    cursor:pointer;
+    padding:14px 14px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px;
+  }
+  summary::-webkit-details-marker{display:none}
+  .sumL{display:flex; align-items:center; gap:10px}
+  .badge{
+    width:30px; height:30px; border-radius:10px;
+    display:grid; place-items:center;
+    background: rgba(125,211,252,.18);
+    border:1px solid rgba(125,211,252,.25);
+  }
+  .sumTitle{font-weight:800; letter-spacing:.2px}
+  .sumHint{font-size:12px; color:var(--muted)}
+  .chev{transition: transform .2s ease; color:var(--muted)}
+  details[open] .chev{transform: rotate(180deg)}
+  .content{padding:0 14px 14px}
+  .note{color:var(--muted); font-size:13px}
+  .toc{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 0}
+  .toc a{font-size:12px; padding:8px 10px; border-radius:999px; border:1px solid var(--border); background: rgba(255,255,255,.03)}
+  .toc a:hover{border-color: rgba(125,211,252,.35)}
+  .hr{height:1px; background: var(--border); margin:12px 0}
+  .law{
+    border:1px dashed rgba(125,211,252,.22);
+    background: rgba(125,211,252,.04);
+    border-radius:16px;
+    padding:12px 12px;
+    margin:10px 0;
+  }
+  .law h3{margin:0 0 6px; font-size:14px}
+  .law p{margin:6px 0}
+  .hl{
+    outline: 2px solid rgba(125,211,252,.8);
+    box-shadow: 0 0 0 6px rgba(125,211,252,.15);
+    transition: box-shadow .2s ease, outline .2s ease;
+    border-radius:14px;
+  }
+  .table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    overflow:hidden;
+    border-radius:16px;
+    border:1px solid var(--border);
+    background: rgba(0,0,0,.14);
+  }
+  .table th,.table td{padding:10px 10px; border-bottom:1px solid var(--border); vertical-align:top; font-size:13px}
+  .table th{text-align:left; color:var(--muted); font-weight:700; background: rgba(255,255,255,.03)}
+  .table tr:last-child td{border-bottom:none}
+  .mono{font-family:var(--mono)}
+  .quote{
+    border-left:3px solid rgba(167,139,250,.7);
+    padding:10px 12px;
+    margin:10px 0;
+    background: rgba(167,139,250,.08);
+    border-radius:12px;
+  }
+  .quote b{color:#f1e9ff}
+  .twoCol{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  @media (max-width: 820px){.twoCol{grid-template-columns:1fr}}
+  .lang{
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:12px;
+    background: rgba(0,0,0,.14);
+  }
+  .lang h4{margin:0 0 8px; font-size:13px; color:var(--muted)}
+  .lang p{margin:0; font-size:13px}
+  .footer{margin-top:22px; color:var(--muted); font-size:12px}
+  @media print{
+    header{position:static; background:#fff0; border:0}
+    .actions{display:none}
+    body{background:#fff; color:#111}
+    .card, details, .law, .lang, .quote{box-shadow:none}
+    a{color:#111; text-decoration:none}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">ψ</div>
+      <div>
+        <h1>知识年终盘点：16个心理学定律法则速览</h1>
+        <p>来源：抖音「森林心理」｜视频：16′17″｜覆盖：2025年5–9月（16条）</p>
+      </div>
+    </div>
+    <div class="actions">
+      <button onclick="toggleAll(true)">🧾 全部展开</button>
+      <button onclick="toggleAll(false)">🪄 全部折叠</button>
+      <button onclick="window.print()">🖨️ 一键打印全文</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid">
+    <section class="card">
+      <h2>🎯 原文核心解读</h2>
+      <div class="kpi">
+        <div class="box"><div class="n">1</div><div class="t">主旨一句话</div></div>
+        <div class="box"><div class="n">3</div><div class="t">白话要点</div></div>
+        <div class="box"><div class="n">16</div><div class="t">定律/法则</div></div>
+      </div>
+      <div class="hr"></div>
+      <p style="margin:0 0 10px"><b>主旨一句话：</b>用16个心理学视角，把“人为什么会那样想、那样选、那样相处、那样坚持”拆开看清楚，从而更冷静地做决定、更稳地过关系、更耐心地成长。</p>
+      <ol style="margin:0; padding-left:18px">
+        <li><b>关系里：</b>你喜欢/讨厌的常是同一面；帮人要留尊严；把别人的评价还给别人。</li>
+        <li><b>成长里：</b>真正的进步常先“扎根/蛰伏”，看不见不等于没发生。</li>
+        <li><b>决策里：</b>很多痛苦不是事件本身，而是你的反应；别被“损失、峰终、幸存者”骗了眼睛。</li>
+      </ol>
+      <div class="meta">
+        <span class="pill">✨ 适用：自我管理 / 人际沟通 / 复盘决策 / 反内耗</span>
+        <span class="pill">🧠 维度：基础心理学｜认知心理学｜博弈与决策</span>
+      </div>
+      <div class="toc" aria-label="快捷跳转">
+        <a href="#sec-original">📜 原文</a>
+        <a href="#sec-rare">🔤 生僻字</a>
+        <a href="#sec-terms">🧩 关键术语</a>
+        <a href="#sec-mindmap">🗺️ 思维导图</a>
+        <a href="#sec-list">✅ 要点清单</a>
+        <a href="#sec-feynman">🧪 费曼学习法</a>
+        <a href="#sec-quotes">💎 金句</a>
+        <a href="#sec-script">🎙️ 60秒口播</a>
+      </div>
+      <p class="note" style="margin-top:10px">提示：下方注意“生僻字”区域的词条，点击会跳到原文对应位置并高亮5秒。</p>
+    </section>
+
+    <aside class="card">
+      <h2>🧭 使用小指南</h2>
+      <div class="hr"></div>
+      <ul style="margin:0; padding-left:18px">
+        <li>所有章节默认折叠：点标题即可展开。</li>
+        <li>需要复盘一条定律：先看“白话一句话”→再看“误区”→最后看“怎么用”。</li>
+        <li>做笔记建议：把它们分成<b>关系 / 成长 / 决策</b>三类，更好记。</li>
+      </ul>
+      <div class="hr"></div>
+      <div class="pill">🧷 小提醒：这些“定律/法则”更像<span style="color:var(--accent)">认知工具</span>，用来照亮盲区，而不是给人贴标签。</div>
+    </aside>
+  </div>
+
+  <details id="sec-original">
+    <summary>
+      <div class="sumL">
+        <div class="badge">📜</div>
+        <div>
+          <div class="sumTitle">原文（100%保留）</div>
+          <div class="sumHint">逐字保留输入内容｜可折叠｜带锚点定位</div>
+        </div>
+      </div>
+      <div class="chev">⌄</div>
+    </summary>
+    <div class="content">
+      <div class="law" id="law-1"><h3>1. 喜恶同因</h3><p>一个人被喜欢和被讨厌往往源于同一个特质，性格特征本质是一体两面，所谓优缺点只是角度不同。比如因对方浪漫而心动，久了可能觉得其轻浮；喜欢对方活力四射，后来又觉得其神经质。爱上的每个特质背后都有相应代价，没有完美的人，只有能否接受这一体两面的真实。</p></div>
+      <div class="law" id="law-2"><h3>2. 竹子定律</h3><p>竹子在最初四年几乎看不到明显生长，高度仅增加不到3厘米，实则在地下悄悄扎根。到第五年则以每天30厘米的速度疯长，几周内突破10米。人生亦是如此，学习、工作、成长的很多阶段看似毫无起色，实则是在扎根积累，真正的飞跃在沉默中酝酿，厚积才能勃发。</p></div>
+      <div class="law" id="law-3"><h3>3. 幸福者退让原则</h3><p>拥有稳定幸福生活的人，面对外界挑衅和恶意时，最明智的方式是选择退让，这不是软弱，而是珍惜。因为幸福的人有太多值得保护的东西，而混乱的人什么都可以失去。与其在无意义冲突上耗时间，不如留力气去爱和守护，“狭路相逢，幸福者让”是对幸福的负责。</p></div>
+      <div class="law" id="law-4"><h3>4. 受助者恶意</h3><p>当一个人接受过多帮助时，除了感恩，潜意识里可能产生敌意。因为人有维持心理平衡和自尊的本能，当意识到欠对方太多却无力回报时，内心不平衡感会积压，甚至转化为嫉妒、怨恨，即“升米恩，斗米仇”。真正聪明的帮助应自然不做作，给对方保留尊严空间，适度施恩是良性关系的关键。</p></div>
+      <div class="law" id="law-5"><h3>5. 90/10法则</h3><p>生活中只有10%的事情无法控制（如天气、交通、意外），剩下的90%由我们对这10%的回应决定。真正影响生活质量的不是发生了什么，而是对发生之事的反应。比如因手表摔坏而引发一系列失控事件，手表摔坏只占10%，后续的失控是对这件事的反应导致的。</p></div>
+      <div class="law" id="law-6"><h3>6. 课题分离</h3><p>由阿德勒提出，核心是区分自己的课题（如自己的选择、情绪、责任）和别人的课题（如他人的看法、反应、决定）。专注处理自己的课题，不干涉别人的，也不让别人干涉自己的。例如别人评价你是他的课题，你的课题是关注自己的表现、是否需要改变；朋友借钱，借不借是你的课题，对方怎么想是他的课题。这样能避免被外界评价、期待操控，减少焦虑内耗。</p></div>
+      <div class="law" id="law-7"><h3>7. 酒与污水定律</h3><p>一勺酒倒进一桶污水，得到的是污水；一勺污水倒进一桶酒，得到的还是污水。说明关键的负面因素（污水）能摧毁整体价值。启示：及时清除负面因素（如团队中散播负能量的人）；慎重选择人际关系，远离有害价值观和行为；守好自己的边界，重视细节，守住底线，远离污染。</p></div>
+      <div class="law" id="law-8"><h3>8. 贝勃定律</h3><p>人在经历强烈刺激后，注意到类似情境时情绪反应会逐渐减弱甚至麻木。在情感中，多次遭遇背叛后痛感会变弱；在人际中，对亲人长期的关心容易视而不见，因为持续刺激降低了感知敏感度。要警觉“习以为常”，保持对生活的敏感与回应。</p></div>
+      <div class="law" id="law-9"><h3>9. 空杯心态</h3><p>源于佛教故事，学者向禅师请教时喋喋不休，禅师倒茶至溢出，告知其若不先清空已有认知，便无法容纳新智慧。启示：归零清空，放下过去的经验、认知和优越感；开放接纳，倾听他人意见，接受不同观点；持续学习成长，不断更新知识体系，避免固步自封。</p></div>
+      <div class="law" id="law-10"><h3>10. 损失厌恶理论</h3><p>由卡尼曼提出，人们面对收益时风险厌恶（倾向选确定收益），面对损失时风险寻求（倾向冒险避免损失）。损失带来的心理冲击是同等收益的2-2.5倍。这一理论影响投资、政策、消费决策等，理解它能帮助我们在决策时更理性权衡利弊。</p></div>
+      <div class="law" id="law-11"><h3>11. 鸭子定律</h3><p>鸭子水面上游动看似悠闲，水下双脚却拼命滑动。生活中看似轻松的成功，背后是长期坚持和付出。启示：成功离不开持续努力积累；看到他人成功时，应反思自己的努力，面对困难时要像鸭子一样默默付出，稳步前行。</p></div>
+      <div class="law" id="law-12"><h3>12. 峰终定律</h3><p>由卡尼曼提出，人们对一段经历的回忆由高峰时刻和结束时刻主导，而非整个过程的平均体验。即使过程平淡甚至痛苦，只要峰值和终值体验好，就会认为整体愉快。该定律被用于用户体验、营销等领域，但也要警惕其误导性，在重要抉择时需看清整体过程。</p></div>
+      <div class="law" id="law-13"><h3>13. 金蝉定律</h3><p>蝉的幼虫在地下蛰伏3-5年，默默成长后一夜蜕变。启示：沉默是成长的最初模样，真正的改变在黑暗中默默坚持；黑暗是变强的必经之路，越能在沉寂中坚持，未来越亮；蜕变不需要告知全世界，最好的成长是不动声色地变厉害。</p></div>
+      <div class="law" id="law-14"><h3>14. 囚徒困境</h3><p>经典博弈模型，两名共犯隔离审讯，若都沉默各判1年；若一人告发一人沉默，告发者无罪，沉默者判10年；若都告发各判5年。现实中类似困境很多，如国家关税博弈、“三个和尚没水喝”。提醒我们在短期利益面前，信任与合作是长远共赢的关键。</p></div>
+      <div class="law" id="law-15"><h3>15. 认知失调</h3><p>当信念、行为、情绪冲突时，人会产生不安感，为减轻不适会扭曲事实、合理化行为。比如遭遇诈骗仍执迷不悟、老年人执着买保健品等，都是因为需要谎言维持内心秩序。挑战一个人的认知，就是挑战其情感归属和生活信念，往往会引发强烈抵抗。</p></div>
+      <div class="law" id="law-16"><h3>16. 幸存者偏差</h3><p>二战时研究受损飞机，因只关注飞回来的（幸存者），差点得出错误结论，实则坠毁的飞机（非幸存者）才是关键。启示：分析问题时不能只关注成功或幸存的例子，要用全局视角，意识到总有部分声音被埋没，真正的全貌可能隐藏在看不见的地方。</p></div>
+      <div class="note">✅ 原文部分已按条目加上锚点（law-1 ～ law-16），方便跳转与高亮。</div>
+    </div>
+  </details>
+
+  <details id="sec-rare">
+    <summary>
+      <div class="sumL">
+        <div class="badge">🔤</div>
+        <div>
+          <div class="sumTitle">生僻字（发音）｜误区｜释义｜例句</div>
+          <div class="sumHint">点击词条可跳到原文并高亮5秒</div>
+        </div>
+      </div>
+      <div class="chev">⌄</div>
+    </summary>
+    <div class="content">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:18%">生僻字/词</th>
+            <th style="width:14%">发音</th>
+            <th style="width:22%">常见误区</th>
+            <th>释义</th>
+            <th style="width:18%">例句</th>
+            <th style="width:10%">跳转</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>蛰伏</b></td>
+            <td class="mono">zhé fú</td>
+            <td>把“蛰伏”当成“躺平/放弃”。</td>
+            <td>暂时隐藏、沉潜不显，通常是在为后续发力做积累。</td>
+            <td>在看不见的日子里蛰伏，往往是在蓄力。</td>
+            <td><a href="javascript:void(0)" onclick="jumpHighlight('law-13')">去原文</a></td>
+          </tr>
+          <tr>
+            <td><b>蜕变</b></td>
+            <td class="mono">tuì biàn</td>
+            <td>以为蜕变一定“轰轰烈烈、立刻见效”。</td>
+            <td>从旧形态脱落，转入新形态；常伴随长期准备后的关键转折。</td>
+            <td>真正的蜕变，常发生在不被看见的时刻。</td>
+            <td><a href="javascript:void(0)" onclick="jumpHighlight('law-13')">去原文</a></td>
+          </tr>
+          <tr>
+            <td><b>酝酿</b></td>
+            <td class="mono">yùn niàng</td>
+            <td>只理解为“拖延”。</td>
+            <td>在内部逐步形成、积聚、成熟（像发酵一样）。</td>
+            <td>飞跃往往在沉默里酝酿。</td>
+            <td><a href="javascript:void(0)" onclick="jumpHighlight('law-2')">去原文</a></td>
+          </tr>
+          <tr>
+            <td><b>内耗</b></td>
+            <td class="mono">nèi hào</td>
+            <td>把“内耗”当作“我太敏感”。</td>
+            <td>心理能量被反复自责、纠结、猜测等消耗，行动力下降。</td>
+            <td>把别人的课题还回去，内耗会少很多。</td>
+            <td><a href="javascript:void(0)" onclick="jumpHighlight('law-6')">去原文</a></td>
+          </tr>
+          <tr>
+            <td><b>博弈</b></td>
+            <td class="mono">bó yì</td>
+            <td>以为博弈=算计/阴谋。</td>
+            <td>指多方在策略选择中互相影响的互动过程（合作与竞争都包含）。</td>
+            <td>在博弈中，合作往往能带来更长远收益。</td>
+            <td><a href="javascript:void(0)" onclick="jumpHighlight('law-14')">去原文</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note">如需增加更多词条（比如“麻木/峰终/损失厌恶”这类术语），可以继续补充到本表。</p>
+    </div>
+  </details>
+
+  <details id="sec-terms">
+    <summary>
+      <div class="sumL">
+        <div class="badge">🧩</div>
+        <div>
+          <div class="sumTitle">关键术语（概念 + 语境解释 + 文化对应）</div>
+          <div class="sumHint">把“听过”变成“会用”</div>
+        </div>
+      </div>
+      <div class="chev">⌄</div>
+    </summary>
+    <div class="content">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:18%">术语</th>
+            <th style="width:28%">概念</th>
+            <th>语境解释（你在生活里怎么遇到）</th>
+            <th style="width:22%">文化对应/类比</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>课题分离</b></td>
+            <td>把“谁负责”分清：我的课题我处理，他的课题他承担。</td>
+            <td>你控制不了别人怎么想；你能控制的是自己的选择、边界、行动。</td>
+            <td>像“边界感”与“各自为政但互相尊重”的结合。</td>
+          </tr>
+          <tr>
+            <td><b>损失厌恶</b></td>
+            <td>同样大小的损失，心理痛感通常大于收益带来的快感。</td>
+            <td>“不想亏”会让你更冲动、更想赌一把，把局面扳回来。</td>
+            <td>民间说法：宁可不赚，也别亏——但它会让人错过长期收益。</td>
+          </tr>
+          <tr>
+            <td><b>峰终定律</b></td>
+            <td>我们记住一段经历，主要记“最强烈的那一刻”和“结束那一刻”。</td>
+            <td>一次旅行/一次合作，结尾收得好，回忆就更好；结尾烂，整体都被拉低。</td>
+            <td>类似戏剧结构里的“高潮+收束”；也像餐厅最后一道甜点的影响。</td>
+          </tr>
+          <tr>
+            <td><b>囚徒困境</b></td>
+            <td>个体理性可能导向集体最差结果：各自防备，双输。</td>
+            <td>团队里互相甩锅、国家间互设壁垒，短期看似安全，长期更差。</td>
+            <td>俗语对照：“三个和尚没水喝”；也对应信任机制与制度设计。</td>
+          </tr>
+          <tr>
+            <td><b>认知失调</b></td>
+            <td>当信念与行为冲突，人会不舒服，并倾向于“解释/合理化”。</td>
+            <td>已经投入太多的人更难承认错（被骗、沉没成本、面子）。</td>
+            <td>对应“自我一致性”的需求；也像“人设”需要被维护。</td>
+          </tr>
+          <tr>
+            <td><b>幸存者偏差</b></td>
+            <td>只看“留下来的/成功的”样本，会误判真实世界。</td>
+            <td>只研究赢家的经验，忽略失败者的路径与条件，容易复制失败。</td>
+            <td>类比：只看舞台灯光下的人，忘了后台倒下的人。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <details id="sec-mindmap">
+    <summary>
+      <div class="sumL">
+        <div class="badge">🗺️</div>
+        <div>
+          <div class="sumTitle">思维导图（纯 SVG）</div>
+          <div class="sumHint">从“结构关系”看16条如何互相照应</div>
+        </div>
+      </div>
+      <div class="chev">⌄</div>
+    </summary>
+    <div class="content">
+      <div class="note">阅读方式：先看三大类（关系 / 成长 / 决策），再回到具体条目。</div>
+      <div style="border:1px solid var(--border); border-radius:18px; background: rgba(0,0,0,.10); padding:10px; overflow:auto">
+        <svg width="980" height="520" viewBox="0 0 980 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="16个心理学定律法则思维导图">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="rgba(125,211,252,.95)"/>
+              <stop offset="1" stop-color="rgba(167,139,250,.95)"/>
+            </linearGradient>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="rgba(0,0,0,.45)"/>
+            </filter>
+          </defs>
+
+          <g filter="url(#shadow)">
+            <rect x="400" y="210" rx="18" ry="18" width="180" height="72" fill="url(#g1)" />
+            <text x="490" y="240" text-anchor="middle" font-size="16" font-weight="800" fill="#06101d">16个心理学</text>
+            <text x="490" y="262" text-anchor="middle" font-size="14" font-weight="800" fill="#06101d">定律/法则</text>
+          </g>
+
+          <path d="M400 246 C310 190, 240 160, 160 140" stroke="rgba(125,211,252,.55)" stroke-width="3" fill="none"/>
+          <path d="M580 246 C670 190, 740 160, 820 140" stroke="rgba(167,139,250,.55)" stroke-width="3" fill="none"/>
+          <path d="M490 282 C490 350, 490 390, 490 430" stroke="rgba(52,211,153,.55)" stroke-width="3" fill="none"/>
+
+          <g filter="url(#shadow)">
+            <rect x="40" y="88" rx="16" width="240" height="96" fill="rgba(125,211,252,.10)" stroke="rgba(125,211,252,.35)"/>
+            <text x="160" y="118" text-anchor="middle" font-size="15" font-weight="800" fill="rgba(232,238,252,.95)">🤝 关系与边界</text>
+            <text x="60" y="146" font-size="12" fill="rgba(183,195,230,.95)">① 喜恶同因</text>
+            <text x="160" y="146" font-size="12" fill="rgba(183,195,230,.95)">③ 幸福者退让</text>
+            <text x="60" y="168" font-size="12" fill="rgba(183,195,230,.95)">④ 受助者恶意</text>
+            <text x="160" y="168" font-size="12" fill="rgba(183,195,230,.95)">⑥ 课题分离</text>
+            <text x="60" y="190" font-size="12" fill="rgba(183,195,230,.95)">⑦ 酒与污水</text>
+          </g>
+
+          <g filter="url(#shadow)">
+            <rect x="700" y="70" rx="16" width="260" height="132" fill="rgba(167,139,250,.10)" stroke="rgba(167,139,250,.35)"/>
+            <text x="830" y="100" text-anchor="middle" font-size="15" font-weight="800" fill="rgba(232,238,252,.95)">🧠 决策与认知偏差</text>
+            <text x="720" y="128" font-size="12" fill="rgba(183,195,230,.95)">⑤ 90/10</text>
+            <text x="820" y="128" font-size="12" fill="rgba(183,195,230,.95)">⑩ 损失厌恶</text>
+            <text x="720" y="150" font-size="12" fill="rgba(183,195,230,.95)">⑫ 峰终</text>
+            <text x="820" y="150" font-size="12" fill="rgba(183,195,230,.95)">⑭ 囚徒困境</text>
+            <text x="720" y="172" font-size="12" fill="rgba(183,195,230,.95)">⑮ 认知失调</text>
+            <text x="820" y="172" font-size="12" fill="rgba(183,195,230,.95)">⑯ 幸存者偏差</text>
+            <text x="720" y="194" font-size="12" fill="rgba(183,195,230,.95)">⑧ 贝勃（习以为常）</text>
+          </g>
+
+          <g filter="url(#shadow)">
+            <rect x="320" y="430" rx="16" width="340" height="78" fill="rgba(52,211,153,.10)" stroke="rgba(52,211,153,.35)"/>
+            <text x="490" y="458" text-anchor="middle" font-size="15" font-weight="800" fill="rgba(232,238,252,.95)">🌱 成长与学习节律</text>
+            <text x="340" y="486" font-size="12" fill="rgba(183,195,230,.95)">② 竹子（扎根）</text>
+            <text x="440" y="486" font-size="12" fill="rgba(183,195,230,.95)">⑨ 空杯（归零）</text>
+            <text x="540" y="486" font-size="12" fill="rgba(183,195,230,.95)">⑪ 鸭子（看不见的努力）</text>
+            <text x="340" y="506" font-size="12" fill="rgba(183,195,230,.95)">⑬ 金蝉（蛰伏蜕变）</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </details>
+
+  <details id="sec-list">
+    <summary>
+      <div class="sumL">
+        <div class="badge">✅</div>
+        <div>
+          <div class="sumTitle">要点清单（来自原文）</div>
+          <div class="sumHint">把16条浓缩成可执行的“提醒句”</div>
+        </div>
+      </div>
+      <div class="chev">⌄</div>
+    </summary>
+    <div class="content">
+      <ol style="margin:0; padding-left:18px">
+        <li><b>喜恶同因：</b>你爱的那一面，也可能是你受不了的那一面。</li>
+        <li><b>竹子定律：</b>先扎根再爆发；“没结果”可能只是还在地下。</li>
+        <li><b>幸福者退让：</b>退让不是输，是把精力留给值得守护的。</li>
+        <li><b>受助者恶意：</b>帮到让人“欠不起”，关系会变味；要给对方留尊严。</li>
+        <li><b>90/10法则：</b>事件占10%，反应占90%；反应决定生活质量。</li>
+        <li><b>课题分离：</b>把别人的看法还给别人，把自己的选择抓回来。</li>
+        <li><b>酒与污水：</b>一个关键负面因素能毁掉整体；底线和边界要守。</li>
+        <li><b>贝勃定律：</b>强刺激会让人麻木；别把关心当空气。</li>
+        <li><b>空杯心态：</b>先清空成见，才装得下新理解。</li>
+        <li><b>损失厌恶：</b>人会对“亏”更敏感；别让怕亏牵着决策走。</li>
+        <li><b>鸭子定律：</b>看起来轻松的背后，水下都在拼命划。</li>
+        <li><b>峰终定律：</b>记忆由“峰值+结尾”主导；关键时刻和收尾要设计。</li>
+        <li><b>金蝉定律：</b>沉默的坚持=成长的底层逻辑；蜕变常在无人处。</li>
+        <li><b>囚徒困境：</b>短期防备可能双输；机制与信任决定合作上限。</li>
+        <li><b>认知失调：</b>人会为“自洽”而扭曲事实；反驳往往更激起防御。</li>
+        <li><b>幸存者偏差：</b>别只看赢家；看不见的失败样本更关键。</li>
+      </ol>
+    </div>
+  </details>
+
+  <details id="sec-feynman">
+    <summary>
+      <div class="sumL">
+        <div class="badge">🧪</div>
+        <div>
+          <div class="sumTitle">费曼学习法（成人版，低门槛但不降智）</div>
+          <div class="sumHint">把“我懂了”检验成“我说得清、用得上”</div>
+        </div>
+      </div>
+      <div class="chev">⌄</div>
+    </summary>
+    <div class="content">
+      <div class="twoCol">
+        <div class="lang">
+          <h4>Step 1｜用一句话讲给“完全不懂心理学”的朋友</h4>
+          <p>这16条不是用来背的，是用来帮你在<strong>关系、成长、决策</strong>三类场景里少踩坑：该退让就退让，该扎根就扎根，该看全局就别只盯赢家。</p>
+        </div>
+        <div class="lang">
+          <h4>Step 2｜挑一条最常用的：写成“如果…就…”</h4>
+          <p class="mono">如果我因为别人一句话爆炸，那么我先暂停30秒，问自己：这是事情本身（10%）还是我反应（90%）在失控？</p>
+        </div>
+        <div class="lang">
+          <h4>Step 3｜找漏洞：哪里说不清？</h4>
+          <p>把含糊词标出来：比如“退让=软弱？”“蛰伏=躺平？”——这就是你没掌握的地方。回到原文，补上定义和例子。</p>
+        </div>
+        <div class="lang">
+          <h4>Step 4｜做一张“应用卡片”（30秒可翻）</h4>
+          <p><b>定律：</b>课题分离<br/>
+             <b>场景：</b>被评价、被指点、被催促<br/>
+             <b>做法：</b>我只负责行动与选择；对方负责看法与情绪。<br/>
+             <b>一句自我提示：</b>“把不属于我的，放回去。”</p>
+        </div>
+      </div>
+      <div class="note">想把它学扎实：每周只练2条，连续4周，你会明显感觉“更稳、更清醒”。</div>
+    </div>
+  </details>
+
+  <details id="sec-quotes">
+    <summary>
+      <div class="sumL">
+        <div class="badge">💎</div>
+        <div>
+          <div class="sumTitle">金句（5–10句）</div>
+          <div class="sumHint">【引出】→【解读】→【联结】</div>
+        </div>
+      </div>
+      <div class="chev">⌄</div>
+    </summary>
+    <div class="content">
+      <div class="quote"><b>【引出】</b>（喜恶同因）你爱的特质，也带着代价。<br/><b>【解读】</b>性格是一体两面，“优点/缺点”常只是视角切换。<br/><b>【联结】</b>选人不是选完美，是选你愿意承担的那部分真实。</div>
+      <div class="quote"><b>【引出】</b>（竹子定律）看不见的四年，不等于没有生长。<br/><b>【解读】</b>系统性能力先在地下长根：方法、习惯、心智。<br/><b>【联结】</b>给自己一个“扎根周期”，用复盘代替焦虑。</div>
+      <div class="quote"><b>【引出】</b>（幸福者退让）狭路相逢，幸福者让。<br/><b>【解读】</b>退让不是怕，是懂得“我有更重要的要守”。<br/><b>【联结】</b>遇到挑衅先问：赢了口舌，输了什么？</div>
+      <div class="quote"><b>【引出】</b>（受助者恶意）帮到让人欠不起，关系就会变味。<br/><b>【解读】</b>自尊需要平衡：亏欠感会转化为防御甚至敌意。<br/><b>【联结】</b>给帮助留“退路”：适度、自然、不让对方难堪。</div>
+      <div class="quote"><b>【引出】</b>（90/10法则）失控的不是事情，是你的反应。<br/><b>【解读】</b>情绪连锁反应把10%扩成100%。<br/><b>【联结】</b>给反应加一个“缓冲层”：停、呼吸、再决定。</div>
+      <div class="quote"><b>【引出】</b>（课题分离）把别人的课题还给别人。<br/><b>【解读】</b>你负责你的选择，不负责别人的评价。<br/><b>【联结】</b>边界清晰的人，焦虑通常更少。</div>
+      <div class="quote"><b>【引出】</b>（峰终定律）记忆只认“峰值”和“结尾”。<br/><b>【解读】</b>体验管理的关键在关键点，而非平均值。<br/><b>【联结】</b>重要对话/合作：设计一个好收尾，减少后悔。</div>
+      <div class="quote"><b>【引出】</b>（认知失调）人宁可相信一个谎，也不愿承认自己错。<br/><b>【解读】</b>“自洽”是心理刚需，越投入越难退出。<br/><b>【联结】</b>劝人时先给台阶：先保安全感，再谈事实。</div>
+      <div class="quote"><b>【引出】</b>（幸存者偏差）真正的答案，可能在看不见的地方。<br/><b>【解读】</b>只看成功样本会误判因果，忽略条件与代价。<br/><b>【联结】</b>做决策前问：失败者去了哪里？他们为何失败？</div>
+    </div>
+  </details>
+
+  <details id="sec-script">
+    <summary>
+      <div class="sumL">
+        <div class="badge">🎙️</div>
+        <div>
+          <div class="sumTitle">60秒跨文化口播稿（中文｜捷克语｜英语）</div>
+          <div class="sumHint">启发性、简洁、深度｜可直接照读</div>
+        </div>
+      </div>
+      <div class="chev">⌄</div>
+    </summary>
+    <div class="content">
+      <div class="twoCol">
+        <div class="lang">
+          <h4>中文（约60秒）</h4>
+          <p>如果你想更高维地看人和看自己，这16个心理学定律可以当作一套“透镜”。关系里，喜恶同因提醒我们：你爱的那一面，也可能是你受不了的那一面；受助者恶意告诉我们：帮助要留尊严；课题分离则让你把别人的评价还回去。成长里，竹子定律、金蝉定律和鸭子定律都在说同一件事：看不见的努力不是白费，它在扎根、在蛰伏、在水下划。决策里，90/10法则让你把注意力放回反应本身；损失厌恶、峰终定律和幸存者偏差提醒你：别让大脑的偏差替你做选择。把它们记成一句话：少内耗、守边界、慢扎根、看全局。</p>
+        </div>
+        <div class="lang">
+          <h4>捷克语（约60秒）</h4>
+          <p>Pokud chcete vidět lidské chování „z vyšší perspektivy“, těchto šestnáct psychologických pravidel může fungovat jako sada čoček. Ve vztazích nám princip <i>„co přitahuje, to může i dráždit“</i> připomíná, že vlastnosti mají dvě strany; fenomén nepřátelství u příjemce pomoci ukazuje, že pomoc musí zachovat důstojnost; a oddělení „úkolů“ nás učí vracet hodnocení zpět tomu, komu patří. V růstu zase bambus, cikáda i „kachna pod hladinou“ říkají totéž: neviditelná práce není ztráta — buduje kořeny, vyčkává a pracuje v tichu. V rozhodování pak pravidlo 90/10 přesouvá pozornost na naši reakci; averze ke ztrátě, pravidlo vrcholu a konce a efekt přeživších varují před kognitivními zkresleními. Jedna věta na závěr: méně vnitřního vyčerpání, jasnější hranice, trpělivé kořenění a širší pohled na celek.</p>
+        </div>
+        <div class="lang">
+          <h4>English（about 60s）</h4>
+          <p>If you want a higher-level way to read human behavior, these 16 principles work like a set of lenses. In relationships, “what you love can also be what you hate” reminds us that traits come in two-sided packages; the hostility of over-helped recipients shows why help must preserve dignity; and task separation brings your focus back to what you control—your choices and boundaries. In growth, the bamboo, cicada, and “duck underwater” principles all say the same thing: invisible effort isn’t wasted—it’s rooting, incubating, and grinding quietly. In decision-making, the 90/10 rule shifts attention to your response; loss aversion, the peak-end rule, and survivor bias warn you not to outsource choices to cognitive distortions. One takeaway: reduce inner friction, protect boundaries, root patiently, and keep the whole system in view.</p>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <div class="footer">
+    <div class="hr"></div>
+    <div>🧾 说明：本页根据你提供的16条内容进行信息架构与可视化呈现；原文部分已逐字保留。可直接打印或离线保存。</div>
+  </div>
+</div>
+
+<script>
+  function toggleAll(open){
+    document.querySelectorAll('details').forEach(d => d.open = !!open);
+  }
+  function jumpHighlight(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    const original = document.getElementById('sec-original');
+    if(original) original.open = true;
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+    el.classList.add('hl');
+    setTimeout(() => el.classList.remove('hl'), 5000);
+  }
+  window.addEventListener('load', () => {
+    const hash = (location.hash || '').replace('#','');
+    if(hash){
+      const target = document.getElementById(hash);
+      if(target){
+        let p = target.parentElement;
+        while(p){
+          if(p.tagName && p.tagName.toLowerCase() === 'details') p.open = true;
+          p = p.parentElement;
+        }
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+        target.classList.add('hl');
+        setTimeout(() => target.classList.remove('hl'), 4000);
+      }
+    }
+  });
+</script>
+</body>
+</html>
