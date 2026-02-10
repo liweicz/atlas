@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>发芽报告｜金锦墨鱼花出品偏差与服务链路修复（2026-02-10）</title>
+  <meta name="description" content="把一次出品偏差与器具水印问题，转为可定位、可纠偏、可复检的流程升级。" />
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --faint: rgba(255,255,255,.48);
+      --accent: #7CFFB2;
+      --accent2:#68B6FF;
+      --warn:#FFCE5C;
+      --danger:#FF6B6B;
+      --ok:#7CFFB2;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, "Noto Serif CJK SC", "Source Han Serif SC", serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(104,182,255,.18), transparent 60%),
+        radial-gradient(900px 600px at 85% 15%, rgba(124,255,178,.14), transparent 62%),
+        radial-gradient(900px 700px at 30% 90%, rgba(255,206,92,.10), transparent 55%),
+        linear-gradient(180deg, #070a0f 0%, #0b0f14 55%, #070a0f 100%);
+      line-height:1.55;
+      letter-spacing:.2px;
+    }
+    a{color:var(--accent2); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1100px; margin:0 auto; padding:28px 18px 80px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:12px 14px; border:1px solid var(--border);
+      border-radius:999px; background:rgba(0,0,0,.22); backdrop-filter: blur(10px);
+      box-shadow: 0 10px 40px rgba(0,0,0,.25);
+      position:sticky; top:12px; z-index:20;
+    }
+    .brand{display:flex; align-items:center; gap:10px; min-width:0}
+    .brand .logo{
+      width:34px; height:34px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(124,255,178,.95), rgba(104,182,255,.95));
+      display:grid; place-items:center; flex:0 0 auto;
+      box-shadow: 0 14px 34px rgba(0,0,0,.35);
+    }
+    .brand .logo svg{filter: drop-shadow(0 8px 12px rgba(0,0,0,.35))}
+    .brand .title{
+      display:flex; flex-direction:column; gap:2px; min-width:0;
+    }
+    .brand .title b{font-weight:750; font-size:13px; letter-spacing:.6px}
+    .brand .title span{font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .actions{display:flex; gap:10px; align-items:center}
+    .btn{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:999px;
+      display:inline-flex; align-items:center; gap:8px;
+      cursor:pointer;
+      transition: transform .15s ease, background .2s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); background:rgba(255,255,255,.09)}
+    .btn svg{width:16px; height:16px; opacity:.95}
+    .btn.small{padding:8px 10px; font-size:12px}
+    .hero{
+      margin-top:22px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(800px 240px at 30% 0%, rgba(124,255,178,.18), transparent 70%),
+                  radial-gradient(700px 220px at 75% 10%, rgba(104,182,255,.16), transparent 72%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .hero-inner{position:relative; padding:26px 22px 22px}
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:rgba(0,0,0,.18);
+      color:var(--muted);
+      font-size:12px;
+    }
+    .kicker .dot{
+      width:8px; height:8px; border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 6px rgba(124,255,178,.12);
+    }
+    h1{
+      font-family:var(--serif);
+      font-size:28px;
+      margin:14px 0 8px;
+      letter-spacing:.6px;
+      line-height:1.25;
+    }
+    .subtitle{color:var(--muted); font-size:14px; max-width:62ch}
+    .signal-row{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+    }
+    @media (max-width: 900px){
+      .signal-row{grid-template-columns:1fr}
+    }
+    .card{
+      border:1px solid var(--border);
+      border-radius:var(--radius2);
+      background: rgba(0,0,0,.16);
+      padding:16px 16px 14px;
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size:14px;
+      letter-spacing:.4px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      font-size:12px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .pill b{color:var(--text); font-weight:700}
+    .list{
+      margin:10px 0 0; padding:0; list-style:none; display:grid; gap:10px;
+    }
+    .li{
+      display:flex; gap:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+    }
+    .li .icon{
+      width:28px; height:28px; border-radius:10px; flex:0 0 auto;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .li .icon svg{width:16px; height:16px}
+    .li .txt b{display:block; font-size:13px; margin-bottom:2px}
+    .li .txt span{display:block; color:var(--muted); font-size:12.5px}
+    .seed{
+      margin-top:18px;
+      border-top:1px dashed rgba(255,255,255,.18);
+      padding-top:16px;
+      display:grid; gap:10px;
+    }
+    .seed p{margin:0; color:var(--muted)}
+    .quote{
+      margin-top:14px;
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid rgba(124,255,178,.22);
+      background: linear-gradient(180deg, rgba(124,255,178,.10), rgba(0,0,0,.10));
+      color: rgba(255,255,255,.90);
+    }
+    .quote b{
+      display:block;
+      font-weight:800;
+      letter-spacing:.6px;
+      margin-bottom:6px;
+      color:var(--accent);
+    }
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+    .col-8{grid-column: span 8}
+    .col-4{grid-column: span 4}
+    .col-6{grid-column: span 6}
+    .col-12{grid-column: span 12}
+    @media (max-width: 980px){
+      .col-8,.col-4,.col-6{grid-column: span 12}
+    }
+    section{
+      margin-top:18px;
+      padding:18px 18px 16px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: 0 18px 60px rgba(0,0,0,.28);
+      position:relative;
+      overflow:hidden;
+    }
+    section::after{
+      content:"";
+      position:absolute; inset:auto -50px -60px auto;
+      width:220px; height:220px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, rgba(104,182,255,.18), transparent 60%);
+      filter: blur(2px);
+      opacity:.7;
+      pointer-events:none;
+    }
+    .sec-head{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      margin-bottom:10px;
+    }
+    .sec-title{
+      display:flex; gap:10px; align-items:flex-start;
+      min-width:0;
+    }
+    .sec-title h2{
+      margin:0;
+      font-size:16px;
+      letter-spacing:.6px;
+      line-height:1.25;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.16);
+      font-size:12px;
+      color:var(--muted);
+      flex:0 0 auto;
+      white-space:nowrap;
+    }
+    .badge.reliable{border-color: rgba(124,255,178,.28); color: rgba(124,255,178,.92)}
+    .badge.partial{border-color: rgba(255,206,92,.32); color: rgba(255,206,92,.95)}
+    .badge.pure{border-color: rgba(255,255,255,.16); color: rgba(255,255,255,.70)}
+    .sec-body{
+      display:grid; gap:10px;
+      position:relative;
+    }
+    .label{
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--faint);
+      letter-spacing:.8px;
+      text-transform:uppercase;
+    }
+    .para{margin:0; color:var(--muted)}
+    .para strong{color:var(--text)}
+    .aha{
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(104,182,255,.22);
+      background: linear-gradient(180deg, rgba(104,182,255,.10), rgba(0,0,0,.10));
+    }
+    .aha .spark{
+      display:flex; align-items:center; gap:8px;
+      color: rgba(104,182,255,.95);
+      font-weight:800;
+      letter-spacing:.6px;
+      margin-bottom:4px;
+    }
+    .aha p{margin:0; color:rgba(255,255,255,.86)}
+    .sources{
+      margin-top:10px;
+      padding-top:10px;
+      border-top:1px dashed rgba(255,255,255,.16);
+      display:flex; flex-wrap:wrap; gap:8px;
+    }
+    .sources a{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      font-size:12px;
+      color:rgba(255,255,255,.82);
+    }
+    .sources a:hover{background:rgba(255,255,255,.07)}
+    .appendix{
+      margin-top:18px;
+      display:grid; gap:14px;
+    }
+    .steps{
+      display:grid; grid-template-columns: repeat(12, 1fr); gap:14px;
+    }
+    .step{grid-column: span 4}
+    @media (max-width: 980px){ .step{grid-column: span 12} }
+    .step .head{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; margin-bottom:8px;
+    }
+    .step h3{margin:0; font-size:14px; letter-spacing:.5px}
+    .meta{
+      margin:0; padding:0; list-style:none;
+      display:grid; gap:8px;
+    }
+    .meta li{
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.14);
+      color:var(--muted);
+      font-size:12.5px;
+    }
+    .meta li b{color:var(--text)}
+    footer{
+      margin-top:22px;
+      padding:18px 16px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.14);
+      color:var(--muted);
+      display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;
+    }
+    .tiny{font-size:12px; color:var(--faint)}
+    .divider{height:1px; background:rgba(255,255,255,.10); margin:14px 0}
+    @media print{
+      .topbar{position:static}
+      body{background:#fff; color:#111}
+      .hero, section, .card, footer{box-shadow:none}
+      a{color:#0a58ca}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <!-- sprout icon -->
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 21c0-4.5 0-9 4.8-12.5C17.9 7.7 19.5 7 21 7c0 4.2-2 7.2-5.7 8.7" stroke="#0b0f14" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M12 21c0-4.5 0-9-4.8-12.5C6.1 7.7 4.5 7 3 7c0 4.2 2 7.2 5.7 8.7" stroke="#0b0f14" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M12 21V11.2" stroke="#0b0f14" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="title">
+          <b>发芽报告</b>
+          <span>金锦墨鱼花出品偏差 · 两条链路的可复检修复</span>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn small" onclick="window.print()" title="打印或导出 PDF">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 8V4h10v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M7 17v3h10v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M6 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M8 13h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          打印
+        </button>
+        <a class="btn small" href="#appendix" title="跳转到落地附录">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M7 14l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          落地附录
+        </a>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="kicker">
+          <span class="dot"></span>
+          <span>📅 2026-02-10 · 事件：菜品质量与器具洁净度偏差</span>
+        </div>
+
+        <h1>一盘“金锦墨鱼花”的偏差<br/>如何被看见，并被修复</h1>
+        <p class="subtitle">
+          你观察到的是<strong>出品稳定性断裂</strong>：同一道菜与往常不同；米饭出现类似锅巴的硬物但并非锅巴；水果叉子水印残留、缺少光泽。<br/>
+          这不是一句“今天失手”能解释的事——它更像<strong>两条链路同时松动</strong>：出品链路 + 洗消链路。
+        </p>
+
+        <div class="signal-row">
+          <div class="card">
+            <h3>🎯 关键信号（你抓到的“证据型描述”）</h3>
+            <ul class="list">
+              <li class="li">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M6 3h12l-1 6H7L6 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M7 9v7a5 5 0 0 0 10 0V9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="txt">
+                  <b>金锦墨鱼花：出品与往常不一致</b>
+                  <span>提示：配方/火候/流程/原料批次可能有偏移。</span>
+                </div>
+              </li>
+              <li class="li">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M4 12c2-6 14-6 16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M6 12c1.5 4 10.5 4 12 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 9h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="txt">
+                  <b>米饭：有硬物（非锅巴）</b>
+                  <span>提示：淘洗/浸泡/蒸煮/保温/器具残留/米种碎粒等。</span>
+                </div>
+              </li>
+              <li class="li">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M8 3h8v4H8V3Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M6 7h12l-1 14H7L6 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M9 11c2 2 4-2 6 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="txt">
+                  <b>水果叉：水印残留、无光泽</b>
+                  <span>提示：漂洗/沥水/抛光末端复检缺口。</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>🧭 本报告的四个类比方向</h3>
+            <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:10px">
+              <span class="pill">⚙️ <b>机制</b>：关键控制点</span>
+              <span class="pill">🔎 <b>对照</b>：出事后的顺序感</span>
+              <span class="pill">🧩 <b>系统</b>：一线可拉停</span>
+              <span class="pill">🤝 <b>信任</b>：可验证的修复</span>
+            </div>
+
+            <div class="quote">
+              <b>✨ Aha 总句</b>
+              不是把错误解释清楚，而是把错误出现的位置钉住。
+            </div>
+          </div>
+        </div>
+
+        <div class="seed">
+          <p><span class="label">Seed / 触发点</span></p>
+          <p>你描述得非常“可定位”：不是抽象的“不好吃”，而是<strong>同菜不一致</strong>、<strong>米饭硬物但非锅巴</strong>、<strong>叉子水印未抛光</strong>。</p>
+          <p>这三句话已经足够把问题从“情绪”推进到“链路与批次”的层级。</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Chapters -->
+    <div class="grid">
+      <!-- Chapter 1 -->
+      <section class="col-12" id="c1">
+        <div class="sec-head">
+          <div class="sec-title">
+            <div class="icon" aria-hidden="true" style="width:34px;height:34px;border-radius:14px;background:rgba(124,255,178,.10);border:1px solid rgba(124,255,178,.22);display:grid;place-items:center">
+              <span style="font-size:18px">1️⃣</span>
+            </div>
+            <div style="min-width:0">
+              <h2>把“异样”变成关键控制点</h2>
+              <div class="tiny">机制类比：HACCP（危害分析与关键控制点）</div>
+            </div>
+          </div>
+          <span class="badge reliable">〔可靠〕</span>
+        </div>
+
+        <div class="sec-body">
+          <div>
+            <div class="label">🌱 种子</div>
+            <p class="para">“硬物但非锅巴”“叉子像水印没抛光”——这是<strong>证据型描述</strong>：分别指向<strong>出品控制点</strong>与<strong>洗消末端控制点</strong>。</p>
+          </div>
+
+          <div>
+            <div class="label">展开</div>
+            <p class="para">
+              HACCP 的核心思想是：先做危害分析，再把流程拆成<strong>关键控制点</strong>，在这些点上设定标准、监测与纠偏。
+              对餐厅而言，它的价值不在术语，而在顺序：<strong>把“可能出错的地方”提前钉住</strong>，而不是等投诉后回头猜。
+              你的两条信号，恰好对应两张控制点卡：米饭（淘洗—浸泡—蒸煮—保温—出餐）与餐具（洗涤—漂洗—消毒—沥水—抛光—上架）。
+            </p>
+          </div>
+
+          <div>
+            <div class="label">回扣</div>
+            <p class="para">
+              你需要的不是一句“今天失手”，而是一张<strong>两分钟能执行的检查卡</strong>：每一步有可看见的标准（硬粒/水印/光泽/温度/时间/批次号）。
+              当“感觉”被转换成“位置与标准”，复盘才会变成升级。
+            </p>
+          </div>
+
+          <div class="aha">
+            <div class="spark">✨ Aha 瞬间</div>
+            <p>不是把错误解释清楚，而是把错误出现的位置钉住。</p>
+          </div>
+
+          <div class="sources" aria-label="来源链接">
+            <a href="https://ntrs.nasa.gov/api/citations/20200003123/downloads/20200003123.pdf" target="_blank" rel="noreferrer">
+              📎 来源：NASA NTRS（HACCP相关资料）
+            </a>
+            <a href="https://link.springer.com/content/pdf/10.1007/978-1-4615-2149-5_1" target="_blank" rel="noreferrer">
+              📎 来源：Springer（HACCP历史章节）
+            </a>
+          </div>
+
+          <div class="tiny">
+            检索关键词：HACCP NASA Pillsbury；Hazard Analysis Critical Control Point history；太空食品 HACCP 起源
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 2 -->
+      <section class="col-12" id="c2">
+        <div class="sec-head">
+          <div class="sec-title">
+            <div class="icon" aria-hidden="true" style="width:34px;height:34px;border-radius:14px;background:rgba(104,182,255,.10);border:1px solid rgba(104,182,255,.22);display:grid;place-items:center">
+              <span style="font-size:18px">2️⃣</span>
+            </div>
+            <div style="min-width:0">
+              <h2>对照别人出事后的动作，学顺序不学口号</h2>
+              <div class="tiny">对照案例：公共卫生调查与门店处置的“先止损、再取证、后放行”</div>
+            </div>
+          </div>
+          <span class="badge reliable">〔可靠〕</span>
+        </div>
+
+        <div class="sec-body">
+          <div>
+            <div class="label">🌱 种子</div>
+            <p class="para">出品偏差与器具水印同日出现，往往意味着不是单点失误，而是<strong>节奏/交接/设备状态/检查</strong>出现空档。</p>
+          </div>
+
+          <div>
+            <div class="label">展开</div>
+            <p class="para">
+              以 2015 年与 Chipotle 相关的 E. coli 调查为例，事件推进遵循清晰顺序：信息收集与调查、门店处置与清洁、再到逐步恢复。
+              餐厅不需要复制规模，但可以复制纪律：<strong>先止损（暂停可疑批次/工序）→再取证（留样/记录）→后放行（验证通过才恢复）</strong>。
+            </p>
+          </div>
+
+          <div>
+            <div class="label">回扣</div>
+            <p class="para">
+              这次最像的动作是：把“米饭硬物”当作<strong>批次问题</strong>处理——留样、记录锅号/时间/当班/米袋批次/保温桶编号；
+              把“叉子水印”当作<strong>洗消末端复检</strong>处理——把问题从“看着不对”变成“哪一段没达标”。
+            </p>
+          </div>
+
+          <div class="aha">
+            <div class="spark">✨ Aha 瞬间</div>
+            <p>危机管理不是公关，是“先停、再证、后放”的纪律。</p>
+          </div>
+
+          <div class="sources">
+            <a href="https://archive.cdc.gov/www_cdc_gov/ecoli/2015/o26-11-15/index.html" target="_blank" rel="noreferrer">
+              📎 来源：CDC（2015 E. coli 调查页面）
+            </a>
+            <a href="https://www.bloomberg.com/features/2015-chipotle-food-safety-crisis/" target="_blank" rel="noreferrer">
+              📎 来源：Bloomberg（食品安全危机回顾）
+            </a>
+          </div>
+
+          <div class="tiny">
+            检索关键词：Chipotle 2015 E. coli CDC；Chipotle restaurant closures October 2015；food safety crisis response steps
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 3 -->
+      <section class="col-12" id="c3">
+        <div class="sec-head">
+          <div class="sec-title">
+            <div class="icon" aria-hidden="true" style="width:34px;height:34px;border-radius:14px;background:rgba(255,206,92,.10);border:1px solid rgba(255,206,92,.22);display:grid;place-items:center">
+              <span style="font-size:18px">3️⃣</span>
+            </div>
+            <div style="min-width:0">
+              <h2>让一线能“拉停”，瑕疵就不会扩大</h2>
+              <div class="tiny">系统类比：Andon（授权一线报警与必要时停线）</div>
+            </div>
+          </div>
+          <span class="badge partial">〔部分待核实〕</span>
+        </div>
+
+        <div class="sec-body">
+          <div>
+            <div class="label">🌱 种子</div>
+            <p class="para">你能描述异常细节，说明一线具备识别能力；真正的缺口可能是：<strong>识别后没有“立即拉停”的机制</strong>。</p>
+          </div>
+
+          <div>
+            <div class="label">展开</div>
+            <p class="para">
+              精益生产里的 Andon 强调：发现缺陷时，一线可以请求支援，必要时<strong>为质量暂停流程</strong>，避免缺陷继续流向客户。
+              餐厅也可以有“餐饮版 Andon”：任何人发现出品偏差或器具不洁，10 秒内触发<strong>暂停出餐 + 主管复核</strong>，通过才恢复。
+            </p>
+          </div>
+
+          <div>
+            <div class="label">回扣</div>
+            <p class="para">
+              今天若有“拉停机制”，米饭硬物可能在第一碗就被拦下；叉子水印也会在上桌前被替换。
+              重点不是追责，而是让发现问题的人知道：<strong>拉停是被鼓励的</strong>。
+            </p>
+          </div>
+
+          <div class="aha">
+            <div class="spark">✨ Aha 瞬间</div>
+            <p>稳定不是靠更努力，而是靠能随时按下暂停键。</p>
+          </div>
+
+          <div class="sources">
+            <a href="https://en.wikipedia.org/wiki/Andon_(manufacturing)" target="_blank" rel="noreferrer">
+              📎 来源：Andon 概念综述（Wikipedia）
+            </a>
+            <a href="https://www.leanblog.org/2024/07/demystifying-toyotas-andon-system-how-it-works-and-common-misconceptions/" target="_blank" rel="noreferrer">
+              📎 来源：Leanblog（Andon误解与演进）
+            </a>
+          </div>
+
+          <div class="tiny">
+            检索关键词：Andon stop the line；Toyota Andon cord button；Jidoka quality control Andon
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 4 -->
+      <section class="col-12" id="c4">
+        <div class="sec-head">
+          <div class="sec-title">
+            <div class="icon" aria-hidden="true" style="width:34px;height:34px;border-radius:14px;background:rgba(255,107,107,.10);border:1px solid rgba(255,107,107,.22);display:grid;place-items:center">
+              <span style="font-size:18px">4️⃣</span>
+            </div>
+            <div style="min-width:0">
+              <h2>当客人已经看见，信任修复要“可验证”</h2>
+              <div class="tiny">信任类比：Tylenol 1982（以公众安全优先的危机处置讨论）</div>
+            </div>
+          </div>
+          <span class="badge reliable">〔可靠〕</span>
+        </div>
+
+        <div class="sec-body">
+          <div>
+            <div class="label">🌱 种子</div>
+            <p class="para">叉子水印会触发客人的直觉：后台是不是整体松了。它不一定导致安全事故，却会<strong>快速侵蚀“这家店一直很稳”</strong>。</p>
+          </div>
+
+          <div>
+            <div class="label">展开</div>
+            <p class="para">
+              1982 年 Tylenol 投毒事件常被用于讨论“安全优先”的危机处置。它对餐饮的启发是：
+              信任不是解释回来的，而是用<strong>可验证的动作</strong>换回来的——当场更换、说明检查点、让客人看到纠偏发生。
+            </p>
+          </div>
+
+          <div>
+            <div class="label">回扣</div>
+            <p class="para">
+              你可以用三件小动作完成“可验证修复”：
+              <strong>立即换新餐具</strong>并说明将回收该批复洗复检；
+              米饭问题<strong>换锅/换批次</strong>并留样记录；
+              当班结束前给出清晰回访：原因（若已确认）/纠偏/如何避免再发生。
+            </p>
+          </div>
+
+          <div class="aha">
+            <div class="spark">✨ Aha 瞬间</div>
+            <p>信任的货币不是道歉，是可复检的流程。</p>
+          </div>
+
+          <div class="sources">
+            <a href="https://www.ebsco.com/research-starters/history/seven-people-die-after-taking-cyanide-laced-tylenol" target="_blank" rel="noreferrer">
+              📎 来源：EBSCO（Tylenol事件概述）
+            </a>
+          </div>
+
+          <div class="tiny">
+            检索关键词：1982 Tylenol cyanide recall 31 million；Johnson & Johnson crisis response；product tampering legislation
+          </div>
+        </div>
+      </section>
+
+      <!-- Appendix -->
+      <section class="col-12" id="appendix">
+        <div class="sec-head">
+          <div class="sec-title">
+            <div class="icon" aria-hidden="true" style="width:34px;height:34px;border-radius:14px;background:rgba(124,255,178,.10);border:1px solid rgba(124,255,178,.22);display:grid;place-items:center">
+              <span style="font-size:18px">🧰</span>
+            </div>
+            <div style="min-width:0">
+              <h2>落地附录：3 个最小行动（今晚就能做）</h2>
+              <div class="tiny">目的 / 步骤 / 判据 / 成本 —— 用最小动作换回最大稳定</div>
+            </div>
+          </div>
+          <span class="badge pure">〔可执行〕</span>
+        </div>
+
+        <div class="appendix">
+          <div class="steps">
+            <div class="card step">
+              <div class="head">
+                <h3>行动 1：15 分钟止损</h3>
+                <span class="pill">⏱️ 低成本</span>
+              </div>
+              <ul class="meta">
+                <li><b>目的</b>：先把问题从餐桌上撤下</li>
+                <li><b>步骤</b>：米饭暂停当前锅/桶 → 换批次 → 留样标注；餐具回收同批 → 补发抛光合格替代 → 检查漂洗/烘干/抛光环节</li>
+                <li><b>判据</b>：抽检无硬粒；灯下无水印、手感无涩</li>
+                <li><b>成本</b>：低（多一次检查与替换）</li>
+              </ul>
+            </div>
+
+            <div class="card step">
+              <div class="head">
+                <h3>行动 2：做一张“异常卡”</h3>
+                <span class="pill">🧾 模板化</span>
+              </div>
+              <ul class="meta">
+                <li><b>目的</b>：把主观描述变成可复盘数据</li>
+                <li><b>步骤</b>：异常类型 + 时间 + 工位 + 批次号 + 处理动作 + 复检结果（纸/群公告均可）</li>
+                <li><b>判据</b>：一周后可统计：集中在哪个时段/设备/交接点</li>
+                <li><b>成本</b>：极低（一次性制作）</li>
+              </ul>
+            </div>
+
+            <div class="card step">
+              <div class="head">
+                <h3>行动 3：10 秒“拉停规则”</h3>
+                <span class="pill">🛑 授权一线</span>
+              </div>
+              <ul class="meta">
+                <li><b>目的</b>：让瑕疵止于第一份</li>
+                <li><b>步骤</b>：设口令/按钮/群消息 → 发现偏差立刻暂停该品/批次 → 主管 2 分钟复核 → 通过才恢复</li>
+                <li><b>判据</b>：出餐前拦截比例上升；客诉下降</li>
+                <li><b>成本</b>：低（班前会统一共识）</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="card">
+            <h3>🧠 备注：你今天最强的能力是什么？</h3>
+            <p class="para">
+              你不是在“发脾气”，而是在做一件更难的事：把现场的细微差别，翻译成<strong>可定位的链路信号</strong>。
+              这正是一个团队走向稳定与可信的起点。
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <div>
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap">
+          <span class="pill">🌱 发芽主笔（可检索版）</span>
+          <span class="pill">🎛️ 重点：控制点 / 批次 / 复检</span>
+          <span class="pill">🧪 关键词：先停 · 再证 · 后放</span>
+        </div>
+        <div class="tiny" style="margin-top:10px">
+          提示：如需把“米饭硬物”和“餐具水印”进一步做成【工位检查清单】（一页贴墙版），可在此 HTML 基础上继续扩展。
+        </div>
+      </div>
+      <div class="tiny">© 2026 发芽报告 · 单文件HTML（可打印导出PDF）</div>
+    </footer>
+  </div>
+
+  <script>
+    // 小交互：按下 / 键快速聚焦到附录
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '/') {
+        e.preventDefault();
+        document.querySelector('#appendix')?.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  </script>
+</body>
+</html>
