@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>人选天选论河流世界</title>
+<style>
+  :root{
+    --bg:#0b1220;
+    --panel: rgba(255,255,255,.06);
+    --panel2: rgba(255,255,255,.09);
+    --stroke: rgba(255,255,255,.14);
+    --text: rgba(255,255,255,.92);
+    --muted: rgba(255,255,255,.70);
+    --muted2: rgba(255,255,255,.56);
+    --accent: #7dd3fc;
+    --accent2:#a78bfa;
+    --good:#86efac;
+    --warn:#fcd34d;
+    --danger:#fb7185;
+    --shadow: 0 18px 50px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 700px at 10% 10%, rgba(125,211,252,.18), transparent 60%),
+      radial-gradient(900px 600px at 90% 20%, rgba(167,139,250,.16), transparent 55%),
+      radial-gradient(900px 600px at 50% 100%, rgba(134,239,172,.10), transparent 60%),
+      linear-gradient(180deg, #070b14, var(--bg));
+    color:var(--text);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans SC","PingFang SC","Microsoft YaHei", Arial, sans-serif;
+    line-height:1.7;
+  }
+  a{color:var(--accent)}
+  .wrap{max-width:1080px;margin:0 auto;padding:24px 18px 70px}
+  header{
+    background: linear-gradient(135deg, rgba(125,211,252,.16), rgba(167,139,250,.12));
+    border:1px solid var(--stroke);
+    border-radius:22px;
+    padding:22px 18px;
+    box-shadow: var(--shadow);
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";
+    position:absolute; inset:-40px -80px auto auto;
+    width:280px;height:280px;
+    background: radial-gradient(circle at 40% 40%, rgba(125,211,252,.30), transparent 60%);
+    filter: blur(0px);
+    transform: rotate(18deg);
+    opacity:.8;
+  }
+  .title-row{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+  h1{margin:0;font-size:26px;letter-spacing:.5px}
+  .sub{margin-top:6px;color:var(--muted);font-size:14px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap}
+  button{
+    border:1px solid var(--stroke);
+    background: rgba(255,255,255,.06);
+    color:var(--text);
+    padding:10px 12px;
+    border-radius:14px;
+    cursor:pointer;
+    transition:.18s transform ease, .18s background ease, .18s border-color ease;
+    backdrop-filter: blur(10px);
+  }
+  button:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20)}
+  button:active{transform: translateY(0px)}
+  .pill{
+    display:inline-flex;gap:8px;align-items:center;
+    padding:8px 10px;border-radius:999px;
+    border:1px solid var(--stroke);
+    background: rgba(0,0,0,.12);
+    color:var(--muted);
+    font-size:12px;
+  }
+  .pill b{color:var(--text)}
+  .grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+  details{
+    border:1px solid var(--stroke);
+    background: rgba(255,255,255,.05);
+    border-radius:18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.22);
+    overflow:hidden;
+  }
+  summary{
+    list-style:none;
+    padding:16px 16px;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    user-select:none;
+  }
+  summary::-webkit-details-marker{display:none}
+  .sum-left{display:flex;align-items:center;gap:10px;min-width:0}
+  .badge{
+    width:34px;height:34px;border-radius:12px;
+    display:grid;place-items:center;
+    border:1px solid rgba(255,255,255,.16);
+    background: rgba(0,0,0,.18);
+  }
+  .sum-title{font-weight:750;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sum-note{color:var(--muted2);font-size:12px;margin-top:2px}
+  .chev{opacity:.65;transition: transform .18s ease}
+  details[open] .chev{transform: rotate(180deg)}
+  .content{padding:0 16px 18px 16px;color:var(--text)}
+  .content p{margin:10px 0}
+  .two{display:grid;grid-template-columns:1fr;gap:12px}
+  @media (min-width: 900px){ .two{grid-template-columns:1.1fr .9fr} }
+  .card{
+    border:1px solid rgba(255,255,255,.14);
+    background: rgba(0,0,0,.14);
+    border-radius:16px;
+    padding:12px;
+  }
+  .card-h{display:flex;align-items:center;gap:14px}
+  .glyph{font-size:36px;line-height:1;background: rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px 14px}
+  .meta{flex:1;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .pinyin{color:var(--muted);font-size:13px}
+  .dl{margin:10px 0 0 0}
+  .dl div{display:grid;grid-template-columns:84px 1fr;gap:10px;padding:8px 0;border-top:1px dashed rgba(255,255,255,.12)}
+  .dl dt{color:var(--muted2)}
+  .dl dd{margin:0}
+  .linkbtn{padding:8px 10px;border-radius:12px}
+  .term{padding:12px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background: rgba(255,255,255,.04)}
+  .term-title{margin-bottom:6px}
+  .term-body{color:var(--muted);font-size:14px}
+  .mindmap{width:100%;height:auto;border-radius:18px;border:1px solid rgba(255,255,255,.14);background: rgba(0,0,0,.12)}
+  .list{margin:0;padding-left:18px}
+  .list li{margin:8px 0}
+  .original{
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size:13.2px;
+    color: rgba(255,255,255,.88);
+    background: rgba(0,0,0,.18);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:16px;
+    padding:14px;
+    overflow:auto;
+  }
+  .rare{
+    padding:0 .18em;
+    border-radius:.35em;
+    border:1px solid rgba(125,211,252,.35);
+    background: rgba(125,211,252,.10);
+    cursor:pointer;
+  }
+  .hl{
+    outline: 3px solid rgba(251,113,133,.75);
+    background: rgba(251,113,133,.18) !important;
+  }
+  .quote{border:1px solid rgba(255,255,255,.12);background: rgba(0,0,0,.14);border-radius:16px;padding:12px;margin:10px 0}
+  .q1{font-weight:750}
+  .q2,.q3{color:var(--muted);margin-top:6px}
+  .cols3{display:grid;grid-template-columns:1fr;gap:10px}
+  @media (min-width: 900px){ .cols3{grid-template-columns:1fr 1fr 1fr} }
+  .script{
+    white-space:pre-wrap;
+    background: rgba(0,0,0,.16);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:16px;
+    padding:12px;
+    color: rgba(255,255,255,.88);
+  }
+  footer{margin-top:18px;color:var(--muted2);font-size:12px;text-align:center}
+  @media print {
+    header, .toolbar, .pill, summary .chev, .linkbtn {display:none !important;}
+    body{background:#fff;color:#000}
+    details{break-inside:avoid; background:#fff; border:1px solid #ddd; box-shadow:none}
+    .content, .original{color:#000}
+    .rare{border-color:#666;background:transparent}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="title-row">
+      <div>
+        <h1>🌊 人选天选论河流世界</h1>
+        <div class="sub">基于视频文字转录｜交互式学习页：折叠阅读 · 生僻字跳转 · 一键打印</div>
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+          <span class="pill">📌 <b>隐喻</b>：思想＝河流系统</span>
+          <span class="pill">🧭 <b>方法</b>：先看河，再看水面</span>
+          <span class="pill">📚 <b>容器</b>：书/艺术/模型保存河水</span>
+        </div>
+      </div>
+      <div class="toolbar">
+        <button id="expandAll">展开全部</button>
+        <button id="collapseAll">折叠全部</button>
+        <button id="printBtn">🖨️ 一键打印全文</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <details id="sec-original">
+      <summary>
+        <div class="sum-left">
+          <div class="badge">📜</div>
+          <div>
+            <div class="sum-title">原文（100%保留）</div>
+            <div class="sum-note">逐字保留｜点击生僻字可跳转并高亮 5 秒</div>
+          </div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <div class="original" id="originalText">《人选天选论》第一章 河流世界<br>
+《人选天选论》第一章 河流世界<br>
+<br>
+在我的心中有很多看待世界的方法，我称之为小世界。其中建立最早的一个小世界就是河流世界，这对我的人生以及日后的事业产生了极大的影响。<br>
+<br>
+我和文杰15岁就特别想去当兵来实现抱负，报效国家。16岁那年考虑到明年可能会去做兵检，于是我和文杰骗了家里的钱，说是去当兵之前先去武当山学习武术，结果拿着钱偷偷跑去神农架玩了。<br>
+<br>
+在出发之前就定义了这十天之行的目标，要找到我认为和氏<span class="rare" data-key="璧" title="生僻字：璧（bì）">璧</span>的原矿，而他要戒掉抽了四年的香烟。自从去了神农架之后文杰再也几乎没有抽过香烟。我虽然没有找到我的和氏<span class="rare" data-key="璧" title="生僻字：璧（bì）">璧</span>，却打开了一扇独立思考世界规律的小世界之门。<br>
+<br>
+故事从一条小河开始，有一天早上在木鱼镇一人买了一盒武汉的豆皮，拿着豆皮跑到河边去吃早餐。那条溪水很清，清到站在岸边往下看就会觉得自己已经看到了河底，可认真的看就会发现能看见底却看不清底。<br>
+<br>
+传说中和氏<span class="rare" data-key="璧" title="生僻字：璧（bì）">璧</span>是在楚地，不是绿松石就是月光石。水在流，石头在底下顶着水，水面就会不停的翻滚，反光跟扭曲闪烁着类似于月光石、拉长石那种独有的蓝光。我知道有可能想要的石头就在下面，可我却看不清楚它真正的样子。<br>
+<br>
+那天看着这条河突然就进入了一个非常奇怪的状态，突然觉得人的思想其实就像一条河，不是像几乎就是一条河。后来慢慢把这件事一条一条一条的对上了。河里的水就是一个人流动的思想，水源就是外界不断<span class="rare" data-key="灌" title="生僻字：灌（guàn）">灌</span>入、流入的信息，而河床就是一个人天性基因经历的底色和性格。<br>
+<br>
+河床上的石头就是他的贪婪和恐惧，河床的宽度就是知识的广度，水的深度就是他的知识的密度，水流的速度就是他思考的速度。河岸就是一个人知道自己不知道的知识的边界。水的波纹就是我们很熟悉的经常挂在嘴边的借口理由自治，还有表层的这些情绪，听起来很懵。<br>
+<br>
+我给你们举三个例子你们就会豁然开朗。<br>
+<br>
+• 比如一个天天刷抖音的年轻人，他知道的东西非常多，他今天看一点财经，明天看一点历史，后天看一点情感，再往后看一点创业，一会看哲学，一会刷军事。你会觉得这种人信息面很广，对他的河很宽，但他的问题是水很浅，什么都知道一点，什么都不够深，于是河底多了一点点石头，而这个石头就是贪婪与恐惧。<br>
+贪婪与恐惧这种小石头在水浅的时候就会把水面扰得乱七八糟，他今天非常热血，明天却非常沮丧，今天懂了，明天又糊涂了，今天觉得人生应该这样，明天又觉得人生那样才更有意义。这种人不是没有思想，恰恰相反，他的思想太多太散太快，空有知识的广度宽度却完全没有知识的密度，这是现今世界上最多的年轻人的一种表现。<br>
+河宽水浅，流量还挺大，所以水面永远不会平，全部是情绪和自治的各种理由。<br>
+<br>
+• 再举一个例子，比如说一个专科的肿瘤学教授，他未必什么都懂，他未必每个领域的视频都看，但他在一个或者两个方向上挖的非常深，这种人的河未必特别宽，但水一定深，水深的时候即使下面有石头也不容易一下子就把表面搅乱。<br>
+所以这种人通常不会大起大落，不是因为他没有情绪，也不是因为他没有恐惧和贪婪，这种东西只是因为他的水够深，有了足够的余量。<br>
+<br>
+• 再比如我的一个好朋友陈昌文老师，他在微博有1000万粉丝，他是我认识信息面非常广，博览群书的人，他看的多，知道的也多，在一次背叛的经历中他被骗了巨额财产，所以他后来对整个世界和人性非常失望，慢慢的就不愿意接触人了，也不愿意把外界的信息放进自己的心里，他写他自己的东西，拍他自己的视频，过他自己的生活，越来越像是在主动缩减水的流量。<br>
+这种人很有意识，很有智慧，他的河本来很宽，水也很深，但后来他自己开始主动控制水从哪里来，又流向哪里去。所以他表面看起来会比任何人都更加平静，不是因为这个世界安静了，只是因为他不再想让太多杂乱的水<span class="rare" data-key="灌" title="生僻字：灌（guàn）">灌</span>进来。<br>
+<br>
+所以同样是思想之河，不同的人完全是完全不同的样子。有的人宽而浅，有的人窄而深，有的人宽而深，但是流速太快。有的人河本来很美，却因为流量太大，整条河都乱了。<br>
+<br>
+一个人想看清楚自己的第一步，不是着急问自己贪婪什么，恐惧什么，而是先搞清楚自己是哪一条河，自己是哪一条河。这个问题听起来非常简单，但绝大多数人一生都没有认认真真的思考过。他每天都在看着水面，今天心情不好，今天又很焦虑，今天突然很有动力，今天我突然觉得我什么都不想做了。<br>
+<br>
+他们会以为问题在情绪，于是他们开始想办法，想尽办法的控制情绪。有人去学心理学，有人去听励志的课，有人去<span class="rare" data-key="冥" title="生僻字：冥（míng）">冥</span>想，有人去找成功学。可大部分人折腾了很久很久以后，据我的观察，还是会回到原本当初的样子。<br>
+<br>
+这并不是因为方法没有完全用对，而是因为他们一直在水面打转。水本来就会动，风它轻轻一吹就动，水一多它就动，流速一快它更动。所以如果你只盯着水面看，你永远会觉得问题越来越多，越来越多。<br>
+<br>
+但当你退一步看整个河流的时候，你会发现其实很多事情非常非常的简单。有人焦虑不是因为他太敏感，而是因为他的河太浅，一点点的事情就能够碰到河底。有的人反复钻牛角尖不是因为他想不明白，而是因为他的河太窄，所有的问题都挤在一条细细的河道里打转。<br>
+<br>
+有的人一会热血一会悲观不是因为他性格矛盾，而是因为他流量太大，信息就像暴雨一样<span class="rare" data-key="灌" title="生僻字：灌（guàn）">灌</span>向内心，整条河流根本就没有慢下来过。有的人明明条件很好，却总觉得生活很乱，不是因为世界特别针对他，而是因为他的流速太快，水一直在冲，没有什么东西来得及沉下来，就又被下一波水冲走了。<br>
+<br>
+所以后来我越来越觉得，很多人把人生想的太复杂了，他们总在想寻找一个答案，一个能够解决所有问题的方法。可实际上很多的问题早在更早的时候就已经决定了，那就是我说的初之见，那是另外一个世界的故事了。<br>
+<br>
+决定你水面形状的不是水面而是河。如果你不先观察河流，那么所有的努力有可能都用错了地方。有人在拼命往河里加水，以为知道的更多就能解决问题。他们在读书，结果只会让水面更乱。有人拼命的想控制流速，可河太浅再慢也一样是乱的。有人试图堵住某一块水面，却没意识到真正的问题，他在河底。<br>
+<br>
+所以后来我慢慢形成了一个非常简单但有效的习惯。当我发现身边的一个人很乱的时候，我不会马上去问他或者马上去考虑他的情绪，我会想一件事，他的河是什么样的？在直播的时候是这样，在生活的时候也是这样，是太窄还是太浅？是水太多还是流的太快？因为只要把这一点看清楚，其实问题基本已经解决了一大半了。<br>
+<br>
+但我如果继续往下想的时候又有一个新的问题冒出来了。如果人的思想像河流一样不断流动，那么这些水到底流去哪里了？人与人之间当然会交换。你听我说一句，我读你写的一本书，我们聊了一整个晚上，水就会从一条河<span class="rare" data-key="灌" title="生僻字：灌（guàn）">灌</span>进另一条河里。但如果只是这样的交换，其实很快就会消失了。<br>
+<br>
+很多思想并不会只存在于两个人之间，有些思想活得非常非常的久，甚至几万年。为什么？因为人类一直在做一件事情，给河水做容器。最早的容器是故事，是眼神，最后是文字，是甲骨文，再后来是书，再后来是艺术。现在他们在大语言模型这个容器里，这些东西其实都是在做同一件事情，把一条河里的水装起来。<br>
+<br>
+一本书其实就是一段被保存下来的河流，一个人几十年的思考，一生的观察。如果只是在聊天中说完，很快就会消散了。但一旦写进书里，这条河就被装进了一个巨大的容器。几百年以后还会有人打开它，让那条河再次流进自己的心里。艺术也一样，一幅画、一段音乐、一部电影，其实都是某个人思想河流之中的一部分倒影被淋成了一个形状。当有人靠近的时候，那条河流就会<span class="rare" data-key="嘣" title="生僻字：嘣（bēng）">嘣</span><span class="rare" data-key="嘣" title="生僻字：嘣（bēng）">嘣</span><span class="rare" data-key="嘣" title="生僻字：嘣（bēng）">嘣</span><span class="rare" data-key="嘣" title="生僻字：嘣（bēng）">嘣</span>的重新流动。<br>
+<br>
+而历史更是这样，历史不是一堆年份，历史其实是无数条河床的影子，无数人的思想选择欲望、贪婪和恐惧被时间压缩之后形成的化石河床。后来我慢慢意识到一件事情，人类之所以能够一直发展不是因为每一代人都能够从零开始，而是前面的河流并没有消失，它们被装进了容器里。<br>
+<br>
+于是当一个人读书的时候，其实就是让几百年前的河流流进自己的河里。当一个人看历史的时候，其实就是在看那些已经干<span class="rare" data-key="涸" title="生僻字：涸（hé）">涸</span>的河床。当一个人在接触艺术的时候，其实就是在触碰另一条曾经流动的非常漂亮的河流。我的河面能够如此宽广，水面能够如此平静，都来自于上古先贤的智慧，它并不是凭空而来。<br>
+<br>
+很多人会嘲讽我想做圣人，我从来未曾如此想过，他们做的事情是开拓创新，而我做的事情至多也只能做到继承和发扬。我知道我自己得到了巨大的礼物，同时也欠下了巨额的债务。我有义务也有责任在我离开这个世界之前把我的河流也装进一个容器并交还给这个世界，哪怕给出百分之一的利息，我都会觉得这辈子人间值得。<br>
+<br>
+所以我自嘲我自己是个破产的人，正在还债，还债是没有资格要求别人不对你进行批判和辱骂的。所以后来我开始写东西的时候我都一直在思考一个问题，如果我把自己的河写进了书里，是不是等于把水全部放走？是不是有一天我的河也会变干？<br>
+<br>
+后来我慢慢发现不是这样，因为当水被装进容器的时候并没有消失，它只是换了一种存在的方式。书里的水会流向别人，别人的河又会产生新的水再流回来。思想它从来都不是单向的，它更像一个系统，无数的河流在交换、在分流、在汇合、在冲刷彼此的河床。<br>
+<br>
+所以当一个人开始表达的时候，它并不是在消耗自己的河水，恰恰相反，它是在让整条河真正的流动。而河一旦开始高速流动，河底就会被慢慢的冲刷，原本坚固的东西会被带走，原本看不见的地方会漏出来，于是河就会变深。当河越来越深的时候，你也会看到一些以前看不到的东西，真正改变河流方向的东西，那些一直在下面却很少被人看到的东西。<br>
+<br>
+那一天在神农架的小溪边，我并没有完全想明白这些，我只知道了一个事实，当一个人想看清自己，光看水是不够的，光看河也不够，你得去看能够改变水流方向的东西，它在河底。<br>
+<br>
+这是河流世界的下一个故事，关于贪婪和恐惧的石头，在之后的世界里，我会告诉大家如何去找到并拿起，观察并移动自己内心河底的石头。<br>
+</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sum-left">
+          <div class="badge">🧠</div>
+          <div>
+            <div class="sum-title">原文核心解读</div>
+            <div class="sum-note">主旨一句话 + 三条要点（白话）</div>
+          </div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <div class="card">
+          <p><b>主旨一句话：</b>很多人生困扰看起来在“情绪”，其实根子在“思想之河”的结构；先看河的宽、深、流速、流量与河底石头，问题就清楚一半。</p>
+          <ul class="list">
+            <li>✅ 你越盯着水面（情绪/借口），越觉得乱；退一步看整条河，才知道该改哪里。</li>
+            <li>✅ 河宽不等于厉害：信息广但不深，水浅就容易被贪婪与恐惧搅乱。</li>
+            <li>✅ 读书与表达是“引水+回流”：容器让思想跨越时间，表达让河冲刷变深。</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sum-left">
+          <div class="badge">🔎</div>
+          <div>
+            <div class="sum-title">生僻字（发音）｜误区｜释义｜例句</div>
+            <div class="sum-note">点击“跳到原文”→定位并高亮</div>
+          </div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <div class="two">
+          <div>
+            <p style="color:var(--muted);margin-top:0">说明：这里按“阅读可能卡壳”的程度做了一个<strong>尽力挑选</strong>。若你希望严格按字频/课程标准筛选，我也可以再细化。</p>
+            <div class="cols3">
+              
+    <div class="card">
+      <div class="card-h">
+        <span class="glyph">璧</span>
+        <div class="meta">
+          <div class="pinyin">/ bì /</div>
+          <div class="actions"><button class="linkbtn" data-jump="璧">跳到原文</button></div>
+        </div>
+      </div>
+      <dl class="dl">
+        <div><dt>误区</dt><dd>常被误写成“壁”</dd></div>
+        <div><dt>释义</dt><dd>古代玉器，扁平圆形，中间有孔；也借指珍贵之物</dd></div>
+        <div><dt>例句</dt><dd>和氏璧被视为至宝。</dd></div>
+      </dl>
+    </div>
+    
+
+    <div class="card">
+      <div class="card-h">
+        <span class="glyph">冥</span>
+        <div class="meta">
+          <div class="pinyin">/ míng /</div>
+          <div class="actions"><button class="linkbtn" data-jump="冥">跳到原文</button></div>
+        </div>
+      </div>
+      <dl class="dl">
+        <div><dt>误区</dt><dd>只理解为“黑”</dd></div>
+        <div><dt>释义</dt><dd>幽暗；也指静默、深沉（如冥想）</dd></div>
+        <div><dt>例句</dt><dd>他通过冥想让心绪慢下来。</dd></div>
+      </dl>
+    </div>
+    
+
+    <div class="card">
+      <div class="card-h">
+        <span class="glyph">嘣</span>
+        <div class="meta">
+          <div class="pinyin">/ bēng /</div>
+          <div class="actions"><button class="linkbtn" data-jump="嘣">跳到原文</button></div>
+        </div>
+      </div>
+      <dl class="dl">
+        <div><dt>误区</dt><dd>只用于“爆炸声”</dd></div>
+        <div><dt>释义</dt><dd>拟声词，表示弹跳、爆裂或突然冲出的声音</dd></div>
+        <div><dt>例句</dt><dd>水流嘣嘣作响。</dd></div>
+      </dl>
+    </div>
+    
+
+    <div class="card">
+      <div class="card-h">
+        <span class="glyph">灌</span>
+        <div class="meta">
+          <div class="pinyin">/ guàn /</div>
+          <div class="actions"><button class="linkbtn" data-jump="灌">跳到原文</button></div>
+        </div>
+      </div>
+      <dl class="dl">
+        <div><dt>误区</dt><dd>只想到“灌水=注水”</dd></div>
+        <div><dt>释义</dt><dd>注入、倒入；也可比喻信息大量涌入</dd></div>
+        <div><dt>例句</dt><dd>信息像暴雨一样灌向内心。</dd></div>
+      </dl>
+    </div>
+    
+
+    <div class="card">
+      <div class="card-h">
+        <span class="glyph">涸</span>
+        <div class="meta">
+          <div class="pinyin">/ hé /</div>
+          <div class="actions"><button class="linkbtn" data-jump="涸">跳到原文</button></div>
+        </div>
+      </div>
+      <dl class="dl">
+        <div><dt>误区</dt><dd>误读为“gù”</dd></div>
+        <div><dt>释义</dt><dd>干涸；水枯竭</dd></div>
+        <div><dt>例句</dt><dd>河床已经干涸成化石。</dd></div>
+      </dl>
+    </div>
+    
+
+    <div class="card">
+      <div class="card-h">
+        <span class="glyph">礁</span>
+        <div class="meta">
+          <div class="pinyin">/ jiāo /</div>
+          <div class="actions"><button class="linkbtn" data-jump="礁">跳到原文</button></div>
+        </div>
+      </div>
+      <dl class="dl">
+        <div><dt>误区</dt><dd>与“焦”混淆</dd></div>
+        <div><dt>释义</dt><dd>水下或水边的岩石</dd></div>
+        <div><dt>例句</dt><dd>礁石把水面搅出回旋。</dd></div>
+      </dl>
+    </div>
+    
+            </div>
+          </div>
+          <div class="card">
+            <p style="margin-top:0"><b>使用方式：</b></p>
+            <ol class="list">
+              <li>在“原文”里，带蓝色底纹的字是本页标记的生僻字。</li>
+              <li>点击任意生僻字，或在此处点击“跳到原文”。</li>
+              <li>定位后会高亮 5 秒，便于对照语境。</li>
+            </ol>
+            <p style="color:var(--muted)"><b>提示：</b>生僻字的“误区”是为了避免常见错读/错写，不代表唯一错误。</p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sum-left">
+          <div class="badge">🧩</div>
+          <div>
+            <div class="sum-title">关键术语</div>
+            <div class="sum-note">概念 + 语境解释 + 文化对应</div>
+          </div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <ul class="list" style="padding-left:0;list-style:none;margin:0">
+          
+<li class="term">
+  <div class="term-title">🧩 <b>思想之河</b></div>
+  <div class="term-body"><b>概念：</b>把人的思想活动比作河流：持续流动、受地形影响、可交换也可沉淀。</div>
+  <div class="term-body"><b>语境/文化对应：</b>在很多文化里也有“mind as stream/river”的隐喻：强调过程而非定格的“结论”。</div>
+</li>
+
+
+<li class="term">
+  <div class="term-title">🧩 <b>河床</b></div>
+  <div class="term-body"><b>概念：</b>天性、基因、经历形成的底色与性格结构，决定“水面”呈现。</div>
+  <div class="term-body"><b>语境/文化对应：</b>相当于心理学里的“人格结构/先天气质 + 后天经历”的综合底盘。</div>
+</li>
+
+
+<li class="term">
+  <div class="term-title">🧩 <b>贪婪与恐惧（石头）</b></div>
+  <div class="term-body"><b>概念：</b>内在驱动与防御：会在“水浅/流急”时更容易搅动情绪。</div>
+  <div class="term-body"><b>语境/文化对应：</b>常见于宗教与哲学的“欲望/恐惧”二元讨论：既是动力，也是扰动源。</div>
+</li>
+
+
+<li class="term">
+  <div class="term-title">🧩 <b>容器</b></div>
+  <div class="term-body"><b>概念：</b>让思想长久存在并可跨时空传递的载体：故事、文字、书、艺术、模型。</div>
+  <div class="term-body"><b>语境/文化对应：</b>对应“媒介/档案/传统”：文明是把经验装进可传递的形式。</div>
+</li>
+
+
+<li class="term">
+  <div class="term-title">🧩 <b>初之见</b></div>
+  <div class="term-body"><b>概念：</b>作者提到的另一套解释框架：许多问题很早就被“最初的看见”定向。</div>
+  <div class="term-body"><b>语境/文化对应：</b>类似“第一性印象/原初经验”的概念（此处仅点到为止）。</div>
+</li>
+
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sum-left">
+          <div class="badge">🗺️</div>
+          <div>
+            <div class="sum-title">思维导图（SVG）</div>
+            <div class="sum-note">结构关系视角｜可放大截图使用</div>
+          </div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        
+<svg class="mindmap" viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="河流世界思维导图">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="currentColor" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="currentColor" stop-opacity="0.06"/>
+    </linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- links -->
+  <g stroke="currentColor" stroke-opacity="0.25" stroke-width="3" fill="none">
+    <path d="M600 110 C 480 110, 410 150, 320 210" />
+    <path d="M600 110 C 720 110, 790 150, 880 210" />
+    <path d="M600 110 C 600 160, 600 200, 600 270" />
+
+    <path d="M320 210 C 240 260, 220 300, 210 360" />
+    <path d="M320 210 C 320 290, 320 330, 320 390" />
+    <path d="M320 210 C 380 260, 420 300, 470 350" />
+
+    <path d="M880 210 C 960 260, 980 320, 990 390" />
+    <path d="M880 210 C 880 300, 880 340, 880 410" />
+    <path d="M880 210 C 820 270, 780 320, 740 380" />
+
+    <path d="M600 270 C 520 340, 500 390, 480 460" />
+    <path d="M600 270 C 600 360, 600 410, 600 480" />
+    <path d="M600 270 C 690 340, 720 400, 740 470" />
+  </g>
+
+  <!-- nodes -->
+  <g filter="url(#s)" font-family="system-ui, -apple-system, Segoe UI, Roboto, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', Arial" fill="currentColor">
+    <!-- center -->
+    <g transform="translate(470,60)">
+      <rect x="0" y="0" rx="18" ry="18" width="260" height="90" fill="url(#g)" stroke="currentColor" stroke-opacity="0.25"/>
+      <text x="130" y="38" text-anchor="middle" font-size="26" font-weight="700">河流世界</text>
+      <text x="130" y="66" text-anchor="middle" font-size="14" opacity="0.8">用“河”理解思想与人生结构</text>
+    </g>
+
+    <!-- left top -->
+    <g transform="translate(170,180)">
+      <rect x="0" y="0" rx="16" ry="16" width="300" height="80" fill="url(#g)" stroke="currentColor" stroke-opacity="0.25"/>
+      <text x="150" y="34" text-anchor="middle" font-size="20" font-weight="700">思想之河的结构映射</text>
+      <text x="150" y="58" text-anchor="middle" font-size="13" opacity="0.8">水｜河床｜石头｜边界｜流速</text>
+    </g>
+
+    <!-- right top -->
+    <g transform="translate(760,180)">
+      <rect x="0" y="0" rx="16" ry="16" width="300" height="80" fill="url(#g)" stroke="currentColor" stroke-opacity="0.25"/>
+      <text x="150" y="34" text-anchor="middle" font-size="20" font-weight="700">三个例子</text>
+      <text x="150" y="58" text-anchor="middle" font-size="13" opacity="0.8">宽浅｜窄深｜自控流量</text>
+    </g>
+
+    <!-- mid -->
+    <g transform="translate(430,250)">
+      <rect x="0" y="0" rx="16" ry="16" width="340" height="90" fill="url(#g)" stroke="currentColor" stroke-opacity="0.25"/>
+      <text x="170" y="36" text-anchor="middle" font-size="20" font-weight="700">看清自己：先看“河”</text>
+      <text x="170" y="62" text-anchor="middle" font-size="13" opacity="0.8">别只盯水面（情绪/借口）</text>
+    </g>
+
+    <!-- leafs left -->
+    <g transform="translate(70,330)">
+      <rect x="0" y="0" rx="14" ry="14" width="280" height="70" fill="url(#g)" stroke="currentColor" stroke-opacity="0.22"/>
+      <text x="140" y="30" text-anchor="middle" font-size="16" font-weight="650">水源=输入信息</text>
+      <text x="140" y="52" text-anchor="middle" font-size="12" opacity="0.8">外界不断灌入/流入</text>
+    </g>
+
+    <g transform="translate(180,380)">
+      <rect x="0" y="0" rx="14" ry="14" width="280" height="70" fill="url(#g)" stroke="currentColor" stroke-opacity="0.22"/>
+      <text x="140" y="30" text-anchor="middle" font-size="16" font-weight="650">河床=底色与性格</text>
+      <text x="140" y="52" text-anchor="middle" font-size="12" opacity="0.8">天性/基因/经历</text>
+    </g>
+
+    <g transform="translate(410,340)">
+      <rect x="0" y="0" rx="14" ry="14" width="280" height="70" fill="url(#g)" stroke="currentColor" stroke-opacity="0.22"/>
+      <text x="140" y="30" text-anchor="middle" font-size="16" font-weight="650">石头=贪婪与恐惧</text>
+      <text x="140" y="52" text-anchor="middle" font-size="12" opacity="0.8">水浅/流急更易扰动</text>
+    </g>
+
+    <!-- leafs right -->
+    <g transform="translate(920,360)">
+      <rect x="0" y="0" rx="14" ry="14" width="240" height="70" fill="url(#g)" stroke="currentColor" stroke-opacity="0.22"/>
+      <text x="120" y="30" text-anchor="middle" font-size="16" font-weight="650">宽浅：刷短视频</text>
+      <text x="120" y="52" text-anchor="middle" font-size="12" opacity="0.8">广但不深→乱</text>
+    </g>
+
+    <g transform="translate(760,400)">
+      <rect x="0" y="0" rx="14" ry="14" width="240" height="70" fill="url(#g)" stroke="currentColor" stroke-opacity="0.22"/>
+      <text x="120" y="30" text-anchor="middle" font-size="16" font-weight="650">窄深：专科教授</text>
+      <text x="120" y="52" text-anchor="middle" font-size="12" opacity="0.8">深度带来余量</text>
+    </g>
+
+    <g transform="translate(650,370)">
+      <rect x="0" y="0" rx="14" ry="14" width="240" height="70" fill="url(#g)" stroke="currentColor" stroke-opacity="0.22"/>
+      <text x="120" y="30" text-anchor="middle" font-size="16" font-weight="650">宽深：主动减流</text>
+      <text x="120" y="52" text-anchor="middle" font-size="12" opacity="0.8">控制来与去</text>
+    </g>
+
+    <!-- bottom -->
+    <g transform="translate(360,450)">
+      <rect x="0" y="0" rx="16" ry="16" width="360" height="90" fill="url(#g)" stroke="currentColor" stroke-opacity="0.25"/>
+      <text x="180" y="36" text-anchor="middle" font-size="20" font-weight="700">容器：让河水穿越时间</text>
+      <text x="180" y="62" text-anchor="middle" font-size="13" opacity="0.8">故事→文字→书→艺术→大语言模型</text>
+    </g>
+
+    <g transform="translate(470,540)">
+      <rect x="0" y="0" rx="16" ry="16" width="260" height="90" fill="url(#g)" stroke="currentColor" stroke-opacity="0.25"/>
+      <text x="130" y="36" text-anchor="middle" font-size="20" font-weight="700">表达=回流与冲刷</text>
+      <text x="130" y="62" text-anchor="middle" font-size="13" opacity="0.8">让河更深，露出底部</text>
+    </g>
+
+    <g transform="translate(760,520)">
+      <rect x="0" y="0" rx="16" ry="16" width="320" height="90" fill="url(#g)" stroke="currentColor" stroke-opacity="0.25"/>
+      <text x="160" y="36" text-anchor="middle" font-size="20" font-weight="700">下一个故事：河底的石头</text>
+      <text x="160" y="62" text-anchor="middle" font-size="13" opacity="0.8">找到、拿起、观察、移动</text>
+    </g>
+  </g>
+</svg>
+
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sum-left">
+          <div class="badge">✅</div>
+          <div>
+            <div class="sum-title">要点清单（来自原文）</div>
+            <div class="sum-note">把隐喻翻译成可操作的观察项</div>
+          </div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <ul class="list"><li>✅ 思想像河流：水=思想流动，水源=外界信息，河床=天性/经历。</li>
+<li>✅ 石头=贪婪与恐惧；河宽=知识广度；水深=知识密度；流速=思考速度；河岸=无知边界；波纹=借口/情绪。</li>
+<li>✅ 宽浅的人：输入杂且浅，易情绪起伏、理由很多。</li>
+<li>✅ 窄深的人：少而深，水深带来余量，表面更稳定。</li>
+<li>✅ 宽深但主动减流的人：控制信息来源与去向，表面更平静。</li>
+<li>✅ 看清自己先看“河”，别只在水面打转控制情绪。</li>
+<li>✅ 思想会交换，但能长久是因为人类制造容器：故事、文字、书、艺术、模型。</li>
+<li>✅ 表达不是消耗：它让河流动、冲刷河床，使河变深。</li>
+<li>✅ 真正改变水流方向的东西在河底：需要去看、去动那块石头。</li></ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sum-left">
+          <div class="badge">🧪</div>
+          <div>
+            <div class="sum-title">费曼学习法</div>
+            <div class="sum-note">低门槛但不降智｜面向成年人</div>
+          </div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <div class="card"><div class="script">把这章当成一套“自我认知的水利工程”：
+
+1）先用一句话讲给不懂的人听：  
+**你的情绪像水面，但真正决定你状态的，是你这条“思想之河”的结构。**
+
+2）把“河流体检表”写下来（越具体越好）：  
+- 河宽：你最近输入的信息领域有多杂？  
+- 水深：你有没有把1-2个领域真正学到“能解释、能应用”的程度？  
+- 流量：每天输入总量（短视频/社交/新闻/聊天）有多大？  
+- 流速：你做决定/下结论是不是特别快？  
+- 石头：最近最常触发你的，是“想要更多”（贪）还是“怕失去”（惧）？  
+- 河岸：你能清楚说出“我不懂/我不知道”的边界吗？
+
+3）用一个小实验验证：  
+挑一个你最在意的问题（焦虑、拖延、人际、职业选择）。  
+先不要问“我怎么才能不焦虑”，而是把它翻译成河流语言：  
+**是水太浅？太窄？流量太大？流速太快？还是石头太多？**  
+然后只改一个变量（例如：减流量=减少输入；加深=做深度阅读与复述；拓宽=系统补基础），连续做7天，看水面是否变平。
+
+4）为什么这不幼稚？  
+因为它把“抽象的自我”变成了“可观察、可调整”的结构变量。你不是在靠意志硬扛，而是在改系统参数。</div></div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sum-left">
+          <div class="badge">✨</div>
+          <div>
+            <div class="sum-title">金句（5-10句）</div>
+            <div class="sum-note">【引出】→【解读】→【联结】</div>
+          </div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        
+<div class="quote">
+  <div class="q1">【看见】“人的思想其实就像一条河。”</div>
+  <div class="q2"><b>→【解读】</b>不是把思想当成“观点清单”，而是当成一条动态系统：受源头、河床、石头、流速共同塑形。</div>
+  <div class="q3"><b>→【联结】</b>与其问‘我为什么这样想’，不如先问‘我的河长什么样’：信息来源、节奏、深度、边界。</div>
+</div>
+
+
+<div class="quote">
+  <div class="q1">【转身】“决定你水面形状的不是水面而是河。”</div>
+  <div class="q2"><b>→【解读】</b>情绪只是表层纹理，真正的稳定来自结构：知识密度、边界意识、内在石头的摆放。</div>
+  <div class="q3"><b>→【联结】</b>当你想‘控制情绪’时，也许该优先做三件事：加深、拓宽、减流。</div>
+</div>
+
+
+<div class="quote">
+  <div class="q1">【诊断】“先搞清楚自己是哪一条河。”</div>
+  <div class="q2"><b>→【解读】</b>自我理解的第一步不是标签化，而是结构化：宽/深/流速/流量/石头。</div>
+  <div class="q3"><b>→【联结】</b>用这张‘河流体检表’做复盘：最近一周我的河最像哪种？原因是什么？</div>
+</div>
+
+
+<div class="quote">
+  <div class="q1">【媒介】“给河水做容器。”</div>
+  <div class="q2"><b>→【解读】</b>文明的核心不是‘新思想多’，而是‘思想能被保存、复用、再生’。</div>
+  <div class="q3"><b>→【联结】</b>把学习当作‘引水’，把表达当作‘回流’：读书→内化→输出→再校正。</div>
+</div>
+
+
+<div class="quote">
+  <div class="q1">【表达】“表达不是消耗，恰恰相反，是让整条河真正的流动。”</div>
+  <div class="q2"><b>→【解读】</b>输出会冲刷河床：把含混之处逼出来，让结构更清晰、深度更可见。</div>
+  <div class="q3"><b>→【联结】</b>给自己设一个低阻力输出：每周一页笔记/一次3分钟口播，让河保持活水。</div>
+</div>
+
+
+<div class="quote">
+  <div class="q1">【深处】“你得去看能够改变水流方向的东西，它在河底。”</div>
+  <div class="q2"><b>→【解读】</b>真正改变方向的，往往是被忽略的底层动机与恐惧：它们比情绪更‘结构性’。</div>
+  <div class="q3"><b>→【联结】</b>遇到反复的问题，别只调情绪；去找‘河底那块石头’：它在保护什么？害怕什么？</div>
+</div>
+
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sum-left">
+          <div class="badge">🎙️</div>
+          <div>
+            <div class="sum-title">60秒跨文化口播稿</div>
+            <div class="sum-note">中文｜捷克语｜英语（可直接照念）</div>
+          </div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <div class="cols3">
+          <div class="card">
+            <div style="font-weight:750;margin-bottom:6px">中文</div>
+            <div class="script">今天我想用“河流”来解释人的思想。水，是我们不断流动的念头；水源，是外界输入的信息；河床，是天性与经历形成的底色。河底的石头，是贪婪与恐惧：当水浅、流急或流量过大时，它们会把水面搅得很乱，于是我们误以为问题只是情绪。  
+真正有效的自我理解，不是盯着水面控制情绪，而是退一步看整条河：它是宽还是窄？深还是浅？流速快不快？信息从哪里来、流向哪里？  
+更重要的是，文明一直在给河水做“容器”——故事、文字、书与艺术，让思想跨越时间继续流动。所以表达不是消耗，而是让河真正流动、冲刷河床、变得更深。  
+当你想改变自己，别急着改水面，先去找河底那块能改变水流方向的石头。</div>
+          </div>
+          <div class="card">
+            <div style="font-weight:750;margin-bottom:6px">捷克语（Čeština）</div>
+            <div class="script">Rád(a) bych vysvětlil(a) myšlení pomocí metafory řeky. Voda je proud našich myšlenek; prameny jsou informace, které přijímáme z okolí; říční koryto je naše povaha a zkušenosti. Na dně leží kameny – chamtivost a strach. Když je řeka mělká, příliš úzká, teče příliš rychle nebo je zahlcená vstupy, tyto kameny rozvlní hladinu a my si pak myslíme, že problém jsou „jen emoce“.  
+Skutečné sebepoznání začíná tím, že ustoupíme o krok a podíváme se na celou řeku: jak je široká a hluboká, jaký má průtok a odkud voda přichází a kam odtéká.  
+Lidstvo navíc stále vytváří „nádoby“ pro vodu – příběhy, písmo, knihy a umění – aby myšlenky přežily čas. Vyjadřování nás nevyčerpává; naopak udržuje řeku v pohybu, obrušuje koryto a prohlubuje ho.  
+Chcete‑li se změnit, nebojujte s hladinou. Najděte kámen na dně, který mění směr proudu.</div>
+          </div>
+          <div class="card">
+            <div style="font-weight:750;margin-bottom:6px">English</div>
+            <div class="script">Let me explain thinking with a river metaphor. The water is your stream of thoughts; the springs are the information you take in; the riverbed is your temperament and lived experience. On the bottom lie stones—greed and fear. When the river is shallow, too narrow, too fast, or flooded with input, those stones churn the surface, and we mistake the turbulence for “just emotions.”  
+Real self-understanding starts by stepping back and reading the whole river: its width and depth, its flow rate, and where the water comes from and goes.  
+Humanity has always built containers for river water—stories, writing, books, and art—so ideas can outlive individual conversations. Expression doesn’t drain you; it keeps the river moving, scours the bed, and deepens it.  
+If you want to change, don’t fight the surface. Find the stone at the bottom that redirects the flow.</div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <footer>
+    <div>© 学习页生成：内容转网页设计师｜交互：折叠阅读 · 跳转高亮 · 打印</div>
+  </footer>
+</div>
+
+<script>
+  // Expand / collapse all
+  const allDetails = () => Array.from(document.querySelectorAll("details"));
+  document.getElementById("expandAll").addEventListener("click", () => {
+    allDetails().forEach(d => d.open = true);
+    document.getElementById("sec-original").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+  document.getElementById("collapseAll").addEventListener("click", () => {
+    allDetails().forEach(d => d.open = false);
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+
+  // Print
+  document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+  // Highlight helper
+  function highlight(el) {
+    el.classList.add("hl");
+    setTimeout(() => el.classList.remove("hl"), 5000);
+  }
+
+  // Jump to rare chars in original
+  function jumpToChar(ch) {
+    const target = document.querySelector('#originalText .rare[data-key="'+ch+'"]');
+    if(!target) return;
+    // open original section
+    document.getElementById("sec-original").open = true;
+    target.scrollIntoView({behavior:"smooth", block:"center"});
+    highlight(target);
+  }
+
+  // From rare cards
+  document.querySelectorAll("[data-jump]").forEach(btn => {
+    btn.addEventListener("click", e => {
+      const ch = btn.getAttribute("data-jump");
+      jumpToChar(ch);
+    });
+  });
+
+  // Clicking rare chars inside original
+  document.querySelectorAll("#originalText .rare").forEach(sp => {
+    sp.addEventListener("click", () => {
+      const ch = sp.getAttribute("data-key");
+      jumpToChar(ch);
+    });
+  });
+</script>
+</body>
+</html>
